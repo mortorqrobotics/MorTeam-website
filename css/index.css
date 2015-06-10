@@ -1,6 +1,8 @@
 *{
 	margin: 0;
 	padding: 0;
+	font-family: 'exo 2', sans-serif;
+	font-weight: 300;
 }
 body{
 	background-color: #E9E9E9;
@@ -8,9 +10,10 @@ body{
 }
 .leftbar{
 	background-color: #FFC547;
-	width: 270px;
-	height: 100vh;
+	width: 260px;
+	height: 100%;
 	position: fixed;
+	top:40px;
 }
 .profile_pic{
 	margin: 24px 59px 0px 59px;
@@ -34,16 +37,18 @@ body{
 	margin: 0px 2px 0px 2px;
 }
 .navbar_link{
-	width: 24%;
+	width: 22%;
 	text-align: center;
 	font-size: 25px;
 	padding: 4px 0px 4px 0px;
 	margin: 0;
 	height: 40px;
-	border-right: 1px solid black; 
+	/*border-right: 1px solid black; */
+	
 }
 .navbar_link:hover{
 	background-color: orange;
+	cursor: pointer;
 }
 div.navigation_bar{
 	background-color: #FFC547;
@@ -51,6 +56,9 @@ div.navigation_bar{
 	position: fixed;
 	width: 100%;
 	top: 0;
+}
+li.active{
+	background-color: orange;
 }
 #notif_button{
 	text-align: center;
@@ -78,6 +86,10 @@ div.navigation_bar{
 }
 #notif_button:hover{
 	background-color: orange;
+	cursor: pointer;
+}
+#name_link{
+	color: black;
 }
 .searchbox{
 	border: 0;
@@ -100,8 +112,167 @@ div.navigation_bar{
 	width: 30px;
 	height: 30px;
 	object-fit: cover;
+	border-radius: 5px;
 }
 #navbar_list{
 	height: 40px;
 	padding: 0;
+}
+#span1:hover{
+	background-color: orange;
+}
+.chat_name{
+	height: 60px;
+	border-bottom: 1px solid black;
+	font-size: 18px;
+	text-align: left;
+	padding: 18px;
+}
+.temp{
+	margin-top: -6px;
+	margin-right: 7px;
+}
+.chat_name:hover{
+	background-color: orange;
+	cursor: pointer;
+}
+.online{
+	border: 2px solid #00B800;
+}
+.offline{
+	border: 2px solid #B20000;
+}
+.away{
+	border: 2px solid #E6E600;
+}
+#home_link{
+	width: 8%;
+}
+.hborder{
+	border-right: 1px solid black;
+  	position: absolute;
+  	top: 15%;
+  	bottom: 15%;
+  	width: 8.1%;
+}
+.border{
+	border-right: 1px solid black;
+  	position: absolute;
+  	top: 15%;
+  	bottom: 15%;
+  	width: 22.06%;
+}
+#make_group{
+	font-size: 23px; 
+	margin-left: 5px; 
+	margin-right: 8px;
+}
+#login_area{
+	width: 360px;
+	height: 520px;
+	background-color: #FFC547;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -260px 0 0 -180px;
+	border-radius: 10px;
+	
+}
+.login_item{
+	display: block;
+}
+#username_box{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 50px;
+	font-size: 32px;
+	margin-left: -150px;
+	margin-top: 90px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#password_box{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 50px;
+	font-size: 32px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#remember{
+	position: relative;
+	left: 32px;
+	margin-top: 24px;
+}
+#remember_box{
+	
+}
+#login_button{
+	background-color: orange;
+	border: 0;
+	border-radius: 5px;
+	font-size: 32px;
+	margin-top: 20px;
+	position: relative;
+	width: 300px;
+	left: 50%;
+	margin-left: -150px;
+	height: 50px;
+}
+#login_button:hover{
+	background-color: darkorange;
+	cursor: pointer;
+}
+#signup_button{
+	background-color: #0099FF;
+	border: 0;
+	border-radius: 5px;
+	font-size: 32px;
+	margin-top: 20px;
+	position: relative;
+	width: 300px;
+	left: 50%;
+	margin-left: -150px;
+	height: 50px;
+}
+#signup_button:hover{
+	background-color: #008AE6;
+	cursor: pointer;
+}
+input[type=checkbox] {  
+    display: none;  
+} 
+label:before {  
+    content: "";  
+    display: inline-block;  
+  
+    width: 30px;  
+    height: 30px;  
+  
+    margin-right: 10px;  
+    position: absolute;  
+    left: 0;  
+    bottom: .3em;  
+    background-color: #E9E9E9;  
+    border-radius: 5px;
+}
+input[type=checkbox]:checked + label:before {  
+	position: absolute;
+    content: "\2713";  
+    font-size: 30px;  
+    color: orange;  
+    text-align: center;  
+    line-height: 28px;
+    bottom: .25em;   
+    border-radius: 5px; 
+}
+#remember_text{
+	margin-left: 35px;
+	font-size: 25px;
 }
