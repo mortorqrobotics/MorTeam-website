@@ -29,7 +29,29 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
-       
+
+    	document.getElementById("login_button").onclick = function() {
+    		var userOrEmail = document.getElementById("username_box").value;
+    		var pass = document.getElementById("password_box").value;
+    		var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/loginuser", true);
+				xhr.onreadystatechange = function() {
+					if(xhr.readyState == 4&&xhr.status == 200) {
+						if (xhr.responseText != "failed login"){
+    						var resData = JSON.parse(xhr.responseText);
+    						var token = resData.token;
+    						var user = resData.user;
+    						localStorage.setItem("username", user);
+    						localStorage.setItem("userToken", token);
+						} 
+						else {
+    						//Failed login
+    					}
+					}
+				};
+				xhr.send(JSON.stringify({"user":userOrEmail, "pass":pass}));
+    	};
+
     });
     window.onunload = function(){}; 
   </script>
