@@ -8,7 +8,7 @@
     <title>Morganizer</title>
   	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
   	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  	<link href='http://fonts.googleapis.com/css?family=Exo+2:100' rel='stylesheet' type='text/css'>
+  	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
@@ -21,8 +21,8 @@
           <input class="login_item" type="password" placeholder="Password" id="password_box"></input>
           <div id="remember"><input type="checkbox" id="remember_box"></input><label for="remember_box" id="remember_text">Remember me?</label></div>
           <input class="login_item" type="submit" value="Log In" id="login_button"></input>
-          <input class="login_item" type="submit" value="Sign Up" id="signup_button"></input>
-        </form>  
+        </form>
+        <input class="login_item" type="submit" value="Sign Up" id="signup_button"></input>  
       </div>
     
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -52,7 +52,11 @@
 				xhr.send(JSON.stringify({"user":userOrEmail, "pass":pass}));
     	};
 
+      $('#signup_button').click(function(){
+        location = "signup.html";
+      });
+
     });
     window.onunload = function(){}; 
   </script>
-  </body>
+</html>    

@@ -2,7 +2,7 @@
 	margin: 0;
 	padding: 0;
 	font-family: 'exo 2', sans-serif;
-	font-weight: 300;
+	font-weight: 200;
 }
 body{
 	background-color: #E9E9E9;
@@ -210,8 +210,8 @@ li.active{
 	left: 32px;
 	margin-top: 24px;
 }
-#remember_box{
-	
+#remember_box:hover{
+	cursor: pointer;
 }
 #login_button{
 	background-color: orange;
@@ -275,4 +275,105 @@ input[type=checkbox]:checked + label:before {
 #remember_text{
 	margin-left: 35px;
 	font-size: 25px;
+	font-weight: 200;
+}
+#remember_text:hover{
+	cursor: pointer;
+}
+.signup_item{
+	display: block;
+}
+#signup_area{
+	width: 360px;
+	height: 520px;
+	background-color: #FFC547;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -260px 0 0 -180px;
+	border-radius: 10px;
+}
+#firstname{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 25px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#lastname{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#username_signup{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#password_signup{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#password_signup_confirm{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#subdivision_signup{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#phone_signup{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
 }
