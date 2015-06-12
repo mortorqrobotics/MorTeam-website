@@ -285,7 +285,7 @@ input[type=checkbox]:checked + label:before {
 }
 #signup_area{
 	width: 360px;
-	height: 520px;
+	height: 580px;
 	background-color: #FFC547;
 	position: absolute;
 	top: 50%;
@@ -366,6 +366,18 @@ input[type=checkbox]:checked + label:before {
 	padding: 8px;
 }
 #phone_signup{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#email_signup{
 	position: relative;
 	left: 50%;
 	width: 300px;

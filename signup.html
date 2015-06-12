@@ -23,6 +23,7 @@
           <input class="signup_item" type="password" placeholder="Password" id="password_signup"></input>
           <input class="signup_item" type="password" placeholder="Confirm Password" id="password_signup_confirm"></input>
           <input class="signup_item" type="text" placeholder="Subdivision" id="subdivision_signup"></input>
+          <input class="signup_item" type="text" placeholder="Email" id="email_signup"></input>
           <input class="signup_item" type="text" placeholder="Phone Number" id="phone_signup"></input>
           <input class="signup_item" type="submit" value="Sign Up" id="signup_button"></input>
         </form>  
@@ -30,5 +31,44 @@
     
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  		$(document).ready(function(){
+
+  	  		document.getElementById("signup_button").onclick = function() {
+  	  			var user = document.getElementById("username_signup").value;
+    			var pass = document.getElementById("password_signup").value;
+    			var confPass = document.getElementById("password_signup_confirm").value;
+    			var email = document.getElementById("email_signup").value;
+    			var firstName = document.getElementById("firstname").value;
+    			var lastName = document.getElementById("lastname").value;
+    			var subdivision = document.getElementById("subdivision_signup").value;
+    			var phone = document.getElementById("phone_signup").value;
+    			
+    			if (pass == confPass){
+    				var xhr = new XMLHttpRequest();
+					xhr.open("POST", "/createUser", true);
+					xhr.onreadystatechange = function() {
+						if(xhr.readyState == 4&&xhr.status == 200) {
+							if (xhr.responseText != ""){
+    							var data = JSON.parse(xhr.responseText);
+    							var username = data.user;
+    							var token = data.token;
+    							localStorage.setItem("username", username);
+    							localStorage.setItem("userToken", token);
+							} 
+							else {
+    							//Failed signup
+    						}
+						}
+					};
+					xhr.send(JSON.stringify({"user":user, "pass":pass, "email":email, "firstName":firstName, "lastName":lastName, "subdivision":subdivision, "phone":phone}));
+				}
+				else {
+					//Confirmed password doesn't match password
+				}
+  	  		};
+	
+  	  	});
+  </script>
   </body>
 </html>
