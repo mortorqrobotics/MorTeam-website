@@ -29,14 +29,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
-
+		console.log("Username: " + localStorage.getItem("username");
+		console.log("Session: " + localStorage.getItem("userToken");
     	document.getElementById("form").onsubmit = function() {
     		var userOrEmail = document.getElementById("username_box").value;
     		var pass = document.getElementById("password_box").value;
     		var xhr = new XMLHttpRequest();
-			xhr.open("POST", "/loginuser", true);
+			xhr.open("POST", "/f/loginUser", true);
 			xhr.onreadystatechange = function() {
 				if(xhr.readyState == 4&&xhr.status == 200) {
+					console.log(xhr.responseText);
 					if (xhr.responseText != "failed login"){
     					var resData = JSON.parse(xhr.responseText);
     					var token = resData.token;

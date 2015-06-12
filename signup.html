@@ -33,7 +33,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script type="text/javascript">
   		$(document).ready(function(){
-
+			console.log("Username: " + localStorage.getItem("username");
+			console.log("Session: " + localStorage.getItem("userToken");
   	  		document.getElementById("form").onsubmit = function() {
   	  			var user = document.getElementById("username_signup").value;
     			var pass = document.getElementById("password_signup").value;
@@ -46,9 +47,10 @@
     			
     			if (pass == confPass){
     				var xhr = new XMLHttpRequest();
-					xhr.open("POST", "/createUser", true);
+					xhr.open("POST", "/f/createUser", true);
 					xhr.onreadystatechange = function() {
 						if(xhr.readyState == 4&&xhr.status == 200) {
+							console.log(xhr.responseText);
 							if (xhr.responseText != ""){
     							var data = JSON.parse(xhr.responseText);
     							var username = data.user;
