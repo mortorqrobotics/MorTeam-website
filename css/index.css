@@ -128,11 +128,22 @@ li.active{
 	text-align: left;
 	padding: 18px;
 }
+.drive_name{
+	height: 60px;
+	border-bottom: 1px solid black;
+	font-size: 18px;
+	text-align: left;
+	padding: 18px;
+}
 .temp{
 	margin-top: -6px;
 	margin-right: 7px;
 }
 .chat_name:hover{
+	background-color: orange;
+	cursor: pointer;
+}
+.drive_name:hover{
 	background-color: orange;
 	cursor: pointer;
 }
@@ -163,6 +174,11 @@ li.active{
   	width: 22.06%;
 }
 #make_group{
+	font-size: 23px; 
+	margin-left: 5px; 
+	margin-right: 8px;
+}
+#make_drive{
 	font-size: 23px; 
 	margin-left: 5px; 
 	margin-right: 8px;
@@ -290,7 +306,7 @@ input[type=checkbox]:checked + label:before {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -260px 0 0 -180px;
+	margin: -290px 0 0 -180px;
 	border-radius: 10px;
 }
 #firstname{

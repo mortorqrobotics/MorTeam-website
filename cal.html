@@ -16,55 +16,55 @@
   <body>
     <div class="navigation_bar">
       <ul id="navbar_list">
-        <li class="navbar_item"><input type="text" placeholder="search" class="searchbox"></input></li>
+        <li class="navbar_item"><input type="text" placeholder="search calendar" class="searchbox"></input></li>
         <li class="navbar_item">
           <div id="categories">
            <ul>
             <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!-- 
             --><li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'"><span class="glyphicon glyphicon-comment"></span><div class="border"></div></li><!--
             --><li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
+            --><li class="navbar_item navbar_link active" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
             --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'"><span class="glyphicon glyphicon-cog"></span><div class="border"></div></li>
            </ul> 
           </div>
         </li>
         <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
-        <li class="navbar_item" id="profile_id"><a href="http://google.com"><img id="small_prof_pic" src="./images/a.jpg"></img></a></li>
-        <li class="navbar_item" id="profile_name"><a href="http://google.com" id="name_link">Preston</a></li>
+        <li class="navbar_item" id="profile_id"><a href="#"><img id="small_prof_pic" src="./images/user.jpg"></img></a></li>
+        <li class="navbar_item" id="profile_name"><a href="#" id="name_link">User</a></li>
       </ul>
     </div>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('#chat_link').trigger('mouseleave');
-        $('#drive_link').trigger('mouseleave');
-        $('#cal_link').trigger('mouseleave');
-        $('#settings_link').trigger('mouseleave');
-        $('#chat_link').mouseenter(function(){
-          $(this).html('Chat<div class="border"></div>');
-        })
-        $('#chat_link').mouseleave(function(){
-          $(this).html('<span class="glyphicon glyphicon-comment"></span><div class="border"></div>');
-        })
-        $('#drive_link').mouseenter(function(){
-          $(this).html('Drive<div class="border"></div>');
-        })
-        $('#drive_link').mouseleave(function(){
-          $(this).html('<span class="glyphicon glyphicon-hdd"></span><div class="border"></div>');
-        })
-        $('#cal_link').mouseenter(function(){
-          $(this).html('Calendar<div class="border"></div>');
-        })
-        $('#cal_link').mouseleave(function(){
-          $(this).html('<span class="glyphicon glyphicon-calendar"></span><div class="border"></div>');
-        })
-        $('#settings_link').mouseenter(function(){
-          $(this).html('Settings<div class="border"></div>');
-        })
-        $('#settings_link').mouseleave(function(){
-          $(this).html('<span class="glyphicon glyphicon-cog"></span><div class="border"></div>');
-        })
+        // $('#chat_link').trigger('mouseleave');
+        // $('#drive_link').trigger('mouseleave');
+        // $('#cal_link').trigger('mouseleave');
+        // $('#settings_link').trigger('mouseleave');
+        // $('#chat_link').mouseenter(function(){
+        //   $(this).html('Chat<div class="border"></div>');
+        // })
+        // $('#chat_link').mouseleave(function(){
+        //   $(this).html('<span class="glyphicon glyphicon-comment"></span><div class="border"></div>');
+        // })
+        // $('#drive_link').mouseenter(function(){
+        //   $(this).html('Drive<div class="border"></div>');
+        // })
+        // $('#drive_link').mouseleave(function(){
+        //   $(this).html('<span class="glyphicon glyphicon-hdd"></span><div class="border"></div>');
+        // })
+        // $('#cal_link').mouseenter(function(){
+        //   $(this).html('Calendar<div class="border"></div>');
+        // })
+        // $('#cal_link').mouseleave(function(){
+        //   $(this).html('<span class="glyphicon glyphicon-calendar"></span><div class="border"></div>');
+        // })
+        // $('#settings_link').mouseenter(function(){
+        //   $(this).html('Settings<div class="border"></div>');
+        // })
+        // $('#settings_link').mouseleave(function(){
+        //   $(this).html('<span class="glyphicon glyphicon-cog"></span><div class="border"></div>');
+        // })
       });
       window.onunload = function(){}; 
     </script>
