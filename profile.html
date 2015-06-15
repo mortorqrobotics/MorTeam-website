@@ -16,32 +16,29 @@
   <body>
     <div class="navigation_bar">
       <ul id="navbar_list">
-        <li class="navbar_item"><input type="text" placeholder="search drive" class="searchbox"></input></li>
+        <li class="navbar_item"><input type="text" placeholder="search users" class="searchbox"></input></li>
         <li class="navbar_item">
           <div id="categories">
            <ul>
             <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!-- 
             --><li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'"><span class="glyphicon glyphicon-comment"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link active" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
+            --><li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
             --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
             --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'"><span class="glyphicon glyphicon-cog"></span><div class="border"></div></li>
            </ul> 
           </div>
         </li>
         <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
-        <li class="navbar_item" id="profile_id"><a href="profile.html"><img id="small_prof_pic" src="./images/user.jpg"></img></a></li>
-        <li class="navbar_item" id="profile_name"><a href="profile.html" id="name_link">User</a></li>
+        <li class="navbar_item" id="profile_id"><a href="#"><img id="small_prof_pic" src="./images/user.jpg"></img></a></li>
+        <li class="navbar_item" id="profile_name"><a href="#" id="name_link">User</a></li>
       </ul>
     </div>
     <div class="leftbar">
-      <ul>
-        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-plus"></span>Add Document</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png"></img></a>All Documents</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png"></img></a>Subdivision Documents</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png"></img></a>Personal Documents</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png"></img></a>Tagged Documents</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png"></img></a>Shared Documents</li>
-      </ul>
+      <img class="profile_pic" src="images/user.jpg"></img>
+      <div class="leftbar_item" id="leftbar_name">User Userson</div>
+      <div class="leftbar_item" id="leftbar_title">Vice President of Programming</div>
+      <div class="leftbar_item" id="leftbar_contact">useruserson@gmail.com</div>
+      <div class="leftbar_item" id="leftbar_contact">(310) 818-1224</div>
     </div>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

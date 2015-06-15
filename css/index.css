@@ -16,18 +16,25 @@ body{
 	top:40px;
 }
 .profile_pic{
-	margin: 24px 59px 0px 59px;
+	margin: 24px 54px 0px 54px;
 	width:150px;
 	height: 150px;
 	border: 2px solid gray;
 	object-fit: cover;
 }
 .leftbar_item{
-	margin: 12px 0px 12px 0px;
+	margin: 15px 0px 15px 0px;
 	text-align: center;
 }
 #leftbar_name{
-	font-size: 22px;
+	font-size: 24px;
+	background-color: orange;
+}
+#leftbar_title{
+	font-size: 20px;
+}
+#leftbar_contact{
+	font-size: 18px;
 }
 #notif{
 	margin-top: 25vh;
