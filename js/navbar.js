@@ -41,4 +41,14 @@ $(document).ready(function(){
         $('.triangle_thing_prof').fadeOut(300);
       });
     });
+    $('#logout_button').click(function(){
+    	localStorage.removeItem('username');
+    	localStorage.removeItem('userToken');
+    	localStorage.removeItem('firstName');
+    	localStorage.removeItem('lastName');
+    	localStorage.removeItem('subdivison');
+    	localStorage.removeItem('phone');
+    	localStorage.removeItem('email');
+    	location="login.html";
+    });
 });
