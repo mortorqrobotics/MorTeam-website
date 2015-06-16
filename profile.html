@@ -40,6 +40,13 @@
       <div class="leftbar_item" id="leftbar_email">useruserson@gmail.com</div>
       <div class="leftbar_item" id="leftbar_phone">(310) 818-1224</div>
     </div>
+    <div id="notif_drop">
+      <ul>
+        <li class="notif_list_item">hey</li>
+        <li class="notif_list_item">hi</li>
+        <li class="notif_list_item">ho</li>
+      </ul> 
+    </div>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript">
@@ -73,10 +80,28 @@
         //   $(this).html('<span class="glyphicon glyphicon-cog"></span><div class="border"></div>');
         // })
         $('#name_link').html(localStorage.firstName);
+
         $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
         $('#leftbar_title').html("Member of " + localStorage.subdivision);
         $('#leftbar_email').html(localStorage.email);
         $('#leftbar_phone').html(localStorage.phone);
+
+        $('#notif_drop').hide();
+        $('#notif_button').click(function(){
+          $('#notif_drop').fadeIn(300)
+          $('body').append('<div id="darken"></div>');
+          $('#darken').hide();
+          $('#darken').fadeIn(300);
+          $('#notif_button').addClass('active');
+
+            $('#darken').click(function(){
+              $(this).fadeOut(300);
+              $(this).remove();
+              $('#notif_drop').fadeOut(300);
+              $('#notif_button').removeClass('active');
+            });
+
+        });
       });
       window.onunload = function(){}; 
     </script>

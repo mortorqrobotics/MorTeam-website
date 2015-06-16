@@ -44,6 +44,13 @@
         <li class="chat_name"><a href="#"><img class="temp offline"id="small_prof_pic" src="./images/6.jpg"></img></a>Lucas Miller</li>
       </ul>
     </div>
+    <div id="notif_drop">
+      <ul>
+        <li class="notif_list_item">hey</li>
+        <li class="notif_list_item">hi</li>
+        <li class="notif_list_item">ho</li>
+      </ul> 
+    </div>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript">
@@ -77,6 +84,22 @@
         //   $(this).html('<span class="glyphicon glyphicon-cog"></span><div class="border"></div>');
         // })
         $('#name_link').html(localStorage.firstName);
+        $('#notif_drop').hide();
+        $('#notif_button').click(function(){
+          $('#notif_drop').fadeIn(300)
+          $('body').append('<div id="darken"></div>');
+          $('#darken').hide();
+          $('#darken').fadeIn(300);
+          $('#notif_button').addClass('active');
+
+            $('#darken').click(function(){
+              $(this).fadeOut(300);
+              $(this).remove();
+              $('#notif_drop').fadeOut(300);
+              $('#notif_button').removeClass('active');
+            });
+
+        });
       });
       window.onunload = function(){}; 
     </script>
