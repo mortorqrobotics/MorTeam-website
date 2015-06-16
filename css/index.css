@@ -33,7 +33,10 @@ body{
 #leftbar_title{
 	font-size: 20px;
 }
-#leftbar_contact{
+#leftbar_email{
+	font-size: 18px;
+}
+#leftbar_phone{
 	font-size: 18px;
 }
 #notif{

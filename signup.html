@@ -55,8 +55,11 @@
     							var data = JSON.parse(xhr.responseText);
     							var username = data.user;
     							var token = data.token;
+                  var firstName = data.firstName;
     							localStorage.setItem("username", username);
     							localStorage.setItem("userToken", token);
+                  localStorage.firstName = firstName;
+                  location="login.html";
 							} 
 							else {
     							//Failed signup
@@ -69,6 +72,7 @@
 					//Confirmed password doesn't match password
 				}
 				return false;
+
   	  		};
 	
   	  	});
