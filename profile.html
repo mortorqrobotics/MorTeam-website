@@ -29,17 +29,12 @@
           </div>
         </li>
         <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
-        <li class="navbar_item" id="profile_id"><a href="#"><img id="small_prof_pic" src="./images/user.jpg"></img></a></li>
-        <li class="navbar_item" id="profile_name"><a href="#" id="name_link">User</a></li>
+        <li class="navbar_item" id="profile_id"><img id="small_prof_pic" src="./images/user.jpg"></img></li>
+        <li class="navbar_item" id="profile_name"><span id="name_link">User</span></li>
       </ul>
     </div>
-    <div class="leftbar">
-      <img class="profile_pic" src="images/user.jpg"></img>
-      <div class="leftbar_item" id="leftbar_name">User Userson</div>
-      <div class="leftbar_item" id="leftbar_title">Vice President of Programming</div>
-      <div class="leftbar_item" id="leftbar_email">useruserson@gmail.com</div>
-      <div class="leftbar_item" id="leftbar_phone">(310) 818-1224</div>
-    </div>
+    <div class="triangle_thing_notif"></div>
+    <div class="triangle_thing_prof"></div>
     <div id="notif_drop">
       <ul>
         <li class="notif_list_item">hey</li>
@@ -47,8 +42,30 @@
         <li class="notif_list_item">ho</li>
       </ul> 
     </div>
+    <div id="prof_drop">
+      <ul>
+        <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
+        <li class="notif_list_item">Log Out</li>
+      </ul> 
+    </div>
+    <div id="darken"></div>
+
+
+
+
+
+
+    <div class="leftbar">
+      <img class="profile_pic" src="images/user.jpg"></img>
+      <div class="leftbar_item" id="leftbar_name">User Userson</div>
+      <div class="leftbar_item" id="leftbar_title">Vice President of Programming</div>
+      <div class="leftbar_item" id="leftbar_email">useruserson@gmail.com</div>
+      <div class="leftbar_item" id="leftbar_phone">(310) 818-1224</div>
+    </div>
+
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         // $('#chat_link').trigger('mouseleave');
@@ -78,30 +95,11 @@
         // })
         // $('#settings_link').mouseleave(function(){
         //   $(this).html('<span class="glyphicon glyphicon-cog"></span><div class="border"></div>');
-        // })
-        $('#name_link').html(localStorage.firstName);
-
+        // })  
         $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
         $('#leftbar_title').html("Member of " + localStorage.subdivision);
         $('#leftbar_email').html(localStorage.email);
         $('#leftbar_phone').html(localStorage.phone);
-
-        $('#notif_drop').hide();
-        $('#notif_button').click(function(){
-          $('#notif_drop').fadeIn(300)
-          $('body').append('<div id="darken"></div>');
-          $('#darken').hide();
-          $('#darken').fadeIn(300);
-          $('#notif_button').addClass('active');
-
-            $('#darken').click(function(){
-              $(this).fadeOut(300);
-              $(this).remove();
-              $('#notif_drop').fadeOut(300);
-              $('#notif_button').removeClass('active');
-            });
-
-        });
       });
       window.onunload = function(){}; 
     </script>
