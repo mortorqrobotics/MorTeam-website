@@ -456,7 +456,9 @@ input[type=checkbox]:checked + label:before {
 	margin-top: 20px;
 	border: 0;
 	border-radius: 5px;
-	padding: 8px;
+	padding: 2px;
+	padding-left: 8px;
+	-webkit-appearance:none;
 }
 #phone_signup{
 	position: relative;

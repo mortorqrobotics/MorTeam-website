@@ -12,8 +12,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
+    <script type="text/javascript">
+    if(localStorage.userToken == undefined){
+      location="login.html";
+    }
+    </script>
   </head>
   <body>
+    <!-- NAVIGATION BAR --> 
     <div class="navigation_bar">
       <ul id="navbar_list">
         <li class="navbar_item"><input type="text" placeholder="search drive" class="searchbox"></input></li>
@@ -49,6 +55,7 @@
       </ul> 
     </div>
     <div id="darken"></div>
+    <!-- NAVIGATION BAR --> 
 
 
 

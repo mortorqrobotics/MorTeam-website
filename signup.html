@@ -22,7 +22,13 @@
           <input class="signup_item" type="text" placeholder="Username" id="username_signup"></input>
           <input class="signup_item" type="password" placeholder="Password" id="password_signup"></input>
           <input class="signup_item" type="password" placeholder="Confirm Password" id="password_signup_confirm"></input>
-          <input class="signup_item" type="text" placeholder="Subdivision" id="subdivision_signup"></input>
+          <select required class="signup_item" id="subdivision_signup">
+            <option value="">Subdivision</option>
+            <option value="Build">Build</option>
+            <option value="Programming">Programming</option>
+            <option value="Business">Business</option>
+            <option value="Media">Media</option>
+          </select>
           <input class="signup_item" type="text" placeholder="Email" id="email_signup"></input>
           <input class="signup_item" type="text" placeholder="Phone Number" id="phone_signup"></input>
           <input class="signup_item" type="submit" value="Sign Up" id="signup_button"></input>
@@ -33,49 +39,68 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script type="text/javascript">
   		$(document).ready(function(){
-			console.log("Username: " + localStorage.getItem("username"));
-			console.log("Session: " + localStorage.getItem("userToken"));
-  	  		document.getElementById("form").onsubmit = function() {
-  	  			var user = document.getElementById("username_signup").value;
-    			var pass = document.getElementById("password_signup").value;
-    			var confPass = document.getElementById("password_signup_confirm").value;
-    			var email = document.getElementById("email_signup").value;
-    			var firstName = document.getElementById("firstname").value;
-    			var lastName = document.getElementById("lastname").value;
-    			var subdivision = document.getElementById("subdivision_signup").value;
-    			var phone = document.getElementById("phone_signup").value;
-    			
-    			if (pass == confPass){
-    				var xhr = new XMLHttpRequest();
-					xhr.open("POST", "/f/createUser", true);
-					xhr.onreadystatechange = function() {
-						if(xhr.readyState == 4&&xhr.status == 200) {
-							console.log(xhr.responseText);
-							if (xhr.responseText != ""){
-    							var data = JSON.parse(xhr.responseText);
-    							var username = data.user;
-    							var token = data.token;
-                  var firstName = data.firstName;
-    							localStorage.setItem("username", username);
-    							localStorage.setItem("userToken", token);
-                  localStorage.firstName = firstName;
-                  location="login.html";
-							} 
-							else {
-    							//Failed signup
-    						}
-						}
-					};
-					xhr.send(JSON.stringify({"user":user, "pass":pass, "email":email, "firstName":firstName, "lastName":lastName, "subdivision":subdivision, "phone":phone}));
-				}
-				else {
-					//Confirmed password doesn't match password
-				}
-				return false;
-
-  	  		};
-	
-  	  	});
+			  console.log("Username: " + localStorage.getItem("username"));
+			  console.log("Session: " + localStorage.getItem("userToken"));
+	  		document.getElementById("form").onsubmit = function() {
+	  			var user = document.getElementById("username_signup").value;
+  			  var pass = document.getElementById("password_signup").value;
+  			  var confPass = document.getElementById("password_signup_confirm").value;
+  		  	var email = document.getElementById("email_signup").value;
+  		  	var firstName = document.getElementById("firstname").value;
+  		  	var lastName = document.getElementById("lastname").value;
+  		  	var subdivision = document.getElementById("subdivision_signup").value;
+  		  	var phone = document.getElementById("phone_signup").value;
+          var digits = ["1","2","3","4","5","6","7","8","9","0"];
+          function onlyContains(string, arr){
+            var k = 0;
+            for(i=0;i<string.length;i++){
+              for(j=0; j<arr.length; j++){
+                if(string.substring(i, i+1) == arr[j]){
+                  k++;
+                }
+              }
+            }
+            if(k == string.length){
+              return true;
+            }else{
+              return false;
+            }
+          };
+  		  	if (pass == confPass){
+            if(subdivision != "" && user != "" && pass != "" && email != "" && email.indexOf('@') > -1 && firstName != "" && lastName != ""){
+              if(phone.length == 10 && onlyContains(phone,digits)){
+      		  	 	var xhr = new XMLHttpRequest();
+    			    	xhr.open("POST", "/f/createUser", true);
+    		     		xhr.onreadystatechange = function() {
+    			   			if(xhr.readyState == 4&&xhr.status == 200) {
+    			   				console.log(xhr.responseText);
+    			   				if (xhr.responseText != ""){
+        							var data = JSON.parse(xhr.responseText);
+        							var username = data.user;
+        							var token = data.token;
+                      var firstName = data.firstName;
+        							localStorage.setItem("username", username);
+        							localStorage.setItem("userToken", token);
+                      localStorage.firstName = firstName;
+                      location="login.html";
+    				  			} else {
+        							alert('Oops'); //failed signup
+        						}
+    						  }
+    					  };
+    				    xhr.send(JSON.stringify({"user":user, "pass":pass, "email":email, "firstName":firstName, "lastName":lastName, "subdivision":subdivision, "phone":phone}));
+              } else {
+                alert('Phone Number is Invalid');
+              }
+            } else {
+              alert('Please Complete The Form Correctly');
+            }
+			    } else {
+				    alert('Passwords Do Not Match')
+			    }
+			    return false;
+	  		};
+  	  });
   </script>
   </body>
 </html>
