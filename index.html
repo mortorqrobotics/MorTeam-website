@@ -55,14 +55,31 @@
       </ul> 
     </div>
     <div id="darken"></div>
-    <!-- NAVIGATION BAR --> 
-
-
-
+    <!-- NAVIGATION BAR -->
+    <div class="post_announcement">
+      <textarea class="announcement_textarea" id="main_textarea" placeholder="Make an announcement..."></textarea>
+      <input type="button" class="announcement_post_button" value="Post" onclick="createPost($('#main_textarea').val())"></input>
+    </div>
+    <div class="announcements_list">
+      <div class="announcement">
+        <div class="announcement_top"><img id="medium_prof_pic" src="./images/sc.jpg"></img><span class="announcement_poster">Maria Santa Cruz - 5/8/2015</span></div><br>
+        This is a placeholder announcement. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+    </div>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
+    <script type="text/javascript" src="js/autosize.js"></script>
     <script type="text/javascript">
+      autosize(document.querySelectorAll('textarea'));
+    </script>
+    <script type="text/javascript">
+    function createPost(text){
+      var now = new Date();
+      $('.announcements_list').prepend('<div class="announcement"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">'+ localStorage.firstName + ' ' + localStorage.lastName + ' - ' + now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes() + '</span></div><br>'+text+'</div>')
+      document.getElementById('main_textarea').value = "";
+      $('#main_textarea').css("height", "56px");
+    }
       $(document).ready(function(){
         // $('#chat_link').trigger('mouseleave');
         // $('#drive_link').trigger('mouseleave');

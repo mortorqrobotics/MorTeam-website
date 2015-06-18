@@ -137,6 +137,9 @@ li.active{
 	text-align: left;
 	padding: 10px;
 }
+#logout_button{
+	border-bottom: none !important;
+}
 .notif_list_item:hover{
 	background-color: orange;
 	cursor: pointer;	
@@ -188,6 +191,12 @@ li.active{
 #small_prof_pic{
 	width: 30px;
 	height: 30px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+#medium_prof_pic{
+	width: 40px;
+	height: 40px;
 	object-fit: cover;
 	border-radius: 5px;
 }
@@ -492,4 +501,58 @@ input[type=checkbox]:checked + label:before {
 	opacity: 0.25;
 	top:0;
 	z-index: 97;
+}
+.announcement{
+	max-width: 700px;
+	width: 90%;
+	margin: 0 auto;
+	background-color: white;
+	border: 1px solid orange;
+	padding: 10px;
+	margin-top: 15px;
+	border-radius: 5px;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+.announcement_poster{
+	font-size: 20px;
+	margin-left: 8px;
+
+}
+.announcement_top{
+	margin-bottom: -15px;
+}
+.post_announcement{
+	max-width: 700px;
+	width: 90%;
+	margin: 0 auto;
+	background-color: white;
+	border: 1px solid orange;
+	padding: 10px;
+	margin-top: 15px;
+	border-radius: 5px;
+	font-size: 16px;
+	margin-bottom: 20px;
+	overflow: auto;
+}
+.announcement_textarea{
+	width: 100%;
+	vertical-align: top;
+	padding: 5px;
+	resize: none;
+}
+.announcement_textarea:focus{
+	outline-style: none;
+}
+.announcement_post_button{
+	float: right;
+	background-color: #ffc547;
+	border: none;
+	font-size: 18px;
+	margin-top: 5px;
+	padding: 1px 3px 1px 3px;
+	border-radius: 5px;
+}
+.announcement_post_button:hover{
+	background-color: orange;
 }
