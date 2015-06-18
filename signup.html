@@ -31,8 +31,16 @@
           </select>
           <input class="signup_item" type="text" placeholder="Email" id="email_signup"></input>
           <input class="signup_item" type="text" placeholder="Phone Number" id="phone_signup"></input>
+          <input type="text" placeholder="Team Code" id="team_code_signup"></input>
+          <input type="button" placeholder="Make Team" value="Make Team" id="make_team_button"></input>
           <input class="signup_item" type="submit" value="Sign Up" id="signup_button"></input>
         </form>  
+      </div>
+      <div id="team_signup_area">
+          <h4 class="disclaimer">Only make a team if you are sure that your team has not been made before. Creating a team appoints you as the administrator of that team.</h4>
+          <input class="signup_item" type="text" placeholder="Team Number" id="team_number_signup" form="form"></input>
+          <input class="signup_item" type="text" placeholder="Team Name" id="team_name_signup" form="form"></input>
+          <input class="signup_item" type="text" placeholder="Choose code for team" id="choose_team_code_signup" form="form"></input>
       </div>
     
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -100,6 +108,13 @@
 			    }
 			    return false;
 	  		};
+
+        $('#make_team_button').click(function(){
+          $('#team_signup_area').fadeIn(200);
+          document.getElementById('team_code_signup').value = "";
+          $('#team_code_signup').prop("disabled", true);
+          $('#team_code_signup').css({'background-color' : '#E9E9E9'});
+        });
   	  });
   </script>
   </body>

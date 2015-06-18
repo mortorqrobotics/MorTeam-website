@@ -387,13 +387,30 @@ input[type=checkbox]:checked + label:before {
 }
 #signup_area{
 	width: 360px;
-	height: 580px;
+	height: 640px;
 	background-color: #FFC547;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -290px 0 0 -180px;
+	margin: -320px 0 0 -180px;
 	border-radius: 10px;
+}
+#team_signup_area{
+	width: 360px;
+	height: 320px;
+	background-color: #FFC547;
+	position: absolute;
+	top: 50%;
+	left: calc(50% + 380px);
+	/* Firefox */
+	left: -moz-calc(50% + 380px);
+	/* WebKit */
+	left: -webkit-calc(50% + 380px);
+	/* Opera */
+	left: -o-calc(50% + 380px);
+	margin: -100px 0 0 -180px;
+	border-radius: 10px;
+	display: none;
 }
 #firstname{
 	position: relative;
@@ -481,6 +498,34 @@ input[type=checkbox]:checked + label:before {
 	border-radius: 5px;
 	padding: 8px;
 }
+#team_code_signup{
+	position: relative;
+	left: 50%;
+	width: 160px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#make_team_button{
+	position: relative;
+	left: 50%;
+	width: 127px;
+	height: 40px;
+	font-size: 23px;
+	margin-left: 10px;
+	margin-top: 20px;
+	border: none;
+	border-radius: 5px;
+	padding: 2px 4px 2px 4px;
+	background-color: orange;
+}
+#make_team_button:hover{
+	background-color: darkOrange;
+}
 #email_signup{
 	position: relative;
 	left: 50%;
@@ -492,6 +537,48 @@ input[type=checkbox]:checked + label:before {
 	border: 0;
 	border-radius: 5px;
 	padding: 8px;
+}
+#team_number_signup{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#team_name_signup{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+#choose_team_code_signup{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	font-size: 25px;
+	margin-left: -150px;
+	margin-top: 20px;
+	border: 0;
+	border-radius: 5px;
+	padding: 8px;
+}
+.disclaimer{
+	width: 300px;
+	margin: 0 auto;
+	margin-top: 20px;
+	padding: 3px;
 }
 #darken{
 	position: fixed;
