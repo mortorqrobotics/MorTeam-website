@@ -643,3 +643,124 @@ input[type=checkbox]:checked + label:before {
 .announcement_post_button:hover{
 	background-color: orange;
 }
+.reply_textarea{
+	width: 85%;
+	vertical-align: top;
+	padding: 5px;
+	resize: none;
+	border:none;
+	max-height: 260px;
+	height: 20px;
+	margin-left: 8px;
+	border-radius: 5px;
+}
+.chat_area{
+	position: absolute;
+	max-width: 700px;
+	width: 50%;
+	min-width: 400px;
+	height: calc(100vh - 80px - 20px);
+	min-height: 400px;
+	margin: 0 auto;
+	left: calc(260px + (1 / 2 * (100vw - 260px)));
+	margin-left: -25%;
+	/*border: 1px solid orange;*/
+	z-index: -1 !important;
+	overflow: auto;
+	border-left: 2px solid #ffc547;
+	border-right: 2px solid #ffc547;
+}
+@media screen and (min-width: 1415px) {
+    .chat_area{
+		margin-left: -350px;
+	}
+}
+.reply_box{
+	position: absolute;
+	max-width: 700px;
+	width: 50%;
+	min-width: 400px;
+	margin: 0 auto;
+	left: calc(260px + (1 / 2 * (100vw - 260px)));
+	margin-left: -25%;
+	/*border: 1px solid orange;*/
+	z-index: -1 !important;
+	overflow: hidden;
+	bottom: 10px;
+}
+@media screen and (min-width: 1415px) {
+	.reply_box{
+		margin-left: -350px;
+	}
+}
+.self_bubble{
+	background-color: #ffc547;
+	color: black;
+	max-width: calc(100% - 100px);
+	float: right;
+	display: block;
+	margin: 10px;
+	padding: 4px 6px 4px 6px;
+	font-size: 20px;
+	border-radius: 5px;
+	min-height: 40px;
+	position: relative;
+}
+.self_bubble:after{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 6px 0 6px 9px;
+	border-color: transparent #ffc547;
+	display: block;
+	width: 0;
+	z-index: 1;
+	right: -9px;
+	top: 7px;
+}
+.other_bubble{
+	background-color: #cccccc;
+	color: black;
+	max-width: calc(100% - 100px);
+	float: left;
+	display: block;
+	margin: 10px;
+	padding: 4px 6px 4px 6px;
+	font-size: 20px;
+	border-radius: 5px;
+	min-height:40px;
+	position: relative;
+}
+.other_bubble:after{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 6px 9px 6px 0;
+	border-color: transparent #cccccc;
+	display: block;
+	width: 0;
+	z-index: 1;
+	left: -9px;
+	top: 7px;
+}
+.bubble_wrapper{
+	display: block;
+	width: 100%;
+	min-height: 40px;
+	overflow: hidden;
+}
+.send_button{
+	background-color: #ffc547;
+	border: none;
+	height: 30px;
+	width: 12%;
+	font-size: 18px;
+	border-radius: 5px;
+}
+.send_button:hover{
+	background-color: orange;
+}
+.reply_textarea:focus{
+	border: 1px solid orange;
+	outline: 0;
+}
