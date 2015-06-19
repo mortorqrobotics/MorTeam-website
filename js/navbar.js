@@ -51,6 +51,8 @@ $(document).ready(function(){
     	localStorage.removeItem('subdivison');
     	localStorage.removeItem('phone');
     	localStorage.removeItem('email');
+    	localStorage.removeItem('teamName');
+    	localStorage.removeItem('teamNumber');
     	location="login.html";
     });
 });
