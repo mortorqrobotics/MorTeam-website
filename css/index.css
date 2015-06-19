@@ -667,7 +667,7 @@ input[type=checkbox]:checked + label:before {
 	/*border: 1px solid orange;*/
 	z-index: -1 !important;
 	overflow: auto;
-	border-left: 2px solid #ffc547;
+	border-left: 2px solid #cccccc;
 	border-right: 2px solid #ffc547;
 }
 @media screen and (min-width: 1415px) {

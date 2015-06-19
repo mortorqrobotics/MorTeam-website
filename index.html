@@ -76,7 +76,7 @@
     <script type="text/javascript">
     function createPost(text){
       var now = new Date();
-      $('.announcements_list').prepend('<div class="announcement"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">'+ localStorage.firstName + ' ' + localStorage.lastName + ' - ' + now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes() + '</span></div><br>'+text+'</div>')
+      $('.announcements_list').prepend('<div class="announcement"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">'+ localStorage.firstName + ' ' + localStorage.lastName + ' - ' + now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes() + '</span></div><br>'+text.replace(/\n\r?/g, '<br />')+'</div>')
       document.getElementById('main_textarea').value = "";
       $('#main_textarea').css("height", "56px");
     }
