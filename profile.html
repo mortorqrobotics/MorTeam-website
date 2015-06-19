@@ -105,6 +105,7 @@
         // })  
         $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
         $('#leftbar_title').html("Member of " + localStorage.subdivision);
+        console.log(localStorage.teamNumber + ": " + localStorage.teamName);
         $('#leftbar_email').html(localStorage.email);
         $('#leftbar_phone').html("("+localStorage.phone.substring(0,3)+") "+localStorage.phone.substring(3,6)+"-"+localStorage.phone.substring(6,10));
       });

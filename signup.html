@@ -46,76 +46,147 @@
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script type="text/javascript">
-  		$(document).ready(function(){
-			  console.log("Username: " + localStorage.getItem("username"));
-			  console.log("Session: " + localStorage.getItem("userToken"));
-	  		document.getElementById("form").onsubmit = function() {
-	  			var user = document.getElementById("username_signup").value;
-  			  var pass = document.getElementById("password_signup").value;
-  			  var confPass = document.getElementById("password_signup_confirm").value;
-  		  	var email = document.getElementById("email_signup").value;
-  		  	var firstName = document.getElementById("firstname").value;
-  		  	var lastName = document.getElementById("lastname").value;
-  		  	var subdivision = document.getElementById("subdivision_signup").value;
-  		  	var phone = document.getElementById("phone_signup").value;
-          var digits = ["1","2","3","4","5","6","7","8","9","0"];
-          function onlyContains(string, arr){
-            var k = 0;
-            for(i=0;i<string.length;i++){
-              for(j=0; j<arr.length; j++){
-                if(string.substring(i, i+1) == arr[j]){
-                  k++;
-                }
-              }
-            }
-            if(k == string.length){
-              return true;
-            }else{
-              return false;
-            }
-          };
-  		  	if (pass == confPass){
-            if(subdivision != "" && user != "" && pass != "" && email != "" && email.indexOf('@') > -1 && firstName != "" && lastName != ""){
-              if(phone.length == 10 && onlyContains(phone,digits)){
-      		  	 	var xhr = new XMLHttpRequest();
-    			    	xhr.open("POST", "/f/createUser", true);
-    		     		xhr.onreadystatechange = function() {
-    			   			if(xhr.readyState == 4&&xhr.status == 200) {
-    			   				console.log(xhr.responseText);
-    			   				if (xhr.responseText != ""){
-        							var data = JSON.parse(xhr.responseText);
-        							var username = data.user;
-        							var token = data.token;
-                      var firstName = data.firstName;
-        							localStorage.setItem("username", username);
-        							localStorage.setItem("userToken", token);
-                      localStorage.firstName = firstName;
-                      location="login.html";
-    				  			} else {
-        							alert('Oops'); //failed signup
-        						}
-    						  }
-    					  };
-    				    xhr.send(JSON.stringify({"user":user, "pass":pass, "email":email, "firstName":firstName, "lastName":lastName, "subdivision":subdivision, "phone":phone}));
-              } else {
-                alert('Phone Number is Invalid');
-              }
-            } else {
-              alert('Please Complete The Form Correctly');
-            }
-			    } else {
-				    alert('Passwords Do Not Match')
-			    }
-			    return false;
-	  		};
+  		$(document).ready(function() {
+			//console.log("Username: " + localStorage.getItem("username"));
+			//console.log("Session: " + localStorage.getItem("userToken"));
+			var isMaking = false;
+			console.log(isMaking);
+			function onlyContains(string, arr) {
+					var k = 0;
+					for (i = 0; i < string.length; i++) {
+						for (j = 0; j < arr.length; j++) {
+							if (string.substring(i, i + 1) == arr[j]) {
+								k++;
+							}
+						}
+					}
+					if (k == string.length) {
+						return true;
+					} else {
+						return false;
+					}
+			};
+			var user = "";
+			var pass = "";
+			var confPass = "";
+			var email = "";
+			var firstName = "";
+			var lastName = "";
+			var subdivision = "";
+			var phone = "";
+			var teamCode = "";
+			document.getElementById("form").onsubmit = function() {
+				user = document.getElementById("username_signup").value;
+				pass = document.getElementById("password_signup").value;
+				confPass = document.getElementById("password_signup_confirm").value;
+				email = document.getElementById("email_signup").value;
+				firstName = document.getElementById("firstname").value;
+				lastName = document.getElementById("lastname").value;
+				subdivision = document.getElementById("subdivision_signup").value;
+				phone = document.getElementById("phone_signup").value;
+				var digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+				
+				
+				if (pass == confPass) {
+					if (subdivision != "" && user != "" && pass != "" && email != "" && email.indexOf('@') > -1 && firstName != "" && lastName != "") {
+						if (phone.length == 10 && onlyContains(phone, digits)) {
+							
+							if (!isMaking){
+								teamCode = document.getElementById("team_code_signup").value;
+								if (teamCode != ""){
+									createUser();
+								}
+								else {
+									alert('Please Enter Team Code');
+								}
+							}
+							else {
+								createTeamAndUser();
+							}
+						} else {
+							alert('Phone Number is Invalid');
+						}
+					} else {
+						alert('Please Complete The Form Correctly');
+					}
+				} else {
+					alert('Passwords Do Not Match')
+				}
+				return false;
+			};
+			function createTeamAndUser() {
+				var teamNumber = document.getElementById("team_number_signup").value;
+				var teamName = document.getElementById("team_name_signup").value;
+				var chosenCode = document.getElementById("choose_team_code_signup").value;
+				if (teamNumber != ""&&teamName != ""&&chosenCode != ""){
+					var xhr = new XMLHttpRequest();
+					xhr.open("POST", "/f/createTeam", true);
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 4 && xhr.status == 200) {
+							console.log(xhr.responseText);
+							if (xhr.responseText == "added team") {
+								teamCode = chosenCode;
+								createUser();
+							} else {
+								alert('Team Already Exists'); //failed team creation
+							}
+						}
+					};
+					xhr.send(JSON.stringify({
+						"user": user,
+						"teamName": teamName,
+						"teamNumber": teamNumber,
+						"chosenCode": chosenCode
+					}));
+				}
+			}
+			function createUser() {
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "/f/createUser", true);
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						console.log(xhr.responseText);
+						if (xhr.responseText != "no team") {
+							var data = JSON.parse(xhr.responseText);
+							var username = data.user;
+							var token = data.token;
+							var teamName = data.teamName;
+							var teamNumber = data.teamNumber;
+							var firstName = data.firstName;
+							localStorage.setItem("username", username);
+							localStorage.setItem("userToken", token);
+							localStorage.firstName = firstName;
+							localStorage.teamName = teamName;
+							localStorage.teamNumber = teamNumber;
+							location = "login.html";
+						} 
+						else {
+							alert('Team does not exist'); //failed signup
+						}
+					}
+				};
+				xhr.send(JSON.stringify({
+					"user": user,
+					"pass": pass,
+					"email": email,
+					"firstName": firstName,
+					"teamCode":teamCode,
+					"lastName": lastName,
+					"subdivision": subdivision,
+					"phone": phone
+				}));
+			}
 
-        $('#make_team_button').click(function(){
-          $('#team_signup_area').fadeIn(200);
-          document.getElementById('team_code_signup').value = "";
-          $('#team_code_signup').prop("disabled", true);
-          $('#team_code_signup').css({'background-color' : '#E9E9E9'});
-        });
-  	  });
+			$('#make_team_button').click(function() {
+				isMaking = true;
+				$('#team_signup_area').fadeIn(200);
+				document.getElementById('team_code_signup').value = "";
+				$('#team_code_signup').prop("disabled", true);
+				$('#team_code_signup').css({
+					'background-color': '#E9E9E9'
+				});
+			});
+		});
   </script>
   </body>
 </html>
