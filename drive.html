@@ -13,12 +13,165 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <script type="text/javascript">
-    if(localStorage.userToken == undefined){
-      location="login.html";
-    }
+    //if(localStorage.userToken == undefined){
+      //location="login.html";
+    //}
     </script>
   </head>
+<head>
+<style type="text/css">
+hr {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #fff;
+	margin: 25px 0;
+	clear: both;
+}
+.wrapper {
+	width: 110%;
+	padding: 30px 0;
+}
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+ul.grid-nav {
+	list-style: none;
+	font-size: .85em;
+	font-weight: 200;
+	text-align: center;
+}
+ul.grid-nav li {
+	display: inline-block;
+}
+ul.grid-nav li a {
+	display: inline-block;
+	background: #999;
+	color: #fff;
+	padding: 10px 20px;
+	text-decoration: none;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+ul.grid-nav li a:hover {
+	background: #7b0;
+}
+ul.grid-nav li a.active {
+	background: #333;
+}
+.grid-container {
+	display: none;
+}
+
+ul.rig {
+	list-style: none;
+	font-size: 0px;
+}
+ul.rig li {
+	display: inline-block;
+	padding: 10px;
+	margin: 0 0 2.5% 2.5%;
+	background: #fff;
+	border: 1px solid #A9A9A9;
+	font-size: 16px;
+	font-size: 1.5rem;
+	vertical-align: top;
+	box-shadow: 0 0 5px #000000;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+ul.rig li img {
+	max-width: 100%;
+	height: 250px;
+	margin: 0 0 10px;
+}
+ul.rig li h3 {
+	margin: 0 0 5px;
+}
+ul.rig li p {
+	font-size: .9em;
+	line-height: 1.5em;
+	color: #999;
+}
+
+ul.rig.columns-4 li {
+	width: 22.5%; 
+}
+</style>
+</head>
   <body>
+    <div class="wrapper">
+	<div class="container">
+		<hr />
+		<div id="four-columns" class="grid-container" style="display:block;">
+			<ul class="rig columns-4">
+				<li>
+					<img src="./images/doc1.jpg" />
+					<h3>Document 1</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc2.jpg" />
+					<h3>Document 2</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc3.jpg" />
+					<h3>Document 3</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc4.jpg" />
+					<h3>Document 4</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc5.jpg" />
+					<h3>Document 5</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc6.jpg" />
+					<h3>Document 6</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc7.jpg" />
+					<h3>Document 7</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc8.jpg" />
+					<h3>Document 8</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc9.jpg" />
+					<h3>Document 9</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc10.jpg" />
+					<h3>Document 10</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc11.jpg" />
+					<h3>Document 11</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="./images/doc12.jpg" />
+					<h3>Document 12</h3>
+					<p style="color:black">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+			</ul>
+		</div>
+		<hr />
+					
+	</div>
+    </div>
     <!-- NAVIGATION BAR --> 
     <div class="navigation_bar">
       <ul id="navbar_list">
