@@ -74,13 +74,45 @@
       autosize(document.querySelectorAll('textarea'));
     </script>
     <script type="text/javascript">
-    function createPost(text){
-      var now = new Date();
-      $('.announcements_list').prepend('<div class="announcement"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">'+ localStorage.firstName + ' ' + localStorage.lastName + ' - ' + now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes() + '</span></div><br>'+text.replace(/\n\r?/g, '<br />')+'</div>')
-      document.getElementById('main_textarea').value = "";
-      $('#main_textarea').css("height", "56px");
-    }
+    	function createPost(text){
+			var now = new Date();
+			var nameDate = localStorage.firstName + ' ' + localStorage.lastName + ' - ' + now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes();
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/f/announce", true);
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4&&xhr.status == 200){
+					console.log(xhr.responseText);
+					if (xhr.responseText == "success"){
+						$('.announcements_list').prepend('<div class="announcement"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">'+ nameDate+ '</span></div><br>'+text.replace(/\n\r?/g, '<br />')+'</div>')
+						document.getElementById('main_textarea').value = "";
+						$('#main_textarea').css("height", "56px");
+					}
+				}
+			};
+			xhr.send(JSON.stringify({"user":localStorage.username, "nameDate":nameDate, "text":text.replace(/\n\r?/g, '<br />')}));
+		}
+		function getAnnouncements(){
+			//var title = localStorage.title
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/f/getannouncements", true);
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4&&xhr.status == 200){
+					if (xhr.responseText != "fail"){
+						var announcements = JSON.parse(xhr.responseText);
+						for (var i = 0;i < announcements.length;i++){
+							var nameDate = announcements[i].nameDate;
+							var text = announcements[i].text.replace(/\n\r?/g, '<br />');
+							$('.announcements_list').prepend('<div class="announcement"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">' + nameDate + '</span></div><br>'+text.replace(/\n\r?/g, '<br />')+'</div>')
+							document.getElementById('main_textarea').value = "";
+							$('#main_textarea').css("height", "56px");
+						}
+					}
+				}
+			};
+			xhr.send(JSON.stringify({"user":localStorage.username, "title":"PUT TITLE)"}));
+		}
       $(document).ready(function(){
+      	getAnnouncements();
         // $('#chat_link').trigger('mouseleave');
         // $('#drive_link').trigger('mouseleave');
         // $('#cal_link').trigger('mouseleave');
