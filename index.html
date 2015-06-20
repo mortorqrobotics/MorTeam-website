@@ -74,7 +74,10 @@
       autosize(document.querySelectorAll('textarea'));
     </script>
     <script type="text/javascript">
-    	function createPost(text){
+    	
+		function createPost(text){
+			
+			//var title = localStorage.title
 			var now = new Date();
 			var nameDate = localStorage.firstName + ' ' + localStorage.lastName + ' - ' + now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes();
 			var xhr = new XMLHttpRequest();
@@ -89,9 +92,11 @@
 					}
 				}
 			};
+			//var code = localStorage.teamCode;
 			xhr.send(JSON.stringify({"user":localStorage.username, "nameDate":nameDate, "text":text.replace(/\n\r?/g, '<br />')}));
 		}
 		function getAnnouncements(){
+			//var code = localStorage.teamCode
 			//var title = localStorage.title
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", "/f/getannouncements", true);
