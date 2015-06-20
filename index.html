@@ -76,7 +76,6 @@
     <script type="text/javascript">
     	
 		function createPost(text){
-			
 			//var title = localStorage.title
 			var now = new Date();
 			var nameDate = localStorage.firstName + ' ' + localStorage.lastName + ' - ' + now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes();
@@ -93,7 +92,7 @@
 				}
 			};
 			//var code = localStorage.teamCode;
-			xhr.send(JSON.stringify({"user":localStorage.username, "nameDate":nameDate, "text":text.replace(/\n\r?/g, '<br />')}));
+			xhr.send(JSON.stringify({"user":localStorage.username, "nameDate":nameDate, "text":text.replace(/\n\r?/g, '<br />').replace(/'/g, "''")}));
 		}
 		function getAnnouncements(){
 			//var code = localStorage.teamCode
