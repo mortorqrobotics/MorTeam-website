@@ -13,12 +13,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-    <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>          
+    <script type="text/javascript">bkLib.onDomLoaded(function() {
+        
+        new nicEditor({buttonList : ['bold','italic','underline','left','center','right','justify','ol','ul','removeformat','indent','outdent','hr','upload','link','unlink']}).panelInstance('main_textarea');
+        
+      });
+    </script>
+    <!-- <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+    <script>
+      tinymce.init({
+        selector:'textarea',
+        plugins: "autoresize"
+
+      });
+    </script>      
     <script type="text/javascript">
     if(localStorage.userToken == undefined){
       location="login.html";
     }
-    </script>
+    </script> -->
   </head>
   <body>
    <!-- NAVIGATION BAR --> 
@@ -60,7 +73,7 @@
     <!-- NAVIGATION BAR -->
     <div class="post_announcement">
       <textarea class="announcement_textarea" id="main_textarea" placeholder="Make an announcement..."></textarea>
-      <input type="button" class="announcement_post_button" value="Post" onclick="createPost((new nicEditors.findEditor('main_textarea')).getContent())"></input>
+      <input type="button" class="announcement_post_button" value="Post"></input>
       <!-- createPost($('#main_textarea').val()) -->
     </div>
     <div class="announcements_list">
@@ -117,6 +130,24 @@
 		}
       $(document).ready(function(){
       	getAnnouncements();
+        $('.announcement_post_button').click(function(){
+          var message = (new nicEditors.findEditor('main_textarea')).getContent();        
+          var comExists = message.indexOf(".com") > -1;
+          var coExists = message.indexOf(".co." ) > -1;
+          var orgExists = message.indexOf(".org") > -1;
+          var netExists = message.indexOf(".net") > -1;
+          var httpExists = (message.indexOf("http://") > -1 && (comExists || coExists || orgExists || netExists));
+          var wwwExists =  (message.indexOf("www.") > -1 && (comExists || coExists || orgExists || netExists));
+          var linkExists = httpExists || wwwExists || comExists || coExists || orgExists || netExists;
+          
+          console.log(linkExists);
+
+          if(linkExists){
+            // wrap link with <a> tags
+          }
+
+          createPost(message)
+        });
         // $('#chat_link').trigger('mouseleave');
         // $('#drive_link').trigger('mouseleave');
         // $('#cal_link').trigger('mouseleave');

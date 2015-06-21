@@ -138,7 +138,7 @@
 
 
     <div class="leftbar">
-      <ul>
+      <ul class="users_list">
         <li class="chat_name"><span id="make_group" class="glyphicon glyphicon-plus"></span>Make Group</li>
         <li class="chat_name"><a href="#"><img class="temp online"id="small_prof_pic" src="./images/1.jpg"></img></a>John Smith</li>
         <li class="chat_name"><a href="#"><img class="temp offline"id="small_prof_pic" src="./images/2.jpg"></img></a>Joseph Johnson</li>
@@ -160,6 +160,7 @@
     <script type="text/javascript">
       $(document).ready(function(){
         $('.chat_area').scrollTop($('.chat_area').prop("scrollHeight"));
+
         // $('#chat_link').trigger('mouseleave');
         // $('#drive_link').trigger('mouseleave');
         // $('#cal_link').trigger('mouseleave');
@@ -188,6 +189,15 @@
         // $('#settings_link').mouseleave(function(){
         //   $(this).html('<span class="glyphicon glyphicon-cog"></span><div class="border"></div>');
         // })
+
+        // var users = [{"firstName": "Farbod","lastName": "Rafezy"}, {"firstName": "Arvin","lastName": "Zadeh"}];
+        // get users from database and store in variable (see above line)
+        function listUsers(users){
+          for(var i=0; i<users.length; i++){
+            var status = "online";
+            $('.users_list').append('<li class="chat_name"><a href="#"><img class="temp ' + status + '"id="small_prof_pic" src="./images/user.jpg"></img></a>' + users[i].firstName + ' ' + users[i].lastName + '</li>')
+          }
+        }
         function createMessage(content){
           $('.chat_area').append("<div class='bubble_wrapper'><div class='self_bubble'>"+content.replace(/\r?\n/g, '<br />')+"</div></div>")
           $(".chat_area").animate({ scrollTop: $('.chat_area')[0].scrollHeight}, 400);
@@ -220,6 +230,7 @@
             autosize.update(ta);
             $('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
         });
+
         
         
       });
