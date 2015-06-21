@@ -160,7 +160,8 @@
     <script type="text/javascript">
       $(document).ready(function(){
         $('.chat_area').scrollTop($('.chat_area').prop("scrollHeight"));
-
+		
+		
         // $('#chat_link').trigger('mouseleave');
         // $('#drive_link').trigger('mouseleave');
         // $('#cal_link').trigger('mouseleave');
@@ -192,10 +193,26 @@
 
         // var users = [{"firstName": "Farbod","lastName": "Rafezy"}, {"firstName": "Arvin","lastName": "Zadeh"}];
         // get users from database and store in variable (see above line)
+        getTeammates();
+        function getTeammates() {
+        	var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/f/getteammates", true);
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4&&xhr.status == 200){
+					if (xhr.responseText != "fail"){
+						var users = JSON.parse(xhr.responseText);
+						listUsers(users);
+					}
+					console.log(xhr.responseText);
+				}
+			};
+			xhr.send(JSON.stringify({"user":localStorage.username}));
+        }
+        
         function listUsers(users){
           for(var i=0; i<users.length; i++){
             var status = "online";
-            $('.users_list').append('<li class="chat_name"><a href="#"><img class="temp ' + status + '"id="small_prof_pic" src="./images/user.jpg"></img></a>' + users[i].firstName + ' ' + users[i].lastName + '</li>')
+            $('.users_list').append('<li class="chat_name"><a href="#"><img class="temp ' + status + '"id="small_prof_pic" src="./images/user.jpg"></img></a>' + users[i].first + ' ' + users[i].last + '</li>')
           }
         }
         function createMessage(content){
@@ -214,26 +231,25 @@
           $(".chat_area").animate({ scrollTop: $('.chat_area')[0].scrollHeight}, 400);
         });  
         $('.reply_textarea').keypress(function(e){
-          if(e.shiftKey && e.which == 13) {
-            // goes to next line
-          }else if(e.which == 13){
-            e.preventDefault();
-            $('.send_button').trigger("click");
-            $('.reply_textarea').val('');
-            autosize.update(ta);
-            $('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
-          }
+          	if(e.shiftKey && e.which == 13) {
+            	// goes to next line
+          	}else if(e.which == 13){
+            	e.preventDefault();
+            	$('.send_button').trigger("click");
+            	$('.reply_textarea').val('');
+            	autosize.update(ta);
+            	$('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
+          	}
         });
         $('.send_button').click(function(){
-          createMessage($('.reply_textarea').val());
-          $('.reply_textarea').val('');
+          	createMessage($('.reply_textarea').val());
+          	$('.reply_textarea').val('');
             autosize.update(ta);
             $('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
         });
-
-        
         
       });
+      
       window.onunload = function(){}; 
     </script>
   </body>
