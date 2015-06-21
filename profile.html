@@ -55,13 +55,12 @@
       </ul> 
     </div>
     <div id="darken"></div>
-    <!-- NAVIGATION BAR --> 
+    <!-- END OF NAVIGATION BAR --> 
 
+    <!-- BODY -->
+    <!-- END OF BODY -->
 
-
-
-
-
+    <!-- LEFTBAR -->
     <div class="leftbar">
       <img class="profile_pic" src="images/user.jpg"></img>
       <div class="leftbar_item" id="leftbar_name">User Userson</div>
@@ -69,40 +68,15 @@
       <div class="leftbar_item" id="leftbar_email">useruserson@gmail.com</div>
       <div class="leftbar_item" id="leftbar_phone">(310) 818-1224</div>
     </div>
+    <!-- END OF LEFTBAR -->
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        // $('#chat_link').trigger('mouseleave');
-        // $('#drive_link').trigger('mouseleave');
-        // $('#cal_link').trigger('mouseleave');
-        // $('#settings_link').trigger('mouseleave');
-        // $('#chat_link').mouseenter(function(){
-        //   $(this).html('Chat<div class="border"></div>');
-        // })
-        // $('#chat_link').mouseleave(function(){
-        //   $(this).html('<span class="glyphicon glyphicon-comment"></span><div class="border"></div>');
-        // })
-        // $('#drive_link').mouseenter(function(){
-        //   $(this).html('Drive<div class="border"></div>');
-        // })
-        // $('#drive_link').mouseleave(function(){
-        //   $(this).html('<span class="glyphicon glyphicon-hdd"></span><div class="border"></div>');
-        // })
-        // $('#cal_link').mouseenter(function(){
-        //   $(this).html('Calendar<div class="border"></div>');
-        // })
-        // $('#cal_link').mouseleave(function(){
-        //   $(this).html('<span class="glyphicon glyphicon-calendar"></span><div class="border"></div>');
-        // })
-        // $('#settings_link').mouseenter(function(){
-        //   $(this).html('Settings<div class="border"></div>');
-        // })
-        // $('#settings_link').mouseleave(function(){
-        //   $(this).html('<span class="glyphicon glyphicon-cog"></span><div class="border"></div>');
-        // })  
+
+        // DISPLAYS PERSONAL INFO IN LEFTBAR
         $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
         $('#leftbar_title').html("Member of " + localStorage.subdivision);
         console.log(localStorage.teamNumber + ": " + localStorage.teamName);
