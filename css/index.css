@@ -226,8 +226,12 @@ li.active{
 	margin-top: -6px;
 	margin-right: 7px;
 }
-.chat_name:hover{
-	background-color: orange;
+#hovered{
+	background-color: #FFB524;
+	cursor: pointer;
+}
+.selected{
+	background-color: orange !important;
 	cursor: pointer;
 }
 .drive_name:hover{

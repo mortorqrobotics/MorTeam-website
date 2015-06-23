@@ -68,7 +68,7 @@
     <!-- LEFTBAR -->
     <div class="leftbar">
       <ul class="users_list">
-        <li class="chat_name"><span id="make_group" class="glyphicon glyphicon-plus"></span>Make Group</li>
+        <li class="chat_name make_group"><span id="make_group" class="glyphicon glyphicon-plus"></span>Make Group</li>
       </ul>
     </div>
     <!-- END OF LEFTBAR -->
@@ -189,9 +189,10 @@
 									}
 								}
 							}
-							$(".chat_area").animate({
-								scrollTop: $('.chat_area')[0].scrollHeight
-							}, 400);
+							// $(".chat_area").animate({
+							// 	scrollTop: $('.chat_area')[0].scrollHeight
+							// }, 400);
+              $('.chat_area').scrollTop($('.chat_area')[0].scrollHeight);
 						});
 					}
 				}
@@ -203,7 +204,9 @@
 		}
 
 		$(document).ready(function() {
-			
+
+			getTeammates(); // gets list of teammates and displays on the leftbar
+
 			$(document).on("click", "li", function() {
     			if ($(this).attr("class") == "chat_name"){
     				getChatCodeAndLoadMessages($(this).attr("data-name"), $(this).attr("data-username2"));
@@ -222,8 +225,6 @@
 			});
 
 			$('.chat_area').scrollTop($('.chat_area').prop("scrollHeight")); // scrolls to bottom of conversation
-
-			getTeammates(); // gets list of teammates and displays on the leftbar
 
 			var replyInitialHeight = $('.reply_textarea').height(); // initial height of reply text box, it's used to check for height changes later
 			$('.reply_textarea').bind("input", function() { //checks for height change of reply text box and adjusts height of chat area accordingly
@@ -258,6 +259,17 @@
 				autosize.update(ta); // resizes reply text box
 				$('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)"); // resizes div.chat_area according to changes that occur in above line
 			});
+
+      $(document).on("mouseenter","li.chat_name",function(){
+        $(this).attr("id", "hovered");
+      });
+      $(document).on("mouseleave","li.chat_name",function(){
+        $(this).removeAttr("id");
+      });
+      $(document).on("click","li.chat_name:not(.make_group)",function(){
+        $("li.chat_name").removeClass("selected");
+        $(this).addClass("selected");
+      });
 
 		});
 
