@@ -115,12 +115,13 @@
 
 			}
 		}
+		//Don't allow "=" sign
 		function createMessageSelf(content, name, isLoad) {
 			if (isLoad){
-				$('.chat_area').prepend("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>");
+				$('.chat_area').prepend("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>");
 			}
 			else {
-				$('.chat_area').append("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>");
+				$('.chat_area').append("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>");
 				$(".chat_area").animate({
 					scrollTop: $('.chat_area')[0].scrollHeight
 				}, 400);
@@ -129,10 +130,10 @@
 
 		function createMessageOther(content, name, isLoad) {
 			if (isLoad){
-				$('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + ": </strong>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>")
+				$('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </strong>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
 			}
 			else {
-				$('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + ": </strong>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>")
+				$('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </strong>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
 				$(".chat_area").animate({
 					scrollTop: $('.chat_area')[0].scrollHeight
 				}, 400);
@@ -145,7 +146,6 @@
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == 4 && xhr.status == 200) {
 					if (xhr.responseText == "success") {
-						console.log(localStorage.username + " is here");
 						socket.emit("newmessage",{"user":localStorage.username, "name": localStorage.firstName +" "+ localStorage.lastName, "message":message, "chatcode":chatcode});
 					}
 				}
@@ -153,12 +153,11 @@
 			xhr.send(JSON.stringify({
 				"name": localStorage.firstName + " " + localStorage.lastName,
 				"username": localStorage.username,
-				"message":message,
+				"message":message.replace(/\r?\n/g, '<br />').replace(/'/g, "''"),
 				"chatcode":chatcode
 			}));
 		}
 		function getChatCodeAndLoadMessages(user2, username2) {
-			console.log(user2 + " is " + username2);
 			chatcode = "";
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", "/f/loadmessages", true);
@@ -173,7 +172,6 @@
 							"user": localStorage.username,
 							"chatcode": chatcode
 						});
-						console.log(chatcode);
 						socket.on("updated", function(data) {
 							console.log("updated");
 							$(".chat_area").empty();
