@@ -601,6 +601,7 @@ input[type=checkbox]:checked + label:before {
 	border-radius: 5px;
 	font-size: 16px;
 	margin-bottom: 20px;
+	position: relative;
 }
 .announcement_poster{
 	font-size: 20px;
@@ -854,7 +855,7 @@ input[type=checkbox]:checked + label:before {
 	background: -o-linear-gradient(top,  rgba(0,0,0,0) 14%,rgba(0,0,0,0) 62%,rgba(0,0,0,0.48) 89%,rgba(0,0,0,0.67) 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  rgba(0,0,0,0) 14%,rgba(0,0,0,0) 62%,rgba(0,0,0,0.48) 89%,rgba(0,0,0,0.67) 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  rgba(0,0,0,0) 14%,rgba(0,0,0,0) 62%,rgba(0,0,0,0.48) 89%,rgba(0,0,0,0.67) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#ab000000',GradientType=0 ); /* IE6-9 */
+	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#ab000000',GradientType=0 ); /* IE6-9 */
 	z-index: 2;
 	width: 95%;
 	height: 95%;
@@ -875,5 +876,14 @@ input[type=checkbox]:checked + label:before {
 	left: 10px;
 	color: white;
 	font-size: 16px;
-
+}
+.delete_icon{
+	position: absolute; 
+	top: 8px; 
+	right: 8px; 
+	color: #E9E9E9;
+}
+.delete_icon:hover{
+	color: #C11D20;
+	cursor: pointer;
 }
