@@ -80,7 +80,7 @@
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript">
       var ta = document.querySelectorAll('textarea');
-      //autosize(ta);
+      autosize(ta);
     </script>
     <script type="text/javascript">
 		var chatcode = "";
@@ -117,13 +117,10 @@
 		}
 		function createMessageSelf(content, name, isLoad) {
 			if (isLoad){
-				$('.chat_area').prepend("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>")
-				$(".chat_area").animate({
-					scrollTop: $('.chat_area')[0].scrollHeight
-				}, 400);
+				$('.chat_area').prepend("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>");
 			}
 			else {
-				$('.chat_area').append("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>")
+				$('.chat_area').append("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>");
 				$(".chat_area").animate({
 					scrollTop: $('.chat_area')[0].scrollHeight
 				}, 400);
@@ -133,9 +130,6 @@
 		function createMessageOther(content, name, isLoad) {
 			if (isLoad){
 				$('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + ": </strong>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>")
-				$(".chat_area").animate({
-					scrollTop: $('.chat_area')[0].scrollHeight
-				}, 400);
 			}
 			else {
 				$('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + ": </strong>" + content.replace(/\r?\n/g, '<br />').replace(/&lt/g, "<") + "</div></div>")
@@ -183,8 +177,6 @@
 						socket.on("updated", function(data) {
 							console.log("updated");
 							$(".chat_area").empty();
-							
-							
 							for (var i = 0; i < 10; i++) {
 								if (i >= messages.length){
 									break;
@@ -192,7 +184,6 @@
 								else {
 									var message = messages[messages.length - i - 1];
 									console.log(messages[i].user);
-									//console.log(localStorage.username);
 									if (message.user == localStorage.username) {
 										createMessageSelf(message.message, message.sender, true);
 									} else {
@@ -200,7 +191,9 @@
 									}
 								}
 							}
-							
+							$(".chat_area").animate({
+								scrollTop: $('.chat_area')[0].scrollHeight
+							}, 400);
 						});
 					}
 				}
