@@ -19,47 +19,47 @@
     </script>
   </head>
   <body>
-    <!-- NAVIGATION BAR --> 
+    <!-- NAVIGATION BAR -->
     <div class="navigation_bar">
       <ul id="navbar_list">
         <li class="navbar_item"><input type="text" placeholder="search chat" class="searchbox"></input></li>
         <li class="navbar_item">
           <div id="categories">
            <ul>
-            <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!-- 
+            <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!--
             --><li class="navbar_item navbar_link active" id="chat_link" onclick="location='chat.html'"><span class="glyphicon glyphicon-comment"></span><div class="border"></div></li><!--
             --><li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
             --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
             --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'"><span class="glyphicon glyphicon-cog"></span><div class="border"></div></li>
-           </ul> 
+           </ul>
           </div>
         </li>
         <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
         <li class="navbar_item" id="profile_id"><img id="small_prof_pic" src="./images/user.jpg"></img></li>
-        <li class="navbar_item" id="profile_name"><span id="name_link">User</span></li>
+        <li class="navbar_item" id="profile_name"><span id="name_link"></span></li>
       </ul>
     </div>
-    <div class="triangle_thing_notif"></div>
-    <div class="triangle_thing_prof"></div>
-    <div id="notif_drop">
+    <div class="triangle_thing_notif hidden"></div>
+    <div class="triangle_thing_prof hidden"></div>
+    <div id="notif_drop" class="hidden">
       <ul>
         <li class="notif_list_item">hey</li>
         <li class="notif_list_item">hi</li>
         <li class="notif_list_item">ho</li>
-      </ul> 
+      </ul>
     </div>
-    <div id="prof_drop">
+    <div id="prof_drop" class="hidden">
       <ul>
         <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
         <li class="notif_list_item" id="logout_button">Log Out</li>
-      </ul> 
+      </ul>
     </div>
-    <div id="darken"></div>
-    <!-- END OF NAVIGATION BAR --> 
+    <div id="darken" class="hidden"></div>
+    <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
-    <div class="chat_area" id="chat_area"></div>
-    <div class="reply_box">
+    <div class="chat_area hidden" id="chat_area"></div>
+    <div class="reply_box hidden">
       <textarea rows="1" class="reply_textarea"></textarea>
       <input type="button" class="send_button" value="send"></input>
     </div>
@@ -207,13 +207,16 @@
 
 			getTeammates(); // gets list of teammates and displays on the leftbar
 
-			$(document).on("click", "li", function() {
+			$(document).on("click", "li.chat_name", function() {
+          $(".chat_area").removeClass("hidden");
+          $(".reply_box").removeClass("hidden");
+          autosize.update(ta);
     			if ($(this).attr("class") == "chat_name"){
     				getChatCodeAndLoadMessages($(this).attr("data-name"), $(this).attr("data-username2"));
     				//console.log($(this).attr("data-name") + ", " + $(this).attr("data-username2"));
     			}
 			});
-			
+
 			socket.on("message", function(data){
 				console.log(data.user == localStorage.username);
 				if (data.user == localStorage.username){

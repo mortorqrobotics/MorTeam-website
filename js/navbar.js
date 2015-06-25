@@ -1,46 +1,64 @@
 $(document).ready(function(){
 	$('#name_link').html(localStorage.firstName);
 
-    $('#darken').hide();
-
-    $('#notif_drop').hide();
-    $('.triangle_thing_notif').hide()
-
-    $('#prof_drop').hide();
-    $('.triangle_thing_prof').hide()
+    // $('#darken').hide();
+		//
+    // $('#notif_drop').hide();
+    // $('.triangle_thing_notif').hide()
+		//
+    // $('#prof_drop').hide();
+    // $('.triangle_thing_prof').hide()
 
     var fade_speed = 200;
 
     $('#notif_button').click(function(){
-      $('#notif_drop').fadeIn(fade_speed)
-      $('.triangle_thing_notif').fadeIn(fade_speed)
-      $('#darken').fadeIn(fade_speed);
+      $('#notif_drop').fadeIn(fade_speed).removeClass("hidden")
+      $('.triangle_thing_notif').fadeIn(fade_speed).removeClass("hidden")
+      $('#darken').fadeIn(fade_speed).removeClass("hidden")
       $('#notif_button').addClass('active');
       $('#darken').click(function(){
-        $(this).fadeOut(fade_speed);
-        $('#notif_drop').fadeOut(fade_speed);
-        $('.triangle_thing_notif').fadeOut(fade_speed);
+        $(this).fadeOut(fade_speed, function(){
+					$(this).addClass("hidden")
+				});
+        $('#notif_drop').fadeOut(fade_speed, function(){
+					$(this).addClass("hidden")
+				});
+        $('.triangle_thing_notif').fadeOut(fade_speed, function(){
+					$(this).addClass("hidden")
+				});
         $('#notif_button').removeClass('active');
       });
     });
     $('#profile_id').click(function(){
-      $('#prof_drop').fadeIn(fade_speed);
-      $('.triangle_thing_prof').fadeIn(fade_speed);
-      $('#darken').fadeIn(fade_speed);
+      $('#prof_drop').fadeIn(fade_speed).removeClass("hidden");
+      $('.triangle_thing_prof').fadeIn(fade_speed).removeClass("hidden");
+      $('#darken').fadeIn(fade_speed).removeClass("hidden");
       $('#darken').click(function(){
-        $(this).fadeOut(fade_speed);
-        $('#prof_drop').fadeOut(fade_speed);
-        $('.triangle_thing_prof').fadeOut(fade_speed);
+        $(this).fadeOut(fade_speed, function(){
+					$(this).addClass("hidden")
+				});
+        $('#prof_drop').fadeOut(fade_speed, function(){
+					$(this).addClass("hidden")
+				});
+        $('.triangle_thing_prof').fadeOut(fade_speed, function(){
+					$(this).addClass("hidden")
+				});
       });
     });
     $('#profile_name').click(function(){
-      $('#prof_drop').fadeIn(fade_speed);
-      $('.triangle_thing_prof').fadeIn(fade_speed);
-      $('#darken').fadeIn(fade_speed);
+      $('#prof_drop').fadeIn(fade_speed).removeClass("hidden");
+      $('.triangle_thing_prof').fadeIn(fade_speed).removeClass("hidden");
+      $('#darken').fadeIn(fade_speed).removeClass("hidden");
       $('#darken').click(function(){
-        $(this).fadeOut(fade_speed);
-        $('#prof_drop').fadeOut(fade_speed);
-        $('.triangle_thing_prof').fadeOut(fade_speed);
+        $(this).fadeOut(fade_speed, function(){
+					$(this).addClass("hidden")
+				});
+        $('#prof_drop').fadeOut(fade_speed, function(){
+					$(this).addClass("hidden")
+				});
+        $('.triangle_thing_prof').fadeOut(fade_speed, function(){
+					$(this).addClass("hidden")
+				});
       });
     });
     $('#logout_button').click(function(){
