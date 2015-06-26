@@ -11,6 +11,8 @@
   	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link rel='stylesheet' href='css/perfect-scrollbar.min.css' />
+    <link href="jbox/jBox.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <script type="text/javascript">
     if(localStorage.userToken == undefined){
@@ -78,6 +80,8 @@
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/autosize.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
+    <script src='js/perfect-scrollbar.jquery.min.js'></script>
+    <script src="jbox/jBox.min.js"></script>
     <script type="text/javascript">
       var ta = document.querySelectorAll('textarea');
       autosize(ta);
@@ -207,7 +211,20 @@
 
 			getTeammates(); // gets list of teammates and displays on the leftbar
 
-			$(document).on("click", "li.chat_name", function() {
+      var group_modal = new jBox('Modal', {
+          width: 350,
+          height: 325,
+          attach: $('.make_group'),
+          title: 'Make a Group'
+      });
+      var people = "<div id='selected_names_div'><p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p></div>"
+      group_modal.options.content = "<input type='text' placeholder='Group Name' id='group_name'><br/>Please select the members of the group:<br/><input type='text' placeholder='Search Names...' id='select_group_names'></input><br/>"+people+"<br/><input type='button' value='Make Group' id='group_button'></input>";
+      $('#selected_names_div').perfectScrollbar();
+
+      if(navigator.platform.indexOf("Mac") == -1){
+        $('.chat_area').perfectScrollbar();
+      }
+			$(document).on("click", "li.chat_name:not(.make_group)", function() {
           $(".chat_area").removeClass("hidden");
           $(".reply_box").removeClass("hidden");
           autosize.update(ta);
