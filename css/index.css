@@ -930,6 +930,13 @@ input[type=checkbox]:checked + label:before {
 	padding: 2px 3px 2px 3px;
 }
 #selected_names_div{
-	height: 120px;
-	overflow: scroll;
+	height: 230px;
+	overflow-y: auto;
+}
+.selected_group_name:hover{
+	background-color: orange;
+	cursor: pointer;
+}
+.selected_group_name.clicked{
+	background-color: #53CF29;
 }

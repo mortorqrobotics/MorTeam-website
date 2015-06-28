@@ -206,6 +206,32 @@
 				"user2":{"name":user2, "username":username2}
 			}));
 		}
+    function showNewMessageNotice(sender, content){ // sender is first name + " " + last name of the sender of the message
+      var newMessageNotice = new jBox('Notice', {
+          attributes: {
+              x: 'right',
+              y: 'bottom'
+          },
+          theme: 'NoticeBorder',
+          color: 'blue',
+          audio: 'jbox/audio/bling2',
+          volume: 100,
+          animation: {
+              open: 'slide:bottom',
+              close: 'slide:right'
+          },
+          content: content,
+          maxWidth: 300,
+          maxHeight: 105,
+          title:  sender
+      });
+    };
+    function isTyping(user){ // just pass FIRST NAME into user
+      $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>"+ user + " is typing...</div></div>");
+    }
+    function deleteLastIsTyping(){
+      $('.chat_area').remove(".bubble_wrapper:last"); // this should work, im not sure though
+    }
 
 		$(document).ready(function() {
 
@@ -213,17 +239,22 @@
 
       var group_modal = new jBox('Modal', {
           width: 350,
-          height: 325,
+          height: 435,
           attach: $('.make_group'),
           title: 'Make a Group'
       });
-      var people = "<div id='selected_names_div'><p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p></div>"
+      var people = "<div id='selected_names_div'><p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p><p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p></div>";
       group_modal.options.content = "<input type='text' placeholder='Group Name' id='group_name'><br/>Please select the members of the group:<br/><input type='text' placeholder='Search Names...' id='select_group_names'></input><br/>"+people+"<br/><input type='button' value='Make Group' id='group_button'></input>";
-      $('#selected_names_div').perfectScrollbar();
+
+      $(document).on("click", "#group_button", function(){
+        // code to create group
+        group_modal.close();
+      });
 
       if(navigator.platform.indexOf("Mac") == -1){
         $('.chat_area').perfectScrollbar();
       }
+
 			$(document).on("click", "li.chat_name:not(.make_group)", function() {
           $(".chat_area").removeClass("hidden");
           $(".reply_box").removeClass("hidden");
@@ -289,6 +320,16 @@
       $(document).on("click","li.chat_name:not(.make_group)",function(){
         $("li.chat_name").removeClass("selected");
         $(this).addClass("selected");
+      });
+
+      $(document).on("click", ".selected_group_name", function(){
+        // do stuff with $(this) when a name has been clicked in group_modal
+        if($(this).hasClass("clicked")){
+          $(this).removeClass("clicked");
+        }else{
+          $(this).addClass('clicked');
+        }
+
       });
 
 		});
