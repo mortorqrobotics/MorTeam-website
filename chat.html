@@ -1,60 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-  	<meta charset="utf-8" />
-  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Morganizer</title>
-  	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
-  	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel='stylesheet' href='css/perfect-scrollbar.min.css' />
     <link href="jbox/jBox.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <script type="text/javascript">
-    if(localStorage.userToken == undefined){
-      location="login.html";
-    }
+        if (localStorage.userToken == undefined) {
+            location = "login.html";
+        }
     </script>
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- NAVIGATION BAR -->
     <div class="navigation_bar">
-      <ul id="navbar_list">
-        <li class="navbar_item"><input type="text" placeholder="search chat" class="searchbox"></input></li>
-        <li class="navbar_item">
-          <div id="categories">
-           <ul>
-            <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!--
-            --><li class="navbar_item navbar_link active" id="chat_link" onclick="location='chat.html'"><span class="glyphicon glyphicon-comment"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'"><span class="glyphicon glyphicon-cog"></span><div class="border"></div></li>
-           </ul>
-          </div>
-        </li>
-        <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
-        <li class="navbar_item" id="profile_id"><img id="small_prof_pic" src="./images/user.jpg"></img></li>
-        <li class="navbar_item" id="profile_name"><span id="name_link"></span></li>
-      </ul>
+        <ul id="navbar_list">
+            <li class="navbar_item">
+                <input type="text" placeholder="search chat" class="searchbox"></input>
+            </li>
+            <li class="navbar_item">
+                <div id="categories">
+                    <ul>
+                        <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'">
+                            <span class="glyphicon glyphicon-home"></span>
+                            <div class="hborder"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link active" id="chat_link" onclick="location='chat.html'">
+                            <span class="glyphicon glyphicon-comment"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'">
+                            <span class="glyphicon glyphicon-hdd"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            <div class="border"></div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="navbar_item" id="notif_button">
+                <span class="glyphicon glyphicon-inbox"></span>
+            </li>
+            <li class="navbar_item" id="profile_id">
+                <img id="small_prof_pic" src="./images/user.jpg"></img>
+            </li>
+            <li class="navbar_item" id="profile_name">
+                <span id="name_link"></span>
+            </li>
+        </ul>
     </div>
     <div class="triangle_thing_notif hidden"></div>
     <div class="triangle_thing_prof hidden"></div>
     <div id="notif_drop" class="hidden">
-      <ul>
-        <li class="notif_list_item">hey</li>
-        <li class="notif_list_item">hi</li>
-        <li class="notif_list_item">ho</li>
-      </ul>
+        <ul>
+            <li class="notif_list_item">hey</li>
+            <li class="notif_list_item">hi</li>
+            <li class="notif_list_item">ho</li>
+        </ul>
     </div>
     <div id="prof_drop" class="hidden">
-      <ul>
-        <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
-        <li class="notif_list_item" id="logout_button">Log Out</li>
-      </ul>
+        <ul>
+            <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
+            <li class="notif_list_item" id="logout_button">Log Out</li>
+        </ul>
     </div>
     <div id="darken" class="hidden"></div>
     <!-- END OF NAVIGATION BAR -->
@@ -62,16 +94,17 @@
     <!-- BODY -->
     <div class="chat_area hidden" id="chat_area"></div>
     <div class="reply_box hidden">
-      <textarea rows="1" class="reply_textarea"></textarea>
-      <input type="button" class="send_button" value="send"></input>
+        <textarea rows="1" class="reply_textarea"></textarea>
+        <input type="button" class="send_button" value="send"></input>
     </div>
     <!-- END OF BODY -->
 
     <!-- LEFTBAR -->
     <div class="leftbar">
-      <ul class="users_list">
-        <li class="chat_name make_group"><span id="make_group" class="glyphicon glyphicon-plus"></span>Make Group</li>
-      </ul>
+        <ul class="users_list">
+            <li class="chat_name make_group">
+                <span id="make_group" class="glyphicon glyphicon-plus"></span>Make Group</li>
+        </ul>
     </div>
     <!-- END OF LEFTBAR -->
     <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
@@ -83,274 +116,303 @@
     <script src='js/perfect-scrollbar.jquery.min.js'></script>
     <script src="jbox/jBox.min.js"></script>
     <script type="text/javascript">
-      var ta = document.querySelectorAll('textarea');
-      autosize(ta);
+        var ta = document.querySelectorAll('textarea');
+        autosize(ta);
     </script>
     <script type="text/javascript">
-		var chatcode = "";
-		var socket = io.connect();
-		// FUNCTION DEFINITIONS
-		function getTeammates() {
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "/f/getteammates", true);
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-					if (xhr.responseText != "fail") {
-						var users = JSON.parse(xhr.responseText);
-						listUsers(users);
-					}
-					console.log(xhr.responseText);
-				}
-			};
-			xhr.send(JSON.stringify({
-				"user": localStorage.username
-			}));
-		}
-		function listUsers(users) {
-			for (var i = 0; i < users.length; i++) {
-				var status = "online";
-				var name = users[i].first + " " + users[i].last;
-				var li = $(document.createElement("li"));
-				li.attr("class", "chat_name");
-				li.attr("data-username2", users[i].user);
-				li.attr("data-name", name);
-				li.html('<a href="#"><img class="temp ' + status + '"id="small_prof_pic" src="./images/user.jpg"></img></a>' + name);
-				$('.users_list').append(li);
-
-			}
-		}
-		//Don't allow "=" sign
-		function createMessageSelf(content, name, isLoad) {
-			if (isLoad){
-				$('.chat_area').prepend("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>");
-			}
-			else {
-				$('.chat_area').append("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>");
-				$(".chat_area").animate({
-					scrollTop: $('.chat_area')[0].scrollHeight
-				}, 400);
-			}
-		}
-
-		function createMessageOther(content, name, isLoad) {
-			if (isLoad){
-				$('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </strong>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
-			}
-			else {
-				$('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </strong>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
-				$(".chat_area").animate({
-					scrollTop: $('.chat_area')[0].scrollHeight
-				}, 400);
-			}
-		}
-
-		function sendMessage(message) {
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "/f/addmessage", true);
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-					if (xhr.responseText == "success") {
-						socket.emit("newmessage",{"user":localStorage.username, "name": localStorage.firstName +" "+ localStorage.lastName, "message":message, "chatcode":chatcode});
-					}
-				}
-			};
-			xhr.send(JSON.stringify({
-				"name": localStorage.firstName + " " + localStorage.lastName,
-				"username": localStorage.username,
-				"message":message.replace(/'/g, "''").replace(/</g, "&lt"),
-				"chatcode":chatcode
-			}));
-		}
-		function getChatCodeAndLoadMessages(user2, username2) {
-			chatcode = "";
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "/f/loadmessages", true);
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-					if (xhr.responseText != "fail") {
-						$(".chat_area").empty();
-						var data = JSON.parse(xhr.responseText);
-						chatcode = data.chatcode;
-						var messages = data.messages;
-						socket.emit("updateclient", {
-							"user": localStorage.username,
-							"chatcode": chatcode
-						});
-						socket.on("updated", function(data) {
-							console.log("updated");
-							$(".chat_area").empty();
-							for (var i = 0; i < 10; i++) {
-								if (i >= messages.length){
-									break;
-								}
-								else {
-									var message = messages[messages.length - i - 1];
-									console.log(messages[i].user);
-									if (message.user == localStorage.username) {
-										createMessageSelf(message.message, message.sender, true);
-									} else {
-										createMessageOther(message.message, message.sender, true);
-									}
-								}
-							}
-							// $(".chat_area").animate({
-							// 	scrollTop: $('.chat_area')[0].scrollHeight
-							// }, 400);
-              $('.chat_area').scrollTop($('.chat_area')[0].scrollHeight);
-						});
-					}
-				}
-			};
-			xhr.send(JSON.stringify({
-				"user1":{"name":localStorage.firstName + " " + localStorage.lastName, "username":localStorage.username},
-				"user2":{"name":user2, "username":username2}
-			}));
-		}
-    function showNewMessageNotice(sender, content){ // sender is first name + " " + last name of the sender of the message
-      var newMessageNotice = new jBox('Notice', {
-          attributes: {
-              x: 'right',
-              y: 'bottom'
-          },
-          theme: 'NoticeBorder',
-          color: 'blue',
-          audio: 'jbox/audio/bling2',
-          volume: 100,
-          animation: {
-              open: 'slide:bottom',
-              close: 'slide:right'
-          },
-          content: content,
-          maxWidth: 300,
-          maxHeight: 105,
-          title:  sender
-      });
-    };
-    function isTyping(user){ // just pass FIRST NAME into user
-      $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>"+ user + " is typing...</div></div>");
-    }
-    function deleteLastIsTyping(){
-      $('.chat_area').remove(".bubble_wrapper:last"); // this should work, im not sure though
-    }
-
-		$(document).ready(function() {
-
-			getTeammates(); // gets list of teammates and displays on the leftbar
-
-      var group_modal = new jBox('Modal', {
-          width: 350,
-          height: 345,
-          attach: $('.make_group'),
-          title: 'Make a Group',
-          onOpen: function(){
-            var group_names = $('#selected_names_div p');
-            $('#select_group_names').keyup(function() {
-        		    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-        		    group_names.show().filter(function() {
-        		        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-        		        return !~text.indexOf(val);
-        		    }).hide();
-        		});
-          }
-      });
-
-      var people = "<p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p><p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p>";
-      var initialContent = "<input type='text' placeholder='Group Name' id='group_name'><br/>Please select the members of the group:<br/><input type='text' placeholder='Search Names...' id='select_group_names'></input><br/><div id='selected_names_div'>"+people+"</div><br/><input type='button' value='Make Group' id='group_button'></input>"
-
-      group_modal.setContent(initialContent);
-
-      $(document).on("click", "#group_button", function(){
-        group_modal.close();
-        group_modal.setContent(initialContent);
-
-        // code to create group
-
-      });
-
-      if(navigator.platform.indexOf("Mac") == -1){
-        $('.chat_area').perfectScrollbar();
-      }
-
-			$(document).on("click", "li.chat_name:not(.make_group)", function() {
-          $(".chat_area").removeClass("hidden");
-          $(".reply_box").removeClass("hidden");
-          autosize.update(ta);
-    			if ($(this).attr("class") == "chat_name"){
-    				getChatCodeAndLoadMessages($(this).attr("data-name"), $(this).attr("data-username2"));
-    				//console.log($(this).attr("data-name") + ", " + $(this).attr("data-username2"));
-    			}
-			});
-
-			socket.on("message", function(data){
-				console.log(data.user == localStorage.username);
-				if (data.user == localStorage.username){
-					createMessageSelf(data.message, data.name, false);
-				}
-				else {
-					createMessageOther(data.message, data.name, false);
-				}
-			});
-
-			$('.chat_area').scrollTop($('.chat_area').prop("scrollHeight")); // scrolls to bottom of conversation
-
-			var replyInitialHeight = $('.reply_textarea').height(); // initial height of reply text box, it's used to check for height changes later
-			$('.reply_textarea').bind("input", function() { //checks for height change of reply text box and adjusts height of chat area accordingly
-				if ($(this).height() != replyInitialHeight) {
-					replyInitialHeight = $(this).height();
-					$('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
-					$(".chat_area").animate({
-						scrollTop: $('.chat_area')[0].scrollHeight
-					}, 400); // scrolls to bottom of conversation
-				}
-			});
-			$('.reply_textarea').focus(function() { // scrolls to bottom of conversation when reply box is focused
-				$(".chat_area").animate({
-					scrollTop: $('.chat_area')[0].scrollHeight
-				}, 400);
-			});
-			$('.reply_textarea').keypress(function(e) { // changes events for enter and shift+enter to send and add line break respectively
-				if (e.shiftKey && e.which == 13) {
-					// goes to next line
-				} else if (e.which == 13) {
-					e.preventDefault();
-					$('.send_button').trigger("click");
-					$('.reply_textarea').val('');
-					autosize.update(ta);
-					$('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
-				}
-			});
-			$('.send_button').click(function() {
-				//createMessage($('.reply_textarea').val());
-				sendMessage($('.reply_textarea').val());
-				$('.reply_textarea').val(''); // empties reply text box
-				autosize.update(ta); // resizes reply text box
-				$('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)"); // resizes div.chat_area according to changes that occur in above line
-			});
-
-      $(document).on("mouseenter","li.chat_name",function(){
-        $(this).attr("id", "hovered");
-      });
-      $(document).on("mouseleave","li.chat_name",function(){
-        $(this).removeAttr("id");
-      });
-      $(document).on("click","li.chat_name:not(.make_group)",function(){
-        $("li.chat_name").removeClass("selected");
-        $(this).addClass("selected");
-      });
-
-      $(document).on("click", ".selected_group_name", function(){
-        // do stuff with $(this) when a name has been clicked in group_modal
-        if($(this).hasClass("clicked")){
-          $(this).removeClass("clicked");
-        }else{
-          $(this).addClass('clicked');
+        var chatcode = "";
+        var socket = io.connect();
+        var people = [];
+        // FUNCTION DEFINITIONS
+        function getTeammates() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/getteammates", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText != "fail") {
+                        var users = JSON.parse(xhr.responseText);
+                        people = users;
+                        listUsers(users);
+                    }
+                    console.log(xhr.responseText);
+                }
+            };
+            xhr.send(JSON.stringify({
+                "user": localStorage.username
+            }));
         }
 
-      });
+        function listUsers(users) {
+            for (var i = 0; i < users.length; i++) {
+                var status = "online";
+                var name = users[i].first + " " + users[i].last;
+                var li = $(document.createElement("li"));
+                li.attr("class", "chat_name");
+                li.attr("data-username2", users[i].user);
+                li.attr("data-name", name);
+                li.html('<a href="#"><img class="temp ' + status + '"id="small_prof_pic" src="./images/user.jpg"></img></a>' + name);
+                $('.users_list').append(li);
 
-		});
+            }
+        }
+        //Don't allow "=" sign
+        function createMessageSelf(content, name, isLoad) {
+            if (isLoad) {
+                $('.chat_area').prepend("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>");
+            } else {
+                $('.chat_area').append("<div class='bubble_wrapper'><div class='self_bubble'>" + content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>");
+                $(".chat_area").animate({
+                    scrollTop: $('.chat_area')[0].scrollHeight
+                }, 400);
+            }
+        }
 
-		window.onunload = function() {};
-	</script>
-  </body>
+        function createMessageOther(content, name, isLoad) {
+            if (isLoad) {
+                $('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </strong>" +
+                    content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
+            } else {
+                $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </strong>" +
+                    content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
+                $(".chat_area").animate({
+                    scrollTop: $('.chat_area')[0].scrollHeight
+                }, 400);
+            }
+        }
+
+        function sendMessage(message) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/addmessage", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText == "success") {
+                        socket.emit("newmessage", {
+                            "user": localStorage.username,
+                            "name": localStorage.firstName + " " + localStorage.lastName,
+                            "message": message,
+                            "chatcode": chatcode
+                        });
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({
+                "name": localStorage.firstName + " " + localStorage.lastName,
+                "username": localStorage.username,
+                "message": message.replace(/'/g, "''").replace(/</g, "&lt"),
+                "chatcode": chatcode
+            }));
+        }
+
+        function getChatCodeAndLoadMessages(user2, username2) {
+            chatcode = "";
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/loadmessages", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText != "fail") {
+                        $(".chat_area").empty();
+                        var data = JSON.parse(xhr.responseText);
+                        chatcode = data.chatcode;
+                        var messages = data.messages;
+                        socket.emit("updateclient", {
+                            "user": localStorage.username,
+                            "chatcode": chatcode
+                        });
+                        socket.on("updated", function(data) {
+                            console.log("updated");
+                            $(".chat_area").empty();
+                            for (var i = 0; i < 10; i++) {
+                                if (i >= messages.length) {
+                                    break;
+                                } else {
+                                    var message = messages[messages.length - i - 1];
+                                    console.log(messages[i].user);
+                                    if (message.user == localStorage.username) {
+                                        createMessageSelf(message.message, message.sender, true);
+                                    } else {
+                                        createMessageOther(message.message, message.sender, true);
+                                    }
+                                }
+                            }
+                            // $(".chat_area").animate({
+                            // 	scrollTop: $('.chat_area')[0].scrollHeight
+                            // }, 400);
+                            $('.chat_area').scrollTop($('.chat_area')[0].scrollHeight);
+                        });
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({
+                "user1": {
+                    "name": localStorage.firstName + " " + localStorage.lastName,
+                    "username": localStorage.username
+                },
+                "user2": {
+                    "name": user2,
+                    "username": username2
+                }
+            }));
+        }
+
+        function showNewMessageNotice(sender, content) { // sender is first name + " " + last name of the sender of the message
+            var newMessageNotice = new jBox('Notice', {
+                attributes: {
+                    x: 'right',
+                    y: 'bottom'
+                },
+                theme: 'NoticeBorder',
+                color: 'blue',
+                audio: 'jbox/audio/bling2',
+                volume: 100,
+                animation: {
+                    open: 'slide:bottom',
+                    close: 'slide:right'
+                },
+                content: content,
+                maxWidth: 300,
+                maxHeight: 105,
+                title: sender
+            });
+        };
+
+        function isTyping(user) { // just pass FIRST NAME into user
+            $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + user + " is typing...</div></div>");
+        }
+
+        function deleteLastIsTyping() {
+            $('.chat_area').remove(".bubble_wrapper:last"); // this should work, im not sure though
+        }
+
+        $(document).ready(function() {
+
+            getTeammates(); // gets list of teammates and displays on the leftbar
+
+            var group_modal = new jBox('Modal', {
+                width: 350,
+                height: 345,
+                attach: $('.make_group'),
+                title: 'Make a Group',
+                onOpen: function() {
+                    var group_names = $('#selected_names_div p');
+                    $('#select_group_names').keyup(function() {
+                        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                        group_names.show().filter(function() {
+                            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                            return !~text.indexOf(val);
+                        }).hide();
+                    });
+                }
+            });
+
+            function loadUsersOnModal(people) {
+                var content = "";
+                for (var i = 0; i < people.length; i++) {
+                    var person = people[i].first + " " + people[i].last;
+                    var nameP = "<p class='selected_group_name'>" + person + "</p>"
+                    content += nameP;
+                }
+                var initialContent =
+                    "<input type='text' placeholder='Group Name' id='group_name'><br/>Please select the members of the group:<br/><input type='text' placeholder='Search Names...' id='select_group_names'></input><br/><div id='selected_names_div'>" +
+                    content + "</div><br/><input type='button' value='Make Group' id='group_button'></input>"
+                group_modal.setContent(initialContent);
+            }
+
+            $(document).on("click", ".make_group", function() {
+                loadUsersOnModal(people);
+            });
+
+            $(document).on("click", "#group_button", function() {
+                group_modal.close();
+                //group_modal.setContent(initialContent);
+
+                // code to create group
+
+            });
+
+            if (navigator.platform.indexOf("Mac") == -1) {
+                $('.chat_area').perfectScrollbar();
+            }
+
+            $(document).on("click", "li.chat_name:not(.make_group)", function() {
+                $(".chat_area").removeClass("hidden");
+                $(".reply_box").removeClass("hidden");
+                autosize.update(ta);
+                if ($(this).attr("class") == "chat_name") {
+                    getChatCodeAndLoadMessages($(this).attr("data-name"), $(this).attr("data-username2"));
+                    //console.log($(this).attr("data-name") + ", " + $(this).attr("data-username2"));
+                }
+            });
+
+            socket.on("message", function(data) {
+                console.log(data.user == localStorage.username);
+                if (data.user == localStorage.username) {
+                    createMessageSelf(data.message, data.name, false);
+                } else {
+                    createMessageOther(data.message, data.name, false);
+                }
+            });
+
+            $('.chat_area').scrollTop($('.chat_area').prop("scrollHeight")); // scrolls to bottom of conversation
+
+            var replyInitialHeight = $('.reply_textarea').height(); // initial height of reply text box, it's used to check for height changes later
+            $('.reply_textarea').bind("input", function() { //checks for height change of reply text box and adjusts height of chat area accordingly
+                if ($(this).height() != replyInitialHeight) {
+                    replyInitialHeight = $(this).height();
+                    $('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
+                    $(".chat_area").animate({
+                        scrollTop: $('.chat_area')[0].scrollHeight
+                    }, 400); // scrolls to bottom of conversation
+                }
+            });
+            $('.reply_textarea').focus(function() { // scrolls to bottom of conversation when reply box is focused
+                $(".chat_area").animate({
+                    scrollTop: $('.chat_area')[0].scrollHeight
+                }, 400);
+            });
+            $('.reply_textarea').keypress(function(e) { // changes events for enter and shift+enter to send and add line break respectively
+                if (e.shiftKey && e.which == 13) {
+                    // goes to next line
+                } else if (e.which == 13) {
+                    e.preventDefault();
+                    $('.send_button').trigger("click");
+                    $('.reply_textarea').val('');
+                    autosize.update(ta);
+                    $('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
+                }
+            });
+            $('.send_button').click(function() {
+                //createMessage($('.reply_textarea').val());
+                sendMessage($('.reply_textarea').val());
+                $('.reply_textarea').val(''); // empties reply text box
+                autosize.update(ta); // resizes reply text box
+                $('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)"); // resizes div.chat_area according to changes that occur in above line
+            });
+
+            $(document).on("mouseenter", "li.chat_name", function() {
+                $(this).attr("id", "hovered");
+            });
+            $(document).on("mouseleave", "li.chat_name", function() {
+                $(this).removeAttr("id");
+            });
+            $(document).on("click", "li.chat_name:not(.make_group)", function() {
+                $("li.chat_name").removeClass("selected");
+                $(this).addClass("selected");
+            });
+
+            $(document).on("click", ".selected_group_name", function() {
+                // do stuff with $(this) when a name has been clicked in group_modal
+                if ($(this).hasClass("clicked")) {
+                    $(this).removeClass("clicked");
+                } else {
+                    $(this).addClass('clicked');
+                }
+
+            });
+
+        });
+
+        window.onunload = function() {};
+    </script>
+</body>
+
 </html>
