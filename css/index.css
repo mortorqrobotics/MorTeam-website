@@ -913,7 +913,7 @@ input[type=checkbox]:checked + label:before {
 	border: none;
 	padding: 8px 4px 8px 4px;
 	font-size: 15px;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
 #group_name{
 	width: 100%;
@@ -930,13 +930,43 @@ input[type=checkbox]:checked + label:before {
 	padding: 2px 3px 2px 3px;
 }
 #selected_names_div{
-	height: 230px;
+	height: 130px;
 	overflow-y: auto;
 }
+#selected_names_div::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+#selected_names_div::-webkit-scrollbar:vertical {
+    width: 11px;
+}
+
+/*#selected_names_div::-webkit-scrollbar:horizontal {
+    height: 11px;
+}*/
+
+#selected_names_div::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid #e9e9e9; /* should match background, can't be transparent */
+    background-color: rgba(0, 0, 0, .3);
+}
+
+
+
+
+
+
 .selected_group_name:hover{
 	background-color: orange;
 	cursor: pointer;
 }
 .selected_group_name.clicked{
 	background-color: #53CF29;
+}
+.rainbow {
+  background-image: -webkit-gradient( linear, right bottom, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+  background-image: gradient( linear, right bottom, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
