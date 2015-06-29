@@ -241,11 +241,21 @@
           width: 350,
           height: 345,
           attach: $('.make_group'),
-          title: 'Make a Group'
+          title: 'Make a Group',
+          onOpen: function(){
+            var group_names = $('#selected_names_div p');
+            $('#select_group_names').keyup(function() {
+        		    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        		    group_names.show().filter(function() {
+        		        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        		        return !~text.indexOf(val);
+        		    }).hide();
+        		});
+          }
       });
 
-      var people = "<div id='selected_names_div'><p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p><p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p></div>";
-      var initialContent = "<input type='text' placeholder='Group Name' id='group_name'><br/>Please select the members of the group:<br/><input type='text' placeholder='Search Names...' id='select_group_names'></input><br/>"+people+"<br/><input type='button' value='Make Group' id='group_button'></input>"
+      var people = "<p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p><p class='selected_group_name'>Farbod Rafezy</p><p class='selected_group_name'>Arvin Zadeh</p><p class='selected_group_name'>Ben Heller</p><p class='selected_group_name'>David Baum</p><p class='selected_group_name'>Preston Rozwood</p><p class='selected_group_name'>Ben Davis</p><p class='selected_group_name'>Richard Liu</p><p class='selected_group_name'>Randy Schmidt</p><p class='selected_group_name'>Stephan Kim</p>";
+      var initialContent = "<input type='text' placeholder='Group Name' id='group_name'><br/>Please select the members of the group:<br/><input type='text' placeholder='Search Names...' id='select_group_names'></input><br/><div id='selected_names_div'>"+people+"</div><br/><input type='button' value='Make Group' id='group_button'></input>"
 
       group_modal.setContent(initialContent);
 
