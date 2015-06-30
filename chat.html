@@ -21,74 +21,43 @@
     </script>
 </head>
 
-<body>
+  <body>
     <!-- NAVIGATION BAR -->
     <div class="navigation_bar">
-        <ul id="navbar_list">
-            <li class="navbar_item">
-                <input type="text" placeholder="search chat" class="searchbox"></input>
-            </li>
-            <li class="navbar_item">
-                <div id="categories">
-                    <ul>
-                        <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'">
-                            <span class="glyphicon glyphicon-home"></span>
-                            <div class="hborder"></div>
-                        </li>
-                        <!--
-            -->
-                        <li class="navbar_item navbar_link active" id="chat_link" onclick="location='chat.html'">
-                            <span class="glyphicon glyphicon-comment"></span>
-                            <div class="border"></div>
-                        </li>
-                        <!--
-            -->
-                        <li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'">
-                            <span class="glyphicon glyphicon-hdd"></span>
-                            <div class="border"></div>
-                        </li>
-                        <!--
-            -->
-                        <li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                            <div class="border"></div>
-                        </li>
-                        <!--
-            -->
-                        <li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
-                            <span class="glyphicon glyphicon-cog"></span>
-                            <div class="border"></div>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="navbar_item" id="notif_button">
-                <span class="glyphicon glyphicon-inbox"></span>
-            </li>
-            <li class="navbar_item" id="profile_id">
-                <img id="small_prof_pic" src="./images/user.jpg"></img>
-            </li>
-            <li class="navbar_item" id="profile_name">
-                <span id="name_link"></span>
-            </li>
-        </ul>
+      <ul id="navbar_list">
+        <li class="navbar_item"><input type="text" placeholder="search users" class="searchbox"></input></li>
+        <li class="navbar_item">
+          <div id="categories">
+           <ul>
+            <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!--
+            --><li class="navbar_item navbar_link active" id="chat_link" onclick="location='chat.html'"><span class="glyphicon glyphicon-comment"></span><div class="border"></div></li><!--
+            --><li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
+            --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
+            --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'"><span class="glyphicon glyphicon-cog"></span><div class="border"></div></li>
+           </ul>
+          </div>
+        </li>
+        <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
+        <li class="navbar_item" id="profile_id"><img id="small_prof_pic" src="./images/user.jpg"></img></li>
+        <li class="navbar_item" id="profile_name"><span id="name_link"></span></li>
+      </ul>
     </div>
     <div class="triangle_thing_notif hidden"></div>
     <div class="triangle_thing_prof hidden"></div>
     <div id="notif_drop" class="hidden">
-        <ul>
-            <li class="notif_list_item">hey</li>
-            <li class="notif_list_item">hi</li>
-            <li class="notif_list_item">ho</li>
-        </ul>
+      <ul>
+        <li class="notif_list_item">hey</li>
+        <li class="notif_list_item">hi</li>
+        <li class="notif_list_item">ho</li>
+      </ul>
     </div>
     <div id="prof_drop" class="hidden">
-        <ul>
-            <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
-            <li class="notif_list_item" id="logout_button">Log Out</li>
-        </ul>
+      <ul>
+        <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
+        <li class="notif_list_item" id="logout_button">Log Out</li>
+      </ul>
     </div>
-    <div id="darken" class="hidden"></div>
+    <div class="hidden" id="darken"></div>
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
@@ -293,6 +262,7 @@
                 attach: $('.make_group'),
                 title: 'Make a Group',
                 onOpen: function() {
+                    loadUsersOnModal(people);
                     var group_names = $('#selected_names_div p');
                     $('#select_group_names').keyup(function() {
                         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
@@ -317,13 +287,8 @@
                 group_modal.setContent(initialContent);
             }
 
-            $(document).on("click", ".make_group", function() {
-                loadUsersOnModal(people);
-            });
-
             $(document).on("click", "#group_button", function() {
                 group_modal.close();
-                //group_modal.setContent(initialContent);
 
                 // code to create group
 
@@ -413,6 +378,6 @@
 
         window.onunload = function() {};
     </script>
-</body>
+  </body>
 
 </html>

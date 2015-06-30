@@ -14,9 +14,10 @@ body{
 .leftbar{
 	background-color: #FFC547;
 	width: 260px;
-	height: 100%;
+	height: calc(100% - 30px);
 	position: fixed;
 	top:40px;
+	overflow-y: auto;
 }
 .profile_pic{
 	margin: 24px 54px 0px 54px;
@@ -339,7 +340,19 @@ li.active{
 	background-color: darkorange;
 	cursor: pointer;
 }
-#signup_button{
+#signup_buttonS{
+	background-color: #0099FF;
+	border: 0;
+	border-radius: 5px;
+	font-size: 32px;
+	position: absolute;
+	width: 300px;
+	left: 50%;
+	margin-left: -150px;
+	height: 50px;
+	top: 570px;
+}
+#signup_buttonL{
 	background-color: #0099FF;
 	border: 0;
 	border-radius: 5px;
@@ -351,7 +364,7 @@ li.active{
 	margin-left: -150px;
 	height: 50px;
 }
-#signup_button:hover{
+#signup_buttonS:hover, #signup_buttonL:hover{
 	background-color: #008AE6;
 	cursor: pointer;
 }
@@ -390,34 +403,23 @@ input[type=checkbox]:checked + label:before {
 #remember_text:hover{
 	cursor: pointer;
 }
+#form{
+	position: relative;
+}
 .signup_item{
 	display: block;
 }
 #signup_area{
-	width: 360px;
+	width: 720px;
 	height: 640px;
 	background-color: #FFC547;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -320px 0 0 -180px;
+	margin: -330px 0 0 -360px;
 	border-radius: 10px;
 }
 #team_signup_area{
-	width: 360px;
-	height: 320px;
-	background-color: #FFC547;
-	position: absolute;
-	top: 50%;
-	left: calc(50% + 380px);
-	/* Firefox */
-	left: -moz-calc(50% + 380px);
-	/* WebKit */
-	left: -webkit-calc(50% + 380px);
-	/* Opera */
-	left: -o-calc(50% + 380px);
-	margin: -100px 0 0 -180px;
-	border-radius: 10px;
 	display: none;
 }
 #firstname{
@@ -509,7 +511,7 @@ input[type=checkbox]:checked + label:before {
 #team_code_signup{
 	position: relative;
 	left: 50%;
-	width: 160px;
+	width: 300px;
 	height: 40px;
 	font-size: 25px;
 	margin-left: -150px;
@@ -521,10 +523,10 @@ input[type=checkbox]:checked + label:before {
 #make_team_button{
 	position: relative;
 	left: 50%;
-	width: 127px;
+	width: 300px;
 	height: 40px;
 	font-size: 23px;
-	margin-left: 10px;
+	margin-left: -150px;
 	margin-top: 20px;
 	border: none;
 	border-radius: 5px;
@@ -581,6 +583,27 @@ input[type=checkbox]:checked + label:before {
 	border: 0;
 	border-radius: 5px;
 	padding: 8px;
+}
+.pic_choose_button{
+	position: relative;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	margin-left: -150px;
+	margin-top: 24px;
+	border: none;
+	border-radius: 5px;
+	padding: 2px 4px 2px 4px;
+	background-color: orange;
+	font-size: 23px;
+}
+.pic_choose_button:hover{
+		background-color: darkOrange;
+}
+.make_team_question{
+	font-size: 18px;
+	margin-top: 20px;
+	margin-left: 20px;
 }
 .disclaimer{
 	width: 300px;

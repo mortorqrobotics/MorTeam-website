@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/index.css" type="text/css">
   </head>
   <body>
-     
+
       <div id="login_area">
         <form id="form">
           <input class="login_item" type="text" placeholder="Username/Email" id="username_box"></input>
@@ -22,9 +22,9 @@
           <div id="remember"><input type="checkbox" id="remember_box" checked></input><label for="remember_box" id="remember_text">Remember me?</label></div>
           <input class="login_item" type="submit" value="Log In" id="login_button"></input>
         </form>
-        <input class="login_item" type="submit" value="Sign Up" id="signup_button"></input>  
+        <input class="login_item" type="submit" value="Sign Up" id="signup_buttonL"></input>
       </div>
-    
+
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script type="text/javascript">
@@ -60,7 +60,7 @@
               			localStorage.teamName = teamName;
 						localStorage.teamNumber = teamNumber;
               			location="index.html";
-					} 
+					}
 					else {
     					//Failed login
     				}
@@ -70,11 +70,11 @@
 			return false;
     	};
 
-      $('#signup_button').click(function(){
+      $('#signup_buttonL').click(function(){
         location = "signup.html";
       });
 
     });
-    window.onunload = function(){}; 
+    window.onunload = function(){};
   </script>
-</html>    
+</html>
