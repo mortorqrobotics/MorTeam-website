@@ -35,7 +35,7 @@
 
           </div>
           <div class="col-lg-6 col-sm-6 col-xs-6">
-            <input type="file" class="hidden show_files" />
+            <input type="file" class="hidden show_files" id="show_files" accept="image/*" />
             <input type="button" class="pic_choose_button signup_item" value = "Choose Profile Picture">
             <input type="text" placeholder="Team Code" id="team_code_signup" class="signup_item"></input>
             <p class="signup_item make_team_question">If your team does not exist, you can</p>
@@ -60,6 +60,8 @@
       $('.pic_choose_button').click(function(){
         $('.show_files').trigger('click');
       });
+
+      var prof_pic = document.getElementById("show_files");
 
 			var isMaking = false;
 			console.log(isMaking);
@@ -165,6 +167,7 @@
 							var teamName = data.teamName;
 							var teamNumber = data.teamNumber;
 							var firstName = data.firstName;
+              uploadProfPic(username, prof_pic)
 							//use later maybe?
 							location = "login.html";
 						}
@@ -184,6 +187,14 @@
 					"phone": phone
 				}));
 			}
+      function uploadProfPic(user, file) {
+        var data = JSON.stringify({"user": user, "pic": file.files[0]});
+        $.post("/f/uploadProfPic", data, function(response){
+          if(response != "success"){
+            alert('an error occured when uploading profile picture');
+          }
+        });
+      }
 
 			$('#make_team_button').click(function() {
 				isMaking = true;
