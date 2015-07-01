@@ -171,7 +171,7 @@
                             var firstName = data.firstName;
                             uploadProfPic(username, prof_pic)
                                 //use later maybe?
-                            location = "login.html";
+
                         } else {
                             alert('Team does not exist'); //failed signup
                         }
@@ -198,6 +198,7 @@
                         if (xhr.responseText != "success") {
                             alert('an error occured when uploading profile picture');
                         }
+                        location = "login.html";
                     }
                 };
                 xhr.send(data);
