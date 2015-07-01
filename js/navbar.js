@@ -1,3 +1,10 @@
+function getPic(user){
+	$.post("/f/getPic", JSON.stringify({"user": user}), function(response){
+		console.log(typeof(response));
+		console.log(response);
+	});
+}
+
 $(document).ready(function(){
 	$('#name_link').html(localStorage.firstName);
 
@@ -30,6 +37,7 @@ $(document).ready(function(){
       });
     });
     $('#profile_id').click(function(){
+			getPic(localStorage.user)
       $('#prof_drop').fadeIn(fade_speed).removeClass("hidden");
       $('.triangle_thing_prof').fadeIn(fade_speed).removeClass("hidden");
       $('#darken').fadeIn(fade_speed).removeClass("hidden");
@@ -46,6 +54,7 @@ $(document).ready(function(){
       });
     });
     $('#profile_name').click(function(){
+			getPic(localStorage.user)
       $('#prof_drop').fadeIn(fade_speed).removeClass("hidden");
       $('.triangle_thing_prof').fadeIn(fade_speed).removeClass("hidden");
       $('#darken').fadeIn(fade_speed).removeClass("hidden");
