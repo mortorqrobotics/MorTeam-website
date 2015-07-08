@@ -8,6 +8,9 @@ body{
 	background-color: #E9E9E9;
 	padding-top: 50px !important;
 }
+img:not(.doc_category_icon){
+	background-color: white;
+}
 .hidden{
 	display: none;
 }
@@ -803,109 +806,57 @@ input[type=checkbox]:checked + label:before {
 	left: 320px;
 	top: 60px;
 }
-.col-lg-2{
-	/*border: 1px solid black;
-	background-color: orange;*/
-	margin-bottom: 12px;
-	padding-bottom: 25px;
-	max-width: 180px;
-	max-height: 180px;
-}
-.col-md-3{
-	/*border: 1px solid black;
-	background-color: orange;*/
-	margin-bottom: 15px;
-	padding-bottom: 25px;
-}
-.col-md-4{
-	/*border: 1px solid black;
-	background-color: orange;*/
-	margin-bottom: 15px;
-	padding-bottom: 25px;
-}
-.col-md-5{
-	/*border: 1px solid black;
-	background-color: orange;*/
-	margin-bottom: 15px;
-	padding-bottom: 25px;
-}
-.col-xs-6{
-	/*border: 1px solid black;
-	background-color: orange;*/
-	margin-bottom: 15px;
-	padding-bottom: 25px;
-	min-width: 150px;
-	min-height: 150px;
-}
-.col-lg-2:before{
-	content: "";
-	display: block;
-	padding-top: 100%;
-	max-width: 180px;
-	max-height: 180px;
-}
-.col-md-3:before{
-	content: "";
-	display: block;
-	padding-top: 100%;
-}
-.col-md-4:before{
-	content: "";
-	display: block;
-	padding-top: 100%;
-}
-.col-md-5:before{
-	content: "";
-	display: block;
-	padding-top: 100%;
-}
-.col-md-6:before{
-	content: "";
-	display: block;
-	padding-top: 100%;
-}
 .doc_preview{
-	width: 95%;
-	height: 95%;
+	width: 170px;
+	height: 170px;
 	margin: 0 auto;
 	object-fit:cover;
 	position:  absolute;
-	top: 0;
+	top: 5px;
 	left: 0;
 	bottom: 0;
 	right: 0;
-	/*border: 1px solid black;*/
-	max-width: 180px;
-	max-height: 180px;
+	cursor: pointer;
 }
-.doc_preview_overlay{
-	background: -moz-linear-gradient(top,  rgba(0,0,0,0) 14%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.48) 89%, rgba(0,0,0,0.67) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(14%,rgba(0,0,0,0)), color-stop(62%,rgba(0,0,0,0)), color-stop(89%,rgba(0,0,0,0.48)), color-stop(100%,rgba(0,0,0,0.67))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 14%,rgba(0,0,0,0) 62%,rgba(0,0,0,0.48) 89%,rgba(0,0,0,0.67) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(0,0,0,0) 14%,rgba(0,0,0,0) 62%,rgba(0,0,0,0.48) 89%,rgba(0,0,0,0.67) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(0,0,0,0) 14%,rgba(0,0,0,0) 62%,rgba(0,0,0,0.48) 89%,rgba(0,0,0,0.67) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(0,0,0,0) 14%,rgba(0,0,0,0) 62%,rgba(0,0,0,0.48) 89%,rgba(0,0,0,0.67) 100%); /* W3C */
-	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#ab000000',GradientType=0 ); /* IE6-9 */
-	z-index: 2;
-	width: 95%;
-	height: 95%;
-	margin: 0 auto;
-	object-fit:cover;
-	position:  absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	/*border: 1px solid black;*/
-	max-width: 180px;
-	max-height: 180px;
+.doc_frame{
+	margin: 4px;
+	height: 250px;
+	width: 180px;
+	cursor: pointer;
 }
+.word_doc{
+	background-color: #268dd7;
+}
+
+.pdf_doc{
+	background-color: #fb7272;
+}
+
+.image_doc{
+	background-color: #b9b9b9;
+}
+
+.excel_doc{
+	background-color: #33B533;
+}
+
+.keynote_doc{
+	background-color: #c62400
+}
+
+.default_doc{
+	background-color: #ffc547;
+}
+
 .doc_title{
+	font-size: 18px;
 	position: absolute;
-	bottom: 5px;
-	left: 10px;
+	left: 4px;
+	top: 175px;
 	color: white;
-	font-size: 16px;
+	width: 170px;
+	height: 75px;
+	word-wrap: break-word;
 }
 .delete_icon{
 	position: absolute;

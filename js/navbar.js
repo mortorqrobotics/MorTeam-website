@@ -1,17 +1,10 @@
 function getPic(user) {
     $("#small_prof_pic").attr("src", "/f/getPic?user=" + user);
+    $(".profile_pic").attr("src", "/f/getPic?user=" + user);
 }
 getPic(localStorage.username);
 $(document).ready(function() {
     $('#name_link').html(localStorage.firstName);
-
-    // $('#darken').hide();
-    //
-    // $('#notif_drop').hide();
-    // $('.triangle_thing_notif').hide()
-    //
-    // $('#prof_drop').hide();
-    // $('.triangle_thing_prof').hide()
 
     var fade_speed = 200;
 
