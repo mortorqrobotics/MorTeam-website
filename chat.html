@@ -119,8 +119,9 @@
                 li.attr("class", "chat_name");
                 li.attr("data-username2", users[i].user);
                 li.attr("data-name", name);
-                li.html('<a href="#"><img class="temp ' + status + '"id="small_prof_pic" src="./images/user.jpg"></img></a>' + name);
+                li.html('<a href="#"><img class="temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic" src="./images/user.jpg"></img></a>' + name);
                 $('.users_list').append(li);
+                getPic(users[i].user , $(".other_user_pic" + i));
 
             }
         }

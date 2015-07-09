@@ -1,10 +1,28 @@
-function getPic(user) {
-    $("#small_prof_pic").attr("src", "/f/getPic?user=" + user);
-    $(".profile_pic").attr("src", "/f/getPic?user=" + user);
+// function getPic(user) {
+//     $.post("/f/getPic?user=" + user, function(response){
+//       if(response == ""){
+//         $("#small_prof_pic").attr("src", "/images/user.jpg");
+//         $(".profile_pic").attr("src", "/images/user.jpg");
+//       } else {
+//         $("#small_prof_pic").attr("src", "/f/getPic?user=" + user);
+//         $(".profile_pic").attr("src", "/f/getPic?user=" + user);
+//       }
+//     });
+// }
+function getPic(user, target) {
+    $.post("/f/getPic?user=" + user, function(response){
+      if(response == ""){
+        $(target).attr("src", "/images/user.jpg");
+        $(target).attr("src", "/images/user.jpg");
+      } else {
+        $(target).attr("src", "/f/getPic?user=" + user);
+        $(target).attr("src", "/f/getPic?user=" + user);
+      }
+    });
 }
-getPic(localStorage.username);
 $(document).ready(function() {
     $('#name_link').html(localStorage.firstName);
+    getPic(localStorage.username, $("#small_prof_pic"));
 
     var fade_speed = 200;
 

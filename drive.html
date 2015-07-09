@@ -17,6 +17,18 @@
         location="login.html";
       }
     </script>
+    <script src="js/spin.js"></script>
+    <script type="text/javascript">
+      // var loadingImg = new Image();
+      // loadingImg.className = "spinner"
+      var loadingDiv = document.createElement("div");
+      loadingDiv.className = "loading_circle";
+      loadingDiv.id = "loading_circle";
+      // loadingImg.onload = function(){
+      //   loadingDiv.appendChild(loadingImg)
+      // }
+      // loadingImg.src="images/ajax-loader.gif";
+    </script>
   </head>
   <body>
     <!-- NAVIGATION BAR -->
@@ -58,78 +70,68 @@
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
-    <div class="container-fluid documents_list">
+    <!-- <div class="loading_circle" id="loading_circle"></div> -->
+    <div class="container-fluid documents_list hidden">
       <div class="row">
-        <!--<div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame">
-          <img src="./images/plus.png" class="doc_preview" />
-        </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame">
-          <img src="./images/doc-icon2.png" class="doc_preview" />
-          <!-- <div class="doc_preview_overlay"><span class="doc_title">Document 1</span></div> -->
-        <!--</div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame">
-          <img src="./images/pdf-icon2.png" class="doc_preview" />
-          <!-- <div class="doc_preview_overlay"><span class="doc_title">Document 2</span></div> -->
-        <!-- </div> -->
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
           <img src="./images/doc3.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">Word Document 3</span></div>
+          <span class="doc_title">Word Document 3</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
           <img src="./images/doc4.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">Word Document 4</span></div>
+          <span class="doc_title">Word Document 4</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame pdf_doc">
           <img src="./images/doc5.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">PDF Document 5</span></div>
+          <span class="doc_title">PDF Document 5</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame excel_doc">
           <img src="./images/doc6.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">Excel Spreadsheet 6</span></div>
+          <span class="doc_title">Excel Spreadsheet 6</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame keynote_doc">
           <img src="./images/doc7.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">Powerpoint Document 7</span></div>
+          <span class="doc_title">Powerpoint Document 7</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame default_doc">
           <img src="./images/doc8.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">Unknown Document 8</span></div>
+          <span class="doc_title">Unknown Document 8</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
           <img src="./images/cliff.jpg" class="doc_preview image_preview"/>
-          <div class="doc_preview_overlay"><span class="doc_title">Cliff Image</span></div>
+          <span class="doc_title">Cliff Image</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
           <img src="./images/doc9.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">Word Document 9</span></div>
+          <span class="doc_title">Word Document 9</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
           <img src="./images/doc10.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">Word Document 10</span></div>
+          <span class="doc_title">Word Document 10</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame pdf_doc">
           <img src="./images/doc11.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">PDF Document 11</span></div>
+          <span class="doc_title">PDF Document 11</span>
         </div>
 	      <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
           <img src="./images/doc12.jpg" class="doc_preview" />
-          <div class="doc_preview_overlay"><span class="doc_title">Word Document 12</span></div>
+          <span class="doc_title">Word Document 12</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
           <img src="./images/sample1.jpg" class="doc_preview image_preview"/>
-          <div class="doc_preview_overlay"><span class="doc_title">Image 1</span></div>
+          <span class="doc_title">Image 1</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
           <img src="./images/sample2.jpg" class="doc_preview image_preview"/>
-          <div class="doc_preview_overlay"><span class="doc_title">Image 2</span></div>
+          <span class="doc_title">Image 2</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
           <img src="./images/sample3.jpg" class="doc_preview image_preview"/>
-          <div class="doc_preview_overlay"><span class="doc_title">Image 3</span></div>
+          <span class="doc_title">Image 3</span>
         </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
           <img src="./images/sample4.jpg" class="doc_preview image_preview"/>
-          <div class="doc_preview_overlay"><span class="doc_title">Image 4</span></div>
+          <span class="doc_title">Image 4</span>
         </div>
       </div>
     </div>
@@ -155,6 +157,33 @@
 	<script type="text/javascript" src="js/hex.js"></script>
     <script type="text/javascript">
 		$(document).ready(function(){
+      document.body.appendChild(loadingDiv)
+
+      var opts = {
+        lines: 13 // The number of lines to draw
+      , length: 0 // The length of each line
+      , width: 20 // The line thickness
+      , radius: 42 // The radius of the inner circle
+      , scale: .5 // Scales overall size of the spinner
+      , corners: 1 // Corner roundness (0..1)
+      , color: 'orange' // #rgb or #rrggbb or array of colors
+      , opacity: 0.25 // Opacity of the lines
+      , rotate: 0 // The rotation offset
+      , direction: 1 // 1: clockwise, -1: counterclockwise
+      , speed: 1 // Rounds per second
+      , trail: 60 // Afterglow percentage
+      , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+      , zIndex: 2e9 // The z-index (defaults to 2000000000)
+      , className: 'spinner' // The CSS class to assign to the spinner
+      , top: '50%' // Top position relative to parent
+      , left: '50%' // Left position relative to parent
+      , shadow: false // Whether to render a shadow
+      , hwaccel: false // Whether to use hardware acceleration
+      , position: 'absolute' // Element positioning
+      }
+      var target = loadingDiv
+      spinner = new Spinner(opts).spin(target);
+
 			$('.doc_frame').click(function(){
 				alert( $(this).find(".doc_title").html() );
 			});
@@ -165,6 +194,10 @@
 				$(this).css("background-color", "#"+rgb2hex( $(this).css('backgroundColor') ).lightenHexColorBy(25)  );
 			});
 
+
+
+		});
+    $(window).load(function(){
       var img = new Array($(".image_preview").length);
       for( var i = 0 ; i<$(".image_preview").length ; i++ ){
         img[i] = document.createElement("img");
@@ -174,11 +207,23 @@
             var colorThief = new ColorThief();
             var color = colorThief.getColor(img[n]);
             $(".image_preview")[n].parentNode.style.backgroundColor = "rgb(" + color + ")";
+            var r = color[0];
+            var g = color[1];
+            var b = color[2];
+            var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+            if (luma > 170) {
+                $($(".image_preview")[n]).next().css( "color", "black" );
+                // console.log($($(".image_preview")[n]).next());
+            }
             n++;
         };
       }
-		});
-      window.onunload = function(){};
+      spinner.stop();
+      $(".documents_list").fadeIn(400).removeClass("hidden")
+      //$(loadingDiv).hide();
+
+    });
+    window.onunload = function(){};
     </script>
   </body>
 </html>

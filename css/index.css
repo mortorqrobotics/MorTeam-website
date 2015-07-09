@@ -7,8 +7,9 @@
 body{
 	background-color: #E9E9E9;
 	padding-top: 50px !important;
+	padding-bottom: 50px !important;
 }
-img:not(.doc_category_icon){
+img:not(.doc_category_icon, .spinner){
 	background-color: white;
 }
 .hidden{
@@ -60,12 +61,12 @@ img:not(.doc_category_icon){
 	padding: 4px 0px 4px 0px;
 	margin: 0;
 	height: 40px;
+	cursor: pointer;
 	/*border-right: 1px solid black; */
 
 }
-.navbar_link:hover{
-	background-color: orange;
-	cursor: pointer;
+.navbar_link:hover:not(.active){
+	background-color: #FFB524;
 }
 div.navigation_bar{
 	background-color: #FFC547;
@@ -149,7 +150,7 @@ li.active{
 	border-bottom: none !important;
 }
 .notif_list_item:hover{
-	background-color: orange;
+	background-color: #FFB524;
 	cursor: pointer;
 }
 #profile_id{
@@ -173,7 +174,7 @@ li.active{
 	cursor: pointer;
 }
 #notif_button:hover{
-	background-color: orange;
+	background-color: #FFB524;
 	cursor: pointer;
 }
 #name_link{
@@ -213,7 +214,7 @@ li.active{
 	padding: 0;
 }
 #span1:hover{
-	background-color: orange;
+	background-color: #FFB524;
 }
 .chat_name{
 	height: 60px;
@@ -242,7 +243,9 @@ li.active{
 	cursor: pointer;
 }
 .drive_name:hover{
-	background-color: orange;
+	background-color: #FFB524;
+}
+.drive_name{
 	cursor: pointer;
 }
 .online{
@@ -796,7 +799,7 @@ input[type=checkbox]:checked + label:before {
 	background-color: orange;
 }
 .reply_textarea:focus{
-	border: 1px solid orange;
+	border: 1px solid #FFB524;
 	outline: 0;
 }
 .documents_list{
@@ -934,4 +937,13 @@ input[type=checkbox]:checked + label:before {
   color:transparent;
   -webkit-background-clip: text;
   background-clip: text;
+}
+.loading_circle {
+  /* background: url(../images/ajax-loader.gif) no-repeat 5px 3px; */
+	width: 100px;
+	height: 100px;
+  padding-left: 20px;
+	position: absolute;
+	top: 45%;
+	left: 50%;
 }

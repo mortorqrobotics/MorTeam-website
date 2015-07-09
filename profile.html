@@ -77,6 +77,7 @@
       $(document).ready(function(){
 
         // DISPLAYS PERSONAL INFO IN LEFTBAR
+        getPic(localStorage.username, $(".profile_pic"));
         $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
         $('#leftbar_title').html("Member of " + localStorage.subdivision);
         console.log(localStorage.teamNumber + ": " + localStorage.teamName);
