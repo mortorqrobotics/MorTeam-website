@@ -10,13 +10,10 @@
 //     });
 // }
 function getPic(user, target) {
+    $(target).attr("src", "/f/getPic?user=" + user);
     $.post("/f/getPic?user=" + user, function(response){
       if(response == ""){
         $(target).attr("src", "/images/user.jpg");
-        $(target).attr("src", "/images/user.jpg");
-      } else {
-        $(target).attr("src", "/f/getPic?user=" + user);
-        $(target).attr("src", "/f/getPic?user=" + user);
       }
     });
 }
