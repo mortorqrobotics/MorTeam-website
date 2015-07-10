@@ -93,7 +93,8 @@
   		function createPost(text){
   			//var title = localStorage.title
   			var now = new Date();
-  			var nameDate = localStorage.firstName + ' ' + localStorage.lastName + ' - ' + now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes();
+        var month = now.getMonth() + 1;
+  			var nameDate = localStorage.firstName + ' ' + localStorage.lastName + ' - ' + month + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes();
         var postNum = 1;
         if($('.announcement').first().length > 0){
           postNum = parseInt($('.announcement').first().attr('data-postNum'))+1;
@@ -107,6 +108,7 @@
   						$('.announcements_list').prepend('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">'+ nameDate+ '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>'+text.replace(/\n\r?/g, '<br />')+'</div>')
   						document.getElementById('main_textarea').value = "";
   						$('#main_textarea').css("height", "56px");
+              getPic(localStorage.username, $("#medium_prof_pic"));
   					}
   				}
   			};
@@ -124,11 +126,15 @@
   						var announcements = JSON.parse(xhr.responseText);
   						for (var i = announcements.length-1;i > -1;i--){
   							var nameDate = announcements[i].nameDate;
+                var user = announcements[i].user;
   							var text = announcements[i].text.replace(/\n\r?/g, '<br />');
                 var postNum = announcements[i].postNum;
-  							$('.announcements_list').append('<div class="announcement" data-postNum="'+ postNum +'"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">' + nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>'+text.replace(/\n\r?/g, '<br />')+'</div>')
+  							$('.announcements_list').append('<div class="announcement" data-postNum="'+ postNum +'"><div class="announcement_top"><img id="medium_prof_pic" class="poster_pic'+i+'" src="./images/user.jpg"></img><span class="announcement_poster">' + nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>'+text.replace(/\n\r?/g, '<br />')+'</div>')
   							document.getElementById('main_textarea').value = "";
   							$('#main_textarea').css("height", "56px");
+                var prof_pic_class = ".poster_pic"+i;
+                var target = $(prof_pic_class);
+                getPic(user, target);
   						}
   					}
   				}

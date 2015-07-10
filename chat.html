@@ -38,7 +38,7 @@
           </div>
         </li>
         <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
-        <li class="navbar_item" id="profile_id"><img id="small_prof_pic" src="./images/user.jpg"></img></li>
+        <li class="navbar_item" id="profile_id"><img class="small_prof_pic" id="small_prof_pic" src="./images/user.jpg"></img></li>
         <li class="navbar_item" id="profile_name"><span id="name_link"></span></li>
       </ul>
     </div>
@@ -102,6 +102,9 @@
                         var users = JSON.parse(xhr.responseText);
                         people = users;
                         listUsers(users);
+                        $(".small_prof_pic").load(function() {
+                          $(this).css('visibility','visible').hide().fadeIn(300);
+                        })
                     }
                     console.log(xhr.responseText);
                 }
@@ -119,9 +122,10 @@
                 li.attr("class", "chat_name");
                 li.attr("data-username2", users[i].user);
                 li.attr("data-name", name);
-                li.html('<a href="#"><img class="temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic"></img></a>' + name);
+                li.html('<a href="#"><img class="small_prof_pic temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic"></img></a>' + name);
                 $('.users_list').append(li);
                 getPic(users[i].user , $(".other_user_pic" + i));
+
             }
         }
         //Don't allow "=" sign
@@ -136,40 +140,44 @@
             }
         }
 
-        function createMessageOther(content, name, isLoad) {
+        function createMessageOther(content, name, username, isLoad) {
             if (isLoad) {
-                $('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </strong>" +
+                $('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='show' id='small_prof_pic' src='./images/1.jpg'></img>" + "<p class='chat_opponent'>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </p class='chat_opponent'>" +
                     content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
+                getPic(username, $(".show"));
             } else {
-                $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + "<strong>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </strong>" +
+                $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='show' id='small_prof_pic' src='./images/1.jpg'></img>" + "<p class='chat_opponent'>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </p class='chat_opponent'>" +
                     content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
                 $(".chat_area").animate({
                     scrollTop: $('.chat_area')[0].scrollHeight
                 }, 400);
+                getPic(username, $(".show"));
             }
         }
 
         function sendMessage(message) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/f/addmessage", true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    if (xhr.responseText == "success") {
-                        socket.emit("newmessage", {
-                            "user": localStorage.username,
-                            "name": localStorage.firstName + " " + localStorage.lastName,
-                            "message": message,
-                            "chatcode": chatcode
-                        });
-                    }
-                }
-            };
-            xhr.send(JSON.stringify({
-                "name": localStorage.firstName + " " + localStorage.lastName,
-                "username": localStorage.username,
-                "message": message.replace(/'/g, "''").replace(/</g, "&lt"),
-                "chatcode": chatcode
-            }));
+          if(message.replace(/\s/g, '') != ""){
+              var xhr = new XMLHttpRequest();
+              xhr.open("POST", "/f/addmessage", true);
+              xhr.onreadystatechange = function() {
+                  if (xhr.readyState == 4 && xhr.status == 200) {
+                      if (xhr.responseText == "success") {
+                          socket.emit("newmessage", {
+                              "user": localStorage.username,
+                              "name": localStorage.firstName + " " + localStorage.lastName,
+                              "message": message,
+                              "chatcode": chatcode
+                          });
+                      }
+                  }
+              };
+              xhr.send(JSON.stringify({
+                  "name": localStorage.firstName + " " + localStorage.lastName,
+                  "username": localStorage.username,
+                  "message": message.replace(/'/g, "''").replace(/</g, "&lt"),
+                  "chatcode": chatcode
+              }));
+            }
         }
 
         function getChatCodeAndLoadMessages(user2, username2) {
@@ -190,7 +198,7 @@
                         socket.on("updated", function(data) {
                             console.log("updated");
                             $(".chat_area").empty();
-                            for (var i = 0; i < 10; i++) {
+                            for (var i = 0; i < 20; i++) {
                                 if (i >= messages.length) {
                                     break;
                                 } else {
@@ -199,7 +207,7 @@
                                     if (message.user == localStorage.username) {
                                         createMessageSelf(message.message, message.sender, true);
                                     } else {
-                                        createMessageOther(message.message, message.sender, true);
+                                        createMessageOther(message.message, message.sender, message.user, true);
                                     }
                                 }
                             }
@@ -245,7 +253,7 @@
         };
 
         function isTyping(user) { // just pass FIRST NAME into user
-            $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='temp'id='small_prof_pic' src='./images/1.jpg'></img>" + user + " is typing...</div></div>");
+            $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='show' id='small_prof_pic' src='./images/1.jpg'></img>" + user + " is typing...</div></div>");
         }
 
         function deleteLastIsTyping() {

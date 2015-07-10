@@ -11,6 +11,7 @@
   	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link href="jbox/jBox.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <script type="text/javascript">
       if(localStorage.userToken == undefined){
@@ -70,9 +71,12 @@
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
-    <!-- <div class="loading_circle" id="loading_circle"></div> -->
     <div class="container-fluid documents_list hidden">
       <div class="row">
+        <input type="file" id="file" class="hidden"></input>
+        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame add_file">
+          <span id="add_file_sign" class="glyphicon glyphicon-plus"></span>
+        </div>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
           <img src="./images/doc3.jpg" class="doc_preview" />
           <span class="doc_title">Word Document 3</span>
@@ -140,21 +144,22 @@
     <!-- LEFTBAR -->
     <div class="leftbar">
       <ul>
-        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-plus"></span>Add Document</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png" class="doc_category_icon"></img></a>All Documents</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png" class="doc_category_icon"></img></a>Subdivision Documents</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png" class="doc_category_icon"></img></a>Personal Documents</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png" class="doc_category_icon"></img></a>Tagged Documents</li>
-        <li class="drive_name"><a href="#"><img id="small_prof_pic" src="./images/doc.png" class="doc_category_icon"></img></a>Shared Documents</li>
+        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-plus"></span>New Folder</li>
+        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>All Files</li>
+        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Subdivision Files</li>
+        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Personal Files</li>
+        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Tagged Files</li>
+        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Shared Files</li>
       </ul>
     </div>
     <!-- END OF LEFTBAR -->
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<script src="js/color-thief.js"></script>
+	  <script src="js/color-thief.js"></script>
+    <script src="jbox/jBox.min.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
-	<script type="text/javascript" src="js/hex.js"></script>
+	  <script type="text/javascript" src="js/hex.js"></script>
     <script type="text/javascript">
 		$(document).ready(function(){
       document.body.appendChild(loadingDiv)
@@ -184,7 +189,7 @@
       var target = loadingDiv
       spinner = new Spinner(opts).spin(target);
 
-			$('.doc_frame').click(function(){
+			$('.doc_frame:not(.add_file)').click(function(){
 				alert( $(this).find(".doc_title").html() );
 			});
 			$(".doc_frame").mouseenter(function(){
@@ -193,10 +198,24 @@
 			$(".doc_frame").mouseleave(function(){
 				$(this).css("background-color", "#"+rgb2hex( $(this).css('backgroundColor') ).lightenHexColorBy(25)  );
 			});
-
-
-
+      var file_modal = new jBox('Modal', {
+          width: 300,
+          height: 230,
+          attach: $('.add_file'),
+          title: 'Upload a File',
+          onOpen: function() {
+              //
+          }
+      });
+      file_modal_content = "<input type='button' class='button file_choose' value='Choose File'></input><p id='chosen_file'>No File Selected</p><input type='text' class='file_name' placeholder='File Name'></input><input type='button' class='button upload_button' value='Upload'></input>"
+      file_modal.setContent(file_modal_content);
+      $(".file_choose").click(function() {
+        $("#file").trigger("click");
+      })
 		});
+    document.getElementById("file").onchange = function () {
+        document.getElementById("chosen_file").innerHTML = this.value.substring(this.value.lastIndexOf("\\") + 1);
+    };
     $(window).load(function(){
       var img = new Array($(".image_preview").length);
       for( var i = 0 ; i<$(".image_preview").length ; i++ ){
@@ -213,15 +232,12 @@
             var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
             if (luma > 170) {
                 $($(".image_preview")[n]).next().css( "color", "black" );
-                // console.log($($(".image_preview")[n]).next());
             }
             n++;
         };
       }
       spinner.stop();
       $(".documents_list").fadeIn(400).removeClass("hidden")
-      //$(loadingDiv).hide();
-
     });
     window.onunload = function(){};
     </script>
