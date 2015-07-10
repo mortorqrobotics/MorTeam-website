@@ -73,7 +73,7 @@
     <!-- BODY -->
     <div class="container-fluid documents_list hidden">
       <div class="row">
-        <input type="file" id="file" class="hidden"></input>
+        <input type="file" id="file" class="hidden" multiple></input>
         <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame add_file">
           <span id="add_file_sign" class="glyphicon glyphicon-plus"></span>
         </div>
@@ -155,9 +155,11 @@
     <!-- END OF LEFTBAR -->
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/color/jquery.color-2.1.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	  <script src="js/color-thief.js"></script>
     <script src="jbox/jBox.min.js"></script>
+    <script src="js/dropzone.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
 	  <script type="text/javascript" src="js/hex.js"></script>
     <script type="text/javascript">
@@ -204,18 +206,86 @@
           attach: $('.add_file'),
           title: 'Upload a File',
           onOpen: function() {
-              //
+              $(".upload_button").click(function() {
+                if(uploads.length == undefined){
+                  if(uploads.size > 50000000){
+                    alert("file is too big");
+                  }else{
+                    // upload var uploads
+                  }
+                } else {
+                  for( i=0 ; i<uploads.length ; i++){
+                    if(uploads[i].size > 50000000){
+                      alert("file is too big");
+                    }else{
+                      // upload var uploads[i]
+                    }
+                  }
+                }
+              });
           }
       });
-      file_modal_content = "<input type='button' class='button file_choose' value='Choose File'></input><p id='chosen_file'>No File Selected</p><input type='text' class='file_name' placeholder='File Name'></input><input type='button' class='button upload_button' value='Upload'></input>"
+      var file_modal_content = "<input type='button' class='button file_choose' value='Choose File'></input><p id='chosen_file'>No File Selected</p><input type='text' class='file_name' placeholder='File Name'></input><input type='button' class='button upload_button' value='Upload'></input>"
       file_modal.setContent(file_modal_content);
       $(".file_choose").click(function() {
         $("#file").trigger("click");
       })
+      jQuery.fn.flash = function (color, duration) {
+         var current = this.css('backgroundColor');
+         this.animate({ backgroundColor: color }, duration / 2)
+         .animate({ backgroundColor: current }, duration / 2);
+      }
+      document.getElementById("file").onchange = function () {
+        uploads = this.files;
+        if(this.files.length == 1){
+          document.getElementById("chosen_file").innerHTML = this.files[0].name;
+          setTimeout(function(){
+            $("#chosen_file").flash("#0099ff", 1000);
+          }, 300);
+        }else{
+          document.getElementById("chosen_file").innerHTML = "Multiple Selected";
+          setTimeout(function(){
+            $("#chosen_file").flash("#0099ff", 1000);
+          }, 300);
+        }
+      };
+      var myDropzone = new Dropzone(".add_file", { url: "#", createImageThumbnails: false, clickable: false, previewTemplate:"<div id='preview-template' style='display: none;''>", uploadMultiple:false});
+      myDropzone.on("addedfile", function(file) {
+        uploads = file;
+        file_modal.open();
+        document.getElementById("chosen_file").innerHTML = file.name;
+        setTimeout(function(){
+          $("#chosen_file").flash("#0099ff", 1000);
+        }, 300);
+      });
+      $("html").on("dragenter", function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          $("#add_file_sign").removeClass("glyphicon-plus")
+          $("#add_file_sign").html("Drop Here");
+      });
+      $("html").on("drop", function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          $("#add_file_sign").addClass("glyphicon-plus")
+          $("#add_file_sign").html("");
+      });
+      $(".add_file").on("drop", function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          $("#add_file_sign").addClass("glyphicon-plus")
+          $("#add_file_sign").html("");
+      });
+      $("html").on("mouseenter", function(event) {
+          event.stopPropagation();
+          event.preventDefault();
+          $("#add_file_sign").addClass("glyphicon-plus")
+          $("#add_file_sign").html("");
+      })
+      $("html").on('dragover',function(){
+          event.preventDefault();
+      });
 		});
-    document.getElementById("file").onchange = function () {
-        document.getElementById("chosen_file").innerHTML = this.value.substring(this.value.lastIndexOf("\\") + 1);
-    };
     $(window).load(function(){
       var img = new Array($(".image_preview").length);
       for( var i = 0 ; i<$(".image_preview").length ; i++ ){

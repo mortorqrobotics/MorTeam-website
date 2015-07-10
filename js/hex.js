@@ -6,7 +6,7 @@ function singleDecimalToHex(num){
 	}else{
 		return hexOnlyDigits[num%10];
 	}
-	
+
 }
 function singleHexToDecimal(hex){
 	hex = hex.toString();
@@ -26,7 +26,7 @@ function singleHexToDecimal(hex){
 		}else{
 			return undefined;
 		}
-		
+
 	}else{
 		return parseInt(hex).toString();
 	}
@@ -57,11 +57,11 @@ var target = this;
 		var g = target.substring(2,4);
 		var b = target.substring(4);
 		var dr = decimalToHex( hexToDecimal(r) - parseInt(val) );
-		if(dr < 0){ dr = 0 };
+		if(dr.indexOf("-") > -1){ dr = "00" };
 		var dg = decimalToHex( hexToDecimal(g) - parseInt(val) );
-		if(dg < 0){ dg = 0 };
+		if(dg.indexOf("-") > -1){ dg = "00" };
 		var db = decimalToHex( hexToDecimal(b) - parseInt(val) );
-		if(db < 0){ db = 0 };
+		if(db.indexOf("-") > -1){ db = "00" };
 		return dr.toString() + dg.toString() + db.toString()
 	}else{
 		console.log("not a valid color");
@@ -78,11 +78,11 @@ var target = this;
 		var g = target.substring(2,4);
 		var b = target.substring(4);
 		var lr = decimalToHex( hexToDecimal(r) + parseInt(val) );
-		if( hexToDecimal(lr) > 255){ lr = 255 };
+		if( parseInt(hexToDecimal(lr)) > 255){ lr = "ff" };
 		var lg = decimalToHex( hexToDecimal(g) + parseInt(val) );
-		if( hexToDecimal(lg) > 255){ lg = 255 };
+		if( parseInt(hexToDecimal(lg)) > 255){ lg = "ff" };
 		var lb = decimalToHex( hexToDecimal(b) + parseInt(val) );
-		if( hexToDecimal(lb) > 255){ lb = 255 };
+		if( parseInt(hexToDecimal(lb)) > 255){ lb = "ff" };
 		return lr.toString() + lg.toString() + lb.toString()
 	}else{
 		console.log("not a valid color");
@@ -90,7 +90,7 @@ var target = this;
 	}
 }
 var hexDigits = new Array
-		("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
+		("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
 
 //Function to convert hex format to a rgb color
 function rgb2hex(rgb) {
