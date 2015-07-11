@@ -125,7 +125,9 @@
                 li.html('<a href="#"><img class="small_prof_pic temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic"></img></a>' + name);
                 $('.users_list').append(li);
                 getPic(users[i].user , $(".other_user_pic" + i));
-
+                if(i==0){
+                    $(li).trigger("click");
+                }
             }
         }
         //Don't allow "=" sign
