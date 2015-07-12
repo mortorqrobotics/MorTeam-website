@@ -139,7 +139,7 @@
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     console.log(xhr.responseText);
                     if (xhr.responseText == "success") {
-                        $('.announcements_list').prepend('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">' +
+                        $('.announcements_list').prepend('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" src="/f/getPic?user='+localStorage.username+'" onError="this.src=\'./images/user.jpg\'""></img><span class="announcement_poster">' +
                             nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
                         document.getElementById('main_textarea').value = "";
                         $('#main_textarea').css("height", "56px");
@@ -170,12 +170,12 @@
                             var text = announcements[i].text.replace(/\n\r?/g, '<br />');
                             var postNum = announcements[i].postNum;
                             $('.announcements_list').append('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" class="poster_pic' + i +
-                                '" src="./images/user.jpg"></img><span class="announcement_poster">' + nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
+                                '" src="/f/getPic?user='+user+'" onError="this.src=\'./images/user.jpg\'"></img><span class="announcement_poster">' + nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
                             document.getElementById('main_textarea').value = "";
                             $('#main_textarea').css("height", "56px");
-                            var prof_pic_class = ".poster_pic" + i;
+                            /*var prof_pic_class = ".poster_pic" + i;
                             var target = $(prof_pic_class);
-                            getPic(user, target);
+                            getPic(user, target);*/
                         }
                     }
                 }

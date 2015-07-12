@@ -19,9 +19,13 @@ function getPic(user, target) {
 }
 $(document).ready(function() {
     $('#name_link').html(localStorage.firstName);
-    getPic(localStorage.username, $("#small_prof_pic"));
+    //getPic(localStorage.username, $("#small_prof_pic"));
+    $("#small_prof_pic").attr("src", "/f/getPic?user=" + localStorage.username);
+    $("#small_prof_pic").attr("onError", "this.src=\'./images/user.jpg\'");
 
     var fade_speed = 200;
+
+
 
     $('#notif_button').click(function() {
         $('#notif_drop').fadeIn(fade_speed).removeClass("hidden")

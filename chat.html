@@ -156,9 +156,10 @@
                 li.attr("data-username2", users[i].user);
                 li.attr("data-name", name);
                 li.attr("data-type", "private");
-                li.html('<a href="#"><img class="small_prof_pic temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic"></img></a>' + name);
+                li.html('<a href="#"><img src="/f/getPic?user='+users[i].user+'" onError="this.src=\'./images/user.jpg\'" class="small_prof_pic temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic"></img></a>' + name);
                 $('.users_list').append(li);
-                getPic(users[i].user, $(".other_user_pic" + i));
+                //getPic(users[i].user, $(".other_user_pic" + i));
+                //console.log($(".other_user_pic" + i).attr("src"));
                 if (i == 0) {
                     $(li).trigger("click");
                 }
@@ -178,20 +179,20 @@
 
         function createMessageOther(content, name, username, isLoad) {
             if (isLoad) {
-                $('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='show-" + username + "' id='small_prof_pic' src='/f/getPic?user=" + username + "'></img>" + "<p class='chat_opponent'>" + name.replace(/</g,
+                $('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='show-" + username + "' id='small_prof_pic' src='/f/getPic?user=" + username + "' onError='this.src=\"./images/user.jpg\"'></img>" + "<p class='chat_opponent'>" + name.replace(/</g,
                         "&lt").replace(/\r?\n/g, '<br />') +
                     ": </p class='chat_opponent'>" +
                     content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
-                getPic(username, $(".show-" + username));
+                //getPic(username, $(".show-" + username));
             } else {
-                $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='show-" + username + "' id='small_prof_pic' src='/f/getPic?user=" + username + "'></img>" + "<p class='chat_opponent'>" + name.replace(/</g,
+                $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='show-" + username + "' id='small_prof_pic' src='/f/getPic?user=" + username + "' onError='this.src=\"./images/user.jpg\"'></img>" + "<p class='chat_opponent'>" + name.replace(/</g,
                         "&lt").replace(/\r?\n/g, '<br />') +
                     ": </p class='chat_opponent'>" +
                     content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
                 $(".chat_area").animate({
                     scrollTop: $('.chat_area')[0].scrollHeight
                 }, 400);
-                getPic(username, $(".show-" + username));
+                //getPic(username, $(".show-" + username));
             }
         }
 
