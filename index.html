@@ -1,75 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-  	<meta charset="utf-8" />
-  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Morganizer</title>
-  	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
-  	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-    <script type="text/javascript">bkLib.onDomLoaded(function() {
+    <script type="text/javascript">
+        bkLib.onDomLoaded(function() {
 
-        new nicEditor({buttonList : ['bold','italic','underline','left','center','right','justify','ol','ul','removeformat','indent','outdent','hr','upload','link','unlink']}).panelInstance('main_textarea');
+            new nicEditor({
+                buttonList: ['bold', 'italic', 'underline', 'left', 'center', 'right', 'justify', 'ol', 'ul', 'removeformat', 'indent', 'outdent', 'hr', 'upload', 'link', 'unlink']
+            }).panelInstance('main_textarea');
 
-      });
+        });
     </script>
     <script type="text/javascript">
-    if(localStorage.userToken == undefined){
-      location="login.html";
-    }
+        if (localStorage.userToken == undefined) {
+            location = "login.html";
+        }
     </script>
-  </head>
-  <body>
-   <!-- NAVIGATION BAR -->
+</head>
+
+<body>
+    <!-- NAVIGATION BAR -->
     <div class="navigation_bar">
-      <ul id="navbar_list">
-        <li class="navbar_item"><input type="text" placeholder="search users" class="searchbox"></input></li>
-        <li class="navbar_item">
-          <div id="categories">
-           <ul>
-            <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!--
-            --><li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'"><span class="glyphicon glyphicon-comment"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'"><span class="glyphicon glyphicon-cog"></span><div class="border"></div></li>
-           </ul>
-          </div>
-        </li>
-        <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
-        <li class="navbar_item" id="profile_id"><img id="small_prof_pic" src="./images/user.jpg"></img></li>
-        <li class="navbar_item" id="profile_name"><span id="name_link"></span></li>
-      </ul>
+        <ul id="navbar_list">
+            <li class="navbar_item">
+                <input type="text" placeholder="search users" class="searchbox"></input>
+            </li>
+            <li class="navbar_item">
+                <div id="categories">
+                    <ul>
+                        <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'">
+                            <span class="glyphicon glyphicon-home"></span>
+                            <div class="hborder"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'">
+                            <span class="glyphicon glyphicon-comment"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'">
+                            <span class="glyphicon glyphicon-hdd"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            <div class="border"></div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="navbar_item" id="notif_button">
+                <span class="glyphicon glyphicon-inbox"></span>
+            </li>
+            <li class="navbar_item" id="profile_id">
+                <img id="small_prof_pic" src="./images/user.jpg"></img>
+            </li>
+            <li class="navbar_item" id="profile_name">
+                <span id="name_link"></span>
+            </li>
+        </ul>
     </div>
     <div class="triangle_thing_notif hidden"></div>
     <div class="triangle_thing_prof hidden"></div>
     <div id="notif_drop" class="hidden">
-      <ul>
-        <li class="notif_list_item">hey</li>
-        <li class="notif_list_item">hi</li>
-        <li class="notif_list_item">ho</li>
-      </ul>
+        <ul>
+            <li class="notif_list_item">hey</li>
+            <li class="notif_list_item">hi</li>
+            <li class="notif_list_item">ho</li>
+        </ul>
     </div>
     <div id="prof_drop" class="hidden">
-      <ul>
-        <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
-        <li class="notif_list_item" id="logout_button">Log Out</li>
-      </ul>
+        <ul>
+            <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
+            <li class="notif_list_item" id="logout_button">Log Out</li>
+        </ul>
     </div>
     <div class="hidden" id="darken"></div>
     <!-- END OF NAVIGATION BAR -->
     <!-- BODY -->
     <div class="post_announcement">
-      <textarea class="announcement_textarea" id="main_textarea" placeholder="Make an announcement..."></textarea>
-      <input type="button" class="announcement_post_button" value="Post"></input>
+        <textarea class="announcement_textarea" id="main_textarea" placeholder="Make an announcement..."></textarea>
+        <input type="button" class="announcement_post_button" value="Post"></input>
     </div>
     <div class="announcements_list">
-      <!-- <div class="announcement" data-postNum="1">
+        <!-- <div class="announcement" data-postNum="1">
         <div class="announcement_top">
           <img id="medium_prof_pic" src="./images/user.jpg"></img>
           <span class="announcement_poster">Farbod Rafezy</span>
@@ -85,98 +120,112 @@
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/autosize.js"></script>
     <script type="text/javascript">
-      autosize(document.querySelectorAll('textarea'));
+        autosize(document.querySelectorAll('textarea'));
     </script>
     <script type="text/javascript">
-
-    	// FUNCTION DEFINITIONS
-  		function createPost(text){
-  			//var title = localStorage.title
-  			var now = new Date();
-        var month = now.getMonth() + 1;
-  			var nameDate = localStorage.firstName + ' ' + localStorage.lastName + ' - ' + month + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes();
-        var postNum = 1;
-        if($('.announcement').first().length > 0){
-          postNum = parseInt($('.announcement').first().attr('data-postNum'))+1;
+        // FUNCTION DEFINITIONS
+        function createPost(text) {
+            //var title = localStorage.title
+            var now = new Date();
+            var month = now.getMonth() + 1;
+            var nameDate = localStorage.firstName + ' ' + localStorage.lastName + ' - ' + month + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes();
+            var postNum = 1;
+            if ($('.announcement').first().length > 0) {
+                postNum = parseInt($('.announcement').first().attr('data-postNum')) + 1;
+            }
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/announce", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText);
+                    if (xhr.responseText == "success") {
+                        $('.announcements_list').prepend('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">' +
+                            nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
+                        document.getElementById('main_textarea').value = "";
+                        $('#main_textarea').css("height", "56px");
+                        getPic(localStorage.username, $("#medium_prof_pic"));
+                    }
+                }
+            };
+            //var code = localStorage.teamCode;
+            xhr.send(JSON.stringify({
+                "user": localStorage.username,
+                "nameDate": nameDate,
+                "text": text.replace(/\n\r?/g, '<br />').replace(/'/g, "''")
+            }));
         }
-  			var xhr = new XMLHttpRequest();
-  			xhr.open("POST", "/f/announce", true);
-  			xhr.onreadystatechange = function() {
-  				if (xhr.readyState == 4&&xhr.status == 200){
-  					console.log(xhr.responseText);
-  					if (xhr.responseText == "success"){
-  						$('.announcements_list').prepend('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" src="./images/user.jpg"></img><span class="announcement_poster">'+ nameDate+ '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>'+text.replace(/\n\r?/g, '<br />')+'</div>')
-  						document.getElementById('main_textarea').value = "";
-  						$('#main_textarea').css("height", "56px");
-              getPic(localStorage.username, $("#medium_prof_pic"));
-  					}
-  				}
-  			};
-  			//var code = localStorage.teamCode;
-  			xhr.send(JSON.stringify({"user":localStorage.username, "nameDate":nameDate, "text":text.replace(/\n\r?/g, '<br />').replace(/'/g, "''")}));
-  		}
-  		function getAnnouncements(){
-  			//var code = localStorage.teamCode
-  			//var title = localStorage.title
-  			var xhr = new XMLHttpRequest();
-  			xhr.open("POST", "/f/getannouncements", true);
-  			xhr.onreadystatechange = function() {
-  				if (xhr.readyState == 4&&xhr.status == 200){
-  					if (xhr.responseText != "fail"){
-  						var announcements = JSON.parse(xhr.responseText);
-  						for (var i = announcements.length-1;i > -1;i--){
-  							var nameDate = announcements[i].nameDate;
-                var user = announcements[i].user;
-  							var text = announcements[i].text.replace(/\n\r?/g, '<br />');
-                var postNum = announcements[i].postNum;
-  							$('.announcements_list').append('<div class="announcement" data-postNum="'+ postNum +'"><div class="announcement_top"><img id="medium_prof_pic" class="poster_pic'+i+'" src="./images/user.jpg"></img><span class="announcement_poster">' + nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>'+text.replace(/\n\r?/g, '<br />')+'</div>')
-  							document.getElementById('main_textarea').value = "";
-  							$('#main_textarea').css("height", "56px");
-                var prof_pic_class = ".poster_pic"+i;
-                var target = $(prof_pic_class);
-                getPic(user, target);
-  						}
-  					}
-  				}
-  			};
-  			xhr.send(JSON.stringify({"user":localStorage.username, "title":"PUT TITLE)"}));
-  		}
-      function deletePost(){
-        //
-      }
 
-      $(document).ready(function(){
+        function getAnnouncements() {
+            //var code = localStorage.teamCode
+            //var title = localStorage.title
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/getannouncements", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText != "fail") {
+                        var announcements = JSON.parse(xhr.responseText);
+                        for (var i = announcements.length - 1; i > -1; i--) {
+                            var nameDate = announcements[i].nameDate;
+                            var user = announcements[i].user;
+                            var text = announcements[i].text.replace(/\n\r?/g, '<br />');
+                            var postNum = announcements[i].postNum;
+                            $('.announcements_list').append('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" class="poster_pic' + i +
+                                '" src="./images/user.jpg"></img><span class="announcement_poster">' + nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
+                            document.getElementById('main_textarea').value = "";
+                            $('#main_textarea').css("height", "56px");
+                            var prof_pic_class = ".poster_pic" + i;
+                            var target = $(prof_pic_class);
+                            getPic(user, target);
+                        }
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({
+                "user": localStorage.username,
+                "title": "PUT TITLE)"
+            }));
+        }
 
-      	getAnnouncements(); // getting announcements is first priority on this page
+        function deletePost() {
+            //
+        }
 
-        $('.announcement_post_button').click(function(){
-          var message = (new nicEditors.findEditor('main_textarea')).getContent();
-          var comExists = message.indexOf(".com") > -1;
-          var coExists = message.indexOf(".co." ) > -1;
-          var orgExists = message.indexOf(".org") > -1;
-          var netExists = message.indexOf(".net") > -1;
-          var httpExists = (message.indexOf("http://") > -1 && (comExists || coExists || orgExists || netExists));
-          var wwwExists =  (message.indexOf("www.") > -1 && (comExists || coExists || orgExists || netExists));
-          var linkExists = httpExists || wwwExists || comExists || coExists || orgExists || netExists;
-          if(linkExists){ // checks for manually typed links in announcement
-            // wrap link with <a> tags
-          }
-          createPost(message) // posts announcement
-        });
-        $(document).on("click", ".delete_icon", function(){
-          if(window.confirm("Are you sure?")){
-            var target = $(this).parent();
-            var data = JSON.stringify({"postNum": parseInt(target.attr('data-postNum')), "user":localStorage.username})
-            $.post("/f/deletePost", data, function(response){
-              if(response == "success"){
-                target.remove();
-              }
+        $(document).ready(function() {
+
+            getAnnouncements(); // getting announcements is first priority on this page
+
+            $('.announcement_post_button').click(function() {
+                var message = (new nicEditors.findEditor('main_textarea')).getContent();
+                var comExists = message.indexOf(".com") > -1;
+                var coExists = message.indexOf(".co.") > -1;
+                var orgExists = message.indexOf(".org") > -1;
+                var netExists = message.indexOf(".net") > -1;
+                var httpExists = (message.indexOf("http://") > -1 && (comExists || coExists || orgExists || netExists));
+                var wwwExists = (message.indexOf("www.") > -1 && (comExists || coExists || orgExists || netExists));
+                var linkExists = httpExists || wwwExists || comExists || coExists || orgExists || netExists;
+                if (linkExists) { // checks for manually typed links in announcement
+                    // wrap link with <a> tags
+                }
+                createPost(message) // posts announcement
             });
-          }
-        });
+            $(document).on("click", ".delete_icon", function() {
+                if (window.confirm("Are you sure?")) {
+                    var target = $(this).parent();
+                    var data = JSON.stringify({
+                        "postNum": parseInt(target.attr('data-postNum')),
+                        "user": localStorage.username
+                    })
+                    $.post("/f/deletePost", data, function(response) {
+                        if (response == "success") {
+                            target.remove();
+                        }
+                    });
+                }
+            });
 
-      });
-      window.onunload = function(){};
+        });
+        window.onunload = function() {};
     </script>
-  </body>
+</body>
+
 </html>

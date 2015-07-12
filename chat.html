@@ -21,41 +21,72 @@
     </script>
 </head>
 
-  <body>
+<body>
     <!-- NAVIGATION BAR -->
     <div class="navigation_bar">
-      <ul id="navbar_list">
-        <li class="navbar_item"><input type="text" placeholder="search users" class="searchbox"></input></li>
-        <li class="navbar_item">
-          <div id="categories">
-           <ul>
-            <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!--
-            --><li class="navbar_item navbar_link active" id="chat_link" onclick="location='chat.html'"><span class="glyphicon glyphicon-comment"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'"><span class="glyphicon glyphicon-cog"></span><div class="border"></div></li>
-           </ul>
-          </div>
-        </li>
-        <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
-        <li class="navbar_item" id="profile_id"><img class="small_prof_pic" id="small_prof_pic" src="./images/user.jpg"></img></li>
-        <li class="navbar_item" id="profile_name"><span id="name_link"></span></li>
-      </ul>
+        <ul id="navbar_list">
+            <li class="navbar_item">
+                <input type="text" placeholder="search users" class="searchbox"></input>
+            </li>
+            <li class="navbar_item">
+                <div id="categories">
+                    <ul>
+                        <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'">
+                            <span class="glyphicon glyphicon-home"></span>
+                            <div class="hborder"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link active" id="chat_link" onclick="location='chat.html'">
+                            <span class="glyphicon glyphicon-comment"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'">
+                            <span class="glyphicon glyphicon-hdd"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            <div class="border"></div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="navbar_item" id="notif_button">
+                <span class="glyphicon glyphicon-inbox"></span>
+            </li>
+            <li class="navbar_item" id="profile_id">
+                <img class="small_prof_pic" id="small_prof_pic" src="./images/user.jpg"></img>
+            </li>
+            <li class="navbar_item" id="profile_name">
+                <span id="name_link"></span>
+            </li>
+        </ul>
     </div>
     <div class="triangle_thing_notif hidden"></div>
     <div class="triangle_thing_prof hidden"></div>
     <div id="notif_drop" class="hidden">
-      <ul>
-        <li class="notif_list_item">hey</li>
-        <li class="notif_list_item">hi</li>
-        <li class="notif_list_item">ho</li>
-      </ul>
+        <ul>
+            <li class="notif_list_item">hey</li>
+            <li class="notif_list_item">hi</li>
+            <li class="notif_list_item">ho</li>
+        </ul>
     </div>
     <div id="prof_drop" class="hidden">
-      <ul>
-        <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
-        <li class="notif_list_item" id="logout_button">Log Out</li>
-      </ul>
+        <ul>
+            <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
+            <li class="notif_list_item" id="logout_button">Log Out</li>
+        </ul>
     </div>
     <div class="hidden" id="darken"></div>
     <!-- END OF NAVIGATION BAR -->
@@ -103,10 +134,12 @@
                         people = users;
                         listUsers(users);
                         $(".small_prof_pic").load(function() {
-                          $(this).css('visibility','visible').hide().fadeIn(300);
+                            $(this).css('visibility', 'visible').hide().fadeIn(300);
                         })
                     }
                     console.log(xhr.responseText);
+                    getAndLoadGroupChats(); //gets list of group chats and displays on the leftbar
+                    console.log("Called getAndLoadGroupChats() here");
                 }
             };
             xhr.send(JSON.stringify({
@@ -122,10 +155,11 @@
                 li.attr("class", "chat_name");
                 li.attr("data-username2", users[i].user);
                 li.attr("data-name", name);
+                li.attr("data-type", "private");
                 li.html('<a href="#"><img class="small_prof_pic temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic"></img></a>' + name);
                 $('.users_list').append(li);
-                getPic(users[i].user , $(".other_user_pic" + i));
-                if(i==0){
+                getPic(users[i].user, $(".other_user_pic" + i));
+                if (i == 0) {
                     $(li).trigger("click");
                 }
             }
@@ -144,42 +178,84 @@
 
         function createMessageOther(content, name, username, isLoad) {
             if (isLoad) {
-                $('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='show' id='small_prof_pic' src='./images/1.jpg'></img>" + "<p class='chat_opponent'>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </p class='chat_opponent'>" +
+                $('.chat_area').prepend("<div class='bubble_wrapper'><div class='other_bubble'><img class='show-" + username + "' id='small_prof_pic' src='/f/getPic?user=" + username + "'></img>" + "<p class='chat_opponent'>" + name.replace(/</g,
+                        "&lt").replace(/\r?\n/g, '<br />') +
+                    ": </p class='chat_opponent'>" +
                     content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
-                getPic(username, $(".show"));
+                getPic(username, $(".show-" + username));
             } else {
-                $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='show' id='small_prof_pic' src='./images/1.jpg'></img>" + "<p class='chat_opponent'>" + name.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + ": </p class='chat_opponent'>" +
+                $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='show-" + username + "' id='small_prof_pic' src='/f/getPic?user=" + username + "'></img>" + "<p class='chat_opponent'>" + name.replace(/</g,
+                        "&lt").replace(/\r?\n/g, '<br />') +
+                    ": </p class='chat_opponent'>" +
                     content.replace(/</g, "&lt").replace(/\r?\n/g, '<br />') + "</div></div>")
                 $(".chat_area").animate({
                     scrollTop: $('.chat_area')[0].scrollHeight
                 }, 400);
-                getPic(username, $(".show"));
+                getPic(username, $(".show-" + username));
             }
         }
 
         function sendMessage(message) {
-          if(message.replace(/\s/g, '') != ""){
-              var xhr = new XMLHttpRequest();
-              xhr.open("POST", "/f/addmessage", true);
-              xhr.onreadystatechange = function() {
-                  if (xhr.readyState == 4 && xhr.status == 200) {
-                      if (xhr.responseText == "success") {
-                          socket.emit("newmessage", {
-                              "user": localStorage.username,
-                              "name": localStorage.firstName + " " + localStorage.lastName,
-                              "message": message,
-                              "chatcode": chatcode
-                          });
-                      }
-                  }
-              };
-              xhr.send(JSON.stringify({
-                  "name": localStorage.firstName + " " + localStorage.lastName,
-                  "username": localStorage.username,
-                  "message": message.replace(/'/g, "''").replace(/</g, "&lt"),
-                  "chatcode": chatcode
-              }));
+            console.log(chatcode)
+            if (message.replace(/\s/g, '') != "") {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/f/addmessage", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        if (xhr.responseText == "success") {
+                            socket.emit("newmessage", {
+                                "user": localStorage.username,
+                                "name": localStorage.firstName + " " + localStorage.lastName,
+                                "message": message,
+                                "chatcode": chatcode
+                            });
+                        }
+                    }
+                };
+                xhr.send(JSON.stringify({
+                    "name": localStorage.firstName + " " + localStorage.lastName,
+                    "username": localStorage.username,
+                    "message": message.replace(/'/g, "''").replace(/</g, "&lt"),
+                    "chatcode": chatcode
+                }));
             }
+        }
+
+        function loadGroupMessages(chatID) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/loadgroupmessages", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    $(".chat_area").empty();
+                    chatcode = chatID;
+                    var data = JSON.parse(xhr.responseText);
+                    var messages = data.messages;
+                    socket.emit("updateclient", {
+                        "user": localStorage.username,
+                        "chatcode": chatcode
+                    });
+                    socket.on("updated", function(data) {
+                        $(".chat_area").empty();
+                        for (var i = 0; i < 20; i++) {
+                            if (i >= messages.length) {
+                                break;
+                            } else {
+                                var message = messages[messages.length - i - 1];
+                                if (message.user == localStorage.username) {
+                                    createMessageSelf(message.message, message.sender, true);
+                                } else {
+                                    createMessageOther(message.message, message.sender, message.user, true);
+                                }
+                            }
+                        }
+                        $('.chat_area').scrollTop($('.chat_area')[0].scrollHeight);
+                    });
+                }
+            };
+            xhr.send(JSON.stringify({
+                "user": localStorage.username,
+                "chatID": chatID
+            }));
         }
 
         function getChatCodeAndLoadMessages(user2, username2) {
@@ -233,6 +309,28 @@
             }));
         }
 
+        function getAndLoadGroupChats() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/getgroupchats", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var groups = JSON.parse(xhr.responseText);
+                    console.log(localStorage.username);
+                    for (var i = 0; i < groups.length; i++) {
+                        var li = $(document.createElement("li"));
+                        li.attr("class", "chat_name");
+                        li.attr("data-type", "group");
+                        li.attr("data-groupid", groups[i].groupID);
+                        li.html('<a href="#"><img class="small_prof_pic temp online"id="small_prof_pic"></img></a>' + groups[i].groupName);
+                        $('.users_list').append(li);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({
+                "user": localStorage.username
+            }));
+        }
+
         function showNewMessageNotice(sender, content) { // sender is first name + " " + last name of the sender of the message
             var newMessageNotice = new jBox('Notice', {
                 attributes: {
@@ -265,7 +363,6 @@
         $(document).ready(function() {
 
             getTeammates(); // gets list of teammates and displays on the leftbar
-
             var group_modal = new jBox('Modal', {
                 width: 350,
                 height: 345,
@@ -288,7 +385,7 @@
                 var content = "";
                 for (var i = 0; i < people.length; i++) {
                     var person = people[i].first + " " + people[i].last;
-                    var nameP = "<p class='selected_group_name'>" + person + "</p>"
+                    var nameP = "<p class='selected_group_name' data-username='" + people[i].user + "'>" + person + "</p>"
                     content += nameP;
                 }
                 var initialContent =
@@ -296,12 +393,33 @@
                     content + "</div><br/><input type='button' value='Make Group' id='group_button'></input>"
                 group_modal.setContent(initialContent);
             }
-
             $(document).on("click", "#group_button", function() {
-                group_modal.close();
-
                 // code to create group
-
+                var chatName = $("#group_name").val();
+                var usersBadges = $("p.clicked");
+                var users = [];
+                for (var i = 0; i < usersBadges.length; i++) {
+                    users.push($(usersBadges[i]).attr("data-username"));
+                }
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/f/creategroupchat", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var data = JSON.parse(xhr.responseText);
+                        var li = $(document.createElement("li"));
+                        li.attr("class", "chat_name");
+                        li.attr("data-type", "group");
+                        li.attr("data-groupid", data.chatID);
+                        li.html('<a href="#"><img class="small_prof_pic temp online"id="small_prof_pic"></img></a>' + data.chatName);
+                        $('.users_list').append(li);
+                        group_modal.close();
+                    }
+                };
+                xhr.send(JSON.stringify({
+                    "creator": localStorage.username,
+                    "chatName": chatName,
+                    "users": users
+                }));
             });
 
             if (navigator.platform.indexOf("Mac") == -1) {
@@ -313,8 +431,12 @@
                 $(".reply_box").removeClass("hidden");
                 autosize.update(ta);
                 if ($(this).attr("class") == "chat_name") {
-                    getChatCodeAndLoadMessages($(this).attr("data-name"), $(this).attr("data-username2"));
-                    //console.log($(this).attr("data-name") + ", " + $(this).attr("data-username2"));
+                    if ($(this).attr("data-type") == "private") {
+                        getChatCodeAndLoadMessages($(this).attr("data-name"), $(this).attr("data-username2"));
+                        //console.log($(this).attr("data-name") + ", " + $(this).attr("data-username2"));
+                    } else {
+                        loadGroupMessages($(this).attr("data-groupid"));
+                    }
                 }
             });
 
@@ -323,7 +445,7 @@
                 if (data.user == localStorage.username) {
                     createMessageSelf(data.message, data.name, false);
                 } else {
-                    createMessageOther(data.message, data.name, false);
+                    createMessageOther(data.message, data.name, data.user, false);
                 }
             });
 
@@ -381,13 +503,11 @@
                 } else {
                     $(this).addClass('clicked');
                 }
-
             });
-
         });
 
         window.onunload = function() {};
     </script>
-  </body>
+</body>
 
 </html>
