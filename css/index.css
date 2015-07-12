@@ -35,6 +35,23 @@ img:not(.doc_category_icon, .spinner){
 	box-shadow: 1px 4px 6px #ababab;
 	z-index: 90;
 }
+.hide_leftbar{
+	position: fixed;
+	left: 220px;
+	top: calc(100% - 40px);
+	background-color: orange;
+	width: 28px;
+	height: 30px;
+	padding: 6.5px;
+	padding-left: 7px;
+	cursor: pointer;
+	z-index: 99;
+	border-radius: 20px;
+	box-shadow: 0px 2px 8px -4px black;
+}
+.hide_leftbar:hover{
+	background-color: darkOrange;
+}
 .profile_pic{
 	margin: 24px 54px 0px 54px;
 	width:150px;
@@ -843,13 +860,12 @@ input[type=checkbox]:checked + label:before {
 }
 .reply_textarea:focus{
 	border: 1px solid #FFB524;
-	outline: 0;
 }
 .documents_list{
 	position: absolute;
-	width: calc(100vw - 380px);
+	width: calc(100vw - 320px);
 	height: calc(100vh - 50px);
-	left: 320px;
+	left: 300px;
 	top: 60px;
 }
 .doc_preview{
@@ -870,6 +886,7 @@ input[type=checkbox]:checked + label:before {
 	width: 150px;
 	cursor: pointer;
 	box-shadow: 3px 3px 8px #a9a9a9;
+	display: inline-block;
 }
 .word_doc{
 	background-color: #268dd7;
@@ -888,7 +905,7 @@ input[type=checkbox]:checked + label:before {
 }
 
 .keynote_doc{
-	background-color: #c62400
+	background-color: #c62400;
 }
 
 .default_doc{
@@ -926,8 +943,24 @@ input[type=checkbox]:checked + label:before {
 }
 .doc_title > span{
 		display: inline-block;
-    vertical-align: middle;
     line-height: 1.3em;
+		max-height: 37px;
+}
+.doc_delete{
+	position: absolute;
+	right: 0px;
+	top: 43px;
+}
+.file_size{
+	position: absolute;
+	left: 0px;
+	top: 43px;
+	opacity: .7;
+	font-size: 14px;
+}
+.doc_delete:hover{
+	color: #a9a9a9;
+	cursor: pointer;
 }
 .delete_icon{
 	position: absolute;

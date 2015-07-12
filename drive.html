@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link href="jbox/jBox.css" rel="stylesheet">
+    <link href="jbox/themes/TooltipDark.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <script type="text/javascript">
       if(localStorage.userToken == undefined){
@@ -72,70 +73,73 @@
 
     <!-- BODY -->
     <div class="container-fluid documents_list hidden">
-      <div class="row">
+      <div class="grid">
         <input type="file" id="file" class="hidden" multiple></input>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame add_file">
+        <div style="z-index:1;" class="doc_frame add_file">
           <span id="add_file_sign" class="glyphicon glyphicon-plus"></span>
         </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
+        <div style="z-index:1;" class="doc_frame word_doc">
           <img src="./images/word.png" class="doc_preview" />
-          <span class="doc_title"><span>Word Document That Is Very Long.docx</span></span>
+          <span class="doc_title">
+            <span>Word Document 1 that has a very long title so that i can see what the overflow looks like</span>
+            <span class="file_size">267.7 KB</span>
+            <span class="glyphicon glyphicon-trash doc_delete"></span>
+          </span>
         </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
-          <img src="./images/word.png" class="doc_preview" />
-          <span class="doc_title"><span>Word Document 4</span></span>
-        </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame pdf_doc">
+        <div style="z-index:1;" class="doc_frame pdf_doc">
           <img src="./images/pdf.png" class="doc_preview" />
-          <span class="doc_title"><span>PDF Document 5</span></span>
+          <span class="doc_title">
+            <span>PDF Document 1</span>
+            <span class="file_size">1.7 MB</span>
+            <span class="glyphicon glyphicon-trash doc_delete"></span>
+          </span>
         </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame excel_doc">
+        <div style="z-index:1;" class="doc_frame excel_doc">
           <img src="./images/xc.png" class="doc_preview" />
-          <span class="doc_title"><span>Excel Spreadsheet 6</span></span>
+          <span class="doc_title">
+            <span>Excel Spreadsheet 1</span>
+            <span class="file_size">2.2 MB</span>
+            <span class="glyphicon glyphicon-trash doc_delete"></span>
+          </span>
         </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame keynote_doc">
+        <div style="z-index:1;" class="doc_frame keynote_doc">
           <img src="./images/keynote.png" class="doc_preview" />
-          <span class="doc_title"><span>Powerpoint Document 7</span></span>
-        </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame default_doc">
+          <span class="doc_title">
+            <span>Powepoint Document 1</span>
+            <span class="file_size">5.9 MB</span>
+            <span class="glyphicon glyphicon-trash doc_delete"></span>
+          </span>        </div>
+        <div style="z-index:1;" class="doc_frame default_doc">
           <img src="./images/file.png" class="doc_preview" />
-          <span class="doc_title"><span>Unknown Document 8</span></span>
+          <span class="doc_title">
+            <span>Unknown File Type 1</span>
+            <span class="file_size">14.7 MB</span>
+            <span class="glyphicon glyphicon-trash doc_delete"></span>
+          </span>
         </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
-          <img src="./images/cliff.jpg" class="doc_preview image_preview"/>
-          <span class="doc_title"><span>Cliff Image</span></span>
-        </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
-          <img src="./images/word.png" class="doc_preview" />
-          <span class="doc_title"><span>Word Document 9</span></span>
-        </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame audio_doc">
+        <div style="z-index:1;" class="doc_frame audio_doc">
           <img src="./images/audio.png" class="doc_preview" />
-          <span class="doc_title"><span>Audio Document 10</span></span>
+          <span class="doc_title">
+            <span>Audio File 1</span>
+            <span class="file_size">6.9 MB</span>
+            <span class="glyphicon glyphicon-trash doc_delete"></span>
+          </span>
         </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame pdf_doc">
-          <img src="./images/pdf.png" class="doc_preview" />
-          <span class="doc_title"><span>PDF Document 11</span></span>
-        </div>
-	      <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame word_doc">
-          <img src="./images/word.png" class="doc_preview" />
-          <span class="doc_title"><span>Word Document 12</span></span>
-        </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
+        <div style="z-index:1;" class="doc_frame image_doc">
           <img src="./images/sample1.jpg" class="doc_preview image_preview"/>
-          <span class="doc_title"><span>Image 1</span></span>
+          <span class="doc_title">
+            <span>Forest Image</span>
+            <span class="file_size">7.8 MB</span>
+            <span class="glyphicon glyphicon-trash doc_delete"></span>
+          </span>
         </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
+        <div style="z-index:1;" class="doc_frame image_doc">
           <img src="./images/sample2.jpg" class="doc_preview image_preview"/>
-          <span class="doc_title"><span>Image 2</span></span>
-        </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
-          <img src="./images/sample3.jpg" class="doc_preview image_preview"/>
-          <span class="doc_title"><span>Image 3</span></span>
-        </div>
-        <div style="z-index:1;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 doc_frame image_doc">
-          <img src="./images/sample4.jpg" class="doc_preview image_preview"/>
-          <span class="doc_title"><span>Image 4</span></span>
+          <span class="doc_title">
+            <span>Flower Image</span>
+            <span class="file_size">6.3 MB</span>
+            <span class="glyphicon glyphicon-trash doc_delete"></span>
+          </span>
         </div>
       </div>
     </div>
@@ -152,6 +156,7 @@
         <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Shared Files</li>
       </ul>
     </div>
+    <span class="glyphicon glyphicon-chevron-left hide_leftbar"></span>
     <!-- END OF LEFTBAR -->
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -160,6 +165,8 @@
 	  <script src="js/color-thief.js"></script>
     <script src="jbox/jBox.min.js"></script>
     <script src="js/dropzone.js"></script>
+    <script src="js/clamp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
 	  <script type="text/javascript" src="js/hex.js"></script>
     <script type="text/javascript">
@@ -191,15 +198,55 @@
       var target = loadingDiv
       spinner = new Spinner(opts).spin(target);
 
-			$('.doc_frame:not(.add_file)').click(function(){
-				alert( $(this).find(".doc_title").html() );
+      for( i=0 ; i<$('.doc_frame:not(.add_file)').length ; i++){
+        $($('.doc_frame:not(.add_file)')[i]).attr("title", $($('.doc_frame:not(.add_file)')[i]).find(".doc_title>span").html());
+      }
+
+      $('.doc_frame:not(.add_file)').jBox('Tooltip', {
+          delayOpen: 700,
+          delayClose: 300,
+          theme: "TooltipDark",
+          position:  {y: 'bottom'}
+      });
+
+			$('.doc_frame:not(.add_file)').click(function(e){
+        var a = $(e.target);
+        var b = $(this).find(".doc_delete");
+        if( !( a[0] == b[0] ) ){
+
+          // OPEN OR DOWNLOAD THE DOCUMENT HERE
+
+				  alert( $(this).find(".doc_title>span").html() );  // title of document
+        }
 			});
+      $(".doc_delete").click(function(){
+
+        // if(window.confirm("Are you sure?")){
+
+          // DELETE THE DOCUMENT FROM THE SERVER HERE
+
+          /*
+             gets rid of the document
+             representationin the DOM
+          */
+          $(this).parent().parent().fadeOut(300);
+          setTimeout(function(){
+            $(this).parent().parent().remove();
+            $grid.isotope();
+          }, 400);
+        // }
+
+      });
+
 			$(".doc_frame").mouseenter(function(){
-				$(this).css("background-color", "#"+rgb2hex( $(this).css('backgroundColor') ).darkenHexColorBy(25)  );
+        originalColor = rgb2hex($(this).css("backgroundColor"));
+        $(this).animate({ backgroundColor: "#"+rgb2hex( $(this).css('backgroundColor') ).darkenHexColorBy(25) }, 130)
+        $(this).mouseleave(function(){
+            $(this).stop();
+            $(this).animate({ backgroundColor: originalColor }, 100)
+  			});
 			});
-			$(".doc_frame").mouseleave(function(){
-				$(this).css("background-color", "#"+rgb2hex( $(this).css('backgroundColor') ).lightenHexColorBy(25)  );
-			});
+
       var file_modal = new jBox('Modal', {
           width: 300,
           height: 230,
@@ -301,7 +348,42 @@
       $("html").mouseleave(function(){
           hideDropHere();
       });
-		});
+      var titles = $(".doc_title>span");
+      for( i=0 ; i<titles.length ; i++ ){
+        $clamp(titles[i], {clamp: 2})
+      }
+      function hideLeftbar(time, button){
+        $(".leftbar").animate({left: "-260px"}, time);
+        $(".documents_list").animate({left: "40px"}, time);
+        $(button).removeClass("glyphicon-chevron-left").addClass("glyphicon-chevron-right");
+        $(button).animate({left: "10px"}, time);
+        setTimeout(function(){
+          $(".documents_list").css("width", "calc(100vw - 60px)")
+          $grid.isotope();
+        }, time)
+      }
+      function showLeftbar(time, button){
+        $(".leftbar").animate({left: "0px"}, time);
+        $(".documents_list").animate({left: "300px"}, time);
+        $(button).removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-left");
+        $(button).animate({left: "220px"}, time);
+        setTimeout(function(){
+          $(".documents_list").css("width", "calc(100vw - 320px)")
+          $grid.isotope();
+        }, time);
+      }
+      $(".hide_leftbar").click(function(){
+        if($(this).hasClass("glyphicon-chevron-left")){
+          hideLeftbar(300, this);
+        }else{
+          showLeftbar(300, this);
+        }
+      });
+      if($(window).width() < 825){
+        hideLeftbar(0, ".hide_leftbar");
+      }
+
+    });
     $(window).load(function(){
       var img = new Array($(".image_preview").length);
       for( var i = 0 ; i<$(".image_preview").length ; i++ ){
@@ -323,7 +405,15 @@
         };
       }
       spinner.stop();
-      $(".documents_list").fadeIn(400).removeClass("hidden")
+      $(".documents_list").fadeIn(400).removeClass("hidden");
+      $grid = $('.grid').isotope({
+        // options
+        itemSelector: '.doc_frame',
+        layoutMode: 'fitRows',
+        transformEnabled: false,
+        isAnimated: false
+
+      });
     });
     window.onunload = function(){};
     </script>
