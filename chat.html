@@ -312,7 +312,7 @@
                         li.attr("class", "chat_name");
                         li.attr("data-type", "group");
                         li.attr("data-groupid", groups[i].groupID);
-                        li.html('<a href="#"><img class="small_prof_pic temp online"id="small_prof_pic"></img></a>' + groups[i].groupName);
+                        li.html('<a href="#"><img src="f/getPic?user='+groups[i].groupName+'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + groups[i].groupName);
                         $('.users_list').append(li);
                     }
                 }
@@ -329,7 +329,7 @@
                     y: 'bottom'
                 },
                 theme: 'NoticeBorder',
-                color: 'blue',
+                color: 'red',
                 audio: 'jbox/audio/bling2',
                 volume: 100,
                 animation: {
@@ -339,7 +339,8 @@
                 content: content,
                 maxWidth: 300,
                 maxHeight: 105,
-                title: sender
+                title: sender,
+                closeOnClick: 'body'
             });
         };
 
@@ -388,6 +389,7 @@
                 // code to create group
                 var chatName = $("#group_name").val();
                 var usersBadges = $("p.clicked");
+                var groupImageSrc = "placeholder"
                 var users = [];
                 for (var i = 0; i < usersBadges.length; i++) {
                     users.push($(usersBadges[i]).attr("data-username"));
@@ -401,7 +403,7 @@
                         li.attr("class", "chat_name");
                         li.attr("data-type", "group");
                         li.attr("data-groupid", data.chatID);
-                        li.html('<a href="#"><img class="small_prof_pic temp online"id="small_prof_pic"></img></a>' + data.chatName);
+                        li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + data.chatName);
                         $('.users_list').append(li);
                         group_modal.close();
                     }

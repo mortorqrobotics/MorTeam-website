@@ -13,6 +13,12 @@ body{
 img:not(.doc_category_icon, .spinner){
 	background-color: white;
 }
+img{
+  max-width:600px;
+  max-height:450px;
+  width: auto;
+  height: auto;
+}
 .hidden{
 	display: none;
 }
