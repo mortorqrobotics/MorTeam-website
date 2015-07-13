@@ -109,6 +109,7 @@
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/autosize.js"></script>
     <script type="text/javascript">
@@ -131,8 +132,10 @@
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     console.log(xhr.responseText);
                     if (xhr.responseText == "success") {
-                        $('.announcements_list').prepend('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" src="/f/getPic?user='+localStorage.username+'" onError="this.src=\'./images/user.jpg\'""></img><span class="announcement_poster">' +
+                        var $newMsg = $('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" src="/f/getPic?user='+localStorage.username+'" onError="this.src=\'./images/user.jpg\'""></img><span class="announcement_poster">' +
                             nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
+                        $('.announcements_list').prepend($newMsg).isotope('prepended', $newMsg)
+
                         document.getElementById('main_textarea').value = "";
                         $('#main_textarea').css("height", "56px");
                         getPic(localStorage.username, $("#medium_prof_pic"));
@@ -199,6 +202,7 @@
                     // wrap link with <a> tags
                 }
                 createPost(message) // posts announcement
+
             });
             $(document).on("click", ".delete_icon", function() {
                 if (window.confirm("Are you sure?")) {
@@ -209,13 +213,23 @@
                     })
                     $.post("/f/deletePost", data, function(response) {
                         if (response == "success") {
-                            target.remove();
+                            $ann.isotope('remove', target).isotope();
                         }
                     });
                 }
             });
 
+
         });
+        $(window).load(function(){
+
+          setTimeout(function(){
+            $ann = $(".announcements_list").isotope({
+              itemSelector: ".announcement",
+              layoutMode: "vertical"
+            });
+          }, 1)
+        })
         window.onunload = function() {};
     </script>
 </body>

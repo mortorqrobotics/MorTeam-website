@@ -708,12 +708,12 @@ input[type=checkbox]:checked + label:before {
 }
 .announcement{
 	max-width: 700px;
-	width: 90%;
+	width: 100%;
 	margin: 0 auto;
 	background-color: white;
 	/* border: 1px solid orange; */
 	padding: 10px;
-	margin-top: 15px;
+	margin-top: 0px;
 	border-radius: 1px;
 	font-size: 16px;
 	margin-bottom: 20px;
@@ -765,6 +765,10 @@ input[type=checkbox]:checked + label:before {
 .announcement_post_button:hover{
 	background-color: orange;
 }
+.announcements_list{
+	max-width: 700px;
+	margin: auto;
+}
 .reply_textarea{
 	width: 85%;
 	vertical-align: top;
@@ -777,43 +781,29 @@ input[type=checkbox]:checked + label:before {
 	border-radius: 5px;
 }
 .chat_area{
-	position: absolute;
 	max-width: 700px;
 	width: 60%;
 	min-width: 400px;
 	height: calc( 100% - 48px );
-	min-height: 400px;
+	min-height: 250px;
+	position: relative;
 	margin: 0 auto;
-	left: 50%;
-	margin-left: -30%;
-	/*border: 1px solid orange;*/
 	z-index: -1 !important;
 	overflow: auto;
 	border-left: 2px solid #cccccc;
-	border-right: 2px solid #ffc547;
+	border-right: 2px solid #ffc547;*/
 }
-@media screen and (min-width: 1415px) {
-    .chat_area{
-		margin-left: -350px;
-	}
-}
+
 .reply_box{
-	position: absolute;
+	position: relative;
 	max-width: 700px;
 	width: 60%;
 	min-width: 400px;
 	margin: 0 auto;
-	left: 50%;
-	margin-left: -30%;
 	/*border: 1px solid orange;*/
 	z-index: -1 !important;
 	overflow: hidden;
-	bottom: 10px;
-}
-@media screen and (min-width: 1415px) {
-	.reply_box{
-		margin-left: -350px;
-	}
+	margin-top: 9px;
 }
 .self_bubble{
 	background-color: #ffc547;
