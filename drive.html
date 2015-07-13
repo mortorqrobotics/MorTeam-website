@@ -79,6 +79,11 @@
           <span id="add_file_sign" class="glyphicon glyphicon-plus"></span>
         </div>
         <div style="z-index:1;" class="doc_frame word_doc">
+          <div class="hidden confirm_del">
+            <p>Are you sure?</p>
+            <input type="button" value="yes"></input>
+            <input type="button" value="no"></input>
+          </div>
           <img src="./images/word.png" class="doc_preview" />
           <span class="doc_title">
             <span>Word Document 1 that has a very long title so that i can see what the overflow looks like</span>
@@ -87,6 +92,11 @@
           </span>
         </div>
         <div style="z-index:1;" class="doc_frame pdf_doc">
+          <div class="hidden confirm_del">
+            <p>Are you sure?</p>
+            <input type="button" value="yes"></input>
+            <input type="button" value="no"></input>
+          </div>
           <img src="./images/pdf.png" class="doc_preview" />
           <span class="doc_title">
             <span>PDF Document 1</span>
@@ -95,6 +105,11 @@
           </span>
         </div>
         <div style="z-index:1;" class="doc_frame excel_doc">
+          <div class="hidden confirm_del">
+            <p>Are you sure?</p>
+            <input type="button" value="yes"></input>
+            <input type="button" value="no"></input>
+          </div>
           <img src="./images/xc.png" class="doc_preview" />
           <span class="doc_title">
             <span>Excel Spreadsheet 1</span>
@@ -103,6 +118,11 @@
           </span>
         </div>
         <div style="z-index:1;" class="doc_frame keynote_doc">
+          <div class="hidden confirm_del">
+            <p>Are you sure?</p>
+            <input type="button" value="yes"></input>
+            <input type="button" value="no"></input>
+          </div>
           <img src="./images/keynote.png" class="doc_preview" />
           <span class="doc_title">
             <span>Powepoint Document 1</span>
@@ -110,6 +130,11 @@
             <span class="glyphicon glyphicon-trash doc_delete"></span>
           </span>        </div>
         <div style="z-index:1;" class="doc_frame default_doc">
+          <div class="hidden confirm_del">
+            <p>Are you sure?</p>
+            <input type="button" value="yes"></input>
+            <input type="button" value="no"></input>
+          </div>
           <img src="./images/file.png" class="doc_preview" />
           <span class="doc_title">
             <span>Unknown File Type 1</span>
@@ -118,6 +143,11 @@
           </span>
         </div>
         <div style="z-index:1;" class="doc_frame audio_doc">
+          <div class="hidden confirm_del">
+            <p>Are you sure?</p>
+            <input type="button" value="yes"></input>
+            <input type="button" value="no"></input>
+          </div>
           <img src="./images/audio.png" class="doc_preview" />
           <span class="doc_title">
             <span>Audio File 1</span>
@@ -126,6 +156,11 @@
           </span>
         </div>
         <div style="z-index:1;" class="doc_frame image_doc">
+          <div class="hidden confirm_del">
+            <p>Are you sure?</p>
+            <input type="button" value="yes"></input>
+            <input type="button" value="no"></input>
+          </div>
           <img src="./images/sample1.jpg" class="doc_preview image_preview"/>
           <span class="doc_title">
             <span>Forest Image</span>
@@ -134,6 +169,11 @@
           </span>
         </div>
         <div style="z-index:1;" class="doc_frame image_doc">
+          <div class="hidden confirm_del">
+            <p>Are you sure?</p>
+            <input type="button" value="yes"></input>
+            <input type="button" value="no"></input>
+          </div>
           <img src="./images/sample2.jpg" class="doc_preview image_preview"/>
           <span class="doc_title">
             <span>Flower Image</span>
@@ -166,6 +206,7 @@
     <script src="jbox/jBox.min.js"></script>
     <script src="js/dropzone.js"></script>
     <script src="js/clamp.min.js"></script>
+    <script type="text/javascript" src="js/velocity.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
 	  <script type="text/javascript" src="js/hex.js"></script>
@@ -212,7 +253,8 @@
 			$('.doc_frame:not(.add_file)').click(function(e){
         var a = $(e.target);
         var b = $(this).find(".doc_delete");
-        if( !( a[0] == b[0] ) ){
+        var c = $(this).find("input");
+        if(  a[0] != b[0] && a[0] != c[0] && a[0] != c[1]){
 
           // OPEN OR DOWNLOAD THE DOCUMENT HERE
 
@@ -220,30 +262,39 @@
         }
 			});
       $(".doc_delete").click(function(){
+          var frame = $(this).parent().parent();
+          frame.unbind("click");
+          frame.find(".confirm_del").css("background-color", frame.css("background-color"));
+          frame.find(".confirm_del").fadeIn(150).removeClass("hidden");
+          $('input[type="button"][value="yes"]').click(function(){
+            $(this).parent().parent().fadeOut(300);
+            setTimeout(function(){
+              $(this).parent().parent().remove();
+              $grid.isotope();
+            }, 400);
+          });
+          $('input[type="button"][value="no"]').click(function(){
+            frame.bind("click", function(e){
+              var a = $(e.target);
+              var b = $(this).find(".doc_delete");
+              var c = $(this).find("input");
+              if(  a[0] != b[0] && a[0] != c[0] && a[0] != c[1]){
 
-        // if(window.confirm("Are you sure?")){
+                // OPEN OR DOWNLOAD THE DOCUMENT HERE
 
-          // DELETE THE DOCUMENT FROM THE SERVER HERE
-
-          /*
-             gets rid of the document
-             representationin the DOM
-          */
-          $(this).parent().parent().fadeOut(300);
-          setTimeout(function(){
-            $(this).parent().parent().remove();
-            $grid.isotope();
-          }, 400);
-        // }
-
+      				  alert( $(this).find(".doc_title>span").html() );  // title of document
+              }
+      			});
+            frame.find(".confirm_del").fadeOut(150);
+          });
       });
 
 			$(".doc_frame").mouseenter(function(){
         originalColor = rgb2hex($(this).css("backgroundColor"));
-        $(this).animate({ backgroundColor: "#"+rgb2hex( $(this).css('backgroundColor') ).darkenHexColorBy(25) }, 130)
+        $(this).velocity({ backgroundColor: "#"+rgb2hex( $(this).css('backgroundColor') ).darkenHexColorBy(25) }, 130)
         $(this).mouseleave(function(){
             $(this).stop();
-            $(this).animate({ backgroundColor: originalColor }, 100)
+            $(this).velocity({ backgroundColor: originalColor }, 100)
   			});
 			});
 
@@ -353,20 +404,20 @@
         $clamp(titles[i], {clamp: 2})
       }
       function hideLeftbar(time, button){
-        $(".leftbar").animate({left: "-260px"}, time);
-        $(".documents_list").animate({left: "40px"}, time);
+        $(".leftbar").velocity({left: "-260px"}, time);
+        $(".documents_list").velocity({left: "40px"}, time);
         $(button).removeClass("glyphicon-chevron-left").addClass("glyphicon-chevron-right");
-        $(button).animate({left: "10px"}, time);
+        $(button).velocity({left: "10px"}, time);
         setTimeout(function(){
           $(".documents_list").css("width", "calc(100vw - 60px)")
           $grid.isotope();
         }, time)
       }
       function showLeftbar(time, button){
-        $(".leftbar").animate({left: "0px"}, time);
-        $(".documents_list").animate({left: "300px"}, time);
+        $(".leftbar").velocity({left: "0px"}, time);
+        $(".documents_list").velocity({left: "300px"}, time);
         $(button).removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-left");
-        $(button).animate({left: "220px"}, time);
+        $(button).velocity({left: "220px"}, time);
         setTimeout(function(){
           $(".documents_list").css("width", "calc(100vw - 320px)")
           $grid.isotope();

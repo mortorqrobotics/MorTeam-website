@@ -84,10 +84,12 @@
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
-    <div class="chat_area hidden" id="chat_area"></div>
-    <div class="reply_box hidden">
-        <textarea rows="1" class="reply_textarea"></textarea>
-        <input type="button" class="send_button" value="send"></input>
+    <div class="chat_wrapper">
+      <div class="chat_area hidden" id="chat_area"></div>
+      <div class="reply_box hidden">
+          <textarea rows="1" class="reply_textarea"></textarea>
+          <input type="button" class="send_button" value="send"></input>
+      </div>
     </div>
     <!-- END OF BODY -->
 
@@ -98,12 +100,15 @@
                 <span id="make_group" class="glyphicon glyphicon-plus"></span>Make Group</li>
         </ul>
     </div>
+    <span class="glyphicon glyphicon-chevron-left hide_leftbar"></span>
     <!-- END OF LEFTBAR -->
     <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="js/clamp.min.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/autosize.js"></script>
+    <script type="text/javascript" src="js/velocity.min.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script src='js/perfect-scrollbar.jquery.min.js'></script>
     <script src="jbox/jBox.min.js"></script>
@@ -148,10 +153,8 @@
                 li.attr("data-username2", users[i].user);
                 li.attr("data-name", name);
                 li.attr("data-type", "private");
-                li.html('<a href="#"><img src="/f/getPic?user='+users[i].user+'" onError="this.src=\'./images/user.jpg\'" class="small_prof_pic temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic"></img></a>' + name);
+                li.html('<a href="#"><img src="/f/getPic?user='+users[i].user+'" onError="this.src=\'./images/user.jpg\'" class="small_prof_pic temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">' + name + '</span>');
                 $('.users_list').append(li);
-                //getPic(users[i].user, $(".other_user_pic" + i));
-                //console.log($(".other_user_pic" + i).attr("src"));
                 if (i == 0) {
                     $(li).trigger("click");
                 }
@@ -312,7 +315,7 @@
                         li.attr("class", "chat_name");
                         li.attr("data-type", "group");
                         li.attr("data-groupid", groups[i].groupID);
-                        li.html('<a href="#"><img src="f/getPic?user='+groups[i].groupName+'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + groups[i].groupName);
+                        li.html('<a href="#"><img src="f/getPic?user='+groups[i].groupName+'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">' + groups[i].groupName + '</span>');
                         $('.users_list').append(li);
                     }
                 }
@@ -403,7 +406,7 @@
                         li.attr("class", "chat_name");
                         li.attr("data-type", "group");
                         li.attr("data-groupid", data.chatID);
-                        li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + data.chatName);
+                        li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">'+data.chatName+'</span>');
                         $('.users_list').append(li);
                         group_modal.close();
                     }
@@ -448,7 +451,7 @@
             $('.reply_textarea').bind("input", function() { //checks for height change of reply text box and adjusts height of chat area accordingly
                 if ($(this).height() != replyInitialHeight) {
                     replyInitialHeight = $(this).height();
-                    $('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
+                    $('.chat_area').css('height', "calc(100% - 30px - " + $(this).height() + "px)");
                     $(".chat_area").animate({
                         scrollTop: $('.chat_area')[0].scrollHeight
                     }, 400); // scrolls to bottom of conversation
@@ -467,7 +470,7 @@
                     $('.send_button').trigger("click");
                     $('.reply_textarea').val('');
                     autosize.update(ta);
-                    $('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)");
+                    $('.chat_area').css('height', "calc(100% - 30px - " + $(this).height() + "px)");
                 }
             });
             $('.send_button').click(function() {
@@ -497,6 +500,34 @@
                     $(this).addClass('clicked');
                 }
             });
+            
+            function hideLeftbar(time, button){
+              $(".leftbar").velocity({left: "-260px"}, time);
+              $(".chat_wrapper").velocity({left: "0px"}, time);
+              $(".chat_wrapper").velocity({width: "100vw"}, time);
+              $(button).removeClass("glyphicon-chevron-left").addClass("glyphicon-chevron-right");
+              $(button).velocity({left: "10px"}, time);
+            }
+            function showLeftbar(time, button){
+              $(".leftbar").velocity({left: "0px"}, time);
+              $(".chat_wrapper").velocity({left: "260px"}, time);
+              $(".chat_wrapper").velocity({width: "-=260px"}, time);
+              $(button).removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-left");
+              $(button).velocity({left: "220px"}, time);
+              setTimeout(function(){
+                $(".chat_wrapper").css("width", "calc(100vw - 260px)");
+              }, time + time)
+            }
+            $(".hide_leftbar").click(function(){
+              if($(this).hasClass("glyphicon-chevron-left")){
+                hideLeftbar(300, this);
+              }else{
+                showLeftbar(300, this);
+              }
+            });
+            if($(window).width() < 825){
+              hideLeftbar(0, ".hide_leftbar");
+            }
         });
 
         window.onunload = function() {};
