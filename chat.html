@@ -106,10 +106,10 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="js/clamp.min.js"></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/autosize.js"></script>
     <script type="text/javascript" src="js/velocity.min.js"></script>
-    <script type="text/javascript" src="js/socket.io.js"></script>
     <script src='js/perfect-scrollbar.jquery.min.js'></script>
     <script src="jbox/jBox.min.js"></script>
     <script type="text/javascript">
@@ -146,7 +146,7 @@
 
         function listUsers(users) {
             for (var i = 0; i < users.length; i++) {
-                var status = "online";
+                var status = users[i].status;
                 var name = users[i].first + " " + users[i].last;
                 var li = $(document.createElement("li"));
                 li.attr("class", "chat_name");
@@ -226,7 +226,8 @@
                     var messages = data.messages;
                     socket.emit("updateclient", {
                         "user": localStorage.username,
-                        "chatcode": chatcode
+                        "chatcode": chatcode,
+                        "teamcode": localStorage.teamCode
                     });
                     socket.on("updated", function(data) {
                         $(".chat_area").empty();
@@ -265,7 +266,8 @@
                         var messages = data.messages;
                         socket.emit("updateclient", {
                             "user": localStorage.username,
-                            "chatcode": chatcode
+                            "chatcode": chatcode,
+                            "teamcode": localStorage.teamCode
                         });
                         socket.on("updated", function(data) {
                             console.log("updated");
@@ -374,6 +376,21 @@
                         }).hide();
                     });
                 }
+            });
+
+            socket.on("updateindicator", function(data){
+                var items = $(".users_list li");
+                items.each(function(index,li) {
+                    if ($(li).attr("data-username2") == data.user && !$(li).hasClass("make_group") && $(li).attr("data-type") == "private"){
+                        if ($(li).children().children().hasClass("online")){
+                            $(li).children().children().removeClass("online");
+                        }
+                        else if ($(li).children().children().hasClass("offline")){
+                            $(li).children().children().removeClass("offline");
+                        }
+                        $(li).children().children().addClass(data.status);
+                    }
+                });
             });
 
             function loadUsersOnModal(people) {

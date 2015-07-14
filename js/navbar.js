@@ -24,7 +24,13 @@ $(document).ready(function() {
     $("#small_prof_pic").attr("onError", "this.src=\'./images/user.jpg\'");
 
     var fade_speed = 200;
-
+    
+    var socket = io.connect();
+    socket.emit("updateclient", {
+        "user": localStorage.username,
+        "chatcode": "",
+        "teamcode": localStorage.teamCode
+    });
 
 
     $('#notif_button').click(function() {
@@ -86,6 +92,7 @@ $(document).ready(function() {
         localStorage.removeItem('phone');
         localStorage.removeItem('email');
         localStorage.removeItem('teamName');
+        localStorage.removeItem('teamCode');
         localStorage.removeItem('teamNumber');
         location = "login.html";
     });
