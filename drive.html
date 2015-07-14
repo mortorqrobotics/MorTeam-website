@@ -86,7 +86,7 @@
           </div>
           <img src="./images/word.png" class="doc_preview" />
           <span class="doc_title">
-            <span>Word Document 1 that has a very long title so that i can see what the overflow looks like</span>
+            <span class="name">Word Document 1 that has a very long title so that i can see what the overflow looks like</span>
             <span class="file_size">267.7 KB</span>
             <span class="glyphicon glyphicon-trash doc_delete"></span>
           </span>
@@ -99,7 +99,7 @@
           </div>
           <img src="./images/pdf.png" class="doc_preview" />
           <span class="doc_title">
-            <span>PDF Document 1</span>
+            <span class="name">PDF Document 1</span>
             <span class="file_size">1.7 MB</span>
             <span class="glyphicon glyphicon-trash doc_delete"></span>
           </span>
@@ -112,7 +112,7 @@
           </div>
           <img src="./images/xc.png" class="doc_preview" />
           <span class="doc_title">
-            <span>Excel Spreadsheet 1</span>
+            <span class="name">Excel Spreadsheet 1</span>
             <span class="file_size">2.2 MB</span>
             <span class="glyphicon glyphicon-trash doc_delete"></span>
           </span>
@@ -125,7 +125,7 @@
           </div>
           <img src="./images/keynote.png" class="doc_preview" />
           <span class="doc_title">
-            <span>Powepoint Document 1</span>
+            <span class="name">Powepoint Document 1</span>
             <span class="file_size">5.9 MB</span>
             <span class="glyphicon glyphicon-trash doc_delete"></span>
           </span>        </div>
@@ -137,7 +137,7 @@
           </div>
           <img src="./images/file.png" class="doc_preview" />
           <span class="doc_title">
-            <span>Unknown File Type 1</span>
+            <span class="name">Unknown File Type 1</span>
             <span class="file_size">14.7 MB</span>
             <span class="glyphicon glyphicon-trash doc_delete"></span>
           </span>
@@ -150,7 +150,7 @@
           </div>
           <img src="./images/audio.png" class="doc_preview" />
           <span class="doc_title">
-            <span>Audio File 1</span>
+            <span class="name">Audio File 1</span>
             <span class="file_size">6.9 MB</span>
             <span class="glyphicon glyphicon-trash doc_delete"></span>
           </span>
@@ -163,7 +163,7 @@
           </div>
           <img src="./images/sample1.jpg" class="doc_preview image_preview"/>
           <span class="doc_title">
-            <span>Forest Image</span>
+            <span class="name">Forest Image</span>
             <span class="file_size">7.8 MB</span>
             <span class="glyphicon glyphicon-trash doc_delete"></span>
           </span>
@@ -176,7 +176,7 @@
           </div>
           <img src="./images/sample2.jpg" class="doc_preview image_preview"/>
           <span class="doc_title">
-            <span>Flower Image</span>
+            <span class="name">Flower Image</span>
             <span class="file_size">6.3 MB</span>
             <span class="glyphicon glyphicon-trash doc_delete"></span>
           </span>
@@ -267,11 +267,7 @@
           frame.find(".confirm_del").css("background-color", frame.css("background-color"));
           frame.find(".confirm_del").fadeIn(150).removeClass("hidden");
           $('input[type="button"][value="yes"]').click(function(){
-            $(this).parent().parent().fadeOut(300);
-            setTimeout(function(){
-              $(this).parent().parent().remove();
-              $grid.isotope();
-            }, 400);
+            $grid.isotope('remove', frame).isotope();
           });
           $('input[type="button"][value="no"]').click(function(){
             frame.bind("click", function(e){
@@ -435,6 +431,19 @@
       }
 
     });
+    function debounce( fn, threshold ) {
+      var timeout;
+      return function debounced() {
+        if ( timeout ) {
+          clearTimeout( timeout );
+        }
+        function delayed() {
+          fn();
+          timeout = null;
+        }
+        timeout = setTimeout( delayed, threshold || 100 );
+      }
+    }
     $(window).load(function(){
       var img = new Array($(".image_preview").length);
       for( var i = 0 ; i<$(".image_preview").length ; i++ ){
@@ -457,14 +466,37 @@
       }
       spinner.stop();
       $(".documents_list").fadeIn(400).removeClass("hidden");
+
+      var qsRegex;
+
       $grid = $('.grid').isotope({
         // options
         itemSelector: '.doc_frame',
         layoutMode: 'fitRows',
         transformEnabled: false,
-        isAnimated: false
+        isAnimated: false,
+        filter: function() {
+          return qsRegex ? $(this).text().match( qsRegex ) : true;
+        },
+        getSortData: {
+          name: '.name',
+          size: function( itemElem ) {
+            var size = $( itemElem ).find('.file_size').text();
+            if(size.indexOf("MB") > -1){
+              size = size.substring(0, size.indexOf("MB") );
+              return parseFloat( size.replace( /[\(\)]/g, '') ) * 1000;
+            }else{
+              return parseFloat( size.replace( /[\(\)]/g, '') );
+            }
+          }
+        }
 
       });
+
+      var $quicksearch = $('.searchbox').keyup( debounce( function() {
+        qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+        $grid.isotope();
+      }, 200 ) );
     });
     window.onunload = function(){};
     </script>
