@@ -81,8 +81,8 @@
         <div style="z-index:1;" class="doc_frame word_doc">
           <div class="hidden confirm_del">
             <p>Are you sure?</p>
-            <input type="button" value="yes"></input>
-            <input type="button" value="no"></input>
+            <input type="button" value="yes" class="yes"></input>
+            <input type="button" value="no" class="no"></input>
           </div>
           <img src="./images/word.png" class="doc_preview" />
           <span class="doc_title">
@@ -94,8 +94,8 @@
         <div style="z-index:1;" class="doc_frame pdf_doc">
           <div class="hidden confirm_del">
             <p>Are you sure?</p>
-            <input type="button" value="yes"></input>
-            <input type="button" value="no"></input>
+            <input type="button" value="yes" class="yes"></input>
+            <input type="button" value="no" class="no"></input>
           </div>
           <img src="./images/pdf.png" class="doc_preview" />
           <span class="doc_title">
@@ -107,8 +107,8 @@
         <div style="z-index:1;" class="doc_frame excel_doc">
           <div class="hidden confirm_del">
             <p>Are you sure?</p>
-            <input type="button" value="yes"></input>
-            <input type="button" value="no"></input>
+            <input type="button" value="yes" class="yes"></input>
+            <input type="button" value="no" class="no"></input>
           </div>
           <img src="./images/xc.png" class="doc_preview" />
           <span class="doc_title">
@@ -120,8 +120,8 @@
         <div style="z-index:1;" class="doc_frame keynote_doc">
           <div class="hidden confirm_del">
             <p>Are you sure?</p>
-            <input type="button" value="yes"></input>
-            <input type="button" value="no"></input>
+            <input type="button" value="yes" class="yes"></input>
+            <input type="button" value="no" class="no"></input>
           </div>
           <img src="./images/keynote.png" class="doc_preview" />
           <span class="doc_title">
@@ -132,8 +132,8 @@
         <div style="z-index:1;" class="doc_frame default_doc">
           <div class="hidden confirm_del">
             <p>Are you sure?</p>
-            <input type="button" value="yes"></input>
-            <input type="button" value="no"></input>
+            <input type="button" value="yes" class="yes"></input>
+            <input type="button" value="no" class="no"></input>
           </div>
           <img src="./images/file.png" class="doc_preview" />
           <span class="doc_title">
@@ -145,8 +145,8 @@
         <div style="z-index:1;" class="doc_frame audio_doc">
           <div class="hidden confirm_del">
             <p>Are you sure?</p>
-            <input type="button" value="yes"></input>
-            <input type="button" value="no"></input>
+            <input type="button" value="yes" class="yes"></input>
+            <input type="button" value="no" class="no"></input>
           </div>
           <img src="./images/audio.png" class="doc_preview" />
           <span class="doc_title">
@@ -158,8 +158,8 @@
         <div style="z-index:1;" class="doc_frame image_doc">
           <div class="hidden confirm_del">
             <p>Are you sure?</p>
-            <input type="button" value="yes"></input>
-            <input type="button" value="no"></input>
+            <input type="button" value="yes" class="yes"></input>
+            <input type="button" value="no" class="no"></input>
           </div>
           <img src="./images/sample1.jpg" class="doc_preview image_preview"/>
           <span class="doc_title">
@@ -171,8 +171,8 @@
         <div style="z-index:1;" class="doc_frame image_doc">
           <div class="hidden confirm_del">
             <p>Are you sure?</p>
-            <input type="button" value="yes"></input>
-            <input type="button" value="no"></input>
+            <input type="button" value="yes" class="yes"></input>
+            <input type="button" value="no" class="no"></input>
           </div>
           <img src="./images/sample2.jpg" class="doc_preview image_preview"/>
           <span class="doc_title">
@@ -189,7 +189,7 @@
     <div class="leftbar">
       <ul>
         <li class="drive_name drive_options">
-          <div class="btn-group">
+          <div class="btn-group sort_by_dropdown">
             <button class="button dropdown-toggle" data-toggle="dropdown">Sort By<span class="caret"></span></button>
             <ul class="dropdown-menu">
               <li class="sort_by">Date</li>
@@ -198,6 +198,8 @@
               <li class="sort_by">Type</li>
             </ul>
           </div>
+          <!-- <span class="glyphicon glyphicon-th grid_layout"></span>
+          <span class="glyphicon glyphicon-th-list list_layout"></span>  UN-COMMENT WHEN LIST LAYOUT IS READY   -->
         </li>
         <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-plus"></span>New Folder</li>
         <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>All Files</li>
@@ -275,24 +277,21 @@
 			});
       $(".doc_delete").click(function(){
           var frame = $(this).parent().parent();
-          frame.unbind("click");
+          // frame.unbind("click");
           frame.find(".confirm_del").css("background-color", frame.css("background-color"));
           frame.find(".confirm_del").fadeIn(150).removeClass("hidden");
-          $('input[type="button"][value="yes"]').click(function(){
-            $grid.isotope('remove', frame).isotope();
-          });
-          $('input[type="button"][value="no"]').click(function(){
-            frame.bind("click", function(e){
-              var a = $(e.target);
+          $(frame).click(function(e){
+            var a = $(e.target);
               var b = $(this).find(".doc_delete");
               var c = $(this).find("input");
               if(  a[0] != b[0] && a[0] != c[0] && a[0] != c[1]){
-
-                // OPEN OR DOWNLOAD THE DOCUMENT HERE
-
-      				  alert( $(this).find(".doc_title>span").html() );  // title of document
+                frame.find(".confirm_del").fadeOut(150);
               }
-      			});
+          });
+          $(frame.find(".yes")).click(function(){
+            $grid.isotope('remove', frame).isotope();
+          });
+          $(frame.find(".no")).click(function(){
             frame.find(".confirm_del").fadeOut(150);
           });
       });
@@ -530,39 +529,16 @@
         $grid.isotope();
       }, 200 ) );
 
-
-
-
-      var sorts = ["date", "name", "size", "type"];
-      if(localStorage.chosenSort != undefined){
-        var chosenSort = "";
-        $(".sort_by").removeClass("selected");
-        $( $(".sort_by")[sorts.indexOf(localStorage.chosenSort)] ).addClass("selected");
-        localStorage.chosenSort = $( $(".sort_by")[sorts.indexOf(localStorage.chosenSort)] ).html().toLowerCase();
-        if(localStorage.chosenSort === "date"){
-          chosenSort = "original-order";
-        }else{
-          chosenSort = localStorage.chosenSort;
-        }
-        $grid.isotope({sortBy: chosenSort})
-      }
-
       $(".sort_by").click(function(){
-        console.log("sort-by clicked");
         var chosenSort = "";
         $(".sort_by").removeClass("selected");
         $(this).addClass("selected");
-        localStorage.chosenSort = $(this).html().toLowerCase();
-        if(localStorage.chosenSort === "date"){
+        chosenSort = $(this).html().toLowerCase();
+        if(chosenSort === "date"){
           chosenSort = "original-order";
-        }else{
-          chosenSort = localStorage.chosenSort;
         }
         $grid.isotope({sortBy: chosenSort})
       });
-
-
-
 
     });
     window.onunload = function(){};

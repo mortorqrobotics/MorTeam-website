@@ -1187,3 +1187,30 @@ input[type=checkbox]:checked + label:before {
        -o-transition-duration: 0s;
           transition-duration: 0s;
 }
+.grid_layout{
+	position: absolute;
+	right: 40px;
+	top: 18px;
+	width: 30px;
+	height: 30px;
+	padding: 5px;
+	padding-left: 7px;
+}
+.list_layout{
+	position: absolute;
+	right: 10px;
+	top: 18px;
+	width: 30px;
+	height: 30px;
+	padding: 5px;
+	padding-left: 6px;
+}
+.list_layout:hover, .grid_layout:hover{
+	background-color: orange;
+	cursor: pointer;
+}
+.sort_by_dropdown{
+	position: absolute;
+	left: 10px;
+	top: 17px;
+}
