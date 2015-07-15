@@ -188,6 +188,17 @@
     <!-- LEFTBAR -->
     <div class="leftbar">
       <ul>
+        <li class="drive_name drive_options">
+          <div class="btn-group">
+            <button class="button dropdown-toggle" data-toggle="dropdown">Sort By<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li class="sort_by">Date</li>
+              <li class="sort_by">Name</li>
+              <li class="sort_by">Size</li>
+              <li class="sort_by">Type</li>
+            </ul>
+          </div>
+        </li>
         <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-plus"></span>New Folder</li>
         <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>All Files</li>
         <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Subdivision Files</li>
@@ -288,10 +299,9 @@
 
 			$(".doc_frame").mouseenter(function(){
         originalColor = rgb2hex($(this).css("backgroundColor"));
-        $(this).velocity({ backgroundColor: "#"+rgb2hex( $(this).css('backgroundColor') ).darkenHexColorBy(25) }, 130)
+        $(this).css({ backgroundColor: "#"+rgb2hex( $(this).css('backgroundColor') ).darkenHexColorBy(25) })
         $(this).mouseleave(function(){
-            $(this).stop();
-            $(this).velocity({ backgroundColor: originalColor }, 100)
+            $(this).css({ backgroundColor: originalColor })
   			});
 			});
 
@@ -489,6 +499,27 @@
             }else{
               return parseFloat( size.replace( /[\(\)]/g, '') );
             }
+          },
+          type: function( itemElem ) {
+            if( $(itemElem).hasClass("add_file") ){
+              return "a"
+            }else if( $(itemElem).hasClass("word_doc") ){
+              return "a";
+            }else if( $(itemElem).hasClass("pdf_doc") ){
+              return "b";
+            }else if( $(itemElem).hasClass("keynote_doc") ){
+              return "c";
+            }else if( $(itemElem).hasClass("excel_doc") ){
+              return "d";
+            }else if( $(itemElem).hasClass("audio_doc") ){
+              return "e";
+            }else if( $(itemElem).hasClass("default_doc") ){
+              return "f";
+            }else if( $(itemElem).hasClass("image_doc") ){
+              return "g";
+            }else{
+              return "z";
+            }
           }
         }
 
@@ -498,6 +529,41 @@
         qsRegex = new RegExp( $quicksearch.val(), 'gi' );
         $grid.isotope();
       }, 200 ) );
+
+
+
+
+      var sorts = ["date", "name", "size", "type"];
+      if(localStorage.chosenSort != undefined){
+        var chosenSort = "";
+        $(".sort_by").removeClass("selected");
+        $( $(".sort_by")[sorts.indexOf(localStorage.chosenSort)] ).addClass("selected");
+        localStorage.chosenSort = $( $(".sort_by")[sorts.indexOf(localStorage.chosenSort)] ).html().toLowerCase();
+        if(localStorage.chosenSort === "date"){
+          chosenSort = "original-order";
+        }else{
+          chosenSort = localStorage.chosenSort;
+        }
+        $grid.isotope({sortBy: chosenSort})
+      }
+
+      $(".sort_by").click(function(){
+        console.log("sort-by clicked");
+        var chosenSort = "";
+        $(".sort_by").removeClass("selected");
+        $(this).addClass("selected");
+        localStorage.chosenSort = $(this).html().toLowerCase();
+        if(localStorage.chosenSort === "date"){
+          chosenSort = "original-order";
+        }else{
+          chosenSort = localStorage.chosenSort;
+        }
+        $grid.isotope({sortBy: chosenSort})
+      });
+
+
+
+
     });
     window.onunload = function(){};
     </script>
