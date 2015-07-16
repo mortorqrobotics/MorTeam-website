@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="main.appcache">
 
   <head>
   	<meta charset="utf-8" />
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link href="jbox/jBox.css" rel="stylesheet">
     <script type="text/javascript">
     if(localStorage.userToken == undefined){
       location="login.html";
@@ -19,6 +20,11 @@
     </script>
   </head>
   <body>
+      <div id="audio-files" style="display: none;">
+          <audio id="click-sound">
+              <source src="jbox/audio/bling2.mp3" type="audio/mpeg" />
+          </audio>
+      </div>
     <!-- NAVIGATION BAR -->
     <div class="navigation_bar">
       <ul id="navbar_list">

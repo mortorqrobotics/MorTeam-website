@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="main.appcache">
 
 <head>
     <meta charset="utf-8" />
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link href="jbox/jBox.css" rel="stylesheet">
     <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
     <script type="text/javascript">
         bkLib.onDomLoaded(function() {
@@ -30,6 +31,11 @@
 </head>
 
 <body>
+    <div id="audio-files" style="display: none;">
+        <audio id="click-sound">
+            <source src="jbox/audio/bling2.mp3" type="audio/mpeg" />
+        </audio>
+    </div>
     <!-- NAVIGATION BAR -->
     <div class="navigation_bar">
         <ul id="navbar_list">
@@ -106,9 +112,9 @@
       </div> -->
     </div>
     <!-- END OF BODY -->
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="jbox/jBox.min.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>

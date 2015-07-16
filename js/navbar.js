@@ -25,7 +25,6 @@ function showNewMessageNotice(sender, content) { // sender is first name + " " +
         },
         theme: 'NoticeBorder',
         color: 'green',
-        audio: 'jbox/audio/bling2',
         volume: 100,
         animation: {
             open: 'slide:bottom',
@@ -37,12 +36,22 @@ function showNewMessageNotice(sender, content) { // sender is first name + " " +
         title: sender,
         closeOnClick: 'body'
     });
+
 };
 $(document).ready(function() {
     $('#name_link').html(localStorage.firstName);
     //getPic(localStorage.username, $("#small_prof_pic"));
     $("#small_prof_pic").attr("src", "/f/getPic?user=" + localStorage.username);
     $("#small_prof_pic").attr("onError", "this.src=\'./images/user.jpg\'");
+
+    var isBlur = false;
+    $(window).blur(function(){
+        isBlur = true;
+        //b.trigger("click");
+    });
+    $(window).focus(function(){
+        isBlur = false;
+    });
 
     var fade_speed = 200;
 
@@ -59,6 +68,16 @@ $(document).ready(function() {
         else {
             showNewMessageNotice(data.name + " in " + data.chatname, data.message);
         }
+        if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent)&&new Number(RegExp.$1) < 600) {
+                var audio = new Audio("jbox/audio/bling2.mp3");
+                audio.play();
+                //for safari 7 and below
+        }
+        else {
+            $('#audio-files').find('audio#click-sound')[0].play();
+            $('#audio-files').find('audio#click-sound')[0].currentTime = 0;
+        }
+
     });
 
 
