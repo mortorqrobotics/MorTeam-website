@@ -17,6 +17,27 @@ function getPic(user, target) {
       }
     });
 }
+function showNewMessageNotice(sender, content) { // sender is first name + " " + last name of the sender of the message
+    var newMessageNotice = new jBox('Notice', {
+        attributes: {
+            x: 'right',
+            y: 'bottom'
+        },
+        theme: 'NoticeBorder',
+        color: 'green',
+        audio: 'jbox/audio/bling2',
+        volume: 100,
+        animation: {
+            open: 'slide:bottom',
+            close: 'slide:right'
+        },
+        content: content,
+        maxWidth: 300,
+        maxHeight: 105,
+        title: sender,
+        closeOnClick: 'body'
+    });
+};
 $(document).ready(function() {
     $('#name_link').html(localStorage.firstName);
     //getPic(localStorage.username, $("#small_prof_pic"));
@@ -24,13 +45,22 @@ $(document).ready(function() {
     $("#small_prof_pic").attr("onError", "this.src=\'./images/user.jpg\'");
 
     var fade_speed = 200;
-    
+
     var socket = io.connect();
     socket.emit("updateclient", {
         "user": localStorage.username,
         "chatcode": "",
         "teamcode": localStorage.teamCode
     });
+    socket.on("notification", function(data){
+        if (data.chatname == ""){
+            showNewMessageNotice(data.name, data.message);
+        }
+        else {
+            showNewMessageNotice(data.name + " in " + data.chatname, data.message);
+        }
+    });
+
 
 
     $('#notif_button').click(function() {

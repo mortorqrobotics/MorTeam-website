@@ -106,12 +106,13 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="js/clamp.min.js"></script>
+    <script src="jbox/jBox.min.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/autosize.js"></script>
     <script type="text/javascript" src="js/velocity.min.js"></script>
     <script src='js/perfect-scrollbar.jquery.min.js'></script>
-    <script src="jbox/jBox.min.js"></script>
+
     <script type="text/javascript">
         var ta = document.querySelectorAll('textarea');
         autosize(ta);
@@ -120,6 +121,8 @@
         var chatcode = "";
         var socket = io.connect();
         var people = [];
+        var usersInGroup = [];
+        var currentGroupName = "";
         // FUNCTION DEFINITIONS
         function getTeammates() {
             var xhr = new XMLHttpRequest();
@@ -201,7 +204,9 @@
                                 "user": localStorage.username,
                                 "name": localStorage.firstName + " " + localStorage.lastName,
                                 "message": message,
-                                "chatcode": chatcode
+                                "chatcode": chatcode,
+                                "recievers":usersInGroup,
+                                "chatname":currentGroupName
                             });
                         }
                     }
@@ -224,6 +229,7 @@
                     chatcode = chatID;
                     var data = JSON.parse(xhr.responseText);
                     var messages = data.messages;
+                    var groupUsers = data.users;
                     socket.emit("updateclient", {
                         "user": localStorage.username,
                         "chatcode": chatcode,
@@ -231,6 +237,10 @@
                     });
                     socket.on("updated", function(data) {
                         $(".chat_area").empty();
+                        usersInGroup = [];
+                        for (var i = 0; i < groupUsers.length; i++){
+                            usersInGroup.push(groupUsers[i].user);
+                        }
                         for (var i = 0; i < 20; i++) {
                             if (i >= messages.length) {
                                 break;
@@ -272,6 +282,8 @@
                         socket.on("updated", function(data) {
                             console.log("updated");
                             $(".chat_area").empty();
+                            usersInGroup = [];
+                            usersInGroup.push(username2);
                             for (var i = 0; i < 20; i++) {
                                 if (i >= messages.length) {
                                     break;
@@ -316,6 +328,7 @@
                         var li = $(document.createElement("li"));
                         li.attr("class", "chat_name");
                         li.attr("data-type", "group");
+                        li.attr("data-groupname", groups[i].groupName);
                         li.attr("data-groupid", groups[i].groupID);
                         li.html('<a href="#"><img src="f/getPic?user='+groups[i].groupName+'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">' + groups[i].groupName + '</span>');
                         $('.users_list').append(li);
@@ -334,7 +347,7 @@
                     y: 'bottom'
                 },
                 theme: 'NoticeBorder',
-                color: 'red',
+                color: 'green',
                 audio: 'jbox/audio/bling2',
                 volume: 100,
                 animation: {
@@ -422,6 +435,7 @@
                         var li = $(document.createElement("li"));
                         li.attr("class", "chat_name");
                         li.attr("data-type", "group");
+                        li.attr("data-groupname", chatName)
                         li.attr("data-groupid", data.chatID);
                         li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">'+data.chatName+'</span>');
                         $('.users_list').append(li);
@@ -445,9 +459,12 @@
                 autosize.update(ta);
                 if ($(this).attr("class") == "chat_name") {
                     if ($(this).attr("data-type") == "private") {
+                        currentGroupName = "";
                         getChatCodeAndLoadMessages($(this).attr("data-name"), $(this).attr("data-username2"));
                         //console.log($(this).attr("data-name") + ", " + $(this).attr("data-username2"));
                     } else {
+                        currentGroupName = "";
+                        currentGroupName = $(this).attr("data-groupname");
                         loadGroupMessages($(this).attr("data-groupid"));
                     }
                 }
