@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" manifest="main.appcache">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -28,12 +28,13 @@
             location = "login.html";
         }
     </script>
+
 </head>
 
 <body>
     <div id="audio-files" style="display: none;">
         <audio id="click-sound">
-            <source src="jbox/audio/bling2.mp3" type="audio/mpeg" />
+            <source src="jbox/audio/bling2.wav" type="audio/wav" />
         </audio>
     </div>
     <!-- NAVIGATION BAR -->
@@ -101,6 +102,7 @@
         <textarea class="announcement_textarea" id="main_textarea" placeholder="Make an announcement..."></textarea>
         <input type="button" class="announcement_post_button" value="Post"></input>
     </div>
+
     <div class="announcements_list">
         <!-- <div class="announcement" data-postNum="1">
         <div class="announcement_top">
@@ -117,7 +119,7 @@
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.min.js"></script>
-    <script type="text/javascript" src="js/navbar.js"></script>
+
     <script type="text/javascript" src="js/autosize.js"></script>
     <script type="text/javascript">
         autosize(document.querySelectorAll('textarea'));
@@ -231,14 +233,15 @@
         $(window).load(function(){
 
           setTimeout(function(){
-            $ann = $(".announcements_list").isotope({
-              itemSelector: ".announcement",
-              layoutMode: "vertical"
-            });
-          }, 1);
+              $ann = $(".announcements_list").isotope({
+                  itemSelector: ".announcement",
+                  layoutMode: "vertical"
+              });
+            }, 1);
         })
         window.onunload = function() {};
     </script>
+    <script type="text/javascript" src="js/navbar.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" manifest="main.manifest">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -25,7 +25,7 @@
     <!-- NAVIGATION BAR -->
     <div id="audio-files" style="display: none;">
         <audio id="click-sound">
-            <source src="jbox/audio/bling2.mp3" type="audio/mpeg" />
+            <source src="jbox/audio/bling2.wav" type="audio/wav" />
         </audio>
     </div>
     <div class="navigation_bar">
@@ -352,6 +352,8 @@
             }));
         }
 
+
+
         function isTyping(user) { // just pass FIRST NAME into user
             $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='show' id='small_prof_pic' src='./images/1.jpg'></img>" + user + " is typing...</div></div>");
         }
@@ -461,9 +463,16 @@
                 }
             });
 
+            var isBlur = false;
+            $(window).blur(function(){
+                isBlur = true;
+                //b.trigger("click");
+            });
+            $(window).focus(function(){
+                isBlur = false;
+            });
 
             socket.on("message", function(data) {
-                console.log("ran");
                 console.log(data.user == localStorage.username);
                 if (data.user == localStorage.username) {
                     createMessageSelf(data.message, data.name, false);
@@ -472,15 +481,8 @@
                 else {
                     createMessageOther(data.message, data.name, data.user, false);
                     if (isBlur){
-                        if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent)&&new Number(RegExp.$1) < 600) {
-                                var audio = new Audio("jbox/audio/bling2.mp3");
-                                audio.play();
-                                //for safari 7 and below
-                        }
-                        else {
-                            $('#audio-files').find('audio#click-sound')[0].play();
-                            $('#audio-files').find('audio#click-sound')[0].currentTime = 0;
-                        }
+                        $('#audio-files').find('audio#click-sound')[0].play();
+                        $('#audio-files').find('audio#click-sound')[0].currentTime = 0;
                     }
                 }
 

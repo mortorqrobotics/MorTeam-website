@@ -47,14 +47,14 @@ $(document).ready(function() {
     $("#small_prof_pic").attr("src", "/f/getPic?user=" + localStorage.username);
     $("#small_prof_pic").attr("onError", "this.src=\'./images/user.jpg\'");
 
-    var isBlur = false;
+    /*isBlur = false;
     $(window).blur(function(){
         isBlur = true;
         //b.trigger("click");
     });
     $(window).focus(function(){
         isBlur = false;
-    });
+    });*/
 
     var fade_speed = 200;
 
@@ -64,24 +64,7 @@ $(document).ready(function() {
         "chatcode": "",
         "teamcode": localStorage.teamCode
     });
-    socket.on("notification", function(data){
-        if (data.chatname == ""){
-            showNewMessageNotice(data.name, data.message, data.user, data.chatcode);
-        }
-        else {
-            showNewMessageNotice(data.name + " in " + data.chatname, data.message, data.chatname, data.chatcode);
-        }
-        if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent)&&new Number(RegExp.$1) < 600) {
-                var audio = new Audio("jbox/audio/bling2.mp3");
-                audio.play();
-                //for safari 7 and below
-        }
-        else {
-            $('#audio-files').find('audio#click-sound')[0].play();
-            $('#audio-files').find('audio#click-sound')[0].currentTime = 0;
-        }
 
-    });
 
 
 
@@ -148,8 +131,21 @@ $(document).ready(function() {
         localStorage.removeItem('teamNumber');
         location = "login.html";
     });
+    socket.on("notification", function(data){
+        if (data.chatname == ""){
+            showNewMessageNotice(data.name, data.message, data.user, data.chatcode);
+        }
+        else {
+            showNewMessageNotice(data.name + " in " + data.chatname, data.message, data.chatname, data.chatcode);
+        }
+        $('#audio-files').find('audio#click-sound')[0].play();
+        $('#audio-files').find('audio#click-sound')[0].currentTime = 0;
+
+    });
+
     $(document).on("click", ".jBox-Notice", function(){
       // $(this).find(".jBox-content").attr("data-sender") ---> the username or chatname
       // $(this).find(".jBox-content").attr("data-chatcode") ---> the chatcode
     });
+
 });
