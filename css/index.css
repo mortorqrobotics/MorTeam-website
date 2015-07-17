@@ -1214,3 +1214,6 @@ input[type=checkbox]:checked + label:before {
 	left: 10px;
 	top: 17px;
 }
+.jBox-Notice{
+	cursor: pointer;
+}

@@ -200,22 +200,24 @@
 }
 
 .jBox-Notice .jBox-container {
-	border-radius: 3px;
-	box-shadow: 0 0 3px rgba(0, 0, 0, .2);
-	color: #fff;
-	text-shadow: 0 -1px 1px #000;
-	background: #333;
-	background-image: linear-gradient(to bottom, #444, #222);
+	border-radius: 0px;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+	color: black;
+	/*text-shadow: 0 -1px 1px #000;*/
+	background: #ffc547;
+	/*background-image: linear-gradient(to bottom, #444, #222);*/
 }
 
 .jBox-Notice .jBox-content {
-	border-radius: 3px;
+	border-radius: 0px;
 	padding: 12px 20px;
+	font-weight: 100;
 }
 
-.jBox-Notice .jBox-title {
+.jBox-Notice .jBox-title > div {
 	padding: 8px 20px 0;
-	font-weight: bold;
+	font-weight: 300;
+	font-size: 17px;
 }
 
 .jBox-hasTitle.jBox-Notice .jBox-content {
@@ -241,6 +243,8 @@
 .jBox-Notice-green .jBox-container {
 	background: #70a800;
 	background-image: linear-gradient(to bottom, #95cc2a, #70a800);
+	color: black;
+	border-radius: 0px !important;
 }
 
 .jBox-Notice-blue .jBox-container {

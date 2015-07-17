@@ -17,14 +17,13 @@ function getPic(user, target) {
       }
     });
 }
-function showNewMessageNotice(sender, content) { // sender is first name + " " + last name of the sender of the message
+function showNewMessageNotice(sender, content, convo, chatcode) { // ADD A USERNAME PARAMETER AND REPLACE "farbod909" WITH THAT.
     var newMessageNotice = new jBox('Notice', {
         attributes: {
             x: 'right',
             y: 'bottom'
         },
         theme: 'NoticeBorder',
-        color: 'green',
         volume: 100,
         animation: {
             open: 'slide:bottom',
@@ -34,7 +33,11 @@ function showNewMessageNotice(sender, content) { // sender is first name + " " +
         maxWidth: 300,
         maxHeight: 105,
         title: sender,
-        closeOnClick: 'body'
+        closeOnClick: false,
+        onOpen: function(){
+          $($(this)[0].content).attr("data-sender", convo);
+          $($(this)[0].content).attr("data-chatcode", chatcode);
+        }
     });
 
 };
@@ -63,10 +66,10 @@ $(document).ready(function() {
     });
     socket.on("notification", function(data){
         if (data.chatname == ""){
-            showNewMessageNotice(data.name, data.message);
+            showNewMessageNotice(data.name, data.message, data.user, data.chatcode);
         }
         else {
-            showNewMessageNotice(data.name + " in " + data.chatname, data.message);
+            showNewMessageNotice(data.name + " in " + data.chatname, data.message, data.chatname, data.chatcode);
         }
         if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent)&&new Number(RegExp.$1) < 600) {
                 var audio = new Audio("jbox/audio/bling2.mp3");
@@ -144,5 +147,9 @@ $(document).ready(function() {
         localStorage.removeItem('teamCode');
         localStorage.removeItem('teamNumber');
         location = "login.html";
+    });
+    $(document).on("click", ".jBox-Notice", function(){
+      // $(this).find(".jBox-content").attr("data-sender") ---> the username or chatname
+      // $(this).find(".jBox-content").attr("data-chatcode") ---> the chatcode
     });
 });

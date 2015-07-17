@@ -352,27 +352,6 @@
             }));
         }
 
-        function showNewMessageNotice(sender, content) { // sender is first name + " " + last name of the sender of the message
-            var newMessageNotice = new jBox('Notice', {
-                attributes: {
-                    x: 'right',
-                    y: 'bottom'
-                },
-                theme: 'NoticeBorder',
-                color: 'green',
-                volume: 100,
-                animation: {
-                    open: 'slide:bottom',
-                    close: 'slide:right'
-                },
-                content: content,
-                maxWidth: 300,
-                maxHeight: 105,
-                title: sender,
-                closeOnClick: 'body'
-            });
-        };
-
         function isTyping(user) { // just pass FIRST NAME into user
             $('.chat_area').append("<div class='bubble_wrapper'><div class='other_bubble'><img class='show' id='small_prof_pic' src='./images/1.jpg'></img>" + user + " is typing...</div></div>");
         }
