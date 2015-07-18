@@ -89,7 +89,7 @@
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
-    <div class="chat_wrapper">
+    <div class="wrapper">
       <div class="chat_area hidden" id="chat_area"></div>
       <div class="reply_box hidden">
           <textarea rows="1" class="reply_textarea"></textarea>
@@ -547,19 +547,19 @@
 
             function hideLeftbar(time, button){
               $(".leftbar").velocity({left: "-260px"}, { duration: time, queue: false });
-              $(".chat_wrapper").velocity({left: "0px"}, { duration: time, queue: false });
-              $(".chat_wrapper").velocity({width: "100vw"}, { duration: time, queue: false });
+              $(".wrapper").velocity({left: "0px"}, { duration: time, queue: false });
+              $(".wrapper").velocity({width: "100vw"}, { duration: time, queue: false });
               $(button).removeClass("glyphicon-chevron-left").addClass("glyphicon-chevron-right");
               $(button).velocity({left: "10px"}, { duration: time, queue: false });
             }
             function showLeftbar(time, button){
               $(".leftbar").velocity({left: "0px"}, { duration: time, queue: false });
-              $(".chat_wrapper").velocity({left: "260px"}, { duration: time, queue: false });
-              $(".chat_wrapper").velocity({width: "-=260px"}, { duration: time, queue: false });
+              $(".wrapper").velocity({left: "260px"}, { duration: time, queue: false });
+              $(".wrapper").velocity({width: "-=260px"}, { duration: time, queue: false });
               $(button).removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-left");
               $(button).velocity({left: "220px"}, { duration: time, queue: false });
               setTimeout(function(){
-                $(".chat_wrapper").css("width", "calc(100vw - 260px)");
+                $(".wrapper").css("width", "calc(100vw - 260px)");
               }, time + time)
             }
             $(".hide_leftbar").click(function(){

@@ -1129,7 +1129,7 @@ input[type=checkbox]:checked + label:before {
 	box-shadow: 1.5px 3px 8px -2px #a9a9a9;
 	margin-top: 15px;
 }
-.chat_wrapper{
+.wrapper{
 	position: absolute;
 	top:40px;
 	left:260px;
@@ -1216,4 +1216,77 @@ input[type=checkbox]:checked + label:before {
 }
 .jBox-Notice{
 	cursor: pointer;
+}
+.month_name{
+	height: 60px;
+	border-bottom: 1px solid black;
+	font-size: 18px;
+	text-align: left;
+	padding: 18px;
+	cursor: pointer;
+}
+.month_name:hover{
+	background-color: #FFB524;
+}
+.timeline{
+	border-right: 2px solid #ffc547;
+	height: 100% !important;
+	display: inline-block;
+	padding: 15px;
+	overflow-x: auto;
+}
+.events_overview{
+	height: 100% !important;
+	display: inline-block;
+	padding: 15px;
+}
+.cal_container, .cal_row{
+	height: 100% !important;
+}
+.day{
+	margin-bottom: 10px;
+}
+.day_of_month{
+	font-size: 20px;
+	border-top: 1px;
+	border-left: 1px;
+	border-right: 1px;
+	border-bottom: 0px;
+	border-style: solid;
+	border-color: orange;
+	width: 30px;
+	height: 30px;
+	padding-left: 9px;
+	color: black;
+	background-color: orange;
+}
+.day_content{
+	border-top: 1px solid orange;
+	padding-bottom: 5px;
+}
+.day_list{
+	margin-left: 30px;
+}
+.day_name{
+	margin-left: 5px;
+}
+.u_events_title{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border-bottom: 1px solid orange;
+	width: 200px;
+	padding: 6px;
+	background-color: orange;
+	color: black;
+	font-weight: 100;
+}
+.events_list{
+	margin-left: 30px;
+}
+.events_list > li{
+	margin-top: 20px;
+}
+.events_container{
+	border-top: 1px solid orange;
+	margin-top: 0px !important;
 }

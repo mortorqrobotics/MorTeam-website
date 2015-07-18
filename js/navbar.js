@@ -9,6 +9,24 @@
 //       }
 //     });
 // }
+function getTimeNow(){
+  var now = new Date();
+  var Hours = now.getHours();
+  var suffix;
+  if(parseInt(Hours) > 12){
+    Hours = (parseInt(Hours) - 12).toString();
+    suffix = "PM";
+  }else if(Hours == "12"){
+    suffix = "PM";
+  }else{
+    suffix = "AM";
+  }
+  var Minutes = now.getMinutes();
+  if(parseInt(Minutes) < 10){
+    Minutes = "0" + Minutes;
+  }
+  return Hours+":"+Minutes+" "+suffix;
+}
 function getPic(user, target) {
     $(target).attr("src", "/f/getPic?user=" + user);
     $.post("/f/getPic?user=" + user, function(response){

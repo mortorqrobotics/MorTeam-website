@@ -128,9 +128,9 @@
         // FUNCTION DEFINITIONS
         function createPost(text) {
             //var title = localStorage.title
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
             var now = new Date();
-            var month = now.getMonth() + 1;
-            var nameDate = localStorage.firstName + ' ' + localStorage.lastName + ' - ' + month + '/' + now.getDate() + '/' + now.getFullYear() + ' - ' + now.getHours() + ':' + now.getMinutes();
+            var nameDate = localStorage.firstName + ' ' + localStorage.lastName + ' - ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear() + ' - ' + getTimeNow();
             var postNum = 1;
             if ($('.announcement').first().length > 0) {
                 postNum = parseInt($('.announcement').first().attr('data-postNum')) + 1;
