@@ -7,8 +7,6 @@
 }
 body{
 	background-color: #E9E9E9;
-	padding-top: 50px !important;
-	padding-bottom: 50px !important;
 }
 img:not(.doc_category_icon, .spinner){
 	background-color: white;
@@ -706,6 +704,9 @@ input[type=checkbox]:checked + label:before {
 	top:0;
 	z-index: 97;
 }
+.announcements_wrapper{
+	margin-top: 60px;
+}
 .announcement{
 	max-width: 700px;
 	width: 100%;
@@ -1235,16 +1236,34 @@ input[type=checkbox]:checked + label:before {
 	padding: 15px;
 	overflow-x: auto;
 }
+.cal_right{
+	height: 100%;
+}
 .events_overview{
-	height: 100% !important;
+	height: 50% !important;
 	display: inline-block;
 	padding: 15px;
+	width: 100%;
+	display: block;
+	max-width: 600px;
+	margin: auto;
+}
+.jobs_overview{
+	height: 50% !important;
+	display: inline-block;
+	padding: 15px;
+	width: 100%;
+	display: block;
+	max-width: 600px;
+	margin: auto;
 }
 .cal_container, .cal_row{
 	height: 100% !important;
 }
 .day{
 	margin-bottom: 10px;
+	max-width: 500px;
+	margin: auto;
 }
 .day_of_month{
 	font-size: 20px;
@@ -1256,22 +1275,31 @@ input[type=checkbox]:checked + label:before {
 	border-color: orange;
 	width: 30px;
 	height: 30px;
-	padding-left: 9px;
+	text-align: center;
 	color: black;
 	background-color: orange;
+	display: inline-block;
+	box-shadow: -1px -1px 4px -3px black;
+	border-radius: .1px;
 }
 .day_content{
 	border-top: 1px solid orange;
-	padding-bottom: 5px;
+	padding-bottom: 10px;
+	font-size: 16px;
+	margin-bottom: 15px;
+	box-shadow: 0 0 8px -4px black;
+	border-radius: .1px;
+	background-color: #f5f5f5;
 }
 .day_list{
 	margin-left: 30px;
 }
 .day_name{
 	margin-left: 5px;
+	display: inline-block;
 }
 .u_events_title{
-	margin-top: 0px;
+	margin-top: 10px;
 	margin-bottom: 0px;
 	border-bottom: 1px solid orange;
 	width: 200px;
@@ -1279,9 +1307,13 @@ input[type=checkbox]:checked + label:before {
 	background-color: orange;
 	color: black;
 	font-weight: 100;
+	display: inline-block;
 }
 .events_list{
-	margin-left: 30px;
+	padding-left: 30px;
+	height: 100%;
+	margin-bottom: 0px;
+	overflow: auto;
 }
 .events_list > li{
 	margin-top: 20px;
@@ -1289,4 +1321,62 @@ input[type=checkbox]:checked + label:before {
 .events_container{
 	border-top: 1px solid orange;
 	margin-top: 0px !important;
+	height: 80%;
+	box-shadow: 0 0 8px -4px black;
+	border-radius: .1px;
+	background-color: #f5f5f5;
+}
+.add_event{
+	font-size: 20px;
+	border-top: 1px;
+	border-left: 1px;
+	border-right: 1px;
+	border-bottom: 0px;
+	border-style: solid;
+	border-color: orange;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	color: black;
+	background-color: orange;
+	display: inline-block;
+	opacity: .3;
+	box-shadow: 1px -1px 4px -3px black;
+	border-radius: .1px;
+}
+.add_event:hover{
+	opacity: .7;
+}
+.add_event_large{
+	font-size: 20px;
+	border-top: 1px;
+	border-left: 1px;
+	border-right: 1px;
+	border-bottom: 0px;
+	border-style: solid;
+	border-color: orange;
+	width: 39px;
+	height: 39px;
+	text-align: center;
+	color: black;
+	background-color: orange;
+	display: inline-block;
+	opacity: .3;
+}
+.add_event_large:hover{
+	opacity: .7;
+}
+.attendance:hover{
+	color: orange;
+	cursor: pointer;
+}
+.weekly_report_btn{
+	display: inline-block;
+	cursor: pointer;
+}
+.weekly_report_btn:hover{
+	color: orange;
+}
+.cal_body{
+	overflow: hidden;
 }
