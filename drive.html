@@ -1,218 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-  	<meta charset="utf-8" />
-  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Morganizer</title>
-  	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
-  	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link href="jbox/jBox.css" rel="stylesheet">
     <link href="jbox/themes/TooltipDark.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <script type="text/javascript">
-      if(localStorage.userToken == undefined){
-        location="login.html";
-      }
+        if (localStorage.userToken == undefined) {
+            location = "login.html";
+        }
     </script>
     <script src="js/spin.js"></script>
     <script type="text/javascript">
-      // var loadingImg = new Image();
-      // loadingImg.className = "spinner"
-      var loadingDiv = document.createElement("div");
-      loadingDiv.className = "loading_circle";
-      loadingDiv.id = "loading_circle";
-      // loadingImg.onload = function(){
-      //   loadingDiv.appendChild(loadingImg)
-      // }
-      // loadingImg.src="images/ajax-loader.gif";
+        // var loadingImg = new Image();
+        // loadingImg.className = "spinner"
+        var loadingDiv = document.createElement("div");
+        loadingDiv.className = "loading_circle";
+        loadingDiv.id = "loading_circle";
+        // loadingImg.onload = function(){
+        //   loadingDiv.appendChild(loadingImg)
+        // }
+        // loadingImg.src="images/ajax-loader.gif";
     </script>
-  </head>
-  <body>
-      <div id="audio-files" style="display: none;">
-          <audio id="click-sound">
-              <source src="jbox/audio/bling2.wav" type="audio/wav" />
-          </audio>
-      </div>
+</head>
+
+<body>
+    <div id="audio-files" style="display: none;">
+        <audio id="click-sound">
+            <source src="jbox/audio/bling2.wav" type="audio/wav" />
+        </audio>
+    </div>
     <!-- NAVIGATION BAR -->
     <div class="navigation_bar">
-      <ul id="navbar_list">
-        <li class="navbar_item"><input type="text" placeholder="search drive" class="searchbox"></input></li>
-        <li class="navbar_item">
-          <div id="categories">
-           <ul>
-            <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!--
-            --><li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'"><span class="glyphicon glyphicon-comment"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link active" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'"><span class="glyphicon glyphicon-cog"></span><div class="border"></div></li>
-           </ul>
-          </div>
-        </li>
-        <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
-        <li class="navbar_item" id="profile_id"><img id="small_prof_pic" src="./images/user.jpg"></img></li>
-        <li class="navbar_item" id="profile_name"><span id="name_link"></span></li>
-      </ul>
+        <ul id="navbar_list">
+            <li class="navbar_item">
+                <input type="text" placeholder="search drive" class="searchbox"></input>
+            </li>
+            <li class="navbar_item">
+                <div id="categories">
+                    <ul>
+                        <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'">
+                            <span class="glyphicon glyphicon-home"></span>
+                            <div class="hborder"></div>
+                        </li>
+                        <!--
+                        -->
+                        <li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'">
+                            <span class="glyphicon glyphicon-comment"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link active" id="drive_link" onclick="location='drive.html'">
+                            <span class="glyphicon glyphicon-hdd"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            <div class="border"></div>
+                        </li>
+                        <!--
+            -->
+                        <li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            <div class="border"></div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="navbar_item" id="notif_button">
+                <span class="glyphicon glyphicon-inbox"></span>
+            </li>
+            <li class="navbar_item" id="profile_id">
+                <img id="small_prof_pic" src="./images/user.jpg"></img>
+            </li>
+            <li class="navbar_item" id="profile_name">
+                <span id="name_link"></span>
+            </li>
+        </ul>
     </div>
     <div class="triangle_thing_notif hidden"></div>
     <div class="triangle_thing_prof hidden"></div>
     <div id="notif_drop" class="hidden">
-      <ul>
-        <li class="notif_list_item">hey</li>
-        <li class="notif_list_item">hi</li>
-        <li class="notif_list_item">ho</li>
-      </ul>
+        <ul>
+            <li class="notif_list_item">hey</li>
+            <li class="notif_list_item">hi</li>
+            <li class="notif_list_item">ho</li>
+        </ul>
     </div>
     <div id="prof_drop" class="hidden">
-      <ul>
-        <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
-        <li class="notif_list_item" id="logout_button">Log Out</li>
-      </ul>
+        <ul>
+            <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
+            <li class="notif_list_item" id="logout_button">Log Out</li>
+        </ul>
     </div>
     <div id="darken" class="hidden"></div>
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
     <div class="container-fluid documents_list hidden">
-      <div class="grid">
-        <input type="file" id="file" class="hidden" multiple></input>
-        <div style="z-index:1;" class="doc_frame add_file">
-          <span id="add_file_sign" class="glyphicon glyphicon-plus"></span>
+        <div class="grid">
+            <input type="file" id="file" class="hidden"></input>
+            <div style="z-index:1;" class="doc_frame add_file">
+                <span id="add_file_sign" class="glyphicon glyphicon-plus"></span>
+            </div>
+            <!--<div style="z-index:1;" class="doc_frame word_doc">
+                <div class="hidden confirm_del">
+                    <p>Are you sure?</p>
+                    <input type="button" value="yes" class="yes"></input>
+                    <input type="button" value="no" class="no"></input>
+                </div>
+                <img src="./images/word.png" class="doc_preview" />
+                <span class="doc_title">
+                    <span class="name">Word Document 1 that has a very long title so that i can see what the overflow looks like</span>
+                    <span class="file_size">267.7 KB</span>
+                    <span class="glyphicon glyphicon-trash doc_delete"></span>
+                </span>
+            </div>
+            <div style="z-index:1;" class="doc_frame pdf_doc">
+                <div class="hidden confirm_del">
+                    <p>Are you sure?</p>
+                    <input type="button" value="yes" class="yes"></input>
+                    <input type="button" value="no" class="no"></input>
+                </div>
+                <img src="./images/pdf.png" class="doc_preview" />
+                <span class="doc_title">
+                    <span class="name">PDF Document 1</span>
+                    <span class="file_size">1.7 MB</span>
+                    <span class="glyphicon glyphicon-trash doc_delete"></span>
+                </span>
+            </div>
+            <div style="z-index:1;" class="doc_frame excel_doc">
+                <div class="hidden confirm_del">
+                    <p>Are you sure?</p>
+                    <input type="button" value="yes" class="yes"></input>
+                    <input type="button" value="no" class="no"></input>
+                </div>
+                <img src="./images/excel.png" class="doc_preview" />
+                <span class="doc_title">
+                    <span class="name">Excel Spreadsheet 1</span>
+                    <span class="file_size">2.2 MB</span>
+                    <span class="glyphicon glyphicon-trash doc_delete"></span>
+                </span>
+            </div>
+            <div style="z-index:1;" class="doc_frame keynote_doc">
+                <div class="hidden confirm_del">
+                    <p>Are you sure?</p>
+                    <input type="button" value="yes" class="yes"></input>
+                    <input type="button" value="no" class="no"></input>
+                </div>
+                <img src="./images/keynote.png" class="doc_preview" />
+                <span class="doc_title">
+                    <span class="name">Powepoint Document 1</span>
+                    <span class="file_size">5.9 MB</span>
+                    <span class="glyphicon glyphicon-trash doc_delete"></span>
+                </span>
+            </div>
+            <div style="z-index:1;" class="doc_frame default_doc">
+                <div class="hidden confirm_del">
+                    <p>Are you sure?</p>
+                    <input type="button" value="yes" class="yes"></input>
+                    <input type="button" value="no" class="no"></input>
+                </div>
+                <img src="./images/default.png" class="doc_preview" />
+                <span class="doc_title">
+                    <span class="name">Unknown File Type 1</span>
+                    <span class="file_size">14.7 MB</span>
+                    <span class="glyphicon glyphicon-trash doc_delete"></span>
+                </span>
+            </div>
+            <div style="z-index:1;" class="doc_frame audio_doc">
+                <div class="hidden confirm_del">
+                    <p>Are you sure?</p>
+                    <input type="button" value="yes" class="yes"></input>
+                    <input type="button" value="no" class="no"></input>
+                </div>
+                <img src="./images/audio.png" class="doc_preview" />
+                <span class="doc_title">
+                    <span class="name">Audio File 1</span>
+                    <span class="file_size">6.9 MB</span>
+                    <span class="glyphicon glyphicon-trash doc_delete"></span>
+                </span>
+            </div>
+            <div style="z-index:1;" class="doc_frame image_doc">
+                <div class="hidden confirm_del">
+                    <p>Are you sure?</p>
+                    <input type="button" value="yes" class="yes"></input>
+                    <input type="button" value="no" class="no"></input>
+                </div>
+                <img src="./images/sample1.jpg" class="doc_preview image_preview" />
+                <span class="doc_title">
+                    <span class="name">Forest Image</span>
+                    <span class="file_size">7.8 MB</span>
+                    <span class="glyphicon glyphicon-trash doc_delete"></span>
+                </span>
+            </div>
+            <div style="z-index:1;" class="doc_frame image_doc">
+                <div class="hidden confirm_del">
+                    <p>Are you sure?</p>
+                    <input type="button" value="yes" class="yes"></input>
+                    <input type="button" value="no" class="no"></input>
+                </div>
+                <img src="./images/sample2.jpg" class="doc_preview image_preview" />
+                <span class="doc_title">
+                    <span class="name">Flower Image</span>
+                    <span class="file_size">6.3 MB</span>
+                    <span class="glyphicon glyphicon-trash doc_delete"></span>
+                </span>
+            </div>-->
         </div>
-        <div style="z-index:1;" class="doc_frame word_doc">
-          <div class="hidden confirm_del">
-            <p>Are you sure?</p>
-            <input type="button" value="yes" class="yes"></input>
-            <input type="button" value="no" class="no"></input>
-          </div>
-          <img src="./images/word.png" class="doc_preview" />
-          <span class="doc_title">
-            <span class="name">Word Document 1 that has a very long title so that i can see what the overflow looks like</span>
-            <span class="file_size">267.7 KB</span>
-            <span class="glyphicon glyphicon-trash doc_delete"></span>
-          </span>
-        </div>
-        <div style="z-index:1;" class="doc_frame pdf_doc">
-          <div class="hidden confirm_del">
-            <p>Are you sure?</p>
-            <input type="button" value="yes" class="yes"></input>
-            <input type="button" value="no" class="no"></input>
-          </div>
-          <img src="./images/pdf.png" class="doc_preview" />
-          <span class="doc_title">
-            <span class="name">PDF Document 1</span>
-            <span class="file_size">1.7 MB</span>
-            <span class="glyphicon glyphicon-trash doc_delete"></span>
-          </span>
-        </div>
-        <div style="z-index:1;" class="doc_frame excel_doc">
-          <div class="hidden confirm_del">
-            <p>Are you sure?</p>
-            <input type="button" value="yes" class="yes"></input>
-            <input type="button" value="no" class="no"></input>
-          </div>
-          <img src="./images/xc.png" class="doc_preview" />
-          <span class="doc_title">
-            <span class="name">Excel Spreadsheet 1</span>
-            <span class="file_size">2.2 MB</span>
-            <span class="glyphicon glyphicon-trash doc_delete"></span>
-          </span>
-        </div>
-        <div style="z-index:1;" class="doc_frame keynote_doc">
-          <div class="hidden confirm_del">
-            <p>Are you sure?</p>
-            <input type="button" value="yes" class="yes"></input>
-            <input type="button" value="no" class="no"></input>
-          </div>
-          <img src="./images/keynote.png" class="doc_preview" />
-          <span class="doc_title">
-            <span class="name">Powepoint Document 1</span>
-            <span class="file_size">5.9 MB</span>
-            <span class="glyphicon glyphicon-trash doc_delete"></span>
-          </span>        </div>
-        <div style="z-index:1;" class="doc_frame default_doc">
-          <div class="hidden confirm_del">
-            <p>Are you sure?</p>
-            <input type="button" value="yes" class="yes"></input>
-            <input type="button" value="no" class="no"></input>
-          </div>
-          <img src="./images/file.png" class="doc_preview" />
-          <span class="doc_title">
-            <span class="name">Unknown File Type 1</span>
-            <span class="file_size">14.7 MB</span>
-            <span class="glyphicon glyphicon-trash doc_delete"></span>
-          </span>
-        </div>
-        <div style="z-index:1;" class="doc_frame audio_doc">
-          <div class="hidden confirm_del">
-            <p>Are you sure?</p>
-            <input type="button" value="yes" class="yes"></input>
-            <input type="button" value="no" class="no"></input>
-          </div>
-          <img src="./images/audio.png" class="doc_preview" />
-          <span class="doc_title">
-            <span class="name">Audio File 1</span>
-            <span class="file_size">6.9 MB</span>
-            <span class="glyphicon glyphicon-trash doc_delete"></span>
-          </span>
-        </div>
-        <div style="z-index:1;" class="doc_frame image_doc">
-          <div class="hidden confirm_del">
-            <p>Are you sure?</p>
-            <input type="button" value="yes" class="yes"></input>
-            <input type="button" value="no" class="no"></input>
-          </div>
-          <img src="./images/sample1.jpg" class="doc_preview image_preview"/>
-          <span class="doc_title">
-            <span class="name">Forest Image</span>
-            <span class="file_size">7.8 MB</span>
-            <span class="glyphicon glyphicon-trash doc_delete"></span>
-          </span>
-        </div>
-        <div style="z-index:1;" class="doc_frame image_doc">
-          <div class="hidden confirm_del">
-            <p>Are you sure?</p>
-            <input type="button" value="yes" class="yes"></input>
-            <input type="button" value="no" class="no"></input>
-          </div>
-          <img src="./images/sample2.jpg" class="doc_preview image_preview"/>
-          <span class="doc_title">
-            <span class="name">Flower Image</span>
-            <span class="file_size">6.3 MB</span>
-            <span class="glyphicon glyphicon-trash doc_delete"></span>
-          </span>
-        </div>
-      </div>
     </div>
     <!-- END OF BODY -->
 
     <!-- LEFTBAR -->
     <div class="leftbar">
-      <ul>
-        <li class="drive_name drive_options">
-          <div class="btn-group sort_by_dropdown">
-            <button class="button dropdown-toggle" data-toggle="dropdown">Sort By<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li class="sort_by">Date</li>
-              <li class="sort_by">Name</li>
-              <li class="sort_by">Size</li>
-              <li class="sort_by">Type</li>
-            </ul>
-          </div>
-          <!-- <span class="glyphicon glyphicon-th grid_layout"></span>
+        <ul>
+            <li class="drive_name drive_options">
+                <div class="btn-group sort_by_dropdown">
+                    <button class="button dropdown-toggle" data-toggle="dropdown">Sort By
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="sort_by">Date</li>
+                        <li class="sort_by">Name</li>
+                        <li class="sort_by">Size</li>
+                        <li class="sort_by">Type</li>
+                    </ul>
+                </div>
+                <!-- <span class="glyphicon glyphicon-th grid_layout"></span>
           <span class="glyphicon glyphicon-th-list list_layout"></span>  UN-COMMENT WHEN LIST LAYOUT IS READY   -->
-        </li>
-        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-plus"></span>New Folder</li>
-        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>All Files</li>
-        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Subdivision Files</li>
-        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Personal Files</li>
-        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Tagged Files</li>
-        <li class="drive_name"><span id="make_drive" class="glyphicon glyphicon-folder-open"></span>Shared Files</li>
-      </ul>
+            </li>
+            <li class="drive_name new_folder">
+                <span id="make_drive" class="glyphicon glyphicon-plus"></span>New Folder</li>
+            <li class="drive_name">
+                <span id="make_drive" data-folderid="122d1xd21e1e21" class="glyphicon glyphicon-folder-open"></span>All Files</li>
+            <li class="drive_name">
+                <span id="make_drive" data-folderid="wdawd23e12eqwd" class="glyphicon glyphicon-folder-open"></span>Subdivision Files</li>
+            <li class="drive_name">
+                <span id="make_drive" data-folderid="e21xef3rfrfv2c" class="glyphicon glyphicon-folder-open"></span>Personal Files</li>
+            <li class="drive_name">
+                <span id="make_drive" data-folderid="23rcreiocdjqdd" class="glyphicon glyphicon-folder-open"></span>Tagged Files</li>
+            <li class="drive_name">
+                <span id="make_drive" data-folderid="qecjqiddhqdhui" class="glyphicon glyphicon-folder-open"></span>Shared Files</li>
+        </ul>
     </div>
     <span class="glyphicon glyphicon-chevron-left hide_leftbar"></span>
     <!-- END OF LEFTBAR -->
@@ -220,7 +261,7 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="http://code.jquery.com/color/jquery.color-2.1.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	  <script src="js/color-thief.js"></script>
+    <script src="js/color-thief.js"></script>
     <script src="jbox/jBox.min.js"></script>
     <script src="js/dropzone.js"></script>
     <script src="js/clamp.min.js"></script>
@@ -228,325 +269,563 @@
     <script type="text/javascript" src="js/velocity.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="js/navbar.js"></script>
-	  <script type="text/javascript" src="js/hex.js"></script>
+    <script type="text/javascript" src="js/hex.js"></script>
     <script type="text/javascript">
-		$(document).ready(function(){
-      document.body.appendChild(loadingDiv)
+        var currentFolderID = "";
+        var chosenSort = "original-order";
 
-      var opts = {
-        lines: 13 // The number of lines to draw
-      , length: 0 // The length of each line
-      , width: 20 // The line thickness
-      , radius: 42 // The radius of the inner circle
-      , scale: .5 // Scales overall size of the spinner
-      , corners: 1 // Corner roundness (0..1)
-      , color: 'orange' // #rgb or #rrggbb or array of colors
-      , opacity: 0.25 // Opacity of the lines
-      , rotate: 0 // The rotation offset
-      , direction: 1 // 1: clockwise, -1: counterclockwise
-      , speed: 1 // Rounds per second
-      , trail: 60 // Afterglow percentage
-      , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
-      , zIndex: 2e9 // The z-index (defaults to 2000000000)
-      , className: 'spinner' // The CSS class to assign to the spinner
-      , top: '50%' // Top position relative to parent
-      , left: '50%' // Left position relative to parent
-      , shadow: false // Whether to render a shadow
-      , hwaccel: false // Whether to use hardware acceleration
-      , position: 'absolute' // Element positioning
-      }
-      var target = loadingDiv
-      spinner = new Spinner(opts).spin(target);
-
-      for( i=0 ; i<$('.doc_frame:not(.add_file)').length ; i++){
-        $($('.doc_frame:not(.add_file)')[i]).attr("title", $($('.doc_frame:not(.add_file)')[i]).find(".doc_title>span").html());
-      }
-
-      $('.doc_frame:not(.add_file)').jBox('Tooltip', {
-          delayOpen: 700,
-          delayClose: 300,
-          theme: "TooltipDark",
-          position:  {y: 'bottom'}
-      });
-
-			$('.doc_frame:not(.add_file)').click(function(e){
-        var a = $(e.target);
-        var b = $(this).find(".doc_delete");
-        var c = $(this).find("input");
-        if(  a[0] != b[0] && a[0] != c[0] && a[0] != c[1]){
-
-          // OPEN OR DOWNLOAD THE DOCUMENT HERE
-
-				  alert( $(this).find(".doc_title>span").html() );  // title of document
+        function extToClass(ext) {
+            if (ext == "doc" || ext == "docx" || ext == "pages" || ext == "rtf" || ext == "txt") {
+                return "word_doc";
+            } else if (ext == "key" || ext == "ppt" || ext == "pptx") {
+                return "keynote_doc";
+            } else if (ext == "xls" || ext == "xlsx" || ext == "numbers" || ext == "_xls" || ext == "xlsb" || ext == "xlsm" || ext == "xltx" || ext == "xlt") {
+                return "excel_doc";
+            } else if (ext == "pdf") {
+                return "pdf_doc";
+            } else if (ext == "mp3" || ext == "wav" || ext == "m4a" || ext == "avi" || ext == "wma" || ext == "ogg" || ext == "m4p" || ext == "ra" || ext == "ram" || ext == "rm" || ext == "mid") {
+                return "audio_doc";
+            } else if (ext == "mp4" || ext == "webm" || ext == "flv" || ext == "mkv" || ext == "ogv" || ext == "mov" || ext == "avi" || ext == "wmv" || ext == "m4p" || ext == "mpg") {
+                return "audio_doc";
+            } else if (ext == "png" || ext == "jpg" || ext == "jpeg" || ext == "jif" || ext == "jfif" || ext == "gif" || ext == "raw" || ext == "tif" || ext == "bmp" || ext == "rif" || ext == "tiff" || ext == "webp") {
+                return "image_doc";
+            } else {
+                return "default_doc";
+            }
         }
-			});
-      $(".doc_delete").click(function(){
-          var frame = $(this).parent().parent();
-          // frame.unbind("click");
-          frame.find(".confirm_del").css("background-color", frame.css("background-color"));
-          frame.find(".confirm_del").fadeIn(150).removeClass("hidden");
-          $(frame).click(function(e){
-            var a = $(e.target);
-              var b = $(this).find(".doc_delete");
-              var c = $(this).find("input");
-              if(  a[0] != b[0] && a[0] != c[0] && a[0] != c[1]){
-                frame.find(".confirm_del").fadeOut(150);
-              }
-          });
-          $(frame.find(".yes")).click(function(){
-            $grid.isotope('remove', frame).isotope();
-          });
-          $(frame.find(".no")).click(function(){
-            frame.find(".confirm_del").fadeOut(150);
-          });
-      });
+        $(document).ready(function() {
+            document.body.appendChild(loadingDiv)
 
-			$(".doc_frame").mouseenter(function(){
-        originalColor = rgb2hex($(this).css("backgroundColor"));
-        $(this).css({ backgroundColor: "#"+rgb2hex( $(this).css('backgroundColor') ).darkenHexColorBy(25) })
-        $(this).mouseleave(function(){
-            $(this).css({ backgroundColor: originalColor })
-  			});
-			});
+            var opts = {
+                lines: 13 // The number of lines to draw
+                    ,
+                length: 0 // The length of each line
+                    ,
+                width: 20 // The line thickness
+                    ,
+                radius: 42 // The radius of the inner circle
+                    ,
+                scale: .5 // Scales overall size of the spinner
+                    ,
+                corners: 1 // Corner roundness (0..1)
+                    ,
+                color: 'orange' // #rgb or #rrggbb or array of colors
+                    ,
+                opacity: 0.25 // Opacity of the lines
+                    ,
+                rotate: 0 // The rotation offset
+                    ,
+                direction: 1 // 1: clockwise, -1: counterclockwise
+                    ,
+                speed: 1 // Rounds per second
+                    ,
+                trail: 60 // Afterglow percentage
+                    ,
+                fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                    ,
+                zIndex: 2e9 // The z-index (defaults to 2000000000)
+                    ,
+                className: 'spinner' // The CSS class to assign to the spinner
+                    ,
+                top: '50%' // Top position relative to parent
+                    ,
+                left: '50%' // Left position relative to parent
+                    ,
+                shadow: false // Whether to render a shadow
+                    ,
+                hwaccel: false // Whether to use hardware acceleration
+                    ,
+                position: 'absolute' // Element positioning
+            }
+            var target = loadingDiv
+            spinner = new Spinner(opts).spin(target);
 
-      var file_modal = new jBox('Modal', {
-          width: 300,
-          height: 230,
-          attach: $('.add_file'),
-          title: 'Upload a File',
-          onOpen: function() {
-              $(".upload_button").click(function() {
-                if(uploads.length == undefined){
-                  if(uploads.size > 50000000){
-                    alert("file is too big");
-                  }else{
-                    // upload var uploads
-                    var extension = uploads.name.substring(uploads.name.indexOf(".")+1);
-                    console.log(extension);
-                    console.log(uploads);
-                  }
-                } else {
-                  for( i=0 ; i<uploads.length ; i++){
-                    if(uploads[i].size > 50000000){
-                      alert("file is too big");
-                    }else{
-                      // upload var uploads[i]
-                      var extension = uploads[i].name.substring(uploads[i].name.indexOf(".")+1);
-                      console.log(extension);
-                    }
-                  }
+
+            var file_modal = new jBox('Modal', {
+                width: 300,
+                height: 230,
+                attach: $('.add_file'),
+                title: 'Upload a File',
+                onOpen: function() {
+
+                    $("#chosen_file").html("No File Selected");
+                    $("#file").val("");
+                    $(".file_name")[0].value = "";
+
+                    $(".upload_button").unbind().click(function() {
+                        console.log(uploads);
+
+                        var fileName = $(".file_name").val();
+                        var teamCode = localStorage.teamCode;
+                        var user = localStorage.username;
+                        var rawFileName = "";
+
+                        if (uploads.length == undefined) {
+                            if (uploads.size > 50000000) {
+                                alert("file is too big");
+                            } else {
+                                rawFileName = uploads.name;
+                                // upload var uploads
+                                //var extension = uploads.name.substring(uploads.name.indexOf(".") + 1) || "not";
+                                //console.log(extension);
+                                //console.log(uploads);
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "/f/uploadtodrive?user=" + escape(user) + "&teamcode=" + escape(teamCode) + "&folder=" + escape(currentFolderID) + "&filename=" + escape(fileName) + "&rawname=" + escape(
+                                    rawFileName), true);
+                                xhr.onreadystatechange = function() {
+                                    if (xhr.readyState == 4 && xhr.status == 200) {
+                                        if (xhr.responseText != "Too large") {
+                                            var data = JSON.parse(xhr.responseText);
+                                            var fileSize = data.fileSize;
+                                            var fileType = data.fileType;
+                                            var fileCode = data.fileCode;
+                                            console.log(data);
+                                            //Add file to list of files
+                                            var imgSrc = "";
+                                            if (extToClass(fileType) == "image_doc") {
+                                                imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
+                                            } else {
+                                                imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
+                                            }
+                                            var $newFile = $('<div style="z-index:1;" class="doc_frame ' + 'word_doc' + '" data-fileid="' + fileCode + '" title="' + fileName +
+                                                '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
+                                                imgSrc + '" class="doc_preview" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
+                                                '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
+                                            $grid.append($newFile).isotope("insert", $newFile);
+                                            $('.doc_frame:not(.add_file)').jBox('Tooltip', {
+                                                delayOpen: 700,
+                                                delayClose: 300,
+                                                theme: "TooltipDark",
+                                                position: {
+                                                    y: 'bottom'
+                                                }
+                                            });
+                                            //$grid.isotope({sortBy: chosenSort});
+
+                                            file_modal.close();
+                                        }
+
+                                    }
+                                };
+                                xhr.send(uploads);
+
+                            }
+                        } else {
+                            if (uploads[0].size > 50000000) {
+                                alert("file is too big");
+                            } else {
+                                rawFileName = uploads[0].name;
+                                // upload var uploads[i]
+                                //var extension = uploads[i].name.substring(uploads[i].name.indexOf(".") + 1);
+                                //console.log(extension);
+
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "/f/uploadtodrive?user=" + escape(user) + "&teamcode=" + escape(teamCode) + "&folder=" + escape(currentFolderID) + "&filename=" + escape(fileName) + "&rawname=" + escape(
+                                    rawFileName), true);
+                                xhr.onreadystatechange = function() {
+                                    if (xhr.readyState == 4 && xhr.status == 200) {
+                                        if (xhr.responseText != "fail") {
+                                            var data = JSON.parse(xhr.responseText);
+                                            var fileSize = data.fileSize;
+                                            var fileType = data.fileType;
+                                            var fileCode = data.fileCode;
+                                            console.log(data);
+                                            //Add file to list of files
+                                            var imgSrc = "";
+                                            if (extToClass(fileType) == "image_doc") {
+                                                imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
+                                            } else {
+                                                imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
+                                            }
+                                            var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
+                                                '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
+                                                imgSrc + '" class="doc_preview" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
+                                                '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
+                                            $grid.append($newFile).isotope("insert", $newFile);
+                                            $('.doc_frame:not(.add_file)').jBox('Tooltip', {
+                                                delayOpen: 700,
+                                                delayClose: 300,
+                                                theme: "TooltipDark",
+                                                position: {
+                                                    y: 'bottom'
+                                                }
+                                            });
+                                            //$grid.isotope({sortBy: chosenSort});
+
+                                            file_modal.close();
+                                        }
+
+                                    }
+                                };
+                                xhr.send(uploads[0]);
+                            }
+                        }
+                    });
                 }
-              });
-          }
-      });
-      var file_modal_content = "<input type='button' class='button file_choose' value='Choose File'></input><p id='chosen_file'>No File Selected</p><input type='text' class='file_name' placeholder='File Name'></input><input type='button' class='button upload_button' value='Upload'></input>"
-      file_modal.setContent(file_modal_content);
-      $(".file_choose").click(function() {
-        $("#file").trigger("click");
-      })
-      jQuery.fn.flash = function (color, duration) {
-         var current = this.css('backgroundColor');
-         this.animate({ backgroundColor: color }, duration / 2)
-         .animate({ backgroundColor: current }, duration / 2);
-      }
-      document.getElementById("file").onchange = function () {
-        uploads = this.files;
-        if(this.files.length == 1){
-          document.getElementById("chosen_file").innerHTML = this.files[0].name;
-          setTimeout(function(){
-            $("#chosen_file").flash("#0099ff", 1000);
-          }, 300);
-        }else{
-          document.getElementById("chosen_file").innerHTML = "Multiple Selected";
-          setTimeout(function(){
-            $("#chosen_file").flash("#0099ff", 1000);
-          }, 300);
-        }
-      };
-      var myDropzone = new Dropzone(".add_file", { url: "#", createImageThumbnails: false, clickable: false, previewTemplate:"<div id='preview-template' style='display: none;''>", uploadMultiple:false});
-      myDropzone.on("addedfile", function(file) {
-        uploads = file;
-        file_modal.open();
-        document.getElementById("chosen_file").innerHTML = file.name;
-        setTimeout(function(){
-          $("#chosen_file").flash("#0099ff", 1000);
-        }, 300);
-      });
-      function showDropHere(){
-        $("#add_file_sign").removeClass("glyphicon-plus")
-        $("#add_file_sign").html("Drop Here");
-        $(".add_file").css("background-color", "#f5f5f5");
-        $("#add_file_sign").css("font-size", "40px");
-      }
-      function hideDropHere(){
-        $("#add_file_sign").addClass("glyphicon-plus")
-        $("#add_file_sign").html("");
-        $(".add_file").css("background-color", "#e9e9e9")
-        $("#add_file_sign").css("font-size", "60px");
-      }
-      $("html").on("dragenter", function(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          showDropHere();
-      });
-      $("html").on("drop", function(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          hideDropHere();
-      });
-      $(".add_file").on("drop", function(event) {
-          event.preventDefault();
-          event.stopPropagation();
-          hideDropHere();
-      });
-      $("html").on("mouseenter", function(event) {
-          event.stopPropagation();
-          event.preventDefault();
-          hideDropHere();
-      })
-      $("html").on('dragover',function(){
-          event.preventDefault();
-      });
-      $("html").mouseleave(function(){
-          hideDropHere();
-      });
-      var titles = $(".doc_title>span");
-      for( i=0 ; i<titles.length ; i++ ){
-        $clamp(titles[i], {clamp: 2})
-      }
-      function hideLeftbar(time, button){
-        $(".leftbar").velocity({left: "-260px"}, time);
-        $(".documents_list").velocity({left: "40px"}, time);
-        $(button).removeClass("glyphicon-chevron-left").addClass("glyphicon-chevron-right");
-        $(button).velocity({left: "10px"}, time);
-        setTimeout(function(){
-          $(".documents_list").css("width", "calc(100vw - 60px)")
-          $grid.isotope();
-        }, time)
-      }
-      function showLeftbar(time, button){
-        $(".leftbar").velocity({left: "0px"}, time);
-        $(".documents_list").velocity({left: "300px"}, time);
-        $(button).removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-left");
-        $(button).velocity({left: "220px"}, time);
-        setTimeout(function(){
-          $(".documents_list").css("width", "calc(100vw - 320px)")
-          $grid.isotope();
-        }, time);
-      }
-      $(".hide_leftbar").click(function(){
-        if($(this).hasClass("glyphicon-chevron-left")){
-          hideLeftbar(300, this);
-        }else{
-          showLeftbar(300, this);
-        }
-      });
-      if($(window).width() < 825){
-        hideLeftbar(0, ".hide_leftbar");
-      }
-
-    });
-    function debounce( fn, threshold ) {
-      var timeout;
-      return function debounced() {
-        if ( timeout ) {
-          clearTimeout( timeout );
-        }
-        function delayed() {
-          fn();
-          timeout = null;
-        }
-        timeout = setTimeout( delayed, threshold || 100 );
-      }
-    }
-    $(window).load(function(){
-      var img = new Array($(".image_preview").length);
-      for( var i = 0 ; i<$(".image_preview").length ; i++ ){
-        img[i] = document.createElement("img");
-        img[i].src = $(".image_preview")[i].src;
-        var n = 0
-        img[i].onload = function () {
-            var colorThief = new ColorThief();
-            var color = colorThief.getColor(img[n]);
-            $(".image_preview")[n].parentNode.style.backgroundColor = "rgb(" + color + ")";
-            var r = color[0];
-            var g = color[1];
-            var b = color[2];
-            var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-            if (luma > 170) {
-                $($(".image_preview")[n]).next().css( "color", "black" );
+            });
+            var file_modal_content =
+                "<input type='button' class='button file_choose' value='Choose File'></input><p id='chosen_file'>No File Selected</p><input type='text' class='file_name' placeholder='File Name'></input><input type='button' class='button upload_button' value='Upload'></input>"
+            file_modal.setContent(file_modal_content);
+            $(".file_choose").click(function() {
+                $("#file").trigger("click");
+            })
+            jQuery.fn.flash = function(color, duration) {
+                var current = this.css('backgroundColor');
+                this.animate({
+                        backgroundColor: color
+                    }, duration / 2)
+                    .animate({
+                        backgroundColor: current
+                    }, duration / 2);
             }
-            n++;
-        };
-      }
-      spinner.stop();
-      $(".documents_list").fadeIn(400).removeClass("hidden");
+            document.getElementById("file").onchange = function() {
+                uploads = this.files;
+                if (this.files.length == 1) {
+                    document.getElementById("chosen_file").innerHTML = this.files[0].name;
+                    setTimeout(function() {
+                        $("#chosen_file").flash("#0099ff", 1000);
+                    }, 300);
+                } else {
+                    document.getElementById("chosen_file").innerHTML = "Multiple Selected";
+                    setTimeout(function() {
+                        $("#chosen_file").flash("#0099ff", 1000);
+                    }, 300);
+                }
+            };
+            var myDropzone = new Dropzone(".add_file", {
+                url: "#",
+                createImageThumbnails: false,
+                clickable: false,
+                previewTemplate: "<div id='preview-template' style='display: none;''>",
+                uploadMultiple: false
+            });
+            myDropzone.on("addedfile", function(file) {
+                uploads = file;
+                file_modal.open();
+                document.getElementById("chosen_file").innerHTML = file.name;
+                setTimeout(function() {
+                    $("#chosen_file").flash("#0099ff", 1000);
+                }, 300);
+            });
 
-      var qsRegex;
-
-      $grid = $('.grid').isotope({
-        // options
-        itemSelector: '.doc_frame',
-        layoutMode: 'fitRows',
-        transformEnabled: false,
-        isAnimated: false,
-        filter: function() {
-          return qsRegex ? $(this).text().match( qsRegex ) : true;
-        },
-        getSortData: {
-          name: '.name',
-          size: function( itemElem ) {
-            var size = $( itemElem ).find('.file_size').text();
-            if(size.indexOf("MB") > -1){
-              size = size.substring(0, size.indexOf("MB") );
-              return parseFloat( size.replace( /[\(\)]/g, '') ) * 1000;
-            }else{
-              return parseFloat( size.replace( /[\(\)]/g, '') );
+            function showDropHere() {
+                $("#add_file_sign").removeClass("glyphicon-plus")
+                $("#add_file_sign").html("Drop Here");
+                $(".add_file").css("background-color", "#f5f5f5");
+                $("#add_file_sign").css("font-size", "40px");
             }
-          },
-          type: function( itemElem ) {
-            if( $(itemElem).hasClass("add_file") ){
-              return "a"
-            }else if( $(itemElem).hasClass("word_doc") ){
-              return "a";
-            }else if( $(itemElem).hasClass("pdf_doc") ){
-              return "b";
-            }else if( $(itemElem).hasClass("keynote_doc") ){
-              return "c";
-            }else if( $(itemElem).hasClass("excel_doc") ){
-              return "d";
-            }else if( $(itemElem).hasClass("audio_doc") ){
-              return "e";
-            }else if( $(itemElem).hasClass("default_doc") ){
-              return "f";
-            }else if( $(itemElem).hasClass("image_doc") ){
-              return "g";
-            }else{
-              return "z";
+
+            function hideDropHere() {
+                $("#add_file_sign").addClass("glyphicon-plus")
+                $("#add_file_sign").html("");
+                $(".add_file").css("background-color", "#e9e9e9")
+                $("#add_file_sign").css("font-size", "60px");
             }
-          }
+            $("html").on("dragenter", function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                showDropHere();
+            });
+            $("html").on("drop", function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                hideDropHere();
+            });
+            $(".add_file").on("drop", function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                hideDropHere();
+            });
+            $("html").on("mouseenter", function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+                hideDropHere();
+            })
+            $("html").on('dragover', function() {
+                event.preventDefault();
+            });
+            $("html").mouseleave(function() {
+                hideDropHere();
+            });
+            var titles = $(".doc_title>span");
+            for (i = 0; i < titles.length; i++) {
+                $clamp(titles[i], {
+                    clamp: 2
+                })
+            }
+
+            function hideLeftbar(time, button) {
+                $(".leftbar").velocity({
+                    left: "-260px"
+                }, time);
+                $(".documents_list").velocity({
+                    left: "40px"
+                }, time);
+                $(button).removeClass("glyphicon-chevron-left").addClass("glyphicon-chevron-right");
+                $(button).velocity({
+                    left: "10px"
+                }, time);
+                setTimeout(function() {
+                    $(".documents_list").css("width", "calc(100vw - 60px)")
+                    $grid.isotope();
+                }, time)
+            }
+
+            function showLeftbar(time, button) {
+                $(".leftbar").velocity({
+                    left: "0px"
+                }, time);
+                $(".documents_list").velocity({
+                    left: "300px"
+                }, time);
+                $(button).removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-left");
+                $(button).velocity({
+                    left: "220px"
+                }, time);
+                setTimeout(function() {
+                    $(".documents_list").css("width", "calc(100vw - 320px)")
+                    $grid.isotope();
+                }, time);
+            }
+            $(".hide_leftbar").click(function() {
+                if ($(this).hasClass("glyphicon-chevron-left")) {
+                    hideLeftbar(300, this);
+                } else {
+                    showLeftbar(300, this);
+                }
+            });
+            if ($(window).width() < 825) {
+                hideLeftbar(0, ".hide_leftbar");
+            }
+
+        });
+
+        function debounce(fn, threshold) {
+            var timeout;
+            return function debounced() {
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+
+                function delayed() {
+                    fn();
+                    timeout = null;
+                }
+                timeout = setTimeout(delayed, threshold || 100);
+            }
         }
+        $(window).load(function() {
 
-      });
+            var img = new Array($(".image_preview").length);
+            for (var i = 0; i < $(".image_preview").length; i++) {
+                img[i] = document.createElement("img");
+                img[i].src = $(".image_preview")[i].src;
+                var n = 0
+                img[i].onload = function() {
+                    var colorThief = new ColorThief();
+                    var color = colorThief.getColor(img[n]);
+                    $(".image_preview")[n].parentNode.style.backgroundColor = "rgb(" + color + ")";
+                    var r = color[0];
+                    var g = color[1];
+                    var b = color[2];
+                    var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                    if (luma > 170) {
+                        $($(".image_preview")[n]).next().css("color", "black");
+                    }
+                    n++;
+                };
+            }
+            spinner.stop();
+            $(".documents_list").fadeIn(400).removeClass("hidden");
 
-      var $quicksearch = $('.searchbox').keyup( debounce( function() {
-        qsRegex = new RegExp( $quicksearch.val(), 'gi' );
-        $grid.isotope();
-      }, 200 ) );
+            var qsRegex;
 
-      $(".sort_by").click(function(){
-        var chosenSort = "";
-        $(".sort_by").removeClass("selected");
-        $(this).addClass("selected");
-        chosenSort = $(this).html().toLowerCase();
-        if(chosenSort === "date"){
-          chosenSort = "original-order";
-        }
-        $grid.isotope({sortBy: chosenSort})
-      });
+            $grid = $('.grid').isotope({
+                // options
+                itemSelector: '.doc_frame',
+                layoutMode: 'fitRows',
+                transformEnabled: false,
+                isAnimated: false,
+                filter: function() {
+                    return qsRegex ? $(this).text().match(qsRegex) : true;
+                },
+                getSortData: {
+                    name: '.name',
+                    size: function(itemElem) {
+                        var size = $(itemElem).find('.file_size').text();
+                        if (size.indexOf("MB") > -1) {
+                            size = size.substring(0, size.indexOf("MB"));
+                            return parseFloat(size.replace(/[\(\)]/g, '')) * 1000;
+                        } else {
+                            return parseFloat(size.replace(/[\(\)]/g, ''));
+                        }
+                    },
+                    type: function(itemElem) {
+                        if ($(itemElem).hasClass("add_file")) {
+                            return "a"
+                        } else if ($(itemElem).hasClass("word_doc")) {
+                            return "a";
+                        } else if ($(itemElem).hasClass("pdf_doc")) {
+                            return "b";
+                        } else if ($(itemElem).hasClass("keynote_doc")) {
+                            return "c";
+                        } else if ($(itemElem).hasClass("excel_doc")) {
+                            return "d";
+                        } else if ($(itemElem).hasClass("audio_doc")) {
+                            return "e";
+                        } else if ($(itemElem).hasClass("default_doc")) {
+                            return "f";
+                        } else if ($(itemElem).hasClass("image_doc")) {
+                            return "g";
+                        } else {
+                            return "z";
+                        }
+                    }
+                }
 
-    });
-    window.onunload = function(){};
+            });
+
+
+            $('.doc_frame:not(.add_file)').jBox('Tooltip', {
+                delayOpen: 700,
+                delayClose: 300,
+                theme: "TooltipDark",
+                position: {
+                    y: 'bottom'
+                }
+            });
+
+            $(document).on("click", ".doc_frame:not(.add_file)", function(e) {
+                var a = $(e.target);
+                var b = $(this).find(".doc_delete");
+                var c = $(this).find("input");
+                if (a[0] != b[0] && a[0] != c[0] && a[0] != c[1]) {
+
+                    // OPEN OR DOWNLOAD THE DOCUMENT HERE
+                    //Download
+
+                    location = "/f/getfile?user=" + localStorage.username + "&filecode=" + $(this).attr("data-fileid");
+
+                    /*console.log("Should download");
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "/f/getfile?user="+localStorage.username+"&filecode="+$(this).attr("data-fileid"), true);
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            if (xhr.responseText == "File does not exist") {
+                                alert("Error loading file");
+                            }
+                            else {
+                                console.log(xhr.responseText);
+                            }
+                        }
+                    };
+                    xhr.send();*/
+
+
+
+                    //alert($(this).find(".doc_title>span").html()); // title of document
+                }
+            });
+            $(document).on("click", ".doc_delete", function() {
+                var frame = $(this).parent().parent();
+                // frame.unbind("click");
+                frame.find(".confirm_del").css("background-color", frame.css("background-color"));
+                frame.find(".confirm_del").fadeIn(150).removeClass("hidden");
+                $(frame).click(function(e) {
+                    var a = $(e.target);
+                    var b = $(this).find(".doc_delete");
+                    var c = $(this).find("input");
+                    if (a[0] != b[0] && a[0] != c[0] && a[0] != c[1]) {
+                        frame.find(".confirm_del").fadeOut(150);
+                    }
+                });
+                $(frame.find(".yes")).click(function() {
+                    $grid.isotope('remove', frame).isotope();
+                });
+                $(frame.find(".no")).click(function() {
+                    frame.find(".confirm_del").fadeOut(150);
+                });
+            });
+
+            $(document).on("mouseenter", ".doc_frame", function() {
+                originalColor = rgb2hex($(this).css("backgroundColor"));
+                $(this).css({
+                    backgroundColor: "#" + rgb2hex($(this).css('backgroundColor')).darkenHexColorBy(25)
+                })
+                $(this).mouseleave(function() {
+                    $(this).css({
+                        backgroundColor: originalColor
+                    })
+                });
+            });
+
+
+            $(".drive_name:not(.new_folder, .drive_options)").click(function() {
+                currentFolderID = $(this).children().first().attr("data-folderid");
+                //console.log(currentFolderID);
+                //GET FILES WITH FOLDER ID
+                $grid.isotope("remove", $(".doc_frame:not(.add_file)")).isotope();
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/f/showfiles", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        if (xhr.responseText != "fail") {
+                            var files = JSON.parse(xhr.responseText);
+                            for (var i = 0; i < files.length; i++) {
+                                var imgSrc = "";
+                                if (extToClass(files[i].fileType) == "image_doc") {
+                                    imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + files[i].fileCode;
+                                } else {
+                                    imgSrc = "./images/" + extToClass(files[i].fileType).split('_')[0] + ".png";
+                                }
+                                var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(files[i].fileType) + '" data-fileid="' + files[i].fileCode + '" title="' + files[i].fileName +
+                                    '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' + imgSrc +
+                                    '" class="doc_preview" /><span class="doc_title"><span class="name">' + files[i].fileName + '</span><span class="file_size">' + files[i].fileSize +
+                                    '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
+                                $grid.append($newFile).isotope("appended", $newFile);
+                                $('.doc_frame:not(.add_file)').jBox('Tooltip', {
+                                    delayOpen: 700,
+                                    delayClose: 300,
+                                    theme: "TooltipDark",
+                                    position: {
+                                        y: 'bottom'
+                                    }
+                                });
+                            }
+                        }
+
+                    }
+                };
+                xhr.send(JSON.stringify({
+                    "user": localStorage.username,
+                    "folder": currentFolderID,
+                    "teamCode": localStorage.teamCode
+                }));
+            });
+            $($(".drive_name")[2]).trigger("click");
+
+            var $quicksearch = $('.searchbox').keyup(debounce(function() {
+                qsRegex = new RegExp($quicksearch.val(), 'gi');
+                $grid.isotope();
+            }, 200));
+
+            $(".sort_by").click(function() {
+                var chosenSort = "";
+                $(".sort_by").removeClass("selected");
+                $(this).addClass("selected");
+                chosenSort = $(this).html().toLowerCase();
+                if (chosenSort === "date") {
+                    chosenSort = "original-order";
+                }
+                $grid.isotope({
+                    sortBy: chosenSort
+                })
+            });
+
+        });
+        window.onunload = function() {};
     </script>
-  </body>
+</body>
+
 </html>
