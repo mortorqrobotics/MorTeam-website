@@ -387,7 +387,7 @@
                                             } else {
                                                 imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
                                             }
-                                            var $newFile = $('<div style="z-index:1;" class="doc_frame ' + 'word_doc' + '" data-fileid="' + fileCode + '" title="' + fileName +
+                                            var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
                                                 '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
                                                 imgSrc + '" class="doc_preview" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
                                                 '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
@@ -740,7 +740,20 @@
                     }
                 });
                 $(frame.find(".yes")).click(function() {
-                    $grid.isotope('remove', frame).isotope();
+                    var fileCode = frame.attr("data-fileid");
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/f/deletefile", true);
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            if (xhr.responseText == "success") {
+                                $grid.isotope('remove', frame).isotope();
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify({
+                        "user": localStorage.username,
+                        "fileCode": fileCode
+                    }));
                 });
                 $(frame.find(".no")).click(function() {
                     frame.find(".confirm_del").fadeOut(150);
