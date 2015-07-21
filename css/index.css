@@ -898,6 +898,9 @@ input[type=checkbox]:checked + label:before {
 	right: 0;
 	cursor: pointer;
 }
+.image_preview{
+	display: none;
+}
 .doc_frame{
 	margin: 4px;
 	height: 208px;

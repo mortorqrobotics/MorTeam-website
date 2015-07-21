@@ -677,26 +677,6 @@
             }
         }
         $(window).load(function() {
-
-            var img = new Array($(".image_preview").length);
-            for (var i = 0; i < $(".image_preview").length; i++) {
-                img[i] = document.createElement("img");
-                img[i].src = $(".image_preview")[i].src;
-                var n = 0
-                img[i].onload = function() {
-                    var colorThief = new ColorThief();
-                    var color = colorThief.getColor(img[n]);
-                    $(".image_preview")[n].parentNode.style.backgroundColor = "rgb(" + color + ")";
-                    var r = color[0];
-                    var g = color[1];
-                    var b = color[2];
-                    var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-                    if (luma > 170) {
-                        $($(".image_preview")[n]).next().css("color", "black");
-                    }
-                    n++;
-                };
-            }
             spinner.stop();
             $(".documents_list").fadeIn(400).removeClass("hidden");
 
@@ -812,11 +792,18 @@
 
 
             $(".drive_name:not(.new_folder, .drive_options)").click(function() {
+              if( !$(this).hasClass('selected') ){
+
+
                 $(".drive_name:not(.new_folder, .drive_options)").removeClass("selected");
                 $(this).addClass("selected");
                 currentFolderID = $(this).children().first().attr("data-folderid");
                 //GET FILES WITH FOLDER ID
-                $grid.isotope("remove", $(".doc_frame:not(.add_file)")).isotope();
+                $grid.isotope("remove", $(".doc_frame:not(.add_file)")).isotope()
+
+                FileImgs = [];
+                imgCounter = 0;
+                isImg = undefined;
 
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/f/showfiles", true);
@@ -830,8 +817,10 @@
                                 if (extToClass(files[i].fileType) == "image_doc") {
                                     imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + files[i].fileCode;
                                     imgClass = " image_preview"
+                                    isImg = true
                                 } else {
                                     imgSrc = "./images/" + extToClass(files[i].fileType).split('_')[0] + ".png";
+                                    isImg = false
                                 }
                                 var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(files[i].fileType) + '" data-fileid="' + files[i].fileCode + '" title="' + files[i].fileName +
                                     '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' + imgSrc +
@@ -846,6 +835,26 @@
                                         y: 'bottom'
                                     }
                                 });
+                                  if(isImg){
+                                    FileImgs[imgCounter] = document.createElement("img");
+                                    FileImgs[imgCounter].src = imgSrc
+                                    FileImgs[imgCounter].onload = function(){
+                                      var colorThief = new ColorThief();
+                                      var color = colorThief.getColor(this);
+                                      setTimeout(function(){
+                                        $(".image_preview")[imgCounter].parentNode.style.backgroundColor = "rgb(" + color + ")";
+                                        $($(".image_preview")[imgCounter]).show();
+                                        var r = color[0];
+                                        var g = color[1];
+                                        var b = color[2];
+                                        var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                                        if (luma > 170) {
+                                            $($(".image_preview")[imgCounter]).next().css("color", "black");
+                                        }
+                                        imgCounter++;
+                                      }, 400);
+                                    };
+                                  }
                             }
                         }
 
@@ -856,6 +865,7 @@
                     "folder": currentFolderID,
                     "teamCode": localStorage.teamCode
                 }));
+              }
             });
             $($(".drive_name")[2]).trigger("click");
 
@@ -876,6 +886,7 @@
                     sortBy: chosenSort
                 })
             });
+
 
         });
         window.onunload = function() {};
