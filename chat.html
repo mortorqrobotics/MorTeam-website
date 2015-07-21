@@ -411,7 +411,6 @@
                 group_modal.setContent(initialContent);
             }
             $(document).on("click", "#group_button", function() {
-                // code to create group
                 var chatName = $("#group_name").val();
                 var usersBadges = $("p.clicked");
                 var groupImageSrc = "placeholder"
@@ -572,6 +571,15 @@
             if($(window).width() < 825){
               hideLeftbar(0, ".hide_leftbar");
             }
+
+            $(".searchbox").keyup(function(){
+              var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+              $('li.chat_name').show().filter(function() {
+                  var text = $(this).find(".chat_name_display").text().replace(/\s+/g, ' ').toLowerCase();
+                  console.log(!~text.indexOf(val));
+                  return !~text.indexOf(val);
+              }).hide();
+            })
         });
 
         window.onunload = function() {};

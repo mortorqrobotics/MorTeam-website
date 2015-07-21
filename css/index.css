@@ -136,6 +136,7 @@ li.active{
 	background-color: #ffc547;
 	z-index: 98;
 	overflow-y: auto;
+	top: 50px;
 }
 .triangle_thing_notif{
 	border-color: transparent;
@@ -160,6 +161,7 @@ li.active{
 	height: 80px;
 	background-color: #ffc547;
 	z-index: 98;
+	top: 50px;
 }
 .triangle_thing_prof{
 	border-color: transparent;
@@ -1013,7 +1015,7 @@ input[type=checkbox]:checked + label:before {
 	color: #C11D20;
 	cursor: pointer;
 }
-#group_button{
+#group_button, .make_folder_button{
 	width: 91.5%;
 	height: 37px;
 	background-color: #ffc547;
@@ -1028,7 +1030,7 @@ input[type=checkbox]:checked + label:before {
 	background-color: orange;
 	color: white;
 }
-#select_group_names{
+#select_group_names, #select_folder_members{
 	width: 100%;
 	margin-top: 10px;
 	border: none;
@@ -1038,7 +1040,7 @@ input[type=checkbox]:checked + label:before {
 	box-shadow: 1.5px 3px 8px -2px #a9a9a9;
 	border-radius: 1px;
 }
-#group_name{
+#group_name, .folder_name{
 	width: 100%;
 	margin-top: 5px;
 	border: none;
@@ -1048,7 +1050,7 @@ input[type=checkbox]:checked + label:before {
 	box-shadow: 1.5px 3px 8px -2px #a9a9a9;
 	border-radius: 1px;
 }
-.selected_group_name{
+.selected_group_name, .selected_folder_member{
 	margin: 2px 4px 2px 4px;
 	background-color: #ffd16e;
 	display: inline-block;
@@ -1056,29 +1058,29 @@ input[type=checkbox]:checked + label:before {
 	box-shadow: 1.5px 2px 8px -2px #a9a9a9;
 	border-radius: 1px;
 }
-#selected_names_div{
+#selected_names_div, #selected_folder_members{
 	height: 130px;
 	overflow-y: auto;
 }
-#selected_names_div::-webkit-scrollbar {
+#selected_names_div::-webkit-scrollbar, #selected_folder_members::-webkit-scrollbar {
     -webkit-appearance: none;
 }
 
-#selected_names_div::-webkit-scrollbar:vertical {
+#selected_names_div::-webkit-scrollbar:vertical, #selected_folder_members::-webkit-scrollbar:vertical {
     width: 11px;
 }
 
-#selected_names_div::-webkit-scrollbar-thumb {
+#selected_names_div::-webkit-scrollbar-thumb, #selected_folder_members::-webkit-scrollbar-thumb {
     border-radius: 8px;
     border: 2px solid #e9e9e9; /* should match background, can't be transparent */
     background-color: rgba(0, 0, 0, .3);
 }
 
-.selected_group_name:hover{
+.selected_group_name:hover, .selected_folder_member:hover{
 	background-color: orange;
 	cursor: pointer;
 }
-.selected_group_name.clicked{
+.selected_group_name.clicked, .selected_folder_member.clicked{
 	background-color: #53CF29;
 }
 .rainbow {
