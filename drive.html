@@ -51,28 +51,20 @@
                         <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'">
                             <span class="glyphicon glyphicon-home"></span>
                             <div class="hborder"></div>
-                        </li>
-                        <!--
-                        -->
-                        <li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'">
+                        </li><!--
+                        --><li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'">
                             <span class="glyphicon glyphicon-comment"></span>
                             <div class="border"></div>
-                        </li>
-                        <!--
-            -->
-                        <li class="navbar_item navbar_link active" id="drive_link" onclick="location='drive.html'">
+                        </li><!--
+                        --><li class="navbar_item navbar_link active" id="drive_link" onclick="location='drive.html'">
                             <span class="glyphicon glyphicon-hdd"></span>
                             <div class="border"></div>
-                        </li>
-                        <!--
-            -->
-                        <li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'">
+                        </li><!--
+                        --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'">
                             <span class="glyphicon glyphicon-calendar"></span>
                             <div class="border"></div>
-                        </li>
-                        <!--
-            -->
-                        <li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
+                        </li><!--
+                        --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
                             <span class="glyphicon glyphicon-cog"></span>
                             <div class="border"></div>
                         </li>
@@ -239,7 +231,7 @@
                     </ul>
                 </div>
                 <!-- <span class="glyphicon glyphicon-th grid_layout"></span>
-          <span class="glyphicon glyphicon-th-list list_layout"></span>  UN-COMMENT WHEN LIST LAYOUT IS READY   -->
+                <span class="glyphicon glyphicon-th-list list_layout"></span>  UN-COMMENT WHEN LIST LAYOUT IS READY   -->
             </li>
             <li class="drive_name new_folder">
                 <span id="make_drive" class="glyphicon glyphicon-plus"></span>New Folder</li>
@@ -365,10 +357,6 @@
                                 alert("file is too big");
                             } else {
                                 rawFileName = uploads.name;
-                                // upload var uploads
-                                //var extension = uploads.name.substring(uploads.name.indexOf(".") + 1) || "not";
-                                //console.log(extension);
-                                //console.log(uploads);
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("POST", "/f/uploadtodrive?user=" + escape(user) + "&teamcode=" + escape(teamCode) + "&folder=" + escape(currentFolderID) + "&filename=" + escape(fileName) + "&rawname=" + escape(
                                     rawFileName), true);
@@ -380,7 +368,7 @@
                                             var fileType = data.fileType;
                                             var fileCode = data.fileCode;
                                             console.log(data);
-                                            //Add file to list of files
+
                                             var imgSrc = "";
                                             if (extToClass(fileType) == "image_doc") {
                                                 imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
@@ -400,7 +388,7 @@
                                                     y: 'bottom'
                                                 }
                                             });
-                                            //$grid.isotope({sortBy: chosenSort});
+
 
                                             file_modal.close();
                                         }
@@ -415,9 +403,6 @@
                                 alert("file is too big");
                             } else {
                                 rawFileName = uploads[0].name;
-                                // upload var uploads[i]
-                                //var extension = uploads[i].name.substring(uploads[i].name.indexOf(".") + 1);
-                                //console.log(extension);
 
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("POST", "/f/uploadtodrive?user=" + escape(user) + "&teamcode=" + escape(teamCode) + "&folder=" + escape(currentFolderID) + "&filename=" + escape(fileName) + "&rawname=" + escape(
@@ -430,7 +415,7 @@
                                             var fileType = data.fileType;
                                             var fileCode = data.fileCode;
                                             console.log(data);
-                                            //Add file to list of files
+
                                             var imgSrc = "";
                                             if (extToClass(fileType) == "image_doc") {
                                                 imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
@@ -450,7 +435,6 @@
                                                     y: 'bottom'
                                                 }
                                             });
-                                            //$grid.isotope({sortBy: chosenSort});
 
                                             file_modal.close();
                                         }
@@ -641,7 +625,6 @@
             var qsRegex;
 
             $grid = $('.grid').isotope({
-                // options
                 itemSelector: '.doc_frame',
                 layoutMode: 'fitRows',
                 transformEnabled: false,
@@ -700,35 +683,12 @@
                 var b = $(this).find(".doc_delete");
                 var c = $(this).find("input");
                 if (a[0] != b[0] && a[0] != c[0] && a[0] != c[1]) {
-
-                    // OPEN OR DOWNLOAD THE DOCUMENT HERE
-                    //Download
-
                     location = "/f/getfile?user=" + localStorage.username + "&filecode=" + $(this).attr("data-fileid");
-
-                    /*console.log("Should download");
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("GET", "/f/getfile?user="+localStorage.username+"&filecode="+$(this).attr("data-fileid"), true);
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            if (xhr.responseText == "File does not exist") {
-                                alert("Error loading file");
-                            }
-                            else {
-                                console.log(xhr.responseText);
-                            }
-                        }
-                    };
-                    xhr.send();*/
-
-
-
                     //alert($(this).find(".doc_title>span").html()); // title of document
                 }
             });
             $(document).on("click", ".doc_delete", function() {
                 var frame = $(this).parent().parent();
-                // frame.unbind("click");
                 frame.find(".confirm_del").css("background-color", frame.css("background-color"));
                 frame.find(".confirm_del").fadeIn(150).removeClass("hidden");
                 $(frame).click(function(e) {
@@ -774,8 +734,9 @@
 
 
             $(".drive_name:not(.new_folder, .drive_options)").click(function() {
+                $(".drive_name:not(.new_folder, .drive_options)").removeClass("selected");
+                $(this).addClass("selected");
                 currentFolderID = $(this).children().first().attr("data-folderid");
-                //console.log(currentFolderID);
                 //GET FILES WITH FOLDER ID
                 $grid.isotope("remove", $(".doc_frame:not(.add_file)")).isotope();
 
