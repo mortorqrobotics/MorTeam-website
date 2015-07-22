@@ -21,15 +21,9 @@
     </script>
     <script src="js/spin.js"></script>
     <script type="text/javascript">
-        // var loadingImg = new Image();
-        // loadingImg.className = "spinner"
         var loadingDiv = document.createElement("div");
         loadingDiv.className = "loading_circle";
         loadingDiv.id = "loading_circle";
-        // loadingImg.onload = function(){
-        //   loadingDiv.appendChild(loadingImg)
-        // }
-        // loadingImg.src="images/ajax-loader.gif";
     </script>
 </head>
 
@@ -107,98 +101,7 @@
             <div style="z-index:1;" class="doc_frame add_file">
                 <span id="add_file_sign" class="glyphicon glyphicon-plus"></span>
             </div>
-            <!--<div style="z-index:1;" class="doc_frame word_doc">
-                <div class="hidden confirm_del">
-                    <p>Are you sure?</p>
-                    <input type="button" value="yes" class="yes"></input>
-                    <input type="button" value="no" class="no"></input>
-                </div>
-                <img src="./images/word.png" class="doc_preview" />
-                <span class="doc_title">
-                    <span class="name">Word Document 1 that has a very long title so that i can see what the overflow looks like</span>
-                    <span class="file_size">267.7 KB</span>
-                    <span class="glyphicon glyphicon-trash doc_delete"></span>
-                </span>
-            </div>
-            <div style="z-index:1;" class="doc_frame pdf_doc">
-                <div class="hidden confirm_del">
-                    <p>Are you sure?</p>
-                    <input type="button" value="yes" class="yes"></input>
-                    <input type="button" value="no" class="no"></input>
-                </div>
-                <img src="./images/pdf.png" class="doc_preview" />
-                <span class="doc_title">
-                    <span class="name">PDF Document 1</span>
-                    <span class="file_size">1.7 MB</span>
-                    <span class="glyphicon glyphicon-trash doc_delete"></span>
-                </span>
-            </div>
-            <div style="z-index:1;" class="doc_frame excel_doc">
-                <div class="hidden confirm_del">
-                    <p>Are you sure?</p>
-                    <input type="button" value="yes" class="yes"></input>
-                    <input type="button" value="no" class="no"></input>
-                </div>
-                <img src="./images/excel.png" class="doc_preview" />
-                <span class="doc_title">
-                    <span class="name">Excel Spreadsheet 1</span>
-                    <span class="file_size">2.2 MB</span>
-                    <span class="glyphicon glyphicon-trash doc_delete"></span>
-                </span>
-            </div>
-            <div style="z-index:1;" class="doc_frame keynote_doc">
-                <div class="hidden confirm_del">
-                    <p>Are you sure?</p>
-                    <input type="button" value="yes" class="yes"></input>
-                    <input type="button" value="no" class="no"></input>
-                </div>
-                <img src="./images/keynote.png" class="doc_preview" />
-                <span class="doc_title">
-                    <span class="name">Powepoint Document 1</span>
-                    <span class="file_size">5.9 MB</span>
-                    <span class="glyphicon glyphicon-trash doc_delete"></span>
-                </span>
-            </div>
-            <div style="z-index:1;" class="doc_frame default_doc">
-                <div class="hidden confirm_del">
-                    <p>Are you sure?</p>
-                    <input type="button" value="yes" class="yes"></input>
-                    <input type="button" value="no" class="no"></input>
-                </div>
-                <img src="./images/default.png" class="doc_preview" />
-                <span class="doc_title">
-                    <span class="name">Unknown File Type 1</span>
-                    <span class="file_size">14.7 MB</span>
-                    <span class="glyphicon glyphicon-trash doc_delete"></span>
-                </span>
-            </div>
-            <div style="z-index:1;" class="doc_frame audio_doc">
-                <div class="hidden confirm_del">
-                    <p>Are you sure?</p>
-                    <input type="button" value="yes" class="yes"></input>
-                    <input type="button" value="no" class="no"></input>
-                </div>
-                <img src="./images/audio.png" class="doc_preview" />
-                <span class="doc_title">
-                    <span class="name">Audio File 1</span>
-                    <span class="file_size">6.9 MB</span>
-                    <span class="glyphicon glyphicon-trash doc_delete"></span>
-                </span>
-            </div>
-            <div style="z-index:1;" class="doc_frame image_doc">
-                <div class="hidden confirm_del">
-                    <p>Are you sure?</p>
-                    <input type="button" value="yes" class="yes"></input>
-                    <input type="button" value="no" class="no"></input>
-                </div>
-                <img src="./images/sample1.jpg" class="doc_preview image_preview" />
-                <span class="doc_title">
-                    <span class="name">Forest Image</span>
-                    <span class="file_size">7.8 MB</span>
-                    <span class="glyphicon glyphicon-trash doc_delete"></span>
-                </span>
-            </div>
-            <div style="z-index:1;" class="doc_frame image_doc">
+            <!--<div style="z-index:1;" class="doc_frame image_doc">              // THIS IS A SAMPLE FILE (IMAGE) IN DRIVE
                 <div class="hidden confirm_del">
                     <p>Are you sure?</p>
                     <input type="button" value="yes" class="yes"></input>
@@ -263,6 +166,7 @@
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/hex.js"></script>
     <script type="text/javascript">
+
         var currentFolderID = "";
         var chosenSort = "original-order";
 
@@ -309,8 +213,28 @@
                 "user": localStorage.username
             }));
         }
+        jQuery.fn.flash = function(color, duration) {
+            var current = this.css('backgroundColor');
+            this.animate({
+                    backgroundColor: color
+                }, duration / 2)
+                .animate({
+                    backgroundColor: current
+                }, duration / 2);
+        }
+        function showDropHere() {
+            $("#add_file_sign").removeClass("glyphicon-plus")
+            $("#add_file_sign").html("Drop Here");
+            $(".add_file").css("background-color", "#f5f5f5");
+            $("#add_file_sign").css("font-size", "40px");
+        }
 
-
+        function hideDropHere() {
+            $("#add_file_sign").addClass("glyphicon-plus")
+            $("#add_file_sign").html("");
+            $(".add_file").css("background-color", "#e9e9e9")
+            $("#add_file_sign").css("font-size", "60px");
+        }
 
         $(document).ready(function() {
 
@@ -330,7 +254,14 @@
                         console.log(!~text.indexOf(val));
                         return !~text.indexOf(val);
                     }).hide();
-
+                  });
+                  $(document).on("click", ".selected_folder_member", function() {
+                      // do stuff with $(this) when a name has been clicked in group_modal
+                      if ($(this).hasClass("clicked")) {
+                          $(this).removeClass("clicked");
+                      } else {
+                          $(this).addClass('clicked');
+                      }
                   });
                   $(document).one("click", '.make_folder_button', function() {
 
@@ -352,17 +283,8 @@
             });
             loadUsersOnFolderModal(folder_modal);
 
-            $(document).on("click", ".selected_folder_member", function() {
-                // do stuff with $(this) when a name has been clicked in group_modal
-                if ($(this).hasClass("clicked")) {
-                    $(this).removeClass("clicked");
-                } else {
-                    $(this).addClass('clicked');
-                }
-            });
 
-
-            var opts = {
+            var spinnerOpts = {
                 lines: 13 // The number of lines to draw
                     ,
                 length: 0 // The length of each line
@@ -403,8 +325,7 @@
                     ,
                 position: 'absolute' // Element positioning
             }
-            var target = loadingDiv
-            spinner = new Spinner(opts).spin(target);
+            spinner = new Spinner(spinnerOpts).spin(loadingDiv);
 
 
             var file_modal = new jBox('Modal', {
@@ -445,18 +366,21 @@
 
                                             var imgSrc = "";
                                             var imgClass = "";
+                                            var isImg;
                                             if (extToClass(fileType) == "image_doc") {
                                                 imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
                                                 imgClass = " image_preview";
+                                                isImg = true;
                                             } else {
                                                 imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
+                                                isImg = false;
                                             }
                                             var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
                                                 '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
                                                 imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
                                                 '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
                                             $grid.append($newFile).isotope("insert", $newFile);
-                                            $('.doc_frame:not(.add_file)').jBox('Tooltip', {
+                                            $newFile.jBox('Tooltip', {
                                                 delayOpen: 700,
                                                 delayClose: 300,
                                                 theme: "TooltipDark",
@@ -464,7 +388,29 @@
                                                     y: 'bottom'
                                                 }
                                             });
-
+                                            if(isImg){
+                                              thisImg = document.createElement("img");
+                                              thisImg.src = imgSrc
+                                              thisImg.onload = function(){
+                                                var colorThief = new ColorThief();
+                                                var color = colorThief.getColor(this);
+                                                setTimeout(function(){
+                                                  $newFile.css("backgroundColor", "rgb(" + color + ")");
+                                                  $newFile.find(".image_preview").show();
+                                                  var r = color[0];
+                                                  var g = color[1];
+                                                  var b = color[2];
+                                                  var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                                                  if (luma > 170) {
+                                                      $newFile.find(".doc_title").children().css("color", "black");
+                                                  }
+                                                }, 400);
+                                              };
+                                            }
+                                            var title = $newFile.find(".doc_title>span")[0];
+                                            $clamp(title, {
+                                                clamp: 2
+                                            })
 
                                             file_modal.close();
                                         }
@@ -494,18 +440,21 @@
 
                                             var imgSrc = "";
                                             var imgClass = "";
+                                            var isImg;
                                             if (extToClass(fileType) == "image_doc") {
                                                 imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
                                                 imgClass = " image_preview";
+                                                isImg = true;
                                             } else {
                                                 imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
+                                                isImg = false;
                                             }
                                             var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
                                                 '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
                                                 imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
                                                 '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
                                             $grid.append($newFile).isotope("insert", $newFile);
-                                            $('.doc_frame:not(.add_file)').jBox('Tooltip', {
+                                            $newFile.jBox('Tooltip', {
                                                 delayOpen: 700,
                                                 delayClose: 300,
                                                 theme: "TooltipDark",
@@ -513,6 +462,29 @@
                                                     y: 'bottom'
                                                 }
                                             });
+                                            if(isImg){
+                                              thisImg = document.createElement("img");
+                                              thisImg.src = imgSrc
+                                              thisImg.onload = function(){
+                                                var colorThief = new ColorThief();
+                                                var color = colorThief.getColor(this);
+                                                setTimeout(function(){
+                                                  $newFile.css("backgroundColor", "rgb(" + color + ")");
+                                                  $newFile.find(".image_preview").show();
+                                                  var r = color[0];
+                                                  var g = color[1];
+                                                  var b = color[2];
+                                                  var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                                                  if (luma > 170) {
+                                                      $newFile.find(".doc_title").children().css("color", "black");
+                                                  }
+                                                }, 400);
+                                              };
+                                            }
+                                            var title = $newFile.find(".doc_title>span")[0];
+                                            $clamp(title, {
+                                                clamp: 2
+                                            })
 
                                             file_modal.close();
                                         }
@@ -530,16 +502,8 @@
             file_modal.setContent(file_modal_content);
             $(".file_choose").click(function() {
                 $("#file").trigger("click");
-            })
-            jQuery.fn.flash = function(color, duration) {
-                var current = this.css('backgroundColor');
-                this.animate({
-                        backgroundColor: color
-                    }, duration / 2)
-                    .animate({
-                        backgroundColor: current
-                    }, duration / 2);
-            }
+            });
+
             document.getElementById("file").onchange = function() {
                 uploads = this.files;
                 if (this.files.length == 1) {
@@ -570,19 +534,7 @@
                 }, 300);
             });
 
-            function showDropHere() {
-                $("#add_file_sign").removeClass("glyphicon-plus")
-                $("#add_file_sign").html("Drop Here");
-                $(".add_file").css("background-color", "#f5f5f5");
-                $("#add_file_sign").css("font-size", "40px");
-            }
 
-            function hideDropHere() {
-                $("#add_file_sign").addClass("glyphicon-plus")
-                $("#add_file_sign").html("");
-                $(".add_file").css("background-color", "#e9e9e9")
-                $("#add_file_sign").css("font-size", "60px");
-            }
             $("html").on("dragenter", function(event) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -609,12 +561,8 @@
             $("html").mouseleave(function() {
                 hideDropHere();
             });
-            var titles = $(".doc_title>span");
-            for (i = 0; i < titles.length; i++) {
-                $clamp(titles[i], {
-                    clamp: 2
-                })
-            }
+
+
 
             function hideLeftbar(time, button) {
                 $(".leftbar").velocity({
@@ -727,14 +675,14 @@
             });
 
 
-            $('.doc_frame:not(.add_file)').jBox('Tooltip', {
-                delayOpen: 700,
-                delayClose: 300,
-                theme: "TooltipDark",
-                position: {
-                    y: 'bottom'
-                }
-            });
+            // $('.doc_frame:not(.add_file)').jBox('Tooltip', {
+            //     delayOpen: 700,
+            //     delayClose: 300,
+            //     theme: "TooltipDark",
+            //     position: {
+            //         y: 'bottom'
+            //     }
+            // });
 
             $(document).on("click", ".doc_frame:not(.add_file)", function(e) {
                 var a = $(e.target);
@@ -779,15 +727,15 @@
             });
 
             $(document).on("mouseenter", ".doc_frame", function() {
-                originalColor = rgb2hex($(this).css("backgroundColor"));
+                //originalColor = rgb2hex($(this).css("backgroundColor"));
                 $(this).css({
                     backgroundColor: "#" + rgb2hex($(this).css('backgroundColor')).darkenHexColorBy(25)
                 })
-                $(this).mouseleave(function() {
-                    $(this).css({
-                        backgroundColor: originalColor
-                    })
-                });
+            });
+            $(document).on("mouseleave", ".doc_frame", function() {
+                $(this).css({
+                    backgroundColor: "#" + rgb2hex($(this).css('backgroundColor')).lightenHexColorBy(25)
+                })
             });
 
 
@@ -801,9 +749,9 @@
                 //GET FILES WITH FOLDER ID
                 $grid.isotope("remove", $(".doc_frame:not(.add_file)")).isotope()
 
-                FileImgs = [];
+                fileImg = [];
+                tempFile = [];
                 imgCounter = 0;
-                isImg = undefined;
 
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/f/showfiles", true);
@@ -814,20 +762,20 @@
                             for (var i = 0; i < files.length; i++) {
                                 var imgSrc = "";
                                 var imgClass = "";
+                                var isImg = false;
                                 if (extToClass(files[i].fileType) == "image_doc") {
                                     imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + files[i].fileCode;
                                     imgClass = " image_preview"
                                     isImg = true
                                 } else {
                                     imgSrc = "./images/" + extToClass(files[i].fileType).split('_')[0] + ".png";
-                                    isImg = false
                                 }
                                 var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(files[i].fileType) + '" data-fileid="' + files[i].fileCode + '" title="' + files[i].fileName +
                                     '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' + imgSrc +
                                     '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + files[i].fileName + '</span><span class="file_size">' + files[i].fileSize +
                                     '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
                                 $grid.append($newFile).isotope("appended", $newFile);
-                                $('.doc_frame:not(.add_file)').jBox('Tooltip', {
+                                $newFile.jBox('Tooltip', {
                                     delayOpen: 700,
                                     delayClose: 300,
                                     theme: "TooltipDark",
@@ -835,29 +783,36 @@
                                         y: 'bottom'
                                     }
                                 });
-                                  if(isImg){
-                                    FileImgs[imgCounter] = document.createElement("img");
-                                    FileImgs[imgCounter].src = imgSrc
-                                    FileImgs[imgCounter].onload = function(){
-                                      var colorThief = new ColorThief();
-                                      var color = colorThief.getColor(this);
-                                      setTimeout(function(){
-                                        $(".image_preview")[imgCounter].parentNode.style.backgroundColor = "rgb(" + color + ")";
-                                        $($(".image_preview")[imgCounter]).show();
-                                        var r = color[0];
-                                        var g = color[1];
-                                        var b = color[2];
-                                        var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-                                        if (luma > 170) {
-                                            $($(".image_preview")[imgCounter]).next().css("color", "black");
-                                        }
-                                        imgCounter++;
-                                      }, 400);
-                                    };
-                                  }
+                                if(isImg){
+                                  fileImg[imgCounter] = document.createElement("img");
+                                  fileImg[imgCounter].src = imgSrc;
+                                  $(fileImg[imgCounter]).attr("data-order", imgCounter)
+                                  tempFile[imgCounter] = $newFile;
+
+                                  fileImg[imgCounter].onload = function(){
+                                    var colorThief = new ColorThief();
+                                    var color = colorThief.getColor(this);
+                                    tempFile[$(this).attr("data-order")].css("background-color", "rgb(" + color + ")");
+                                    tempFile[$(this).attr("data-order")].find(".image_preview").show();
+                                    var r = color[0];
+                                    var g = color[1];
+                                    var b = color[2];
+                                    var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                                    if (luma > 170) {
+                                        tempFile[$(this).attr("data-order")].find(".doc_title").css("color", "black");
+                                    }
+                                  };
+
+                                  imgCounter++;
+                                }
+                            }
+                            var titles = $(".doc_title>span");
+                            for (i = 0; i < titles.length; i++) {
+                                $clamp(titles[i], {
+                                    clamp: 2
+                                })
                             }
                         }
-
                     }
                 };
                 xhr.send(JSON.stringify({

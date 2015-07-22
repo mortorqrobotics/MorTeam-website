@@ -785,13 +785,13 @@ input[type=checkbox]:checked + label:before {
 	border-radius: 5px;
 }
 .chat_area{
-	max-width: 700px;
-	width: 95%;
-	min-width: 400px;
+	max-width: 800px;
+	width: calc(100% - 260px);
+	min-width: 380px;
 	height: calc( 100% - 48px );
 	min-height: 250px;
 	position: relative;
-	margin: 0 auto;
+	margin-left: 30px;
 	z-index: -1 !important;
 	overflow: auto;
 	border-left: 2px solid #cccccc;
@@ -800,14 +800,30 @@ input[type=checkbox]:checked + label:before {
 
 .reply_box{
 	position: relative;
-	max-width: 700px;
-	width: 95%;
-	min-width: 400px;
-	margin: 0 auto;
+	max-width: 800px;
+	width: calc(100% - 260px);
+	min-width: 380px;
+	margin-left: 30px;
 	/*border: 1px solid orange;*/
 	z-index: -1 !important;
 	overflow: hidden;
 	margin-top: 9px;
+}
+@media screen and (min-width: 1320px) {
+    .chat_area{
+			margin-left: calc(100% - 1030px);
+		}
+		.reply_box{
+			margin-left: calc(100% - 1030px);
+		}
+}
+@media screen and (min-width: 1520px) {
+    .chat_area{
+			margin: auto;
+		}
+		.reply_box{
+			margin: auto;
+		}
 }
 .self_bubble{
 	background-color: #ffc547;
@@ -1384,4 +1400,34 @@ input[type=checkbox]:checked + label:before {
 }
 .cal_body{
 	overflow: hidden;
+}
+.ad{
+	width: 160px;
+	height: 600px;
+	background-color: white;
+	float: right;
+	position: absolute;
+	top: 30px;
+	right: 35px;
+	display: none;
+}
+.ad2{
+	width: 160px;
+	height: 600px;
+	background-color: white;
+	float: right;
+	position: absolute;
+	top: 660px;
+	right: 35px;
+	display: none;
+}
+@media screen and (min-width: 900px) {
+	.ad{
+		display: block;
+	}
+	@media screen and (min-height: 1360px) {
+		.ad2{
+			display: block;
+		}
+	}
 }
