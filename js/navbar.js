@@ -27,6 +27,16 @@ function getTimeNow(){
   }
   return Hours+":"+Minutes+" "+suffix;
 }
+function request(type, url, data, responsecb){
+    var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");;
+    xhr.open(type, url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            responsecb(xhr.responseText);
+        }
+    };
+    xhr.send(data);
+}
 function getPic(user, target) {
     $(target).attr("src", "/f/getPic?user=" + user);
     $.post("/f/getPic?user=" + user, function(response){

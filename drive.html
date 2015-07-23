@@ -139,15 +139,12 @@
             <li class="drive_name new_folder">
                 <span id="make_drive" class="glyphicon glyphicon-plus"></span>New Folder</li>
             <li class="drive_name">
-                <span id="make_drive" data-folderid="122d1xd21e1e21" class="glyphicon glyphicon-folder-open"></span>All Files</li>
+                <span id="make_drive" data-folderid="" class="glyphicon glyphicon-folder-open def_folder1"></span>All Files</li>
             <li class="drive_name">
-                <span id="make_drive" data-folderid="wdawd23e12eqwd" class="glyphicon glyphicon-folder-open"></span>Subdivision Files</li>
+                <span id="make_drive" class="glyphicon glyphicon-folder-open def_folder2"></span>Team Files</li>
             <li class="drive_name">
-                <span id="make_drive" data-folderid="e21xef3rfrfv2c" class="glyphicon glyphicon-folder-open"></span>Personal Files</li>
-            <li class="drive_name">
-                <span id="make_drive" data-folderid="23rcreiocdjqdd" class="glyphicon glyphicon-folder-open"></span>Tagged Files</li>
-            <li class="drive_name">
-                <span id="make_drive" data-folderid="qecjqiddhqdhui" class="glyphicon glyphicon-folder-open"></span>Shared Files</li>
+                <span id="make_drive" class="glyphicon glyphicon-folder-open def_folder3"></span>Personal Files</li>
+
         </ul>
     </div>
     <span class="glyphicon glyphicon-chevron-left hide_leftbar"></span>
@@ -235,8 +232,31 @@
             $(".add_file").css("background-color", "#e9e9e9")
             $("#add_file_sign").css("font-size", "60px");
         }
+        function loadFolders() {
+            //$(".def_folder1").attr("data-folderid", localStorage.username);
+            $(".def_folder2").attr("data-folderid", localStorage.teamCode);
+            $(".def_folder3").attr("data-folderid", localStorage.username);
+            request("POST", "/f/getfolders", JSON.stringify({"user":localStorage.username}), function(responseText){
+                console.log(responseText);
+                var folders = JSON.parse(responseText);
+                for (var i = 0; i < folders.length; i++){
+                    var li = $(document.createElement("li"));
+                    var span = $(document.createElement("span"));
+                    li.append(span);
+                    li.attr("class", "drive_name");
+                    span.attr("id", "make_drive");
+                    span.attr("data-folderid", folders[i].folderCode);
+                    span.attr("class", "glyphicon glyphicon-folder-open");
+                    li.append(folders[i].folderName);
+                    $('.folders_list').append(li);
+                }
+            });
+        }
 
         $(document).ready(function() {
+
+            loadFolders();
+            var didClickNew = false;
 
             document.body.appendChild(loadingDiv);
 
@@ -246,6 +266,7 @@
               width: 350,
               height: 355,
               onOpen: function() {
+                  didClickNew = false;
                   loadUsersOnFolderModal(folder_modal);
                   $(document).on("keyup", '#select_folder_members', function() {
                     var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
@@ -255,33 +276,39 @@
                         return !~text.indexOf(val);
                     }).hide();
                   });
-                  $(document).on("click", ".selected_folder_member", function() {
-                      // do stuff with $(this) when a name has been clicked in group_modal
-                      if ($(this).hasClass("clicked")) {
-                          $(this).removeClass("clicked");
-                      } else {
-                          $(this).addClass('clicked');
-                      }
-                  });
                   $(document).one("click", '.make_folder_button', function() {
-
                     // CODE TO CREATE FOLDER HERE
-
-                    var folder_name = document.createTextNode($(".folder_name").val())
-                    var li = $(document.createElement("li"));
-                    var span = $(document.createElement("span"));
-                    li.append(span);
-                    li.attr("class", "drive_name");
-                    span.attr("id", "make_drive");
-                    span.attr("data-folderid", "")
-                    span.attr("class", "glyphicon glyphicon-folder-open");
-                    li.append(folder_name);
-                    $('.folders_list').append(li);
-                    folder_modal.close();
+                        didClickNew = true;
+                        var folder_name = document.createTextNode($(".folder_name").val())
+                        var usersBadges = $("p.selected");
+                        var users = [];
+                        for (var i = 0; i < usersBadges.length; i++) {
+                            users.push($(usersBadges[i]).attr("data-username"));
+                        }
+                        request("POST", "/f/newfolder", JSON.stringify({"user":localStorage.username, "people":users, "folderName":$(".folder_name").val()}), function(responseText){
+                            var li = $(document.createElement("li"));
+                            var span = $(document.createElement("span"));
+                            li.append(span);
+                            li.attr("class", "drive_name");
+                            span.attr("id", "make_drive");
+                            span.attr("data-folderid", responseText);
+                            span.attr("class", "glyphicon glyphicon-folder-open");
+                            li.append(folder_name);
+                            $('.folders_list').append(li);
+                            folder_modal.close();
+                        });
                   });
               }
             });
             loadUsersOnFolderModal(folder_modal);
+            $(document).on("click", ".selected_folder_member", function() {
+                // do stuff with $(this) when a name has been clicked in group_modal
+                if ($(this).hasClass("clicked")) {
+                    $(this).removeClass("clicked");
+                } else {
+                    $(this).addClass('clicked');
+                }
+            });
 
 
             var spinnerOpts = {
@@ -753,8 +780,13 @@
                 tempFile = [];
                 imgCounter = 0;
 
+                var url = "/f/showfiles";
+                if (currentFolderID == ""){
+                    url = "/f/showallfiles";
+                }
+
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/f/showfiles", true);
+                xhr.open("POST", url, true);
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         if (xhr.responseText != "fail") {
