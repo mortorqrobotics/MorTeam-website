@@ -280,7 +280,7 @@
                     // CODE TO CREATE FOLDER HERE
                         didClickNew = true;
                         var folder_name = document.createTextNode($(".folder_name").val())
-                        var usersBadges = $("p.selected");
+                        var usersBadges = $("p.clicked");
                         var users = [];
                         for (var i = 0; i < usersBadges.length; i++) {
                             users.push($(usersBadges[i]).attr("data-username"));
@@ -766,10 +766,8 @@
             });
 
 
-            $(".drive_name:not(.new_folder, .drive_options)").click(function() {
+            $(document).on("click", ".drive_name:not(.new_folder, .drive_options)", function() {
               if( !$(this).hasClass('selected') ){
-
-
                 $(".drive_name:not(.new_folder, .drive_options)").removeClass("selected");
                 $(this).addClass("selected");
                 currentFolderID = $(this).children().first().attr("data-folderid");
