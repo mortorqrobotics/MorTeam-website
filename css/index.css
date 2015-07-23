@@ -38,6 +38,7 @@ img{
 	overflow-y: auto;
 	box-shadow: 1px 4px 6px #ababab;
 	z-index: 90;
+	-webkit-overflow-scrolling: touch;
 }
 .hide_leftbar{
 	position: fixed;
@@ -137,6 +138,7 @@ li.active{
 	z-index: 98;
 	overflow-y: auto;
 	top: 50px;
+	-webkit-overflow-scrolling: touch;
 }
 .triangle_thing_notif{
 	border-color: transparent;
@@ -750,6 +752,7 @@ input[type=checkbox]:checked + label:before {
 	margin-bottom: 20px;
 	box-shadow: 1.5px 3px 8px -2px #a9a9a9;
 	overflow: auto;
+	-webkit-overflow-scrolling: touch;
 }
 .announcement_textarea{
 	width: 100%;
@@ -802,6 +805,7 @@ input[type=checkbox]:checked + label:before {
 	overflow: auto;
 	border-left: 2px solid #cccccc;
 	border-right: 2px solid #ffc547;
+	-webkit-overflow-scrolling: touch;
 }
 
 .reply_box{
@@ -1268,6 +1272,15 @@ input[type=checkbox]:checked + label:before {
 	display: inline-block;
 	padding: 15px;
 	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+@media screen and (max-width: 420px){
+	.cal_wrapper{
+		height: calc(100% - 40px);
+	}
+	.chat_wrapper{
+		height: calc(100% - 40px);
+	}
 }
 .cal_right{
 	height: 100%;
@@ -1347,6 +1360,7 @@ input[type=checkbox]:checked + label:before {
 	height: 100%;
 	margin-bottom: 0px;
 	overflow: auto;
+	-webkit-overflow-scrolling: touch;
 }
 .events_list > li{
 	margin-top: 20px;
@@ -1411,7 +1425,7 @@ input[type=checkbox]:checked + label:before {
 	color: orange;
 }
 .cal_body{
-	overflow: hidden;
+
 }
 .ad{
 	width: 160px;
@@ -1492,4 +1506,12 @@ li.drop_item:hover{
     z-index: 1;
     top: -8px;
     left: 21px;
+}
+.chat_body{
+	overflow-y: hidden;
+}
+@media screen and (max-width: 992px) {
+	.cal_right{
+		display: none;
+	}
 }
