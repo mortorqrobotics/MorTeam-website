@@ -58,8 +58,8 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                             <div class="border"></div>
                         </li><!--
-                        --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
-                            <span class="glyphicon glyphicon-cog"></span>
+                        --><li class="navbar_item navbar_link" id="networks_link" onclick="location='networks.html'">
+                            <span class="glyphicon glyphicon-globe"></span>
                             <div class="border"></div>
                         </li>
                     </ul>
@@ -87,7 +87,7 @@
     </div>
     <div id="prof_drop" class="hidden">
         <ul>
-            <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
+            <li class="notif_list_item" onclick="location='profile.html';">View Profile and Settings</li>
             <li class="notif_list_item" id="logout_button">Log Out</li>
         </ul>
     </div>
@@ -139,7 +139,7 @@
             <li class="drive_name new_folder">
                 <span id="make_drive" class="glyphicon glyphicon-plus"></span>New Folder</li>
             <li class="drive_name">
-                <span id="make_drive" data-folderid="" class="glyphicon glyphicon-folder-open def_folder1"></span>All Files</li>
+                <span id="make_drive" data-folderid="" class="glyphicon glyphicon-folder-open def_folder1"></span>All Your Files</li>
             <li class="drive_name">
                 <span id="make_drive" class="glyphicon glyphicon-folder-open def_folder2"></span>Team Files</li>
             <li class="drive_name">
@@ -768,6 +768,11 @@
 
             $(document).on("click", ".drive_name:not(.new_folder, .drive_options)", function() {
               if( !$(this).hasClass('selected') ){
+                if( $(this).find("#make_drive").attr("data-folderid") == "" ){
+                  $(".add_file").hide();
+                }else{
+                  $(".add_file").show();
+                }
                 $(".drive_name:not(.new_folder, .drive_options)").removeClass("selected");
                 $(this).addClass("selected");
                 currentFolderID = $(this).children().first().attr("data-folderid");
@@ -871,6 +876,43 @@
                     sortBy: chosenSort
                 })
             });
+
+            var folderid;
+            $(document).on("contextmenu", ".drive_name:not(.new_folder, .drive_options)", function(e){
+
+                  e.preventDefault();
+                  $(".drop").remove();
+                  folderid = $(e.target).find("#make_drive").attr("data-folderid");
+                  if( folderid != localStorage.teamCode && folderid != localStorage.username && folderid != "" ){
+                    var drop = $("<div class='drop'><li id='folder_options' class='drop_item'><span class='glyphicon glyphicon-cog'></span> Options</li><li id='folder_delete' class='drop_item'><span class='glyphicon glyphicon-trash'></span> Delete</li></div>");
+                  }else{
+                    var drop = $("<div class='drop'><li id='folder_options' class='drop_item'><span class='glyphicon glyphicon-cog'></span> Options</li></div>");
+                  }
+                  drop.css("top", e.pageY + 7);
+                  drop.css("left", e.pageX - 28);
+
+                  $("body").append(drop);
+
+                  $(document).click(function(){
+                       $(".drop").remove();
+                       $(".drive_name:not(.new_folder, .drive_options)").unbind("contextmenu");
+                  });
+
+                  return false;
+            });
+            $(document).on("click", "#folder_options", function(){
+              alert("the folder id is: " + folderid);
+
+              // SHOW FOLDER OPTIONS
+
+            });
+            $(document).on("click", "#folder_delete", function(){
+              $("#make_drive[data-folderid='"+folderid+"']").parent().remove();
+
+              // DELETE FOLDER
+
+            });
+
 
 
         });

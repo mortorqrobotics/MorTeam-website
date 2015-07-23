@@ -52,8 +52,8 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                             <div class="border"></div>
                         </li><!--
-                        --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
-                            <span class="glyphicon glyphicon-cog"></span>
+                        --><li class="navbar_item navbar_link" id="networks_link" onclick="location='networks.html'">
+                            <span class="glyphicon glyphicon-globe"></span>
                             <div class="border"></div>
                         </li>
                     </ul>
@@ -81,7 +81,7 @@
     </div>
     <div id="prof_drop" class="hidden">
         <ul>
-            <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
+            <li class="notif_list_item" onclick="location='profile.html';">View Profile and Settings</li>
             <li class="notif_list_item" id="logout_button">Log Out</li>
         </ul>
     </div>
@@ -89,14 +89,16 @@
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
-    <div class="wrapper">
+    <div class="wrapper chat_wrapper">
       <div class="chat_area hidden" id="chat_area"></div>
       <div class="reply_box hidden">
           <textarea rows="1" class="reply_textarea"></textarea>
           <input type="button" class="send_button" value="send"></input>
       </div>
-      <div class="ad">Ad</div>
-      <div class="ad2">Ad</div>
+    </div>
+    <div class="ads">
+      <div class="ad"></div>
+      <div class="ad2"></div>
     </div>
     <!-- END OF BODY -->
 
@@ -363,6 +365,23 @@
         function deleteLastIsTyping() {
             $('.chat_area').remove(".bubble_wrapper:last"); // this should work, im not sure though
         }
+        function collision($div1, $div2) {
+          var x1 = $div1.offset().left;
+          var y1 = $div1.offset().top;
+          var h1 = $div1.outerHeight(true);
+          var w1 = $div1.outerWidth(true);
+          var b1 = y1 + h1;
+          var r1 = x1 + w1;
+          var x2 = $div2.offset().left;
+          var y2 = $div2.offset().top;
+          var h2 = $div2.outerHeight(true);
+          var w2 = $div2.outerWidth(true);
+          var b2 = y2 + h2;
+          var r2 = x2 + w2;
+
+          if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
+          return true;
+        }
 
         $(document).ready(function() {
 
@@ -411,6 +430,25 @@
                     "<input type='text' placeholder='Group Name' id='group_name'><br/>Please select the members of the group:<br/><input type='text' placeholder='Search Names...' id='select_group_names'></input><br/><div id='selected_names_div'>" +
                     content + "</div><br/><input type='button' value='Make Group' id='group_button'></input>"
                 group_modal.setContent(initialContent);
+            }
+            function fixAdLayout(){
+              if( $(".ad").css("display") == "none" ){
+                if($(".hide_leftbar").hasClass("glyphicon-chevron-left")){
+                  console.log("no ad, sidebar");
+                  $(".chat_wrapper").css("width", "calc(100vw - 260px)");
+                }else{
+                  $(".chat_wrapper").css("width", "100vw");
+                  console.log("no ad, no sidebar");
+                }
+              }else{
+                if($(".hide_leftbar").hasClass("glyphicon-chevron-left")){
+                  $(".chat_wrapper").css("width", "calc(100vw - 460px)");
+                  console.log("ad, sidebar");
+                }else{
+                  $(".chat_wrapper").css("width", "calc(100vw - 200px)");
+                  console.log("ad, no sidebar");
+                }
+              }
             }
             $(document).on("click", "#group_button", function() {
                 var chatName = $("#group_name").val();
@@ -549,9 +587,13 @@
             function hideLeftbar(time, button){
               $(".leftbar").velocity({left: "-260px"}, { duration: time, queue: false });
               $(".wrapper").velocity({left: "0px"}, { duration: time, queue: false });
-              $(".wrapper").velocity({width: "100vw"}, { duration: time, queue: false });
+              $(".wrapper").velocity({width: "+=260px"}, { duration: time, queue: false });
               $(button).removeClass("glyphicon-chevron-left").addClass("glyphicon-chevron-right");
               $(button).velocity({left: "10px"}, { duration: time, queue: false });
+              setTimeout(function(){
+                $(".wrapper").css("width", "calc(100vw - 200px)");
+                fixAdLayout();
+              }, time + time)
             }
             function showLeftbar(time, button){
               $(".leftbar").velocity({left: "0px"}, { duration: time, queue: false });
@@ -560,7 +602,8 @@
               $(button).removeClass("glyphicon-chevron-right").addClass("glyphicon-chevron-left");
               $(button).velocity({left: "220px"}, { duration: time, queue: false });
               setTimeout(function(){
-                $(".wrapper").css("width", "calc(100vw - 260px)");
+                $(".wrapper").css("width", "calc(100vw - 460px)");
+                fixAdLayout();
               }, time + time)
             }
             $(".hide_leftbar").click(function(){
@@ -582,6 +625,92 @@
                   return !~text.indexOf(val);
               }).hide();
             })
+
+            // $(window).resize(function(){
+            //   if( collision( $(".ads"), $(".chat_wrapper") ) ){
+            //     $(".ad").hide();
+            //   }else{
+            //     $(".ad").show();
+            //   }
+            // })
+            $(window).resize(function(){
+              if( $(".ad").css("display") == "none" ){
+                if($(".hide_leftbar").hasClass("glyphicon-chevron-left")){
+                  console.log("no ad, sidebar");
+                  $(".chat_wrapper").css("width", "calc(100vw - 260px)");
+                }else{
+                  $(".chat_wrapper").css("width", "100vw");
+                  console.log("no ad, no sidebar");
+                }
+              }else{
+                if($(".hide_leftbar").hasClass("glyphicon-chevron-left")){
+                  $(".chat_wrapper").css("width", "calc(100vw - 460px)");
+                  console.log("ad, sidebar");
+                }else{
+                  $(".chat_wrapper").css("width", "calc(100vw - 200px)");
+                  console.log("ad, no sidebar");
+                }
+              }
+            });
+        });
+        $(window).load(function(){
+          function fixAdLayout(){
+            if( $(".ad").css("display") == "none" ){
+              if($(".hide_leftbar").hasClass("glyphicon-chevron-left")){
+                console.log("no ad, sidebar");
+                $(".chat_wrapper").css("width", "calc(100vw - 260px)");
+              }else{
+                $(".chat_wrapper").css("width", "100vw");
+                console.log("no ad, no sidebar");
+              }
+            }else{
+              if($(".hide_leftbar").hasClass("glyphicon-chevron-left")){
+                $(".chat_wrapper").css("width", "calc(100vw - 460px)");
+                console.log("ad, sidebar");
+              }else{
+                $(".chat_wrapper").css("width", "calc(100vw - 200px)");
+                console.log("ad, no sidebar");
+              }
+            }
+          }
+          fixAdLayout();
+          setTimeout(function(){
+            fixAdLayout();
+          }, 200)
+
+          $(document).on("contextmenu", ".chat_name:not(.make_group)", function(e){
+
+                e.preventDefault();
+                $(".drop").remove();
+                if( $(e.target).attr("data-type") == "private" ){
+                  var drop = $("<div class='drop'><li id='folder_options' class='drop_item'><span class='glyphicon glyphicon-cog'></span> Options</li></div>");
+                }else{
+                  var drop = $("<div class='drop'><li id='folder_options' class='drop_item'><span class='glyphicon glyphicon-cog'></span> Options</li><li id='folder_delete' class='drop_item'><span class='glyphicon glyphicon-trash'></span> Delete</li></div>");
+                }
+                drop.css("top", e.pageY + 7);
+                drop.css("left", e.pageX - 28);
+
+                $("body").append(drop);
+
+                $(document).click(function(){
+                     $(".drop").remove();
+                     $(".chat_name:not(.make_group)").unbind("contextmenu");
+                });
+
+
+                return false;
+          });
+          $(document).on("click", "#folder_options", function(){
+
+            // SHOW CHAT OPTIONS
+
+          });
+          $(document).on("click", "#folder_delete", function(){
+
+            // DELETE CHAT
+
+          });
+
         });
 
         window.onunload = function() {};
