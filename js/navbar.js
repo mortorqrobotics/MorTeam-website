@@ -114,7 +114,7 @@ $(document).ready(function() {
             $('#notif_button').removeClass('active');
         });
     });
-    $('#profile_id').click(function() {
+    $('.profile_id').click(function() {
         $('#prof_drop').fadeIn(fade_speed).removeClass("hidden");
         $('.triangle_thing_prof').fadeIn(fade_speed).removeClass("hidden");
         $('#darken').fadeIn(fade_speed).removeClass("hidden");
@@ -130,7 +130,7 @@ $(document).ready(function() {
             });
         });
     });
-    $('#profile_name').click(function() {
+    $('.profile_name').click(function() {
         $('#prof_drop').fadeIn(fade_speed).removeClass("hidden");
         $('.triangle_thing_prof').fadeIn(fade_speed).removeClass("hidden");
         $('#darken').fadeIn(fade_speed).removeClass("hidden");
@@ -175,5 +175,13 @@ $(document).ready(function() {
       // $(this).find(".jBox-content").attr("data-sender") ---> the username or chatname
       // $(this).find(".jBox-content").attr("data-chatcode") ---> the chatcode
     });
+
+    $(".menu").click(function(){
+      if($(".nav_dropdown").css("top").indexOf("-") != -1){
+        $(".nav_dropdown").velocity({top: "40px"}, 200);
+      }else{
+        $(".nav_dropdown").velocity({top: "-215px"}, 200);
+      }
+    })
 
 });

@@ -39,24 +39,31 @@
         </audio>
     </div>
     <!-- NAVIGATION BAR -->
+    <div class="nav_dropdown">
+      <p onclick="location='index.html'" style="background-color: orange">Home</p>
+      <p onclick="location='chat.html'">Chat</p>
+      <p onclick="location='drive.html'">Drive</p>
+      <p onclick="location='cal.html'">Calendar</p>
+      <p onclick="location='networks.html'">Networks</p>
+    </div>
     <div class="navigation_bar">
         <ul id="navbar_list">
-          <li class="navbar_item navbar_title">
+          <li class="navbar_item navbar_title navbar_title_index">
               MorTeam
           </li>
           <li class="navbar_item searchbox_list_item">
               <input type="text" placeholder="search" class="searchbox"></input>
           </li>
-          <li class="navbar_item glyph_link chat_btn menu_btn">
+          <li class="navbar_item glyph_link chat_btn menu_btn" onclick="location='chat.html'">
               <span class="glyphicon glyphicon-comment"></span>
           </li>
-          <li class="navbar_item glyph_link drive_btn menu_btn">
+          <li class="navbar_item glyph_link drive_btn menu_btn" onclick="location='drive.html'">
               <span class="glyphicon glyphicon-hdd"></span>
           </li>
-          <li class="navbar_item glyph_link cal_btn menu_btn">
+          <li class="navbar_item glyph_link cal_btn menu_btn" onclick="location='cal.html'">
               <span class="glyphicon glyphicon-calendar"></span>
           </li>
-          <li class="navbar_item glyph_link networks_btn menu_btn">
+          <li class="navbar_item glyph_link networks_btn menu_btn" onclick="location='networks.html'">
               <span class="glyphicon glyphicon-globe"></span>
           </li>
           <div class="navbar_item right_links">
@@ -67,12 +74,12 @@
                 <span class="glyphicon glyphicon-inbox"></span>
             </li>
             <img class="profile_id" id="small_prof_pic" src="./images/user.jpg"></img>
-            <span class="profile_name" id="name_link">Farbod</span>
+            <span class="profile_name" id="name_link"></span>
           </div>
         </ul>
     </div>
-    <div class="triangle_thing_notif hidden"></div>
-    <div class="triangle_thing_prof hidden"></div>
+    <!-- <div class="triangle_thing_notif hidden"></div>
+    <div class="triangle_thing_prof hidden"></div> -->
     <div id="notif_drop" class="hidden">
         <ul>
             <li class="notif_list_item">hey</li>
@@ -137,7 +144,7 @@
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.min.js"></script>
-
+    <script type="text/javascript" src="js/velocity.min.js"></script>
     <script type="text/javascript" src="js/autosize.js"></script>
     <script type="text/javascript">
         autosize(document.querySelectorAll('textarea'));

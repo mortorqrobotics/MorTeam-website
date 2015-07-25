@@ -28,27 +28,45 @@
           </audio>
       </div>
     <!-- NAVIGATION BAR -->
-    <div class="navigation_bar">
-      <ul id="navbar_list">
-        <li class="navbar_item"><input type="text" placeholder="search calendar" class="searchbox"></input></li>
-        <li class="navbar_item">
-          <div id="categories">
-           <ul>
-            <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'"><span class="glyphicon glyphicon-home"></span><div class="hborder"></div></li><!--
-            --><li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'"><span class="glyphicon glyphicon-comment"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'"><span class="glyphicon glyphicon-hdd"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link active" id="cal_link" onclick="location='cal.html'"><span class="glyphicon glyphicon-calendar"></span><div class="border"></div></li><!--
-            --><li class="navbar_item navbar_link" id="networks_link" onclick="location='networks.html'"><span class="glyphicon glyphicon-globe"></span><div class="border"></div></li>
-           </ul>
-          </div>
-        </li>
-        <li class="navbar_item" id="notif_button"><span class="glyphicon glyphicon-inbox"></span></li>
-        <li class="navbar_item" id="profile_id"><img id="small_prof_pic" src="./images/user.jpg"></img></li>
-        <li class="navbar_item" id="profile_name"><span id="name_link"></span></li>
-      </ul>
+    <div class="nav_dropdown">
+      <p onclick="location='index.html'">Home</p>
+      <p onclick="location='chat.html'">Chat</p>
+      <p onclick="location='drive.html'">Drive</p>
+      <p onclick="location='cal.html'" style="background-color: orange">Calendar</p>
+      <p onclick="location='networks.html'">Networks</p>
     </div>
-    <div class="triangle_thing_notif hidden"></div>
-    <div class="triangle_thing_prof hidden"></div>
+    <div class="navigation_bar">
+        <ul id="navbar_list">
+          <li class="navbar_item navbar_title" onclick="location='index.html'">
+              MorTeam
+          </li>
+          <li class="navbar_item searchbox_list_item">
+              <input type="text" placeholder="search" class="searchbox"></input>
+          </li>
+          <li class="navbar_item glyph_link chat_btn menu_btn" onclick="location='chat.html'">
+              <span class="glyphicon glyphicon-comment"></span>
+          </li>
+          <li class="navbar_item glyph_link drive_btn menu_btn" onclick="location='drive.html'">
+              <span class="glyphicon glyphicon-hdd"></span>
+          </li>
+          <li class="navbar_item glyph_link cal_btn menu_btn active" onclick="location='cal.html'">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </li>
+          <li class="navbar_item glyph_link networks_btn menu_btn" onclick="location='networks.html'">
+              <span class="glyphicon glyphicon-globe"></span>
+          </li>
+          <div class="navbar_item right_links">
+            <li class="navbar_item glyph_link menu">
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </li>
+            <li class="navbar_item glyph_link" id="notif_button">
+                <span class="glyphicon glyphicon-inbox"></span>
+            </li>
+            <img class="profile_id" id="small_prof_pic" src="./images/user.jpg"></img>
+            <span class="profile_name" id="name_link"></span>
+          </div>
+        </ul>
+    </div>
     <div id="notif_drop" class="hidden">
       <ul>
         <li class="notif_list_item">hey</li>

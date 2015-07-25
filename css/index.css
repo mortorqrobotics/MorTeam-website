@@ -37,7 +37,7 @@ img{
 	top:40px;
 	overflow-y: auto;
 	box-shadow: 1px 4px 6px #ababab;
-	z-index: 90;
+	z-index: 87;
 	-webkit-overflow-scrolling: touch;
 }
 .hide_leftbar{
@@ -114,54 +114,78 @@ div.navigation_bar{
 	box-shadow: 1px 1px 12px -7px black;
 	z-index: 89;
 	border-radius: 1px;
+	-webkit-user-select: none; /* Chrome/Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
 }
 li.active{
 	background-color: orange;
 }
-
+.nav_dropdown{
+	width: 100%;
+	text-align: center;
+	background-color: #ffc547;
+	position: fixed;
+	top: -215px;
+	left: 0px;
+	height: auto;
+	padding: 10px 0 5px 0;
+	z-index: 88;
+	border-bottom: 1px solid orange
+	-webkit-user-select: none; /* Chrome/Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+}
+.nav_dropdown p{
+	font-weight: 300;
+	width: 100%;
+	line-height: 40px;
+	cursor: pointer;
+	margin: 0px;
+}
+.nav_dropdown p:hover{
+	background-color: orange;
+}
 #notif_drop{
 	position: fixed;
 	width: 240px;
-	margin-left: 60%;
-	left: 100px;
 	height: 345px;
 	background-color: #ffc547;
 	z-index: 98;
 	overflow-y: auto;
-	top: 50px;
+	top: 45px;
 	-webkit-overflow-scrolling: touch;
+	right: 20px;
 }
 .right_links{
 	position: absolute;
 	right:0px;
 	height: 40px;
 }
-.triangle_thing_notif{
+/*.triangle_thing_notif{
 	border-color: transparent;
 	border-bottom-color: #ffc547;
 	border-style: dashed dashed solid;
 	border-width: 0 8.5px 8.5px;
 	position: fixed;
-	left: 271px;
-	margin-left: 60%;
+	right: 118px;
 	top: 42px;
 	z-index: 98;
 	height: 0;
 	width: 0;
 
 	color: #ffc547;
-}
+}*/
 #prof_drop{
 	position: fixed;
 	width: 240px;
-	margin-left: 60%;
-	left: 140px;
+	right: 5px;
 	height: 80px;
 	background-color: #ffc547;
 	z-index: 98;
-	top: 50px;
+	top: 45px;
 }
-.triangle_thing_prof{
+/*.triangle_thing_prof{
 	border-color: transparent;
 	border-bottom-color: #ffc547;
 	border-style: dashed dashed solid;
@@ -175,7 +199,7 @@ li.active{
 	width: 0;
 
 	color: #ffc547;
-}
+}*/
 .notif_list_item{
 	list-style-type: none;
 	height: 40px;
@@ -221,6 +245,10 @@ li.active{
 	margin-left: 18px;
 	margin-right: 12px;
 	font-family: 'Titillium Web', sans-serif;
+	cursor: pointer;
+}
+.navbar_title_index{
+	cursor: default;
 }
 @media screen and (min-width: 770px) {
 	.menu{
@@ -228,6 +256,9 @@ li.active{
 	}
 	.menu_btn{
 		margin-top: -2px;
+	}
+	.nav_dropdown{
+		display: none;
 	}
 }
 @media screen and (max-width: 770px) {
