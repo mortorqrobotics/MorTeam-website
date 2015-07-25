@@ -9,6 +9,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/index.css" type="text/css">
@@ -31,7 +32,7 @@
 
 </head>
 
-<body>
+<body class="index_body">
     <div id="audio-files" style="display: none;">
         <audio id="click-sound">
             <source src="jbox/audio/bling2.wav" type="audio/wav" />
@@ -40,44 +41,34 @@
     <!-- NAVIGATION BAR -->
     <div class="navigation_bar">
         <ul id="navbar_list">
-            <li class="navbar_item">
-                <input type="text" placeholder="search users" class="searchbox"></input>
+          <li class="navbar_item navbar_title">
+              MorTeam
+          </li>
+          <li class="navbar_item searchbox_list_item">
+              <input type="text" placeholder="search" class="searchbox"></input>
+          </li>
+          <li class="navbar_item glyph_link chat_btn menu_btn">
+              <span class="glyphicon glyphicon-comment"></span>
+          </li>
+          <li class="navbar_item glyph_link drive_btn menu_btn">
+              <span class="glyphicon glyphicon-hdd"></span>
+          </li>
+          <li class="navbar_item glyph_link cal_btn menu_btn">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </li>
+          <li class="navbar_item glyph_link networks_btn menu_btn">
+              <span class="glyphicon glyphicon-globe"></span>
+          </li>
+          <div class="navbar_item right_links">
+            <li class="navbar_item glyph_link menu">
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
             </li>
-            <li class="navbar_item">
-                <div id="categories">
-                    <ul>
-                        <li class="navbar_item navbar_link" id="home_link" onclick="location='index.html'">
-                            <span class="glyphicon glyphicon-home"></span>
-                            <div class="hborder"></div>
-                        </li><!--
-                        --><li class="navbar_item navbar_link" id="chat_link" onclick="location='chat.html'">
-                            <span class="glyphicon glyphicon-comment"></span>
-                            <div class="border"></div>
-                        </li><!--
-                        --><li class="navbar_item navbar_link" id="drive_link" onclick="location='drive.html'">
-                            <span class="glyphicon glyphicon-hdd"></span>
-                            <div class="border"></div>
-                        </li><!--
-                        --><li class="navbar_item navbar_link" id="cal_link" onclick="location='cal.html'">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                            <div class="border"></div>
-                        </li><!--
-                        --><li class="navbar_item navbar_link" id="settings_link" onclick="location='settings.html'">
-                            <span class="glyphicon glyphicon-globe"></span>
-                            <div class="border"></div>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="navbar_item" id="notif_button">
+            <li class="navbar_item glyph_link" id="notif_button">
                 <span class="glyphicon glyphicon-inbox"></span>
             </li>
-            <li class="navbar_item" id="profile_id">
-                <img id="small_prof_pic" src="./images/user.jpg"></img>
-            </li>
-            <li class="navbar_item" id="profile_name">
-                <span id="name_link"></span>
-            </li>
+            <img class="profile_id" id="small_prof_pic" src="./images/user.jpg"></img>
+            <span class="profile_name" id="name_link">Farbod</span>
+          </div>
         </ul>
     </div>
     <div class="triangle_thing_notif hidden"></div>
@@ -98,22 +89,47 @@
     <div class="hidden" id="darken"></div>
     <!-- END OF NAVIGATION BAR -->
     <!-- BODY -->
-    <div class="announcements_wrapper">
-      <div class="post_announcement">
-          <textarea class="announcement_textarea" id="main_textarea" placeholder="Make an announcement..."></textarea>
-          <input type="button" class="announcement_post_button" value="Post"></input>
-      </div>
+    <div class="announcements_container" style="margin-top: 60px;">
 
-      <div class="announcements_list">
-          <!-- <div class="announcement" data-postNum="1">
-          <div class="announcement_top">
-            <img id="medium_prof_pic" src="./images/user.jpg"></img>
-            <span class="announcement_poster">Farbod Rafezy</span>
+        <div class="announcements_left">
+          <p>View Profile</p>
+          <p>Edit Profile</p>
+          <p>Log Out</p>
+          <hr>
+          <h5 style="margin-bottom: 15px;">Your Scopes in This Group</h5>
+          <p><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
+          <p><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
+          <p><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p>
+          <hr>
+          <!-- <h5 style="margin-bottom: 15px;">Your Groups</h5>
+          <p style="font-weight: 400; background: #f4f4f4"><span class="glyphicon glyphicon-link"></span> MorTorq</p>
+          <p><span class="glyphicon glyphicon-link"></span> BHHS</p>
+          <p><span class="glyphicon glyphicon-link"></span> Random Volunteership</p>
+          <hr> -->
+          <h5 style="margin-bottom: 15px;">This Group's Networks</h5>
+          <p><span class="glyphicon glyphicon-globe"></span> FIRST Robotics Network</p>
+          <p><span class="glyphicon glyphicon-globe"></span> Technology Network</p>
+        </div>
+        <div class="announcements_center">
+          <div class="post_announcement">
+              <textarea class="announcement_textarea" id="main_textarea" placeholder="Make an announcement..."></textarea>
+              <input type="button" class="announcement_post_button" value="Post"></input>
           </div>
-          <span class="glyphicon glyphicon-remove delete_icon"></span><br>
-          the words go here
-        </div> -->
-      </div>
+          <div class="announcements_list">
+              <!-- <div class="announcement" data-postNum="1">
+              <div class="announcement_top">
+                <img id="medium_prof_pic" src="./images/user.jpg"></img>
+                <span class="announcement_poster">Farbod Rafezy</span>
+              </div>
+              <span class="glyphicon glyphicon-remove delete_icon"></span><br>
+              the words go here
+            </div> -->
+          </div>
+        </div>
+        <div class="announcements_right">
+          <div class="ad" style="margin-top: 0px; position: fixed;"></div>
+        </div>
+
     </div>
     <!-- END OF BODY -->
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -233,6 +249,16 @@
 
         });
         $(window).load(function(){
+          $("div.nicEdit-main").addClass('wordwrap');
+          var textareaWidthNum;
+          var textareaWidth;
+          $(window).resize(function(){
+            textareaWidthNum = $(".post_announcement").width();
+            textareaWidth = textareaWidthNum + "px";
+            $(".nicEdit-main").css("width", textareaWidth);
+            $(".post_announcement").children().not(".announcement_post_button").css("width", textareaWidth);
+            console.log($(".nicEdit-main").css("width"));
+          });
 
           setTimeout(function(){
               $ann = $(".announcements_list").isotope({
