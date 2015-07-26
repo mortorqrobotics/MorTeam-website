@@ -156,7 +156,7 @@
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" src="js/velocity.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.min.js"></script>
-    <script type="text/javascript" src="js/navbar.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/hex.js"></script>
     <script type="text/javascript">
 
@@ -233,7 +233,6 @@
             $(".def_folder2").attr("data-folderid", localStorage.teamCode);
             $(".def_folder3").attr("data-folderid", localStorage.username);
             request("POST", "/f/getfolders", JSON.stringify({"user":localStorage.username}), function(responseText){
-                console.log(responseText);
                 var folders = JSON.parse(responseText);
                 for (var i = 0; i < folders.length; i++){
                     var li = $(document.createElement("li"));

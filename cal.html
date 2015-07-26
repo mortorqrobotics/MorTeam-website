@@ -88,7 +88,7 @@
       <div class="container-fluid cal_container">
         <div class="row cal_row">
           <div class="timeline col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="day">
+            <!--<div class="day">
               <div class="day_of_month">1</div><input type="button" class="add_event" value="+" title="Add Event"></input>
               <div class="day_content">
                 <h4 class="day_name">Monday</h4>
@@ -367,7 +367,7 @@
                   <li>All newbies will take quiz</li>
                 </ul>
               </div>
-            </div>
+          </div>-->
           </div>
           <div class="cal_right col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="events_overview">
@@ -439,18 +439,18 @@
     <!-- LEFTBAR -->
     <div class="leftbar">
       <ul>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>January</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>February</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>March</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>April</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>May</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>June</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>July</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>August</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>September</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>October</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>November</li>
-        <li class="month_name"><span id="make_group" class="glyphicon glyphicon-calendar"></span>December</li>
+        <li class="month_name m1" data-month="1"><span id="make_group" class="glyphicon glyphicon-calendar"></span>January</li>
+        <li class="month_name m2" data-month="2"><span id="make_group" class="glyphicon glyphicon-calendar"></span>February</li>
+        <li class="month_name m3" data-month="3"><span id="make_group" class="glyphicon glyphicon-calendar"></span>March</li>
+        <li class="month_name m4" data-month="4"><span id="make_group" class="glyphicon glyphicon-calendar"></span>April</li>
+        <li class="month_name m5" data-month="5"><span id="make_group" class="glyphicon glyphicon-calendar"></span>May</li>
+        <li class="month_name m6" data-month="6"><span id="make_group" class="glyphicon glyphicon-calendar"></span>June</li>
+        <li class="month_name m7" data-month="7"><span id="make_group" class="glyphicon glyphicon-calendar"></span>July</li>
+        <li class="month_name m8" data-month="8"><span id="make_group" class="glyphicon glyphicon-calendar"></span>August</li>
+        <li class="month_name m9" data-month="9"><span id="make_group" class="glyphicon glyphicon-calendar"></span>September</li>
+        <li class="month_name m10" data-month="10"><span id="make_group" class="glyphicon glyphicon-calendar"></span>October</li>
+        <li class="month_name m11" data-month="11"><span id="make_group" class="glyphicon glyphicon-calendar"></span>November</li>
+        <li class="month_name m12" data-month="12"><span id="make_group" class="glyphicon glyphicon-calendar"></span>December</li>
       </ul>
     </div>
     <span class="glyphicon glyphicon-chevron-left hide_leftbar"></span>
@@ -462,9 +462,45 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/velocity.min.js"></script>
-    <script type="text/javascript" src="js/navbar.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
+        function addDayBox(month, day, year, isToday){
+            var dayOfWeek = getDayOfWeek(month, day, year);
+            if (!isToday){
+                $(".timeline").append('<div class="day d'+day+'"><div class="day_of_month">'+day+'</div><input type="button" class="add_event" value="+" title="Add Event"></input><div class="day_content"><h4 class="day_name">'+dayOfWeek+'</h4><ul class="day_list"></ul></div></div>');
+            }
+            else {
+                $(".timeline").append('<div class="day d'+day+'"><div class="day_of_month">'+day+'</div><input type="button" class="add_event" value="+" title="Add Event"></input><div class="day_content today"><h4 class="day_name">'+dayOfWeek+'</h4><ul class="day_list"></ul></div></div>');
+            }
+        }
+        var monthViewing = "";
+        var currentDay = new Date().getDate();
+        var currentYear = new Date().getFullYear();
+        var currentMonth = new Date().getMonth() + 1;
+
+        $(".month_name:not(.year_select)").on("click", function(){
+            $("li.month_name").removeClass("selected");
+            $(this).addClass("selected");
+            var month = $(this).attr("data-month");
+            if (month != monthViewing){
+                $(".timeline").empty();
+                $(".timeline")[0].scrollTop;
+                monthViewing = month;
+                var daysInMonth = getDaysInMonth(monthViewing, currentYear);
+                for (var day = 1; day <= daysInMonth; day++){
+                    if (currentMonth.toString() == monthViewing && currentDay == day){
+                        addDayBox(monthViewing, day, currentYear, true);
+                    }
+                    else {
+                        addDayBox(monthViewing, day, currentYear, false);
+                    }
+                }
+            }
+        });
+        $(".m"+currentMonth).trigger("click");
+        var scrollPix = $(".d"+currentDay).offset().top - $(window).height()*0.5;
+        $('.timeline').scrollTop(scrollPix);
 
         function hideLeftbar(time, button){
           $(".leftbar").velocity({left: "-260px"}, { duration: time, queue: false });

@@ -9,25 +9,51 @@
 //       }
 //     });
 // }
-function getTimeNow(){
-  var now = new Date();
-  var Hours = now.getHours();
-  var suffix;
-  if(parseInt(Hours) > 12){
-    Hours = (parseInt(Hours) - 12).toString();
-    suffix = "PM";
-  }else if(Hours == "12"){
-    suffix = "PM";
-  }else{
-    suffix = "AM";
-  }
-  var Minutes = now.getMinutes();
-  if(parseInt(Minutes) < 10){
-    Minutes = "0" + Minutes;
-  }
-  return Hours+":"+Minutes+" "+suffix;
+function getTimeNow() {
+    var now = new Date();
+    var Hours = now.getHours();
+    var suffix;
+    if (parseInt(Hours) > 12) {
+        Hours = (parseInt(Hours) - 12).toString();
+        suffix = "PM";
+    } else if (Hours == "12") {
+        suffix = "PM";
+    } else {
+        suffix = "AM";
+    }
+    var Minutes = now.getMinutes();
+    if (parseInt(Minutes) < 10) {
+        Minutes = "0" + Minutes;
+    }
+    return Hours + ":" + Minutes + " " + suffix;
 }
-function request(type, url, data, responsecb){
+var months = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+var days = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+var mtend = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+function getDaysInMonth(month, year) {
+    if (month == 2 && year % 4 == 0) {
+        return 29;
+    }
+    return mtend[month - 1];
+}
+
+function getDayOfWeek(m, d, y) {
+    m--;
+    var hlpr = mtend[m];
+    if (d < mtend[m] + 1) {
+        if (m == 1 && y % 4 == 0) {
+            hlpr++;
+        }
+        var c = new Date(y, m, d);
+        var dayOfWeek = c.getDay();
+        return days[dayOfWeek];
+    } else {
+        alert("Invalid: " + months[m] + " " + d + ", " + y);
+    }
+}
+
+function request(type, url, data, responsecb) {
     var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");;
     xhr.open(type, url, true);
     xhr.onreadystatechange = function() {
@@ -37,14 +63,16 @@ function request(type, url, data, responsecb){
     };
     xhr.send(data);
 }
+
 function getPic(user, target) {
     $(target).attr("src", "/f/getPic?user=" + user);
-    $.post("/f/getPic?user=" + user, function(response){
-      if(response == ""){
-        $(target).attr("src", "/images/user.jpg");
-      }
+    $.post("/f/getPic?user=" + user, function(response) {
+        if (response == "") {
+            $(target).attr("src", "/images/user.jpg");
+        }
     });
 }
+
 function showNewMessageNotice(sender, content, convo, chatcode) { // ADD A USERNAME PARAMETER AND REPLACE "farbod909" WITH THAT.
     var newMessageNotice = new jBox('Notice', {
         attributes: {
@@ -62,9 +90,9 @@ function showNewMessageNotice(sender, content, convo, chatcode) { // ADD A USERN
         maxHeight: 105,
         title: sender,
         closeOnClick: false,
-        onOpen: function(){
-          $($(this)[0].content).attr("data-sender", convo);
-          $($(this)[0].content).attr("data-chatcode", chatcode);
+        onOpen: function() {
+            $($(this)[0].content).attr("data-sender", convo);
+            $($(this)[0].content).attr("data-chatcode", chatcode);
         }
     });
 
@@ -159,11 +187,10 @@ $(document).ready(function() {
         localStorage.removeItem('teamNumber');
         location = "login.html";
     });
-    socket.on("notification", function(data){
-        if (data.chatname == ""){
+    socket.on("notification", function(data) {
+        if (data.chatname == "") {
             showNewMessageNotice(data.name, data.message, data.user, data.chatcode);
-        }
-        else {
+        } else {
             showNewMessageNotice(data.name + " in " + data.chatname, data.message, data.chatname, data.chatcode);
         }
         $('#audio-files').find('audio#click-sound')[0].play();
@@ -171,17 +198,21 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click", ".jBox-Notice", function(){
-      // $(this).find(".jBox-content").attr("data-sender") ---> the username or chatname
-      // $(this).find(".jBox-content").attr("data-chatcode") ---> the chatcode
+    $(document).on("click", ".jBox-Notice", function() {
+        // $(this).find(".jBox-content").attr("data-sender") ---> the username or chatname
+        // $(this).find(".jBox-content").attr("data-chatcode") ---> the chatcode
     });
 
-    $(".menu").click(function(){
-      if($(".nav_dropdown").css("top").indexOf("-") != -1){
-        $(".nav_dropdown").velocity({top: "40px"}, 200);
-      }else{
-        $(".nav_dropdown").velocity({top: "-215px"}, 200);
-      }
+    $(".menu").click(function() {
+        if ($(".nav_dropdown").css("top").indexOf("-") != -1) {
+            $(".nav_dropdown").velocity({
+                top: "40px"
+            }, 200);
+        } else {
+            $(".nav_dropdown").velocity({
+                top: "-215px"
+            }, 200);
+        }
     })
 
 });
