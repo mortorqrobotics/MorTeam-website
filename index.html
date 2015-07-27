@@ -323,6 +323,7 @@
                     // wrap link with <a> tags
                 }
                 createPost(message) // posts announcement
+                nicEditors.findEditor('main_textarea').setContent('');
 
             });
             $(document).on("click", ".delete_icon", function() {

@@ -219,7 +219,7 @@
                           var nameP = "<p class='selected_event_member' data-username='" + people[i].user + "'>" + person + "</p>"
                           content += nameP;
                       }
-                      var modal_content = '<input type="text" class="event_name" placeholder="Title"></input><br/><textarea class="event_description" placeholder="Short Description"></textarea><br/>Please select who should see the event:<br/><input type="text" placeholder="Search Names..." id="select_event_members"></input><br/><div id="selected_event_members">' +
+                      var modal_content = '<input type="text" class="event_name" placeholder="Title"></input><br/><textarea class="event_description" placeholder="Short Description (Optional)"></textarea><br/>Please select who should see the event:<br/><input type="text" placeholder="Search Names..." id="select_event_members"></input><br/><div id="selected_event_members">' +
                       content + '</div><br/><input type="button" class="button make_event_button" value="Make Event"></input>'
                       modal.setContent(modal_content);
                   }
@@ -249,19 +249,19 @@
                     return !~text.indexOf(val);
                 }).hide();
               });
-              $(document).one("click", '.make_event_button', function() {
-                // CODE TO CREATE EVENT HERE
-                    // didClickNew = true;
-
-                var li = document.createElement("li")
-                $(li).html( "<span class='bold'>" + $(".event_name").val() + "</span>" + "<br/><div class='indented'>" + $(".event_description").val() + "</div>" )
-                $(dayList).append($(li));
-                event_modal.close();
-
-              });
           }
         });
         loadUsersOnEventModal(event_modal);
+        $(document).on("click", '.make_event_button', function() {
+          // CODE TO CREATE EVENT HERE
+              // didClickNew = true;
+
+          var li = document.createElement("li")
+          $(li).html( "<span class='bold'>" + $(".event_name").val() + "</span>" + "<br/><div class='indented'>" + $(".event_description").val() + "</div>" )
+          $(dayList).append($(li));
+          event_modal.close();
+
+        });
 
         $(document).on("click", ".add_event", function(){
           event_modal.open();
