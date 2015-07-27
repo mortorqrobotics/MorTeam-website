@@ -83,17 +83,46 @@
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
+
+    <div class="wrapper scope_wrapper">
+      <div class="scope_info">
+        <h1>Scope Name</h1>
+        <h3>Date Created: Month Day, Year</h3>
+        <input type="button" class="button scope_join_btn" value="Join"></input>
+      </div>
+      <div class="scope_members">
+        <ul>
+          <li class="add_scope_member"><span class="glyphicon glyphicon-plus"></span> Add member</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Farbod Rafezy</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Ben Heller</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Arvin Zadeh</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">David Baum</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Farbod Rafezy</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Ben Heller</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Arvin Zadeh</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">David Baum</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Farbod Rafezy</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Ben Heller</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Arvin Zadeh</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">David Baum</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Farbod Rafezy</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Ben Heller</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Arvin Zadeh</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">David Baum</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Farbod Rafezy</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Ben Heller</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Arvin Zadeh</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">David Baum</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Farbod Rafezy</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Ben Heller</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">Arvin Zadeh</li>
+          <li><img src="./images/user.jpg" onerror="this.src='./images/user.jpg'" class="small_prof_pic show" id="small_prof_pic">David Baum</li>
+        </ul>
+      </div>
+    </div>
     <!-- END OF BODY -->
 
-    <!-- LEFTBAR -->
-    <div class="leftbar">
-      <img class="profile_pic" src="images/user.jpg"></img>
-      <div class="leftbar_item" id="leftbar_name">User Userson</div>
-      <!-- <div class="leftbar_item" id="leftbar_title">Vice President of Programming</div> -->
-      <div class="leftbar_item" id="leftbar_email">useruserson@gmail.com</div>
-      <div class="leftbar_item" id="leftbar_phone">(310) 818-1224</div>
-    </div>
-    <!-- END OF LEFTBAR -->
+
     <script src="jbox/jBox.min.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -102,14 +131,7 @@
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-
-        // DISPLAYS PERSONAL INFO IN LEFTBAR
-        getPic(localStorage.username, $(".profile_pic"));
-        $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
-        // $('#leftbar_title').html("Member of " + localStorage.subdivision);
-        console.log(localStorage.teamNumber + ": " + localStorage.teamName);
-        $('#leftbar_email').html(localStorage.email);
-        $('#leftbar_phone').html("("+localStorage.phone.substring(0,3)+") "+localStorage.phone.substring(3,6)+"-"+localStorage.phone.substring(6,10));
+        //
       });
       window.onunload = function(){};
     </script>

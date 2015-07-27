@@ -26,7 +26,7 @@
     </script>
     <script type="text/javascript">
         if (localStorage.userToken == undefined) {
-            location = "login.html";
+            location = "login";
         }
     </script>
 
@@ -40,11 +40,11 @@
     </div>
     <!-- NAVIGATION BAR -->
     <div class="nav_dropdown">
-      <p onclick="location='index.html'" style="background-color: orange">Home</p>
-      <p onclick="location='chat.html'">Chat</p>
-      <p onclick="location='drive.html'">Drive</p>
-      <p onclick="location='cal.html'">Calendar</p>
-      <p onclick="location='networks.html'">Networks</p>
+      <p onclick="location='index'" style="background-color: orange">Home</p>
+      <p onclick="location='chat'">Chat</p>
+      <p onclick="location='drive'">Drive</p>
+      <p onclick="location='cal'">Calendar</p>
+      <p onclick="location='networks'">Networks</p>
     </div>
     <div class="navigation_bar">
         <ul id="navbar_list">
@@ -54,16 +54,16 @@
           <li class="navbar_item searchbox_list_item">
               <input type="text" placeholder="search" class="searchbox"></input>
           </li>
-          <li class="navbar_item glyph_link chat_btn menu_btn" onclick="location='chat.html'">
+          <li class="navbar_item glyph_link chat_btn menu_btn" onclick="location='chat'">
               <span class="glyphicon glyphicon-comment"></span>
           </li>
-          <li class="navbar_item glyph_link drive_btn menu_btn" onclick="location='drive.html'">
+          <li class="navbar_item glyph_link drive_btn menu_btn" onclick="location='drive'">
               <span class="glyphicon glyphicon-hdd"></span>
           </li>
-          <li class="navbar_item glyph_link cal_btn menu_btn" onclick="location='cal.html'">
+          <li class="navbar_item glyph_link cal_btn menu_btn" onclick="location='cal'">
               <span class="glyphicon glyphicon-calendar"></span>
           </li>
-          <li class="navbar_item glyph_link networks_btn menu_btn" onclick="location='networks.html'">
+          <li class="navbar_item glyph_link networks_btn menu_btn" onclick="location='networks'">
               <span class="glyphicon glyphicon-globe"></span>
           </li>
           <div class="navbar_item right_links">
@@ -89,7 +89,7 @@
     </div>
     <div id="prof_drop" class="hidden">
         <ul>
-            <li class="notif_list_item" onclick="location='profile.html';">View Profile</li>
+            <li class="notif_list_item" onclick="location='profile';">View Profile</li>
             <li class="notif_list_item" id="logout_button">Log Out</li>
         </ul>
     </div>
@@ -99,28 +99,43 @@
     <div class="announcements_container" style="margin-top: 60px;">
 
         <div class="announcements_left">
-          <p>View Profile</p>
-          <p>Edit Profile</p>
-          <p>Log Out</p>
+          <p onclick="location='profile'">View Profile</p>
+          <p id="logout_button">Log Out</p>
           <hr>
           <h5 style="margin-bottom: 15px;">Your Scopes in This Group</h5>
           <p><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
           <p><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
           <p><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p>
           <hr>
-          <!-- <h5 style="margin-bottom: 15px;">Your Groups</h5>
-          <p style="font-weight: 400; background: #f4f4f4"><span class="glyphicon glyphicon-link"></span> MorTorq</p>
-          <p><span class="glyphicon glyphicon-link"></span> BHHS</p>
-          <p><span class="glyphicon glyphicon-link"></span> Random Volunteership</p>
-          <hr> -->
+          <h5 style="margin-bottom: 15px;">Public Scopes</h5>
+          <p><span class="glyphicon glyphicon-screenshot"></span> Build</p>
+          <p><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
+          <p><span class="glyphicon glyphicon-screenshot"></span> Business</p>
+          <p><span class="glyphicon glyphicon-screenshot"></span> CAD</p>
+          <p><span class="glyphicon glyphicon-screenshot"></span> Media</p>
+          <!-- <hr>
           <h5 style="margin-bottom: 15px;">This Group's Networks</h5>
           <p><span class="glyphicon glyphicon-globe"></span> FIRST Robotics Network</p>
-          <p><span class="glyphicon glyphicon-globe"></span> Technology Network</p>
+          <p><span class="glyphicon glyphicon-globe"></span> Technology Network</p> -->
+          <hr>
+          <p class="new_pu_scope"><span class="glyphicon glyphicon-plus"></span> Make a Public Scope</p>
+          <p class="new_pr_scope"><span class="glyphicon glyphicon-plus"></span> Make a Private Scope</p>
         </div>
         <div class="announcements_center">
-          <div class="post_announcement">
+          <div class="post_announcement cf">
               <textarea class="announcement_textarea" id="main_textarea" placeholder="Make an announcement..."></textarea>
               <input type="button" class="announcement_post_button" value="Post"></input>
+              <div class=" announcement_audience_button btn-group">
+                  <button class="button dropdown-toggle" data-toggle="dropdown"><span class="audience_selection">Everyone</span>
+                      <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu audience_drop">
+                      <li class="audience_item selected">Everyone</li>
+                      <li class="audience_item">Build</li>
+                      <li class="audience_item">Programming</li>
+                      <li class="audience_item">Business</li>
+                  </ul>
+              </div>
           </div>
           <div class="announcements_list">
               <!-- <div class="announcement" data-postNum="1">
@@ -218,10 +233,82 @@
         function deletePost() {
             //
         }
-
+        function loadUsersOnScopeModal(modal) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/getteammates", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText != "fail") {
+                        var users = JSON.parse(xhr.responseText);
+                        people = users;
+                        var content = "";
+                        for (var i = 0; i < people.length; i++) {
+                            var person = people[i].first + " " + people[i].last;
+                            var nameP = "<p class='selected_scope_member' data-username='" + people[i].user + "'>" + person + "</p>"
+                            content += nameP;
+                        }
+                        var modal_content = '<input type="text" class="scope_name" placeholder="Scope Name"></input><br/>Please select the members of the Scope:<br/><input type="text" placeholder="Search Names..." id="select_scope_members"></input><br/><div id="selected_scope_members">' +
+                        content + '</div><br/><input type="button" class="button make_scope_button" value="Make Scope"></input>'
+                        modal.setContent(modal_content);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({
+                "user": localStorage.username
+            }));
+        }
         $(document).ready(function() {
 
             getAnnouncements(); // getting announcements is first priority on this page
+
+            scope_modal = new jBox('Modal', {
+              title: 'New Scope',
+              width: 350,
+              height: 355,
+              onOpen: function() {
+                  // didClickNew = false;
+                  loadUsersOnScopeModal(scope_modal);
+                  $(document).on("keyup", '#select_scope_members', function() {
+                    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                    $('#selected_scope_members p').show().filter(function() {
+                        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                        console.log(!~text.indexOf(val));
+                        return !~text.indexOf(val);
+                    }).hide();
+                  });
+                  $(document).one("click", '.make_scope_button', function() {
+                    // CODE TO CREATE SCOPE HERE
+                        // didClickNew = true;
+                  });
+              }
+            });
+            loadUsersOnScopeModal(scope_modal);
+
+            $(document).on("click", ".new_pu_scope", function(){
+              scope_modal.open();
+            });
+            $(document).on("click", ".new_pr_scope", function(){
+              scope_modal.open();
+            });
+
+            $(document).on("click", ".selected_scope_member", function() {
+                // do stuff with $(this) when a name has been clicked in group_modal
+                if ($(this).hasClass("clicked")) {
+                    $(this).removeClass("clicked");
+                } else {
+                    $(this).addClass('clicked');
+                }
+            });
+
+
+            var audience = "Everyone";
+
+            $(document).on("click", ".audience_item", function(){
+              $(".audience_item").removeClass("selected");
+              $(this).addClass("selected");
+              $(".audience_selection").html( $(this).html() );
+              audience = $(this).html();
+            });
 
             $('.announcement_post_button').click(function() {
                 var message = (new nicEditors.findEditor('main_textarea')).getContent();
@@ -263,7 +350,7 @@
             textareaWidthNum = $(".post_announcement").width();
             textareaWidth = textareaWidthNum + "px";
             $(".nicEdit-main").css("width", textareaWidth);
-            $(".post_announcement").children().not(".announcement_post_button").css("width", textareaWidth);
+            $(".post_announcement").children().not(".announcement_post_button").not(".announcement_audience_button").css("width", textareaWidth);
             console.log($(".nicEdit-main").css("width"));
           });
 

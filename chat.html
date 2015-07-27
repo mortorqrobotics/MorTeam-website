@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Morganizer</title>
@@ -17,7 +18,7 @@
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <script type="text/javascript">
         if (localStorage.userToken == undefined) {
-            location = "login.html";
+            location = "login";
         }
     </script>
 </head>
@@ -30,30 +31,30 @@
         </audio>
     </div>
     <div class="nav_dropdown">
-      <p onclick="location='index.html'">Home</p>
-      <p onclick="location='chat.html'" style="background-color: orange">Chat</p>
-      <p onclick="location='drive.html'">Drive</p>
-      <p onclick="location='cal.html'">Calendar</p>
-      <p onclick="location='networks.html'">Networks</p>
+      <p onclick="location='index'">Home</p>
+      <p onclick="location='chat'" style="background-color: orange">Chat</p>
+      <p onclick="location='drive'">Drive</p>
+      <p onclick="location='cal'">Calendar</p>
+      <p onclick="location='networks'">Networks</p>
     </div>
     <div class="navigation_bar">
         <ul id="navbar_list">
-          <li class="navbar_item navbar_title" onclick="location='index.html'">
+          <li class="navbar_item navbar_title" onclick="location='index'">
               MorTeam
           </li>
           <li class="navbar_item searchbox_list_item">
               <input type="text" placeholder="search" class="searchbox"></input>
           </li>
-          <li class="navbar_item glyph_link chat_btn menu_btn active" onclick="location='chat.html'">
+          <li class="navbar_item glyph_link chat_btn menu_btn active" onclick="location='chat'">
               <span class="glyphicon glyphicon-comment"></span>
           </li>
-          <li class="navbar_item glyph_link drive_btn menu_btn" onclick="location='drive.html'">
+          <li class="navbar_item glyph_link drive_btn menu_btn" onclick="location='drive'">
               <span class="glyphicon glyphicon-hdd"></span>
           </li>
-          <li class="navbar_item glyph_link cal_btn menu_btn" onclick="location='cal.html'">
+          <li class="navbar_item glyph_link cal_btn menu_btn" onclick="location='cal'">
               <span class="glyphicon glyphicon-calendar"></span>
           </li>
-          <li class="navbar_item glyph_link networks_btn menu_btn" onclick="location='networks.html'">
+          <li class="navbar_item glyph_link networks_btn menu_btn" onclick="location='networks'">
               <span class="glyphicon glyphicon-globe"></span>
           </li>
           <div class="navbar_item right_links">
@@ -77,7 +78,7 @@
     </div>
     <div id="prof_drop" class="hidden">
         <ul>
-            <li class="notif_list_item" onclick="location='profile.html';">View Profile and Settings</li>
+            <li class="notif_list_item" onclick="location='profile';">View Profile and Settings</li>
             <li class="notif_list_item" id="logout_button">Log Out</li>
         </ul>
     </div>
@@ -557,7 +558,7 @@
                 sendMessage($('.reply_textarea').val());
                 $('.reply_textarea').val(''); // empties reply text box
                 autosize.update(ta); // resizes reply text box
-                $('.chat_area').css('height', "calc(100vh - 80px - " + $(this).height() + "px)"); // resizes div.chat_area according to changes that occur in above line
+                $('.chat_area').css('height', "calc(100vh - 58px - " + $(this).height() + "px)"); // resizes div.chat_area according to changes that occur in above line
             });
 
             $(document).on("mouseenter", "li.chat_name", function() {

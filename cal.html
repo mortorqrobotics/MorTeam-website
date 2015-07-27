@@ -17,7 +17,7 @@
     <link href="jbox/jBox.css" rel="stylesheet">
     <script type="text/javascript">
     if(localStorage.userToken == undefined){
-      location="login.html";
+      location="login";
     }
     </script>
   </head>
@@ -29,30 +29,30 @@
       </div>
     <!-- NAVIGATION BAR -->
     <div class="nav_dropdown">
-      <p onclick="location='index.html'">Home</p>
-      <p onclick="location='chat.html'">Chat</p>
-      <p onclick="location='drive.html'">Drive</p>
-      <p onclick="location='cal.html'" style="background-color: orange">Calendar</p>
-      <p onclick="location='networks.html'">Networks</p>
+      <p onclick="location='index'">Home</p>
+      <p onclick="location='chat'">Chat</p>
+      <p onclick="location='drive'">Drive</p>
+      <p onclick="location='cal'" style="background-color: orange">Calendar</p>
+      <p onclick="location='networks'">Networks</p>
     </div>
     <div class="navigation_bar">
         <ul id="navbar_list">
-          <li class="navbar_item navbar_title" onclick="location='index.html'">
+          <li class="navbar_item navbar_title" onclick="location='index'">
               MorTeam
           </li>
           <li class="navbar_item searchbox_list_item">
               <input type="text" placeholder="search" class="searchbox"></input>
           </li>
-          <li class="navbar_item glyph_link chat_btn menu_btn" onclick="location='chat.html'">
+          <li class="navbar_item glyph_link chat_btn menu_btn" onclick="location='chat'">
               <span class="glyphicon glyphicon-comment"></span>
           </li>
-          <li class="navbar_item glyph_link drive_btn menu_btn" onclick="location='drive.html'">
+          <li class="navbar_item glyph_link drive_btn menu_btn" onclick="location='drive'">
               <span class="glyphicon glyphicon-hdd"></span>
           </li>
-          <li class="navbar_item glyph_link cal_btn menu_btn active" onclick="location='cal.html'">
+          <li class="navbar_item glyph_link cal_btn menu_btn active" onclick="location='cal'">
               <span class="glyphicon glyphicon-calendar"></span>
           </li>
-          <li class="navbar_item glyph_link networks_btn menu_btn" onclick="location='networks.html'">
+          <li class="navbar_item glyph_link networks_btn menu_btn" onclick="location='networks'">
               <span class="glyphicon glyphicon-globe"></span>
           </li>
           <div class="navbar_item right_links">
@@ -76,7 +76,7 @@
     </div>
     <div id="prof_drop" class="hidden">
       <ul>
-        <li class="notif_list_item" onclick="location='profile.html';">View Profile and Settings</li>
+        <li class="notif_list_item" onclick="location='profile';">View Profile and Settings</li>
         <li class="notif_list_item" id="logout_button">Log Out</li>
       </ul>
     </div>
@@ -88,277 +88,7 @@
       <div class="container-fluid cal_container">
         <div class="row cal_row">
           <div class="timeline col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <!--<div class="day">
-              <div class="day_of_month">1</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Monday</h4>
-                <ul class="day_list">
-                  Nothing Scheduled
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">2</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Tuesday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285 &nbsp;<span class="glyphicon glyphicon-calendar attendance" title="Mark Attendance" /></li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">3</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Wednesday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">4</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Thursday</h4>
-                <ul class="day_list">
-                  Nothing Scheduled
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">5</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Friday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">6</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Saturday</h4>&nbsp;
-                <span class="glyphicon glyphicon-list-alt weekly_report_btn" title="Weekly Report"></span>&nbsp;
-                <span>(incomplete)</span>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">7</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Sunday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">8</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Monday</h4>
-                <ul class="day_list">
-                  Nothing Scheduled
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">9</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Tuesday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">10</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Wednesday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">11</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Thursday</h4>
-                <ul class="day_list">
-                  Nothing Scheduled
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">12</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Friday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">13</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Saturday</h4>&nbsp;
-                <span class="glyphicon glyphicon-list-alt weekly_report_btn" title="Weekly Report"></span>&nbsp;
-                <span>(incomplete)</span>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">14</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Sunday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">15</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Monday</h4>
-                <ul class="day_list">
-                  Nothing Scheduled
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">16</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Tuesday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">17</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Wednesday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">18</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Thursday</h4>
-                <ul class="day_list">
-                  Nothing Scheduled
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">19</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Friday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">20</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Saturday</h4>&nbsp;
-                <span class="glyphicon glyphicon-list-alt weekly_report_btn" title="Weekly Report"></span>&nbsp;
-                <span>(incomplete)</span>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">21</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Sunday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">22</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Monday</h4>
-                <ul class="day_list">
-                  Nothing Scheduled
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">23</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Tuesday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">24</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Wednesday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">25</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Thursday</h4>
-                <ul class="day_list">
-                  Nothing Scheduled
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">26</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Friday</h4>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
-              <div class="day_of_month">27</div><input type="button" class="add_event" value="+" title="Add Event"></input>
-              <div class="day_content">
-                <h4 class="day_name">Saturday</h4>&nbsp;
-                <span class="glyphicon glyphicon-list-alt weekly_report_btn" title="Weekly Report"></span>&nbsp;
-                <span>(incomplete)</span>
-                <ul class="day_list">
-                  <li>Programming meeting in 285</li>
-                  <li>All newbies will take quiz</li>
-                </ul>
-              </div>
-            </div>
-            <div class="day">
+            <!-- <div class="day">
               <div class="day_of_month">28</div><input type="button" class="add_event" value="+" title="Add Event"></input>
               <div class="day_content">
                 <h4 class="day_name">Sunday</h4>
@@ -367,7 +97,7 @@
                   <li>All newbies will take quiz</li>
                 </ul>
               </div>
-          </div>-->
+            </div> -->
           </div>
           <div class="cal_right col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="events_overview">
@@ -439,6 +169,17 @@
     <!-- LEFTBAR -->
     <div class="leftbar">
       <ul>
+        <li class="month_name year_select">
+            <div class="btn-group year_dropdown">
+                <button class="button dropdown-toggle" data-toggle="dropdown"><span class="selected_year"></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="years dropdown-menu">
+                </ul>
+            </div>
+            <!-- <span class="glyphicon glyphicon-th grid_layout"></span>
+            <span class="glyphicon glyphicon-th-list list_layout"></span>  UN-COMMENT WHEN LIST LAYOUT IS READY   -->
+        </li>
         <li class="month_name m1" data-month="1"><span id="make_group" class="glyphicon glyphicon-calendar"></span>January</li>
         <li class="month_name m2" data-month="2"><span id="make_group" class="glyphicon glyphicon-calendar"></span>February</li>
         <li class="month_name m3" data-month="3"><span id="make_group" class="glyphicon glyphicon-calendar"></span>March</li>
@@ -464,7 +205,93 @@
     <script type="text/javascript" src="js/velocity.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
+      function loadUsersOnEventModal(modal) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "/f/getteammates", true);
+          xhr.onreadystatechange = function() {
+              if (xhr.readyState == 4 && xhr.status == 200) {
+                  if (xhr.responseText != "fail") {
+                      var users = JSON.parse(xhr.responseText);
+                      people = users;
+                      var content = "";
+                      for (var i = 0; i < people.length; i++) {
+                          var person = people[i].first + " " + people[i].last;
+                          var nameP = "<p class='selected_event_member' data-username='" + people[i].user + "'>" + person + "</p>"
+                          content += nameP;
+                      }
+                      var modal_content = '<input type="text" class="event_name" placeholder="Event Name"></input><br/>Please select who should see the event:<br/><input type="text" placeholder="Search Names..." id="select_event_members"></input><br/><div id="selected_event_members">' +
+                      content + '</div><br/><input type="button" class="button make_event_button" value="Make Event"></input>'
+                      modal.setContent(modal_content);
+                  }
+              }
+          };
+          xhr.send(JSON.stringify({
+              "user": localStorage.username
+          }));
+      }
       $(document).ready(function(){
+
+        event_modal = new jBox('Modal', {
+          // attach: $('.add_event'),
+          title: 'New Event',
+          width: 350,
+          height: 355,
+          onOpen: function() {
+              // didClickNew = false;
+              loadUsersOnEventModal(event_modal);
+              $(document).on("keyup", '#select_event_members', function() {
+                var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                $('#selected_event_members p').show().filter(function() {
+                    var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                    console.log(!~text.indexOf(val));
+                    return !~text.indexOf(val);
+                }).hide();
+              });
+              $(document).one("click", '.make_event_button', function() {
+                // CODE TO CREATE EVENT HERE
+                    // didClickNew = true;
+              });
+          }
+        });
+        loadUsersOnEventModal(event_modal);
+
+        $(document).on("click", ".add_event", function(){
+          event_modal.open();
+        });
+
+        $(document).on("click", ".selected_event_member", function() {
+            // do stuff with $(this) when a name has been clicked in group_modal
+            if ($(this).hasClass("clicked")) {
+                $(this).removeClass("clicked");
+            } else {
+                $(this).addClass('clicked');
+            }
+        });
+
+        var now = new Date();
+        var selectedYear = now.getFullYear();
+        $(".selected_year").html( selectedYear );
+
+        for( i=0 ; i<5 ; i++){
+          var year = document.createElement("li");
+          $(year).addClass("year");
+          $(year).html( now.getFullYear() + i )
+          $(".years").append(year)
+          if(i==0){
+            $(year).addClass("selected");
+          }
+        }
+
+        $(document).on("click", ".year", function(){
+          $(".year").removeClass("selected");
+          $(this).addClass("selected");
+          $(".selected_year").html( $(this).html() );
+          selectedYear = parseInt($(this).html());
+
+          // YEAR IS SELECTED. DO SOMETHING WITH selectedYear.
+
+        });
+
         function addDayBox(month, day, year, isToday){
             var dayOfWeek = getDayOfWeek(month, day, year);
             if (!isToday){
@@ -475,9 +302,9 @@
             }
         }
         var monthViewing = "";
-        var currentDay = new Date().getDate();
-        var currentYear = new Date().getFullYear();
-        var currentMonth = new Date().getMonth() + 1;
+        var currentDay = now.getDate();
+        var currentYear = now.getFullYear();
+        var currentMonth = now.getMonth() + 1;
 
         $(".month_name:not(.year_select)").on("click", function(){
             $("li.month_name").removeClass("selected");
@@ -499,7 +326,7 @@
             }
         });
         $(".m"+currentMonth).trigger("click");
-        var scrollPix = $(".d"+currentDay).offset().top - $(window).height()*0.5;
+        var scrollPix = $(".d"+currentDay).offset().top - $(window).height()*0.5 + 50;
         $('.timeline').scrollTop(scrollPix);
 
         function hideLeftbar(time, button){

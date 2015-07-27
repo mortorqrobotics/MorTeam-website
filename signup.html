@@ -25,20 +25,19 @@
                 <input class="signup_item" type="text" placeholder="Username" id="username_signup"></input>
                 <input class="signup_item" type="password" placeholder="Password" id="password_signup"></input>
                 <input class="signup_item" type="password" placeholder="Confirm Password" id="password_signup_confirm"></input>
-                <select required class="signup_item" id="subdivision_signup">
+                <!-- <select required class="signup_item" id="subdivision_signup">
                     <option value="">Subdivision</option>
                     <option value="Build">Build</option>
                     <option value="Programming">Programming</option>
                     <option value="Business">Business</option>
                     <option value="Media">Media</option>
-                </select>
+                </select> -->
                 <input class="signup_item" type="text" placeholder="Email" id="email_signup"></input>
                 <input class="signup_item" type="text" placeholder="Phone Number" id="phone_signup"></input>
-
-            </div>
-            <div class="col-lg-6 col-sm-6 col-xs-6">
                 <input type="file" class="hidden show_files" id="show_files" accept="image/*" />
                 <input type="button" class="pic_choose_button signup_item" value="Choose Profile Picture">
+            </div>
+            <div class="col-lg-6 col-sm-6 col-xs-6">
                 <input type="text" placeholder="Team Code" id="team_code_signup" class="signup_item"></input>
                 <p class="signup_item make_team_question">If your team does not exist, you can</p>
                 <input type="button" placeholder="Make Team" value="Make a Team" id="make_team_button" class="signup_item"></input>
@@ -199,7 +198,7 @@
                         if (xhr.responseText != "success") {
                             alert('an error occured when uploading profile picture');
                         }
-                        location = "login.html";
+                        location = "login";
                     }
                 };
                 xhr.send(data);

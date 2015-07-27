@@ -174,7 +174,7 @@ $(document).ready(function() {
             });
         });
     });
-    $('#logout_button').click(function() {
+    $(document).on( "click", "#logout_button", function() {
         localStorage.removeItem('username');
         localStorage.removeItem('userToken');
         localStorage.removeItem('firstName');
@@ -185,7 +185,7 @@ $(document).ready(function() {
         localStorage.removeItem('teamName');
         localStorage.removeItem('teamCode');
         localStorage.removeItem('teamNumber');
-        location = "login.html";
+        location = "login";
     });
     socket.on("notification", function(data) {
         if (data.chatname == "") {
