@@ -1284,6 +1284,24 @@ html { overflow-x: hidden; }
 .selected_group_name.clicked, .selected_folder_member.clicked, .selected_event_member.clicked, .selected_scope_member.clicked{
 	background-color: #53CF29;
 }
+.event_description{
+	width: 100%;
+	margin-top: 5px;
+	border: none;
+	padding: 8px 4px 8px 4px;
+	font-size: 15px;
+	margin-bottom: 10px;
+	box-shadow: 1.5px 3px 8px -2px #a9a9a9;
+	border-radius: 1px;
+	height: 84px;
+	resize: none;
+}
+.bold{
+	font-weight: 300;
+}
+.indented{
+	padding-left: 5px;
+}
 .rainbow {
   background-image: -webkit-gradient( linear, right bottom, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
   background-image: gradient( linear, right bottom, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
