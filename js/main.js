@@ -29,11 +29,11 @@ function getTimeNow() {
 }
 var months = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 var days = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-var mtend = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+var mtend = new Array(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
 
 function getDaysInMonth(month, year) {
-    if (month == 2 && year % 4 == 0) {
-        return 29;
+    if (month == 2 && year % 4 != 0) {
+        return 28;
     }
     return mtend[month - 1];
 }
@@ -41,9 +41,9 @@ function getDaysInMonth(month, year) {
 function getDayOfWeek(m, d, y) {
     m--;
     var hlpr = mtend[m];
-    if (d < mtend[m] + 1) {
-        if (m == 1 && y % 4 == 0) {
-            hlpr++;
+    if (d <= mtend[m]) {
+        if (m == 1 && y % 4 != 0) {
+            hlpr--;
         }
         var c = new Date(y, m, d);
         var dayOfWeek = c.getDay();

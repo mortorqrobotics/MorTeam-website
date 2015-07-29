@@ -133,7 +133,7 @@
             <div class="jobs_overview">
               <h3 class="u_events_title">&nbsp;Your Tasks</h3>
               <div class="events_container">
-                <ul class="events_list">
+                <ul class="events_list jobs_list">
                   <li>Under Construction</li>
                   <li>All newbies will take quiz</li>
                   <li>Programming meeting in 285</li>
@@ -199,18 +199,25 @@
 
 
     <script type="text/javascript" src="js/socket.io.js"></script>
-    <script src="jbox/jBox.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="jbox/jBox.min.js"></script>
     <script type="text/javascript" src="js/velocity.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
+        var now = new Date();
+        var currentDay = now.getDate();
+        var currentYear = now.getFullYear();
+        var currentMonth = now.getMonth() + 1;
       function loadUsersOnEventModal(modal) {
+
           var xhr = new XMLHttpRequest();
           xhr.open("POST", "/f/getteammates", true);
           xhr.onreadystatechange = function() {
               if (xhr.readyState == 4 && xhr.status == 200) {
+                  console.log(localStorage.username);
                   if (xhr.responseText != "fail") {
+                      console.log("RAN BITCH")
                       var users = JSON.parse(xhr.responseText);
                       people = users;
                       var content = "";
@@ -226,12 +233,47 @@
               }
           };
           xhr.send(JSON.stringify({
-              "user": localStorage.username
+              "user": localStorage.username,
+              "teamCode": localStorage.teamCode
           }));
       }
-      $(document).ready(function(){
 
+      function loadUpcomingEvents(){
+          //Currently shows every event, later show only first 10-20 events
+          request("POST", "/f/getupcomingevents", JSON.stringify({"user":localStorage.username, "currentTime":Date.now()}), function(responseText){
+              var events = JSON.parse(responseText);
+              var eventList = $(".events_list:not(.jobs_list)");
+              eventList.empty();
+              for (var i = 0; i < events.length; i++){
+                  var event = events[i];
+                  var eventDate = " (" + getDayOfWeek(event.month, event.day, event.year) + " - " + event.month + "/" + event.day + "/" + event.year + ")";
+                  var li = document.createElement("li");
+                  $(li).html( "<span class='bold'>" + event.eventName + eventDate + "</span>" + "<br/><div class='indented'>" + event.eventDesc + "</div>" )
+                  $(eventList).append($(li));
+              }
+          });
+
+      }
+
+      function loadEvents(month, year){
+          request("POST", "/f/getevents", JSON.stringify({"user":localStorage.username, "month":month, "year":year}), function(responseText){
+              var events = JSON.parse(responseText);
+              for (var i = 0; i < events.length; i++){
+                  var event = events[i];
+                  var day = event.day;
+                  var dayListOfEventDay = $(".d"+day).children().children().next();
+                  var li = document.createElement("li")
+                  $(li).html( "<span class='bold'>" + event.eventName + "</span>" + "<br/><div class='indented'>" + event.eventDesc + "</div>" )
+                  $(dayListOfEventDay).append($(li));
+              }
+              var scrollPix = $(".d"+currentDay).offset().top - $(window).height()*0.5 + $(".d"+currentDay).height()*0.5;
+              $('.timeline').scrollTop(scrollPix);
+          });
+      }
+      $(document).ready(function(){
+        var didClickNew = false;
         var dayList;
+        loadUpcomingEvents();
 
         event_modal = new jBox('Modal', {
           // attach: $('.add_event'),
@@ -239,28 +281,42 @@
           width: 350,
           height: "auto",
           onOpen: function() {
-              // didClickNew = false;
+              didClickNew = false;
               loadUsersOnEventModal(event_modal);
               $(document).on("keyup", '#select_event_members', function() {
                 var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
                 $('#selected_event_members p').show().filter(function() {
                     var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                    console.log(!~text.indexOf(val));
+                    //console.log(!~text.indexOf(val));
                     return !~text.indexOf(val);
                 }).hide();
               });
           }
         });
-        loadUsersOnEventModal(event_modal);
+        //loadUsersOnEventModal(event_modal);
         $(document).on("click", '.make_event_button', function() {
-          // CODE TO CREATE EVENT HERE
-              // didClickNew = true;
+            // CODE TO CREATE EVENT HERE
+            if (!didClickNew){
+                didClickNew = true;
+                var dayNum = $(dayList).parent().prev().prev().html();
+                var users = $("p.clicked");
+                var people = [];
+                for (var i = 0; i < users.length; i++) {
+                    people.push($(users[i]).attr("data-username"));
+                }
+                var eventName = $(".event_name").val();
+                var eventDesc = $(".event_description").val();
+                var timeStampOfDate = new Date(Date.UTC(yearViewing, monthViewing - 1, dayNum, 23, 59, 59)).getTime();
 
-          var li = document.createElement("li")
-          $(li).html( "<span class='bold'>" + $(".event_name").val() + "</span>" + "<br/><div class='indented'>" + $(".event_description").val() + "</div>" )
-          $(dayList).append($(li));
-          event_modal.close();
-
+                request("POST", "/f/addevent", JSON.stringify({"user":localStorage.username, "people":people, "month":monthViewing, "day":dayNum, "year":yearViewing, "timeStamp":timeStampOfDate, "eventName":eventName, "eventDesc":eventDesc}), function(responseText){
+                    if (responseText == "success"){
+                        var li = document.createElement("li")
+                        $(li).html( "<span class='bold'>" + $(".event_name").val() + "</span>" + "<br/><div class='indented'>" + $(".event_description").val() + "</div>" )
+                        $(dayList).append($(li));
+                        event_modal.close();
+                    }
+                });
+            }
         });
 
         $(document).on("click", ".add_event", function(){
@@ -277,8 +333,10 @@
             }
         });
 
-        var now = new Date();
+
         var selectedYear = now.getFullYear();
+        var monthViewing = "";
+        var yearViewing = "";
         $(".selected_year").html( selectedYear );
 
         for( i=0 ; i<5 ; i++){
@@ -296,9 +354,8 @@
           $(this).addClass("selected");
           $(".selected_year").html( $(this).html() );
           selectedYear = parseInt($(this).html());
-
+          $(".m"+monthViewing).trigger("click");
           // YEAR IS SELECTED. DO SOMETHING WITH selectedYear.
-
         });
 
         function addDayBox(month, day, year, isToday){
@@ -310,33 +367,34 @@
                 $(".timeline").append('<div class="day d'+day+'"><div class="day_of_month">'+day+'</div><input type="button" class="add_event" value="+" title="Add Event"></input><div class="day_content today"><h4 class="day_name">'+dayOfWeek+'</h4><ul class="day_list"></ul></div></div>');
             }
         }
-        var monthViewing = "";
-        var currentDay = now.getDate();
-        var currentYear = now.getFullYear();
-        var currentMonth = now.getMonth() + 1;
+
+
 
         $(".month_name:not(.year_select)").on("click", function(){
             $("li.month_name").removeClass("selected");
             $(this).addClass("selected");
             var month = $(this).attr("data-month");
-            if (month != monthViewing){
+            if (month != monthViewing || selectedYear != yearViewing){
+                loadUpcomingEvents();
                 $(".timeline").empty();
                 $(".timeline")[0].scrollTop;
                 monthViewing = month;
-                var daysInMonth = getDaysInMonth(monthViewing, currentYear);
+                yearViewing = selectedYear;
+                var daysInMonth = getDaysInMonth(monthViewing, yearViewing);
                 for (var day = 1; day <= daysInMonth; day++){
-                    if (currentMonth.toString() == monthViewing && currentDay == day){
-                        addDayBox(monthViewing, day, currentYear, true);
+                    if (currentMonth == monthViewing && currentDay == day && currentYear == yearViewing){
+                        addDayBox(monthViewing, day, yearViewing, true);
                     }
                     else {
-                        addDayBox(monthViewing, day, currentYear, false);
+                        addDayBox(monthViewing, day, yearViewing, false);
                     }
                 }
+                loadEvents(monthViewing, yearViewing);
+
             }
         });
         $(".m"+currentMonth).trigger("click");
-        var scrollPix = $(".d"+currentDay).offset().top - $(window).height()*0.5 + 50;
-        $('.timeline').scrollTop(scrollPix);
+
 
         function hideLeftbar(time, button){
           $(".leftbar").velocity({left: "-260px"}, { duration: time, queue: false });

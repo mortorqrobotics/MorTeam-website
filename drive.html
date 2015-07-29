@@ -252,6 +252,7 @@
 
             loadFolders();
             var didClickNew = false;
+            var didClickNewFile = false;
 
             document.body.appendChild(loadingDiv);
 
@@ -271,27 +272,29 @@
                         return !~text.indexOf(val);
                     }).hide();
                   });
-                  $(document).one("click", '.make_folder_button', function() {
+                  $(document).on("click", '.make_folder_button', function() {
                     // CODE TO CREATE FOLDER HERE
-                        didClickNew = true;
-                        var folder_name = document.createTextNode($(".folder_name").val())
-                        var usersBadges = $("p.clicked");
-                        var users = [];
-                        for (var i = 0; i < usersBadges.length; i++) {
-                            users.push($(usersBadges[i]).attr("data-username"));
+                    if (!didClickNew){
+                            didClickNew = true;
+                            var folder_name = document.createTextNode($(".folder_name").val())
+                            var usersBadges = $("p.clicked");
+                            var users = [];
+                            for (var i = 0; i < usersBadges.length; i++) {
+                                users.push($(usersBadges[i]).attr("data-username"));
+                            }
+                            request("POST", "/f/newfolder", JSON.stringify({"user":localStorage.username, "people":users, "folderName":$(".folder_name").val()}), function(responseText){
+                                var li = $(document.createElement("li"));
+                                var span = $(document.createElement("span"));
+                                li.append(span);
+                                li.attr("class", "drive_name");
+                                span.attr("id", "make_drive");
+                                span.attr("data-folderid", responseText);
+                                span.attr("class", "glyphicon glyphicon-folder-open");
+                                li.append(folder_name);
+                                $('.folders_list').append(li);
+                                folder_modal.close();
+                            });
                         }
-                        request("POST", "/f/newfolder", JSON.stringify({"user":localStorage.username, "people":users, "folderName":$(".folder_name").val()}), function(responseText){
-                            var li = $(document.createElement("li"));
-                            var span = $(document.createElement("span"));
-                            li.append(span);
-                            li.attr("class", "drive_name");
-                            span.attr("id", "make_drive");
-                            span.attr("data-folderid", responseText);
-                            span.attr("class", "glyphicon glyphicon-folder-open");
-                            li.append(folder_name);
-                            $('.folders_list').append(li);
-                            folder_modal.close();
-                        });
                   });
               }
             });
@@ -356,164 +359,167 @@
                 attach: $('.add_file'),
                 title: 'Upload a File',
                 onOpen: function() {
-
+                    didClickNewFile = false;
                     $("#chosen_file").html("No File Selected");
                     $("#file").val("");
                     $(".file_name")[0].value = "";
 
                     $(".upload_button").unbind().click(function() {
-                        console.log(uploads);
+                        if (!didClickNewFile){
+                            didClickNewFile = true;
+                            console.log(uploads);
 
-                        var fileName = $(".file_name").val();
-                        var teamCode = localStorage.teamCode;
-                        var user = localStorage.username;
-                        var rawFileName = "";
+                            var fileName = $(".file_name").val();
+                            var teamCode = localStorage.teamCode;
+                            var user = localStorage.username;
+                            var rawFileName = "";
 
-                        if (uploads.length == undefined) {
-                            if (uploads.size > 50000000) {
-                                alert("file is too big");
-                            } else {
-                                rawFileName = uploads.name;
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", "/f/uploadtodrive?user=" + escape(user) + "&teamcode=" + escape(teamCode) + "&folder=" + escape(currentFolderID) + "&filename=" + escape(fileName) + "&rawname=" + escape(
-                                    rawFileName), true);
-                                xhr.onreadystatechange = function() {
-                                    if (xhr.readyState == 4 && xhr.status == 200) {
-                                        if (xhr.responseText != "Too large") {
-                                            var data = JSON.parse(xhr.responseText);
-                                            var fileSize = data.fileSize;
-                                            var fileType = data.fileType;
-                                            var fileCode = data.fileCode;
-                                            console.log(data);
+                            if (uploads.length == undefined) {
+                                if (uploads.size > 50000000) {
+                                    alert("file is too big");
+                                } else {
+                                    rawFileName = uploads.name;
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open("POST", "/f/uploadtodrive?user=" + escape(user) + "&teamcode=" + escape(teamCode) + "&folder=" + escape(currentFolderID) + "&filename=" + escape(fileName) + "&rawname=" + escape(
+                                        rawFileName), true);
+                                    xhr.onreadystatechange = function() {
+                                        if (xhr.readyState == 4 && xhr.status == 200) {
+                                            if (xhr.responseText != "Too large") {
+                                                var data = JSON.parse(xhr.responseText);
+                                                var fileSize = data.fileSize;
+                                                var fileType = data.fileType;
+                                                var fileCode = data.fileCode;
+                                                console.log(data);
 
-                                            var imgSrc = "";
-                                            var imgClass = "";
-                                            var isImg;
-                                            if (extToClass(fileType) == "image_doc") {
-                                                imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
-                                                imgClass = " image_preview";
-                                                isImg = true;
-                                            } else {
-                                                imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
-                                                isImg = false;
-                                            }
-                                            var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
-                                                '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
-                                                imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
-                                                '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
-                                            $grid.append($newFile).isotope("insert", $newFile);
-                                            $newFile.jBox('Tooltip', {
-                                                delayOpen: 700,
-                                                delayClose: 300,
-                                                theme: "TooltipDark",
-                                                position: {
-                                                    y: 'bottom'
+                                                var imgSrc = "";
+                                                var imgClass = "";
+                                                var isImg;
+                                                if (extToClass(fileType) == "image_doc") {
+                                                    imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
+                                                    imgClass = " image_preview";
+                                                    isImg = true;
+                                                } else {
+                                                    imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
+                                                    isImg = false;
                                                 }
-                                            });
-                                            if(isImg){
-                                              thisImg = document.createElement("img");
-                                              thisImg.src = imgSrc
-                                              thisImg.onload = function(){
-                                                var colorThief = new ColorThief();
-                                                var color = colorThief.getColor(this);
-                                                setTimeout(function(){
-                                                  $newFile.css("backgroundColor", "rgb(" + color + ")");
-                                                  $newFile.find(".image_preview").show();
-                                                  var r = color[0];
-                                                  var g = color[1];
-                                                  var b = color[2];
-                                                  var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-                                                  if (luma > 170) {
-                                                      $newFile.find(".doc_title").children().css("color", "black");
-                                                  }
-                                                }, 400);
-                                              };
-                                            }
-                                            var title = $newFile.find(".doc_title>span")[0];
-                                            $clamp(title, {
-                                                clamp: 2
-                                            })
-
-                                            file_modal.close();
-                                        }
-
-                                    }
-                                };
-                                xhr.send(uploads);
-
-                            }
-                        } else {
-                            if (uploads[0].size > 50000000) {
-                                alert("file is too big");
-                            } else {
-                                rawFileName = uploads[0].name;
-
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", "/f/uploadtodrive?user=" + escape(user) + "&teamcode=" + escape(teamCode) + "&folder=" + escape(currentFolderID) + "&filename=" + escape(fileName) + "&rawname=" + escape(
-                                    rawFileName), true);
-                                xhr.onreadystatechange = function() {
-                                    if (xhr.readyState == 4 && xhr.status == 200) {
-                                        if (xhr.responseText != "fail") {
-                                            var data = JSON.parse(xhr.responseText);
-                                            var fileSize = data.fileSize;
-                                            var fileType = data.fileType;
-                                            var fileCode = data.fileCode;
-                                            console.log(data);
-
-                                            var imgSrc = "";
-                                            var imgClass = "";
-                                            var isImg;
-                                            if (extToClass(fileType) == "image_doc") {
-                                                imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
-                                                imgClass = " image_preview";
-                                                isImg = true;
-                                            } else {
-                                                imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
-                                                isImg = false;
-                                            }
-                                            var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
-                                                '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
-                                                imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
-                                                '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
-                                            $grid.append($newFile).isotope("insert", $newFile);
-                                            $newFile.jBox('Tooltip', {
-                                                delayOpen: 700,
-                                                delayClose: 300,
-                                                theme: "TooltipDark",
-                                                position: {
-                                                    y: 'bottom'
+                                                var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
+                                                    '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
+                                                    imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
+                                                    '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
+                                                $grid.append($newFile).isotope("insert", $newFile);
+                                                $newFile.jBox('Tooltip', {
+                                                    delayOpen: 700,
+                                                    delayClose: 300,
+                                                    theme: "TooltipDark",
+                                                    position: {
+                                                        y: 'bottom'
+                                                    }
+                                                });
+                                                if(isImg){
+                                                  thisImg = document.createElement("img");
+                                                  thisImg.src = imgSrc
+                                                  thisImg.onload = function(){
+                                                    var colorThief = new ColorThief();
+                                                    var color = colorThief.getColor(this);
+                                                    setTimeout(function(){
+                                                      $newFile.css("backgroundColor", "rgb(" + color + ")");
+                                                      $newFile.find(".image_preview").show();
+                                                      var r = color[0];
+                                                      var g = color[1];
+                                                      var b = color[2];
+                                                      var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                                                      if (luma > 170) {
+                                                          $newFile.find(".doc_title").children().css("color", "black");
+                                                      }
+                                                    }, 400);
+                                                  };
                                                 }
-                                            });
-                                            if(isImg){
-                                              thisImg = document.createElement("img");
-                                              thisImg.src = imgSrc
-                                              thisImg.onload = function(){
-                                                var colorThief = new ColorThief();
-                                                var color = colorThief.getColor(this);
-                                                setTimeout(function(){
-                                                  $newFile.css("backgroundColor", "rgb(" + color + ")");
-                                                  $newFile.find(".image_preview").show();
-                                                  var r = color[0];
-                                                  var g = color[1];
-                                                  var b = color[2];
-                                                  var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-                                                  if (luma > 170) {
-                                                      $newFile.find(".doc_title").children().css("color", "black");
-                                                  }
-                                                }, 400);
-                                              };
+                                                var title = $newFile.find(".doc_title>span")[0];
+                                                $clamp(title, {
+                                                    clamp: 2
+                                                })
+
+                                                file_modal.close();
                                             }
-                                            var title = $newFile.find(".doc_title>span")[0];
-                                            $clamp(title, {
-                                                clamp: 2
-                                            })
 
-                                            file_modal.close();
                                         }
+                                    };
+                                    xhr.send(uploads);
 
-                                    }
-                                };
-                                xhr.send(uploads[0]);
+                                }
+                            } else {
+                                if (uploads[0].size > 50000000) {
+                                    alert("file is too big");
+                                } else {
+                                    rawFileName = uploads[0].name;
+
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open("POST", "/f/uploadtodrive?user=" + escape(user) + "&teamcode=" + escape(teamCode) + "&folder=" + escape(currentFolderID) + "&filename=" + escape(fileName) + "&rawname=" + escape(
+                                        rawFileName), true);
+                                    xhr.onreadystatechange = function() {
+                                        if (xhr.readyState == 4 && xhr.status == 200) {
+                                            if (xhr.responseText != "fail") {
+                                                var data = JSON.parse(xhr.responseText);
+                                                var fileSize = data.fileSize;
+                                                var fileType = data.fileType;
+                                                var fileCode = data.fileCode;
+                                                console.log(data);
+
+                                                var imgSrc = "";
+                                                var imgClass = "";
+                                                var isImg;
+                                                if (extToClass(fileType) == "image_doc") {
+                                                    imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + fileCode;
+                                                    imgClass = " image_preview";
+                                                    isImg = true;
+                                                } else {
+                                                    imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
+                                                    isImg = false;
+                                                }
+                                                var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
+                                                    '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
+                                                    imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
+                                                    '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
+                                                $grid.append($newFile).isotope("insert", $newFile);
+                                                $newFile.jBox('Tooltip', {
+                                                    delayOpen: 700,
+                                                    delayClose: 300,
+                                                    theme: "TooltipDark",
+                                                    position: {
+                                                        y: 'bottom'
+                                                    }
+                                                });
+                                                if(isImg){
+                                                  thisImg = document.createElement("img");
+                                                  thisImg.src = imgSrc
+                                                  thisImg.onload = function(){
+                                                    var colorThief = new ColorThief();
+                                                    var color = colorThief.getColor(this);
+                                                    setTimeout(function(){
+                                                      $newFile.css("backgroundColor", "rgb(" + color + ")");
+                                                      $newFile.find(".image_preview").show();
+                                                      var r = color[0];
+                                                      var g = color[1];
+                                                      var b = color[2];
+                                                      var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                                                      if (luma > 170) {
+                                                          $newFile.find(".doc_title").children().css("color", "black");
+                                                      }
+                                                    }, 400);
+                                                  };
+                                                }
+                                                var title = $newFile.find(".doc_title>span")[0];
+                                                $clamp(title, {
+                                                    clamp: 2
+                                                })
+
+                                                file_modal.close();
+                                            }
+
+                                        }
+                                    };
+                                    xhr.send(uploads[0]);
+                                }
                             }
                         }
                     });
