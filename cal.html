@@ -266,8 +266,10 @@
                   $(li).html( "<span class='bold'>" + event.eventName + "</span>" + "<br/><div class='indented'>" + event.eventDesc + "</div>" )
                   $(dayListOfEventDay).append($(li));
               }
-              var scrollPix = $(".d"+currentDay).offset().top - $(window).height()*0.5 + $(".d"+currentDay).height()*0.5;
-              $('.timeline').scrollTop(scrollPix);
+              if (month == currentMonth && year == currentYear){
+                var scrollPix = $(".d"+currentDay).offset().top - $(window).height()*0.5 + $(".d"+currentDay).height()*0.5;
+                $('.timeline').scrollTop(scrollPix);
+              }
           });
       }
       $(document).ready(function(){
