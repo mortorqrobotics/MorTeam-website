@@ -83,15 +83,25 @@
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
+    <div class="wrapper profother_wrapper">
+      <div class="user_actions">
+        <div class="user_action_btns">
+          <input type="button" value="Message" class="message_user user_action button"></input>
+          <input type="button" value="Assign Task" class="assign_task_user user_action button"></input>
+          <input type="button" value="Change Position" class="change_position_user user_action button"></input>
+          <input type="button" value="View Attendance" class="view_attendance_user user_action button"></input>
+        </div>
+      </div>
+    </div>
     <!-- END OF BODY -->
 
     <!-- LEFTBAR -->
     <div class="leftbar">
       <img class="profile_pic" src="images/user.jpg"></img>
-      <div class="leftbar_item" id="leftbar_name">User Userson</div>
+      <div class="leftbar_item" id="leftbar_name">Other Userson</div>
       <!-- <div class="leftbar_item" id="leftbar_title">Vice President of Programming</div> -->
-      <div class="leftbar_item"><span id="leftbar_email">useruserson@gmail.com</span></div>
-      <div class="leftbar_item"><span id="leftbar_phone">(310) 818-1224</span></div>
+      <div class="leftbar_item"><span id="leftbar_email">otheruserson@gmail.com</span></div>
+      <div class="leftbar_item"><span id="leftbar_phone">(310) 828-1224</span></div>
     </div>
     <!-- END OF LEFTBAR -->
     <script src="jbox/jBox.min.js"></script>
@@ -104,12 +114,13 @@
       $(document).ready(function(){
 
         // DISPLAYS PERSONAL INFO IN LEFTBAR
-        getPic(localStorage.username, $(".profile_pic"));
-        $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
-        // $('#leftbar_title').html("Member of " + localStorage.subdivision);
-        console.log(localStorage.teamNumber + ": " + localStorage.teamName);
-        $('#leftbar_email').html(localStorage.email);
-        $('#leftbar_phone').html("("+localStorage.phone.substring(0,3)+") "+localStorage.phone.substring(3,6)+"-"+localStorage.phone.substring(6,10));
+        // getPic(localStorage.username, $(".profile_pic"));
+        // $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
+        // // $('#leftbar_title').html("Member of " + localStorage.subdivision);
+        // console.log(localStorage.teamNumber + ": " + localStorage.teamName);
+        // $('#leftbar_email').html(localStorage.email);
+        // $('#leftbar_phone').html("("+localStorage.phone.substring(0,3)+") "+localStorage.phone.substring(3,6)+"-"+localStorage.phone.substring(6,10));
+
       });
       window.onunload = function(){};
     </script>

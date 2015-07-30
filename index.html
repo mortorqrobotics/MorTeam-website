@@ -12,6 +12,7 @@
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link href="jbox/themes/TooltipDark.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css" type="text/css">
     <link href="jbox/jBox.css" rel="stylesheet">
     <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
@@ -89,7 +90,7 @@
     </div>
     <div id="prof_drop" class="hidden">
         <ul>
-            <li class="notif_list_item" onclick="location='profile';">View Profile</li>
+            <li class="notif_list_item" onclick="location='profile';">View Profile and Settings</li>
             <li class="notif_list_item" id="logout_button">Log Out</li>
         </ul>
     </div>
@@ -102,12 +103,12 @@
           <p onclick="location='profile'">View Profile</p>
           <p id="logout_button">Log Out</p>
           <hr>
-          <h5 style="margin-bottom: 15px;">Your Scopes in This Group</h5>
+          <h5 style="margin-bottom: 15px;">Your Subdivisions</h5>
           <p><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
           <p><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
           <p><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p>
           <hr>
-          <h5 style="margin-bottom: 15px;">Public Scopes</h5>
+          <h5 style="margin-bottom: 15px;">Public Subdivisions</h5>
           <p><span class="glyphicon glyphicon-screenshot"></span> Build</p>
           <p><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
           <p><span class="glyphicon glyphicon-screenshot"></span> Business</p>
@@ -118,8 +119,7 @@
           <p><span class="glyphicon glyphicon-globe"></span> FIRST Robotics Network</p>
           <p><span class="glyphicon glyphicon-globe"></span> Technology Network</p> -->
           <hr>
-          <p class="new_pu_scope"><span class="glyphicon glyphicon-plus"></span> Make a Public Scope</p>
-          <p class="new_pr_scope"><span class="glyphicon glyphicon-plus"></span> Make a Private Scope</p>
+          <p class="new_pu_scope"><span class="glyphicon glyphicon-plus"></span> Make a Subdivision</p>
         </div>
         <div class="announcements_center">
           <div class="post_announcement cf">
@@ -247,9 +247,17 @@
                             var nameP = "<p class='selected_scope_member' data-username='" + people[i].user + "'>" + person + "</p>"
                             content += nameP;
                         }
-                        var modal_content = '<input type="text" class="scope_name" placeholder="Scope Name"></input><br/>Please select the members of the Scope:<br/><input type="text" placeholder="Search Names..." id="select_scope_members"></input><br/><div id="selected_scope_members">' +
-                        content + '</div><br/><input type="button" class="button make_scope_button" value="Make Scope"></input>'
+                        var modal_content = '<input type="text" class="scope_name" placeholder="Subdivision Name"></input><br/><p class="scope_type public_scope selected">Public</p><p class="scope_type private_scope">Private</p><span class="glyphicon glyphicon-question-sign scope_help" title="A public subdivision can be seen and<br/> joined by anyone in the team, but joining<br/> a private subdivision requires an invitation."></span><br/>Please select the members of the subdivision:<br/><input type="text" placeholder="Search Names..." id="select_scope_members"></input><br/><div id="selected_scope_members">' +
+                        content + '</div><br/><input type="button" class="button make_scope_button" value="Make Subdivision"></input>'
                         modal.setContent(modal_content);
+                        $('.scope_help').jBox('Tooltip', {
+                            delayOpen: 0,
+                            delayClose: 300,
+                            theme: "TooltipDark",
+                            position: {
+                                y: 'bottom'
+                            }
+                        });
                     }
                 }
             };
@@ -263,7 +271,7 @@
             getAnnouncements(); // getting announcements is first priority on this page
 
             scope_modal = new jBox('Modal', {
-              title: 'New Scope',
+              title: 'New Subdivision',
               width: 350,
               height: 355,
               onOpen: function() {
@@ -300,6 +308,13 @@
                     $(this).addClass('clicked');
                 }
             });
+            $(document).on("click", ".scope_type", function(){
+              $(".scope_type").removeClass("selected");
+              $(this).addClass("selected");
+            });
+            $(document).on("click", ".scope_help", function(){
+
+            })
 
 
             var audience = "Everyone";

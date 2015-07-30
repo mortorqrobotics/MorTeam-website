@@ -668,13 +668,25 @@
                     return qsRegex ? $(this).text().match(qsRegex) : true;
                 },
                 getSortData: {
-                    name: '.name',
+                    name: function(itemElem) {
+                      var name =  $(itemElem).find(".name").html();
+                      if(typeof(name) == "undefined"){
+                        return name;
+                      }
+                      return name.toLowerCase();
+                    },
                     size: function(itemElem) {
                         var size = $(itemElem).find('.file_size').text();
-                        if (size.indexOf("MB") > -1) {
+                        if (size.indexOf("GB") > -1){
+                          size = size.substring(0, size.indexOf("GB"));
+                          return parseFloat(size.replace(/[\(\)]/g, '')) * 1000000000;
+                        } else if (size.indexOf("MB") > -1) {
                             size = size.substring(0, size.indexOf("MB"));
+                            return parseFloat(size.replace(/[\(\)]/g, '')) * 1000000;
+                        } else if (size.indexOf("KB") > -1){
+                            size = size.substring(0, size.indexOf("KB"));
                             return parseFloat(size.replace(/[\(\)]/g, '')) * 1000;
-                        } else {
+                        }else{
                             return parseFloat(size.replace(/[\(\)]/g, ''));
                         }
                     },
@@ -870,17 +882,46 @@
                 }
             }, 200));
 
+            var ascending;
+
             $(".sort_by").click(function() {
-                var chosenSort = "";
-                $(".sort_by").removeClass("selected");
-                $(this).addClass("selected");
-                chosenSort = $(this).html().toLowerCase();
-                if (chosenSort === "date") {
-                    chosenSort = "original-order";
+
+               if( !$(this).hasClass("selected") ){
+                  if(ascending == undefined){
+                    ascending = true;
+                  }
+                  var chosenSort = "";
+                  $(".sort_by").removeClass("selected");
+                  $(this).addClass("selected");
+                  chosenSort = $(this).html().toLowerCase();
+                  if (chosenSort === "date") {
+                      chosenSort = "original-order";
+                  }
+                  console.log(ascending);
+                  $grid.isotope({
+                      sortBy: chosenSort,
+                      sortAscending: ascending
+                  })
+                  ascending = !ascending;
+                  console.log(ascending);
+                }else{
+                  if(ascending == undefined){
+                    ascending = true;
+                  }
+                  var chosenSort = "";
+                  $(".sort_by").removeClass("selected");
+                  $(this).addClass("selected");
+                  chosenSort = $(this).html().toLowerCase();
+                  if (chosenSort === "date") {
+                      chosenSort = "original-order";
+                  }
+                  console.log(ascending);
+                  $grid.isotope({
+                      sortBy: chosenSort,
+                      sortAscending: ascending
+                  })
+                  ascending = !ascending;
                 }
-                $grid.isotope({
-                    sortBy: chosenSort
-                })
             });
 
             var folderid;
