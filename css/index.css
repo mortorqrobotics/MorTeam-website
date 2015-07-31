@@ -1837,3 +1837,71 @@ li.drop_item:hover{
 .edit_profile{
 	background-color: #ffb524;
 }
+.void_input{
+	width: 100%;
+	max-width: 270px;
+	height: 40px;
+	font-size: 20px;
+	padding: 4px;
+	border: 0;
+	text-align: center;
+	margin-bottom: 7px;
+	box-shadow: 0 2px 8px -5px black;
+}
+.team_code_btn, .create_team_btn, .create_team_btn_done{
+	width: 100%;
+	max-width: 270px;
+	height: 40px;
+	font-size: 20px;
+	padding: 4px;
+	box-shadow: 0 2px 8px -5px black;
+}
+.void_left, .void_right{
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+.or{
+	display: none;
+	text-align: center;
+}
+.team_instructions{
+	width: 70%;
+	text-align: center;
+	margin: auto;
+	/*margin-top: 33px;*/
+	margin-bottom: 33px;
+	font-size: 18px;
+	background-color: white;
+	box-shadow: 0 2px 6px -4px black;
+	padding: 7px;
+	margin-top: -100px;
+}
+@media screen and (max-width: 767px) {
+	.void_left, .void_right{
+		margin: 30px 0 30px 0;
+	}
+	.or{
+		display: block;
+	}
+	.team_instructions{
+		margin-top: 0;
+	}
+}
+@media screen and (min-width: 767px) {
+	.void_left{
+		display: block !important;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.team_instructions{
+		margin-top: 10px;
+		margin-bottom: 0px;
+	}
+}
+.team_num{
+	display: none;
+}
+.team_code, .team_name, .create_team_btn_done{
+	display: none;
+}

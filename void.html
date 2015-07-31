@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  	<meta charset="utf-8" />
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Morganizer</title>
+  	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
+  	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link href="jbox/jBox.css" rel="stylesheet">
+    <script type="text/javascript">
+    if(localStorage.userToken == undefined){
+      location="login";
+    }
+    </script>
+  </head>
+  <body>
+
+    <!-- BODY -->
+    <div style="vertical-align: middle; display: table; width: 100%; height: 100vh;">
+      <div style="vertical-align: middle; display: table-cell;">
+        <h3 class="team_instructions">Hey there, looks like you aren't part of a team. you can either join your team using your team's unique code, or you can create a team. Creating a team appoints you as the administrator of that team, but you can configure that later if you wish.</h3>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6 void_left">
+              <input class="void_input team_join_code" type="text" placeholder="Team Code"></input><br/>
+              <input class="team_code_btn button" type="button" value="Join Team"></input>
+            </div>
+            <div class="or">
+              OR
+            </div>
+            <div class="col-sm-6 void_right">
+              <input type="button" class="button create_team_btn" value="Create a Team"></input><br/>
+              <input class="void_input team_num" type="text" placeholder="Team Number"></input><br/>
+              <input class="void_input team_name" type="text" placeholder="Team Name"></input><br/>
+              <input class="void_input team_code" type="text" placeholder="Choose Team Code"></input><br/>
+              <input type="button" class="button create_team_btn_done" value="Done"></input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- END OF BODY -->
+
+
+    <script src="jbox/jBox.min.js"></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/velocity.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $(".create_team_btn").click(function(){
+          if($(window).width()< 767){
+            $(".void_left").hide();
+            $(".or").hide();
+          }
+          $(".team_num").show();
+          $(".team_name").show();
+          $(".team_code").show();
+          $(".create_team_btn_done").show();
+          $(this).hide();
+
+        });
+      });
+      window.onunload = function(){};
+    </script>
+  </body>
+</html>
