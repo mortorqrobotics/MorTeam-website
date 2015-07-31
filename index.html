@@ -104,22 +104,24 @@
           <p id="logout_button">Log Out</p>
           <hr>
           <h5 style="margin-bottom: 15px;">Your Subdivisions</h5>
-          <p><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
-          <p><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
-          <p><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p>
+          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
+          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
+          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p>
           <hr>
           <h5 style="margin-bottom: 15px;">Public Subdivisions</h5>
-          <p><span class="glyphicon glyphicon-screenshot"></span> Build</p>
-          <p><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
-          <p><span class="glyphicon glyphicon-screenshot"></span> Business</p>
-          <p><span class="glyphicon glyphicon-screenshot"></span> CAD</p>
-          <p><span class="glyphicon glyphicon-screenshot"></span> Media</p>
+          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Build</p>
+          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
+          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Business</p>
+          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> CAD</p>
+          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Media</p>
           <!-- <hr>
           <h5 style="margin-bottom: 15px;">This Group's Networks</h5>
           <p><span class="glyphicon glyphicon-globe"></span> FIRST Robotics Network</p>
           <p><span class="glyphicon glyphicon-globe"></span> Technology Network</p> -->
           <hr>
           <p class="new_pu_scope"><span class="glyphicon glyphicon-plus"></span> Make a Subdivision</p>
+          <hr>
+          <span>© 2015 MorTeam</span>
         </div>
         <div class="announcements_center">
           <div class="post_announcement cf">
@@ -247,7 +249,7 @@
                             var nameP = "<p class='selected_scope_member' data-username='" + people[i].user + "'>" + person + "</p>"
                             content += nameP;
                         }
-                        var modal_content = '<input type="text" class="scope_name" placeholder="Subdivision Name"></input><br/><p class="scope_type public_scope selected">Public</p><p class="scope_type private_scope">Private</p><span class="glyphicon glyphicon-question-sign scope_help" title="A public subdivision can be seen and<br/> joined by anyone in the team, but joining<br/> a private subdivision requires an invitation."></span><br/>Please select the members of the subdivision:<br/><input type="text" placeholder="Search Names..." id="select_scope_members"></input><br/><div id="selected_scope_members">' +
+                        var modal_content = '<input type="text" class="scope_name" placeholder="Subdivision Name"></input><br/><p class="scope_type public_scope selected">Public</p><p class="scope_type private_scope">Private</p><span class="glyphicon glyphicon-question-sign scope_help" title="A public subdivision can be seen and<br/> joined by anyone in the team, but joining<br/> a private subdivision requires an invitation."></span><br/>Invite some initial members:<br/><input type="text" placeholder="Search Names..." id="select_scope_members"></input><br/><div id="selected_scope_members">' +
                         content + '</div><br/><input type="button" class="button make_scope_button" value="Make Subdivision"></input>'
                         modal.setContent(modal_content);
                         $('.scope_help').jBox('Tooltip', {
@@ -376,7 +378,10 @@
                   itemSelector: ".announcement",
                   layoutMode: "vertical"
               });
-            }, 1);
+          }, 1);
+          $(document).on("click", ".scope_link", function(){
+            location="subdivision";
+          });
         })
         window.onunload = function() {};
     </script>
