@@ -1834,7 +1834,7 @@ li.drop_item:hover{
 	color: #555555;
 	cursor: pointer;
 }
-.edit_profile{
+.edit_profile, .leader_action{
 	background-color: #ffb524;
 }
 .void_input{
@@ -1884,7 +1884,7 @@ li.drop_item:hover{
 		display: block;
 	}
 	.team_instructions{
-		margin-top: 0;
+		margin-top: 5px;
 	}
 }
 @media screen and (min-width: 767px) {
@@ -1899,9 +1899,84 @@ li.drop_item:hover{
 		margin-bottom: 0px;
 	}
 }
+@media screen and (max-height: 430px) {
+	.team_instructions{
+		margin-top: 5px;
+	}
+}
+
 .team_num{
 	display: none;
 }
 .team_code, .team_name, .create_team_btn_done{
 	display: none;
+}
+.data_title{
+	margin: 5px 10px 5px 10px;
+	font-size: 26px;
+	display: inline-block;
+}
+.data_point{
+	margin: 5px 10px 5px 33px;
+	font-size: 18px;
+}
+.attendance_data{
+	background-color: #f5f5f5;
+	width: calc(100% - 10px);
+	/*margin-left: 10px;*/
+	/*margin-right: 5px;*/
+	margin-top: 20px;
+	height: auto;
+	box-shadow: 0 2px 8px -5px;
+	position: relative;
+	padding-bottom: 10px;
+}
+.attendance_data > .data_point{
+	margin-top: 10px;
+	display: inline-block;
+}
+.tasks_data{
+	background-color: #f5f5f5;
+	width: calc(100% - 10px);
+	/*margin-left: 5px;*/
+	/*margin-right: 10px;*/
+	margin-top: 20px;
+	height: auto;
+	box-shadow: 0 2px 8px -5px;
+	position: relative;
+	padding-bottom: 3px;
+}
+.task_list{
+	height: 85px;
+	overflow: auto;
+}
+.hr_small_margin{
+	margin-bottom: 3px;
+}
+.absences_list > li{
+	display: inline-block;
+	font-size: 16px;
+	padding: 4px;
+	background-color: #ffcc80;
+	cursor: pointer;
+}
+.absences_list > li:hover{
+	background-color: orange;
+}
+.absences_list{
+	white-space: nowrap;
+}
+.data_list{
+	margin-left: 33px;
+	margin-top: 5px;
+}
+.absences_list_scroll{
+	height: 50px;
+	width: 100%;
+	overflow: auto;
+	white-space: nowrap;
+	padding-right: 20px !important;
+}
+.data_answer{
+	font-size: 20px;
 }

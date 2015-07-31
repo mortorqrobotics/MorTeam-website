@@ -61,14 +61,14 @@
       $(document).ready(function(){
         $(".create_team_btn").click(function(){
           if($(window).width()< 767){
-            $(".void_left").hide();
-            $(".or").hide();
+            $(".void_left").fadeOut(300);
+            $(".or").fadeOut(300);
           }
-          $(".team_num").show();
-          $(".team_name").show();
-          $(".team_code").show();
-          $(".create_team_btn_done").show();
-          $(this).hide();
+          $(".team_num").fadeIn(300);
+          $(".team_name").fadeIn(300);
+          $(".team_code").fadeIn(300);
+          $(".create_team_btn_done").fadeIn(300);
+          $(this).fadeOut(300);
 
         });
       });

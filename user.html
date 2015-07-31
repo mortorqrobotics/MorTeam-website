@@ -83,13 +83,106 @@
     <!-- END OF NAVIGATION BAR -->
 
     <!-- BODY -->
-    <div class="wrapper profother_wrapper">
-      <div class="user_actions">
+    <div class="wrapper container-fluid"> <!-- class="profother_wrapper" also -->
+      <!-- <div class="user_actions">
         <div class="user_action_btns">
           <input type="button" value="Message" class="message_user user_action button"></input>
           <input type="button" value="Assign Task" class="assign_task_user user_action button"></input>
           <input type="button" value="Change Position" class="change_position_user user_action button"></input>
           <input type="button" value="View Attendance" class="view_attendance_user user_action button"></input>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="attendance_data">
+            <span class="data_title bold">Attendance</span><br/>
+            <span class="data_point">Unexcused absences:</span><span class="data_answer">3</span><br/>
+            <span class="data_point">Excused absences:</span><span class="data_answer">1</span><br/>
+            <span class="data_point">Presence percentage:</span><span class="data_answer">89%</span><br/>
+            <hr class="hr_small_margin">
+            <span class="data_point">Dates of absences:</span><br/>
+            <div class="absences_list_scroll">
+              <ul class="data_list absences_list">
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+                <li class="absence_date">
+                  7/14/2015
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="tasks_data">
+            <span class="data_title bold">Pending Tasks</span>
+            <ul class="task_list">
+              <li class="data_point">Cut part</li>
+              <li class="data_point">Send form to SC</li>
+              <li class="data_point">Clean out vacuum cleaner</li>
+            </ul>
+            <hr class="hr_small_margin">
+            <span class="data_title bold">Completed Tasks</span>
+            <ul class="task_list">
+              <li class="data_point">Screw in talons</li>
+              <li class="data_point">Buy wood for tests</li>
+              <li class="data_point">Destroy Gabe</li>
+              <li class="data_point">Cut part</li>
+              <li class="data_point">Send form to SC</li>
+              <li class="data_point">Clean out vacuum cleaner</li>
+              <li class="data_point">Cut part</li>
+              <li class="data_point">Send form to SC</li>
+              <li class="data_point">Clean out vacuum cleaner</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -102,6 +195,9 @@
       <!-- <div class="leftbar_item" id="leftbar_title">Vice President of Programming</div> -->
       <div class="leftbar_item"><span id="leftbar_email">otheruserson@gmail.com</span></div>
       <div class="leftbar_item"><span id="leftbar_phone">(310) 828-1224</span></div>
+      <div class="leftbar_item"><input id="message_user" type="button" class="button leader_action" value="Message"></input></div>
+      <div class="leftbar_item"><input id="assign_task" type="button" class="button leader_action" value="Assign Task"></input></div>
+      <div class="leftbar_item"><input id="change_position" type="button" class="button leader_action" value="Change Position"></input></div>
     </div>
     <!-- END OF LEFTBAR -->
     <script src="jbox/jBox.min.js"></script>
@@ -120,6 +216,20 @@
         // console.log(localStorage.teamNumber + ": " + localStorage.teamName);
         // $('#leftbar_email').html(localStorage.email);
         // $('#leftbar_phone').html("("+localStorage.phone.substring(0,3)+") "+localStorage.phone.substring(3,6)+"-"+localStorage.phone.substring(6,10));
+
+        $("#message_user").click(function(){
+
+        });
+        $("#assign_task").click(function(){
+
+        });
+        $("#change_position").click(function(){
+
+        });
+        $(document).on("click", ".absence_date", function(){
+          // take to calendar
+        });
+
 
       });
       window.onunload = function(){};
