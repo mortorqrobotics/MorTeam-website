@@ -30,8 +30,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
-		console.log("Username: " + localStorage.getItem("username"));
-		console.log("Session: " + localStorage.getItem("userToken"));
     	document.getElementById("form").onsubmit = function() {
     		var userOrEmail = document.getElementById("username_box").value;
     		var pass = document.getElementById("password_box").value;
@@ -39,8 +37,7 @@
 			xhr.open("POST", "/f/loginUser", true);
 			xhr.onreadystatechange = function() {
 				if(xhr.readyState == 4&&xhr.status == 200) {
-					console.log(xhr.responseText);
-					if (xhr.responseText != "failed login"){
+					if (xhr.responseText != "invalid login"){
     					var resData = JSON.parse(xhr.responseText);
     					var token = resData.token;
     					var user = resData.user;
@@ -60,13 +57,20 @@
               	        localStorage.teamName = "";
                         localStorage.teamCode = "";
 						localStorage.teamNumber = "";
-                        if (localStorage.teamCode == ""){
-                            location="void";
-                        }
-                        else {
-                            location="index";
-                        }
-                        //Remember to add void.html thing
+                        var xhr2 = new XMLHttpRequest();
+            			xhr2.open("POST", "/f/getteams", true);
+            			xhr2.onreadystatechange = function() {
+            				if(xhr2.readyState == 4&&xhr2.status == 200) {
+                                var teams = JSON.parse(xhr2.responseText);
+                                if (teams.length == 0){
+                                    location="void";
+                                }
+                                else {
+                                    location="index";
+                                }
+                            }
+                        };
+                        xhr2.send(JSON.stringify({"user":localStorage.username}));
 					}
 					else {
     					//Failed login
