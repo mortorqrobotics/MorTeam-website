@@ -236,14 +236,14 @@
             request("POST", "/f/getfolders", JSON.stringify({"user":localStorage.username}), function(responseText){
                 var folders = JSON.parse(responseText);
                 for (var i = 0; i < folders.length; i++){
-                    var li = $(document.createElement("li"));
+                    var li = document.createElement("li");
                     var span = $(document.createElement("span"));
-                    li.append(span);
-                    li.attr("class", "drive_name");
+                    $(li).append(span);
+                    $(li).attr("class", "drive_name");
                     span.attr("id", "make_drive");
                     span.attr("data-folderid", folders[i].folderCode);
                     span.attr("class", "glyphicon glyphicon-folder-open");
-                    li.append(folders[i].folderName);
+                    li.innerHTML += folders[i].folderName.replace(/</g, "&lt");
                     $('.folders_list').append(li);
                 }
             });
@@ -277,13 +277,14 @@
                     // CODE TO CREATE FOLDER HERE
                     if (!didClickNew){
                             didClickNew = true;
-                            var folder_name = document.createTextNode($(".folder_name").val())
+                            var nameOfFolder = $(".folder_name").val().replace(/'/g, "''");
+                            var folder_name = document.createTextNode($(".folder_name").val());
                             var usersBadges = $("p.clicked");
                             var users = [];
                             for (var i = 0; i < usersBadges.length; i++) {
                                 users.push($(usersBadges[i]).attr("data-username"));
                             }
-                            request("POST", "/f/newfolder", JSON.stringify({"user":localStorage.username, "people":users, "folderName":$(".folder_name").val()}), function(responseText){
+                            request("POST", "/f/newfolder", JSON.stringify({"user":localStorage.username, "people":users, "folderName":nameOfFolder}), function(responseText){
                                 var li = $(document.createElement("li"));
                                 var span = $(document.createElement("span"));
                                 li.append(span);
@@ -366,11 +367,11 @@
                     $(".file_name")[0].value = "";
 
                     $(".upload_button").unbind().click(function() {
-                        if (!didClickNewFile){
+                        if (!didClickNewFile && typeof(uploads) != "undefined"){
                             didClickNewFile = true;
                             console.log(uploads);
 
-                            var fileName = $(".file_name").val();
+                            var fileName = $(".file_name").val().replace(/'/g, "''").replace(/</g, "&lt");
                             var teamCode = localStorage.teamCode;
                             var user = localStorage.username;
                             var rawFileName = "";
@@ -403,9 +404,9 @@
                                                     imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
                                                     isImg = false;
                                                 }
-                                                var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
+                                                var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName.replace(/''/g, "'") +
                                                     '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
-                                                    imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
+                                                    imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName.replace(/''/g, "'") + '</span><span class="file_size">' + fileSize +
                                                     '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
                                                 $grid.append($newFile).isotope("insert", $newFile);
                                                 $newFile.jBox('Tooltip', {
@@ -477,9 +478,9 @@
                                                     imgSrc = "./images/" + extToClass(fileType).split('_')[0] + ".png";
                                                     isImg = false;
                                                 }
-                                                var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName +
+                                                var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(fileType) + '" data-fileid="' + fileCode + '" title="' + fileName.replace(/''/g, "'") +
                                                     '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' +
-                                                    imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName + '</span><span class="file_size">' + fileSize +
+                                                    imgSrc + '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + fileName.replace(/''/g, "'") + '</span><span class="file_size">' + fileSize +
                                                     '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
                                                 $grid.append($newFile).isotope("insert", $newFile);
                                                 $newFile.jBox('Tooltip', {
@@ -522,6 +523,9 @@
                                     xhr.send(uploads[0]);
                                 }
                             }
+                        }
+                        else {
+                            alert("File not chosen/You cannot upload a file twice");
                         }
                     });
                 }

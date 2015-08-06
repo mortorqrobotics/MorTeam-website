@@ -179,7 +179,6 @@ $(document).ready(function() {
         localStorage.removeItem('userToken');
         localStorage.removeItem('firstName');
         localStorage.removeItem('lastName');
-        localStorage.removeItem('subdivison');
         localStorage.removeItem('phone');
         localStorage.removeItem('email');
         localStorage.removeItem('teamName');

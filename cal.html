@@ -345,14 +345,14 @@
                 for (var i = 0; i < users.length; i++) {
                     people.push($(users[i]).attr("data-username"));
                 }
-                var eventName = $(".event_name").val();
-                var eventDesc = $(".event_description").val();
+                var eventName = $(".event_name").val().replace(/'/g, "''").replace(/</g, "&lt");
+                var eventDesc = $(".event_description").val().replace(/'/g, "''").replace(/</g, "&lt");
                 var timeStampOfDate = new Date(Date.UTC(yearViewing, monthViewing - 1, dayNum, 23, 59, 59)).getTime();
 
                 request("POST", "/f/addevent", JSON.stringify({"user":localStorage.username, "people":people, "month":monthViewing, "day":dayNum, "year":yearViewing, "timeStamp":timeStampOfDate, "eventName":eventName, "eventDesc":eventDesc}), function(responseText){
                     if (responseText == "success"){
-                        var li = document.createElement("li")
-                        $(li).html( "<span class='bold'>" + $(".event_name").val() + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span>" + "<br/><div class='indented'>" + $(".event_description").val() + "</div>" )
+                        var li = document.createElement("li");
+                        $(li).html( "<span class='bold'>" + eventName.replace(/''/g, "'") + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span>" + "<br/><div class='indented'>" + eventDesc.replace(/''/g, "'") + "</div>" )
                         $(dayList).append($(li));
                         event_modal.close();
                     }

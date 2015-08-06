@@ -32,15 +32,15 @@
                     <option value="Business">Business</option>
                     <option value="Media">Media</option>
                 </select> -->
-                <input class="signup_item" type="text" placeholder="Email" id="email_signup"></input>
+                <input class="signup_item" type="email" placeholder="Email" id="email_signup"></input>
                 <input class="signup_item" type="text" placeholder="Phone Number" id="phone_signup"></input>
                 <input type="file" class="hidden show_files" id="show_files" accept="image/*" />
                 <input type="button" class="pic_choose_button signup_item" value="Choose Profile Picture">
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-6">
-                <input type="text" placeholder="Team Code" id="team_code_signup" class="signup_item"></input>
-                <p class="signup_item make_team_question">If your team does not exist, you can</p>
-                <input type="button" placeholder="Make Team" value="Make a Team" id="make_team_button" class="signup_item"></input>
+                <!-- <input type="text" placeholder="Team Code" id="team_code_signup" class="signup_item"></input>
+                <p class="signup_item make_team_question">If your team does not exist, you can</p> -->
+                <!--<input type="button" placeholder="Make Team" value="Make a Team" id="make_team_button" class="signup_item"></input>-->
                 <div id="team_signup_area">
                     <h4 class="disclaimer">Only make a team if you are sure that your team has not been made before. Creating a team appoints you as the administrator of that team.</h4>
                     <input class="signup_item" type="text" placeholder="Team Number" id="team_number_signup" form="form"></input>
@@ -88,7 +88,6 @@
             var email = "";
             var firstName = "";
             var lastName = "";
-            var subdivision = "";
             var phone = "";
             var teamCode = "";
             document.getElementById("form").onsubmit = function() {
@@ -98,25 +97,24 @@
                 email = document.getElementById("email_signup").value;
                 firstName = document.getElementById("firstname").value;
                 lastName = document.getElementById("lastname").value;
-                subdivision = document.getElementById("subdivision_signup").value;
                 phone = document.getElementById("phone_signup").value;
                 var digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
 
                 if (pass == confPass) {
-                    if (subdivision != "" && user != "" && pass != "" && email != "" && email.indexOf('@') > -1 && firstName != "" && lastName != "") {
+                    if (user != "" && pass != "" && email != "" && email.indexOf('@') > -1 && firstName != "" && lastName != "") {
                         if (phone.length == 10 && onlyContains(phone, digits)) {
-
-                            if (!isMaking) {
-                                teamCode = document.getElementById("team_code_signup").value;
-                                if (teamCode != "") {
-                                    createUser();
-                                } else {
-                                    alert('Please Enter Team Code');
-                                }
-                            } else {
-                                createTeamAndUser();
-                            }
+                            createUser();
+                            // if (!isMaking) {
+                            //     teamCode = document.getElementById("team_code_signup").value;
+                            //     if (teamCode != "") {
+                            //         createUser();
+                            //     } else {
+                            //         alert('Please Enter Team Code');
+                            //     }
+                            // } else {
+                            //     createTeamAndUser();
+                            // }
                         } else {
                             alert('Phone Number is Invalid');
                         }
@@ -129,32 +127,32 @@
                 return false;
             };
 
-            function createTeamAndUser() {
-                var teamNumber = document.getElementById("team_number_signup").value;
-                var teamName = document.getElementById("team_name_signup").value;
-                var chosenCode = document.getElementById("choose_team_code_signup").value;
-                if (teamNumber != "" && teamName != "" && chosenCode != "") {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/f/createTeam", true);
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            console.log(xhr.responseText);
-                            if (xhr.responseText == "added team") {
-                                teamCode = chosenCode;
-                                createUser();
-                            } else {
-                                alert('Team Already Exists'); //failed team creation
-                            }
-                        }
-                    };
-                    xhr.send(JSON.stringify({
-                        "user": user,
-                        "teamName": teamName,
-                        "teamNumber": teamNumber,
-                        "chosenCode": chosenCode
-                    }));
-                }
-            }
+            // function createTeamAndUser() {
+            //     var teamNumber = document.getElementById("team_number_signup").value;
+            //     var teamName = document.getElementById("team_name_signup").value;
+            //     var chosenCode = document.getElementById("choose_team_code_signup").value;
+            //     if (teamNumber != "" && teamName != "" && chosenCode != "") {
+            //         var xhr = new XMLHttpRequest();
+            //         xhr.open("POST", "/f/createTeam", true);
+            //         xhr.onreadystatechange = function() {
+            //             if (xhr.readyState == 4 && xhr.status == 200) {
+            //                 console.log(xhr.responseText);
+            //                 if (xhr.responseText == "added team") {
+            //                     teamCode = chosenCode;
+            //                     createUser();
+            //                 } else {
+            //                     alert('Team Already Exists'); //failed team creation
+            //                 }
+            //             }
+            //         };
+            //         xhr.send(JSON.stringify({
+            //             "user": user,
+            //             "teamName": teamName,
+            //             "teamNumber": teamNumber,
+            //             "chosenCode": chosenCode
+            //         }));
+            //     }
+            // }
 
             function createUser() {
                 var xhr = new XMLHttpRequest();
@@ -166,14 +164,14 @@
                             var data = JSON.parse(xhr.responseText);
                             var username = data.user;
                             var token = data.token;
-                            var teamName = data.teamName;
-                            var teamNumber = data.teamNumber;
+                            //var teamName = data.teamName;
+                            //var teamNumber = data.teamNumber;
                             var firstName = data.firstName;
                             uploadProfPic(username, prof_pic)
                                 //use later maybe?
 
                         } else {
-                            alert('Team does not exist'); //failed signup
+                            alert('Team does not exist'); //failed signup UPDATE: Will not run, don't worry about this
                         }
                     }
                 };
@@ -182,9 +180,8 @@
                     "pass": pass,
                     "email": email,
                     "firstName": firstName,
-                    "teamCode": teamCode,
+                    //"teamCode": teamCode,
                     "lastName": lastName,
-                    "subdivision": subdivision,
                     "phone": phone
                 }));
             }

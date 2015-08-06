@@ -58,7 +58,56 @@
     <script type="text/javascript" src="js/velocity.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
+    function createTeam() {
+        var teamNumber = $(".team_num").val();
+        var teamName = $(".team_name").val();
+        var chosenCode = $(".team_code").val();
+        if (teamNumber != "" && teamName != "" && chosenCode != "") {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/createTeam", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText);
+                    if (xhr.responseText == "added team") {
+                        //teamCode = chosenCode;
+                        localStorage.teamName = teamName;
+                        localStorage.teamCode = chosenCode;
+						localStorage.teamNumber = teamNumber;
+                        location = "index";
+                    } else {
+                        alert('Team Already Exists'); //failed team creation
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({
+                "user": localStorage.username,
+                "teamName": teamName,
+                "teamNumber": teamNumber,
+                "chosenCode": chosenCode
+            }));
+        }
+    }
+    // if (hasTeam){
+    //     location = "index";
+    // }
       $(document).ready(function(){
+        $(".create_team_btn_done").click(function(){
+            createTeam();
+        });
+        $(".team_code_btn").click(function(){
+            request("POST", "/f/addteam", JSON.stringify({"user":localStorage.username, "teamCode":$(".team_join_code").val(), "first":localStorage.firstName, "last":localStorage.lastName}), function(responseText){
+                if (responseText != "fail"){
+                    var data = JSON.parse(responseText);
+                    localStorage.teamName = data[0].name;
+                    localStorage.teamCode = data[0].code;
+                    localStorage.teamNumber = data[0].number;
+                    location = "index";
+                }
+                else {
+                    alert("Team does not exist");
+                }
+            });
+        });
         $(".create_team_btn").click(function(){
           if($(window).width()< 767){
             $(".void_left").fadeOut(300);

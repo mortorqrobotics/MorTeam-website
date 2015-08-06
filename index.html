@@ -168,6 +168,7 @@
     </script>
     <script type="text/javascript">
         // FUNCTION DEFINITIONS
+        console.log(localStorage.teamCode);
         function createPost(text) {
             //var title = localStorage.title
             var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -197,6 +198,7 @@
             xhr.send(JSON.stringify({
                 "user": localStorage.username,
                 "nameDate": nameDate,
+                "teamCode": localStorage.teamCode,
                 "text": text.replace(/\n\r?/g, '<br />').replace(/'/g, "''")
             }));
         }
@@ -228,7 +230,7 @@
             };
             xhr.send(JSON.stringify({
                 "user": localStorage.username,
-                "title": "PUT TITLE)"
+                "teamCode": localStorage.teamCode
             }));
         }
 
