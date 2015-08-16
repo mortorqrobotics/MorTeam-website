@@ -103,21 +103,32 @@
           <p onclick="location='profile'">View Profile</p>
           <p id="logout_button">Log Out</p>
           <hr>
-          <h5 style="margin-bottom: 15px;">Your Subdivisions</h5>
-          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
-          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
-          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p>
+          <div id="your_scopes">
+              <h5 style="margin-bottom: 15px;">Your Subdivisions</h5>
+              <!-- <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
+              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
+              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p> -->
+          </div>
           <hr>
-          <h5 style="margin-bottom: 15px;">Public Subdivisions</h5>
-          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Build</p>
-          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
-          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Business</p>
-          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> CAD</p>
-          <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Media</p>
+          <div id="public_scopes">
+              <h5 style="margin-bottom: 15px;">Public Subdivisions</h5>
+              <!-- <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Build</p>
+              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
+              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Business</p>
+              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> CAD</p>
+              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Media</p> -->
+          </div>
           <!-- <hr>
           <h5 style="margin-bottom: 15px;">This Group's Networks</h5>
           <p><span class="glyphicon glyphicon-globe"></span> FIRST Robotics Network</p>
           <p><span class="glyphicon glyphicon-globe"></span> Technology Network</p> -->
+          <hr>
+          <div id="invited_scopes">
+              <h5 style="margin-bottom: 15px;">Subdivision Invites</h5>
+              <!-- <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
+              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
+              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p> -->
+          </div>
           <hr>
           <p class="new_pu_scope"><span class="glyphicon glyphicon-plus"></span> Make a Subdivision</p>
           <hr>
@@ -168,7 +179,71 @@
     </script>
     <script type="text/javascript">
         // FUNCTION DEFINITIONS
-        console.log(localStorage.teamCode);
+
+        var didClickNew = true;
+
+        function makeScope(){
+            var status = "private";
+            if ($(".public_scope").hasClass("selected")){
+                status = "public";
+            }
+            var usersBadges = $("p.clicked");
+            var users = [];
+            for (var i = 0; i < usersBadges.length; i++) {
+                users.push($(usersBadges[i]).attr("data-username"));
+            }
+            var scopeName = $(".scope_name").val();
+            request("POST", "/f/makescope", JSON.stringify({"user":localStorage.username, "scopeName":scopeName, "members":users, "status":status, "teamCode":localStorage.teamCode}), function(responseText){
+                if (responseText == "success"){
+                    $("#your_scopes").append('<p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> <span class="scopeName">'+scopeName+'</span></p>')
+                    if (status == "public"){
+                        $("#public_scopes").append('<p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> <span class="scopeName">'+scopeName+'</span></p>')
+                    }
+                }
+            });
+        }
+
+        function loadPublicScopes(){
+            request("POST", "/f/getpublicscopesforteam", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode}), function(responseText){
+                var scopes = JSON.parse(responseText);
+                for (var i = 0; i < scopes.length; i++){
+                    $("#public_scopes").append('<p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> <span class="scopeName">'+scopes[i].scopeName+'</span></p>')
+                }
+            });
+        }
+
+        function loadYourScopes(){
+            request("POST", "/f/getyourscopes", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode}), function(responseText){
+                var scopes = JSON.parse(responseText);
+                for (var i = 0; i < scopes.length; i++){
+                    $("#your_scopes").append('<p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> <span class="scopeName">'+scopes[i].scopeName+'</span></p>')
+                }
+            });
+        }
+
+        function loadInvites(){
+            request("POST", "/f/getscopeinvites", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode}), function(responseText){
+                var scopes = JSON.parse(responseText);
+                for (var i = 0; i < scopes.length; i++){
+                    $("#invited_scopes").append('<p class="scope_invite"><span class="glyphicon glyphicon-screenshot"></span> <span class="scopeName">'+scopes[i].scopeName+'</span></p>')
+                }
+            });
+        }
+
+        function checkIfHasTeams(){
+            request("POST", "/f/getteams", JSON.stringify({"user":localStorage.username}), function(responseText){
+                var teams = JSON.parse(responseText);
+                if (teams.length == 0){
+                    location="void";
+                }
+                else {
+                    //chooses first team in list of teams
+                    localStorage.teamName = teams[0].teamName;
+                    localStorage.teamCode = teams[0].teamCode;
+                    localStorage.teamNumber = teams[0].teamNumber;
+                }
+            });
+        }
         function createPost(text) {
             //var title = localStorage.title
             var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -182,7 +257,6 @@
             xhr.open("POST", "/f/announce", true);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
-                    console.log(xhr.responseText);
                     if (xhr.responseText == "success") {
                         var $newMsg = $('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" src="/f/getPic?user='+localStorage.username+'" onError="this.src=\'./images/user.jpg\'""></img><span class="announcement_poster">' +
                             nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
@@ -271,7 +345,7 @@
             }));
         }
         $(document).ready(function() {
-
+            checkIfHasTeams();
             getAnnouncements(); // getting announcements is first priority on this page
 
             scope_modal = new jBox('Modal', {
@@ -279,7 +353,7 @@
               width: 350,
               height: 355,
               onOpen: function() {
-                  // didClickNew = false;
+                  didClickNew = false;
                   loadUsersOnScopeModal(scope_modal);
                   $(document).on("keyup", '#select_scope_members', function() {
                     var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
@@ -291,7 +365,11 @@
                   });
                   $(document).one("click", '.make_scope_button', function() {
                     // CODE TO CREATE SCOPE HERE
-                        // didClickNew = true;
+                        if (didClickNew == false){
+                            didClickNew = true;
+                            makeScope();
+                            scope_modal.close();
+                        }
                   });
               }
             });
@@ -351,9 +429,11 @@
                     var target = $(this).parent();
                     var data = JSON.stringify({
                         "postNum": parseInt(target.attr('data-postNum')),
-                        "user": localStorage.username
+                        "user": localStorage.username,
+                        "teamCode":localStorage.teamCode
                     })
                     $.post("/f/deletePost", data, function(response) {
+                        console.log(response);
                         if (response == "success") {
                             $ann.isotope('remove', target).isotope();
                         }
@@ -364,6 +444,10 @@
 
         });
         $(window).load(function(){
+            console.log(localStorage.teamCode);
+            loadInvites();
+            loadPublicScopes();
+            loadYourScopes();
           $("div.nicEdit-main").addClass('wordwrap');
           var textareaWidthNum;
           var textareaWidth;

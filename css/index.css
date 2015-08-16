@@ -151,14 +151,22 @@ li.active{
 }
 #notif_drop{
 	position: fixed;
-	width: 240px;
-	height: 345px;
+	min-width: 240px;
+	width: auto;
+	max-width: 340px;
+	height: auto;
+	max-height: 340px;
+	overflow-y: auto;
 	background-color: #ffc547;
 	z-index: 98;
 	overflow-y: auto;
 	top: 45px;
 	-webkit-overflow-scrolling: touch;
 	right: 20px;
+}
+#notif_drop > ul{
+	margin: 0px !important;
+	padding: 0px !important;
 }
 .right_links{
 	position: absolute;
@@ -205,7 +213,7 @@ li.active{
 }*/
 .notif_list_item{
 	list-style-type: none;
-	height: 40px;
+	height: auto;
 	border-bottom: 1px solid black;
 	font-size: 14px;
 	text-align: left;
@@ -1980,3 +1988,34 @@ li.drop_item:hover{
 .data_answer{
 	font-size: 20px;
 }
+.invite_btn{
+	margin: 5px;
+	margin-top: 13px;
+}
+.ignore_invite_btn{
+	background-color: #c9c9c9;
+}
+.ignore_invite_btn:hover{
+	background-color: #b9b9b9;
+}
+#notif_button{
+	position: relative;
+}
+.unseen_count{
+	background-color: red;
+	border-radius: 20px;
+	position: absolute;
+	top:1px;
+	right:0;
+	color: white;
+	font-size: 13px;
+	padding-left: 5.5px;
+	padding-right: 5.5px;
+}
+
+
+/* TEMPORARY */
+/*.delete_icon, .doc_delete{
+	display: none !important;
+}*/
+/* TEMPORARY */

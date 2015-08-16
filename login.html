@@ -49,6 +49,7 @@
                          //var teamCode = resData.teamCode;
               	         //var teamNumber = resData.teamNumber;
     					localStorage.setItem("username", user);
+                        console.log(user);
     					localStorage.setItem("userToken", token);
               			localStorage.firstName = firstName;
               			localStorage.lastName = lastName;
@@ -57,23 +58,11 @@
               	        localStorage.teamName = "";
                         localStorage.teamCode = "";
 						localStorage.teamNumber = "";
-                        var xhr2 = new XMLHttpRequest();
-            			xhr2.open("POST", "/f/getteams", true);
-            			xhr2.onreadystatechange = function() {
-            				if(xhr2.readyState == 4&&xhr2.status == 200) {
-                                var teams = JSON.parse(xhr2.responseText);
-                                if (teams.length == 0){
-                                    location="void";
-                                }
-                                else {
-                                    location="index";
-                                }
-                            }
-                        };
-                        xhr2.send(JSON.stringify({"user":localStorage.username}));
+                        location="index";
 					}
 					else {
     					//Failed login
+                        console.log("ransad")
                         alert("Incorrect user/email or password");
     				}
 				}

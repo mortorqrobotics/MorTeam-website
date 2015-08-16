@@ -132,6 +132,7 @@
         var currentGroupName = "";
         // FUNCTION DEFINITIONS
         function getTeammates() {
+            console.log(localStorage.teamCode);
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/f/getteammates", true);
             xhr.onreadystatechange = function() {
@@ -390,15 +391,18 @@
                 attach: $('.make_group'),
                 title: 'Make a Group',
                 onOpen: function() {
-                    loadUsersOnModal(people);
+                    //loadUsersOnModal(people);
+                    getScopesAndLoadUsersOnModal(people);
+                    /*console.log(document.getElementById("select_group_names"));
                     var group_names = $('#selected_names_div p');
                     $('#select_group_names').keyup(function() {
+                        console.log("nigeer");
                         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
                         group_names.show().filter(function() {
                             var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
                             return !~text.indexOf(val);
                         }).hide();
-                    });
+                    });*/
                 }
             });
 
@@ -417,8 +421,114 @@
                 });
             });
 
+            function getScopesAndLoadUsersOnModal(people){
+                var allScopes = [];
+                request("POST", "/f/getpublicscopesforteam", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode}), function(responseText){
+                    var scopes = JSON.parse(responseText);
+                    for (var i = 0; i < scopes.length; i++){
+                        allScopes.push(scopes[i].scopeName);
+                    }
+                    request("POST", "/f/getyourscopes", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode}), function(responseText2){
+                        var scopes = JSON.parse(responseText2);
+                        for (var i = 0; i < scopes.length; i++){
+                            allScopes.push(scopes[i].scopeName);
+                        }
+                        var allUniqueScopes = [];
+                        $.each(allScopes, function(i, el){
+                            if($.inArray(el, allUniqueScopes) === -1) allUniqueScopes.push(el);
+                        });
+                        //return allUniqueScopes;
+                        var content = "";
+                        for (var i = 0; i < allUniqueScopes.length; i++) {
+                            var scopeP = "<p class='selected_group_name scope_badge'>" + allUniqueScopes[i] + "</p>"
+                            content += scopeP;
+                        }
+                        for (var i = 0; i < people.length; i++) {
+                            var person = people[i].first + " " + people[i].last;
+                            var nameP = "<p class='selected_group_name' data-username='" + people[i].user + "'>" + person + "</p>"
+                            content += nameP;
+                        }
+                        var initialContent =
+                            "<input type='text' placeholder='Group Name' id='group_name'><br/>Please select the members of the group:<br/><input type='text' placeholder='Search Names...' id='select_group_names'></input><br/><div id='selected_names_div'>" +
+                            content + "</div><br/><input type='button' value='Make Group' id='group_button'></input>"
+                        group_modal.setContent(initialContent);
+                        var group_names = $('#selected_names_div p');
+                        $('#select_group_names').keyup(function() {
+                            console.log("nigeer");
+                            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                            group_names.show().filter(function() {
+                                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                                return !~text.indexOf(val);
+                            }).hide();
+                        });
+                    });
+                });
+            }
+
+            function scopesToUsersAndCreateGroup(){
+                var chatName = $("#group_name").val();
+                var usersBadges = $("p.clicked:not(.scope_badge)");
+                var scopeBadges = $(".scope_badge.clicked");
+                var groupImageSrc = "placeholder"
+                var users = [];
+                var scopes = [];
+                for (var i = 0; i < usersBadges.length; i++) {
+                    users.push($(usersBadges[i]).attr("data-username"));
+                }
+                for (var i = 0; i < scopeBadges.length; i++) {
+                    scopes.push($(scopeBadges[i]).html());
+                }
+                var allUsers = [];
+                var done = 0;
+                for (var i = 0; i < scopes.length; i++){
+                    request("POST", "/f/getusersinscope", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode, "scopeName":scopes[i]}), function(responseText){
+                        var usersFromScope = JSON.parse(responseText);
+                        for (var j = 0; j < usersFromScope.length; j++){
+                            if (usersFromScope[j].user != localStorage.username){
+                                allUsers.push(usersFromScope[j].user);
+                            }
+                        }
+                        if (done++ == scopes.length - 1){
+                            users = users.concat(allUsers);
+                            var uniqueUsers = [];
+                            $.each(users, function(i, el){
+                                if($.inArray(el, uniqueUsers) === -1) uniqueUsers.push(el);
+                            });
+                            users = uniqueUsers;
+                            console.log(users)
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "/f/creategroupchat", true);
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState == 4 && xhr.status == 200) {
+                                    var data = JSON.parse(xhr.responseText);
+                                    var li = $(document.createElement("li"));
+                                    li.attr("class", "chat_name");
+                                    li.attr("data-type", "group");
+                                    li.attr("data-groupname", chatName);
+                                    li.attr("data-groupid", data.chatID);
+                                    li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">'+chatName+'</span>');
+                                    $('.users_list').append(li);
+                                    group_modal.close();
+                                }
+                            };
+                            xhr.send(JSON.stringify({
+                                "creator": localStorage.username,
+                                "chatName": chatName.replace(/'/g, "''"),
+                                "users": users
+                            }));
+                        }
+                    });
+                }
+            }
+
             function loadUsersOnModal(people) {
-                var content = "";
+                /*var content = "";
+                var scopes = getScopes();
+                console.log(scopes)
+                for (var i = 0; i < scopes.length; i++) {
+                    var scopeP = "<p class='selected_group_name scope_badge'>" + scopes[i] + "</p>"
+                    content += scopeP;
+                }
                 for (var i = 0; i < people.length; i++) {
                     var person = people[i].first + " " + people[i].last;
                     var nameP = "<p class='selected_group_name' data-username='" + people[i].user + "'>" + person + "</p>"
@@ -427,7 +537,7 @@
                 var initialContent =
                     "<input type='text' placeholder='Group Name' id='group_name'><br/>Please select the members of the group:<br/><input type='text' placeholder='Search Names...' id='select_group_names'></input><br/><div id='selected_names_div'>" +
                     content + "</div><br/><input type='button' value='Make Group' id='group_button'></input>"
-                group_modal.setContent(initialContent);
+                group_modal.setContent(initialContent);*/
             }
             function fixAdLayout(){
               if( $(".ad").css("display") == "none" ){
@@ -449,45 +559,61 @@
               }
             }
             $(document).on("click", "#group_button", function() {
-                var chatName = $("#group_name").val();
+                /*var chatName = $("#group_name").val();
                 var usersBadges = $("p.clicked");
+                var scopeBadges = $(".scope_badge.clicked");
                 var groupImageSrc = "placeholder"
                 var users = [];
+                var scopes = [];
                 for (var i = 0; i < usersBadges.length; i++) {
                     users.push($(usersBadges[i]).attr("data-username"));
                 }
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/f/creategroupchat", true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        var data = JSON.parse(xhr.responseText);
-                        var li = $(document.createElement("li"));
-                        li.attr("class", "chat_name");
-                        li.attr("data-type", "group");
-                        li.attr("data-groupname", chatName)
-                        li.attr("data-groupid", data.chatID);
-                        li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">'+data.chatName+'</span>');
-                        $('.users_list').append(li);
-                        group_modal.close();
-                    }
-                };
-                xhr.send(JSON.stringify({
-                    "creator": localStorage.username,
-                    "chatName": chatName,
-                    "users": users
-                }));
+                for (var i = 0; i < scopeBadges.length; i++) {
+                    scopes.push($(scopeBadges[i]).html());
+                }
+                var usersInScopes = scopesToUsers(scopes);
+                setTimeout(function(){
+                    users.concat(usersInScopes);
+                    var uniqueUsers = [];
+                    $.each(users, function(i, el){
+                        if($.inArray(el, uniqueUsers) === -1) uniqueUsers.push(el);
+                    });
+                    users = uniqueUsers;
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/f/creategroupchat", true);
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var data = JSON.parse(xhr.responseText);
+                            var li = $(document.createElement("li"));
+                            li.attr("class", "chat_name");
+                            li.attr("data-type", "group");
+                            li.attr("data-groupname", chatName);
+                            li.attr("data-groupid", data.chatID);
+                            li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">'+chatName+'</span>');
+                            $('.users_list').append(li);
+                            group_modal.close();
+                        }
+                    };
+                    xhr.send(JSON.stringify({
+                        "creator": localStorage.username,
+                        "chatName": chatName.replace(/'/g, "''"),
+                        "users": users
+                    }));
+                }, 3000);
+                */
+                scopesToUsersAndCreateGroup();
             });
 
             if (navigator.platform.indexOf("Mac") == -1) {
                 $('.chat_area').perfectScrollbar();
             }
 
-            $(document).on("click", "li.chat_name:not(.make_group)", function() {
+            $(document).on("click", "li.chat_name:not(.make_group, .selected)", function() {
                 $(".chat_area").removeClass("hidden");
                 $(".reply_box").removeClass("hidden");
-                play();
+                //play();
                 autosize.update(ta);
-                if ($(this).attr("class") == "chat_name") {
+                if ($(this).hasClass("chat_name")) {
                     if ($(this).attr("data-type") == "private") {
                         currentGroupName = "";
                         getChatCodeAndLoadMessages($(this).attr("data-name"), $(this).attr("data-username2"));

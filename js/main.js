@@ -179,6 +179,7 @@ $(document).ready(function() {
         localStorage.removeItem('userToken');
         localStorage.removeItem('firstName');
         localStorage.removeItem('lastName');
+        localStorage.removeItem('subdivison');
         localStorage.removeItem('phone');
         localStorage.removeItem('email');
         localStorage.removeItem('teamName');
@@ -200,6 +201,33 @@ $(document).ready(function() {
     $(document).on("click", ".jBox-Notice", function() {
         // $(this).find(".jBox-content").attr("data-sender") ---> the username or chatname
         // $(this).find(".jBox-content").attr("data-chatcode") ---> the chatcode
+    });
+    $(document).on("click", ".accept_invite_btn", function(){
+        var scopeName = $(this).parent().prev().prev().find(".invited_scope_name").html();
+        console.log(scopeName);
+        request("POST", "/f/respondtoinvite", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode, "scopeName":scopeName, "response":"accept"}), function(responseText){
+            $("#your_scopes").append('<p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> <span class="scopeName">'+scopeName+'</span></p>');
+            $("#invited_scopes").find("span:contains('"+scopeName+"')").parent().remove()//get(0).remove();
+        });
+        scope_invite.close();
+    });
+    var scope_invite = new jBox('Modal', {
+        width: 'auto',
+        height: 'auto',
+        title: 'Subdivison Invitation',
+        content: '<span><span class="inviter"></span> You have been invited to the subdivison: <span class="invited_scope_name"></span></span><br/><div style="text-align: center"><input type="button" class="button invite_btn accept_invite_btn" value="Accept"></input><input type="button" class="button invite_btn ignore_invite_btn" value="Ignore"></input></div>',
+        onOpen: function() {
+
+         // $(".inviter").html("Farbod Rafezy");
+          //$(".invited_scope_name").html("Programming");
+
+        }
+    });
+
+    $(document).on("click", ".scope_invite", function(){
+        scope_invite.setContent('<span><span class="inviter"></span> You have been invited to the subdivison: <span class="invited_scope_name">'+$(this).find(".scopeName").html()+'</span></span><br/><div style="text-align: center"><input type="button" class="button invite_btn accept_invite_btn" value="Accept"></input><input type="button" class="button invite_btn ignore_invite_btn" value="Ignore"></input></div>')
+        //$(this).find(".accept_invite_btn").attr("data-scopeName", $(this).find(".scopeName").html());
+        scope_invite.open();
     });
 
     $(".menu").click(function() {
