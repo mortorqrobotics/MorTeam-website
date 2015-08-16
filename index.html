@@ -73,6 +73,7 @@
             </li>
             <li class="navbar_item glyph_link" id="notif_button">
                 <span class="glyphicon glyphicon-inbox"></span>
+                <span class="unseen_count bold">3</span>
             </li>
             <img class="profile_id" id="small_prof_pic" src="./images/user.jpg"></img>
             <span class="profile_name" id="name_link"></span>
@@ -147,6 +148,7 @@
                       <li class="audience_item">Build</li>
                       <li class="audience_item">Programming</li>
                       <li class="audience_item">Business</li>
+                      <li class="audience_item custom_audience"><span class="glyphicon glyphicon-cog"></span>&nbsp;Custom</li>
                   </ul>
               </div>
           </div>
@@ -351,7 +353,7 @@
             scope_modal = new jBox('Modal', {
               title: 'New Subdivision',
               width: 350,
-              height: 355,
+              height: 373,
               onOpen: function() {
                   didClickNew = false;
                   loadUsersOnScopeModal(scope_modal);
@@ -401,7 +403,7 @@
 
             var audience = "Everyone";
 
-            $(document).on("click", ".audience_item", function(){
+            $(document).on("click", ".audience_item:not(.custom_audience)", function(){
               $(".audience_item").removeClass("selected");
               $(this).addClass("selected");
               $(".audience_selection").html( $(this).html() );
@@ -420,7 +422,7 @@
                 if (linkExists) { // checks for manually typed links in announcement
                     // wrap link with <a> tags
                 }
-                createPost(message) // posts announcement
+                createPost(message.replace(/<\/?[^>]+(>|$)/g, "")) // posts announcement
                 nicEditors.findEditor('main_textarea').setContent('');
 
             });
