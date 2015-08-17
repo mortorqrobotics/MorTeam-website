@@ -144,7 +144,7 @@
                       <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu audience_drop">
-                      <li class="audience_item selected">Everyone</li>
+                      <li class="audience_item selected first_audience">Everyone</li>
                       <li class="audience_item">Build</li>
                       <li class="audience_item">Programming</li>
                       <li class="audience_item">Business</li>
@@ -301,6 +301,12 @@
                             var target = $(prof_pic_class);
                             getPic(user, target);*/
                         }
+                        setTimeout(function(){
+                            $ann = $(".announcements_list").isotope({
+                                itemSelector: ".announcement",
+                                layoutMode: "vertical"
+                            });
+                        }, 1);
                     }
                 }
             };
@@ -346,9 +352,85 @@
                 "teamCode":localStorage.teamCode
             }));
         }
+        function loadUsersOnAudienceModal(modal) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/getteammates", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText != "fail") {
+                        var users = JSON.parse(xhr.responseText);
+                        people = users;
+                        var content = "";
+                        for (var i = 0; i < people.length; i++) {
+                            var person = people[i].first + " " + people[i].last;
+                            var nameP = "<p class='selected_audience_member' data-username='" + people[i].user + "'>" + person + "</p>"
+                            content += nameP;
+                        }
+                        var modal_content = 'Please select the audience of the post:<br/><input type="text" placeholder="Search Names..." id="select_audience_members"></input><br/><div id="selected_audience_members">' +
+                        content + '</div><br/><input type="button" class="button make_audience_button" value="OK"></input>'
+                        modal.setContent(modal_content);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({
+                "user": localStorage.username,
+                "teamCode": localStorage.teamCode
+            }));
+        }
         $(document).ready(function() {
             checkIfHasTeams();
-            getAnnouncements(); // getting announcements is first priority on this page
+
+            audience_modal = new jBox('Modal', {
+              attach: $('.custom_audience'),
+              title: 'Custom Audience',
+              width: 350,
+              height: 340,
+              onOpen: function() {
+                  didClickNew = false;
+                  loadUsersOnAudienceModal(audience_modal);
+                  $(document).on("keyup", '#select_audience_members', function() {
+                    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                    $('#selected_audience_members p').show().filter(function() {
+                        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                        console.log(!~text.indexOf(val));
+                        return !~text.indexOf(val);
+                    }).hide();
+                  });
+                  $(document).on("click", '.make_audience_button', function() {
+                    // CODE TO CREATE FOLDER HERE
+                    if (!didClickNew){
+                            didClickNew = true;
+                            var usersBadges = $("p.clicked");
+                            var users = [];
+                            for (var i = 0; i < usersBadges.length; i++) {
+                                users.push($(usersBadges[i]).attr("data-username"));
+                            }
+                            // request("POST", "/f/newfolder", JSON.stringify({"user":localStorage.username, "people":users, "folderName":nameOfFolder}), function(responseText){
+                            //     var li = $(document.createElement("li"));
+                            //     var span = $(document.createElement("span"));
+                            //     li.append(span);
+                            //     li.attr("class", "drive_name");
+                            //     span.attr("id", "make_drive");
+                            //     span.attr("data-folderid", responseText);
+                            //     span.attr("class", "glyphicon glyphicon-folder-open");
+                            //     li.append(folder_name);
+                            //     $('.folders_list').append(li);
+                            //     folder_modal.close();
+                            // });
+                        }
+                  });
+              }
+            });
+            loadUsersOnAudienceModal(audience_modal);
+            $(document).on("click", ".selected_audience_member", function() {
+                // do stuff with $(this) when a name has been clicked in group_modal
+                if ($(this).hasClass("clicked")) {
+                    $(this).removeClass("clicked");
+                } else {
+                    $(this).addClass('clicked');
+                }
+            });
+
 
             scope_modal = new jBox('Modal', {
               title: 'New Subdivision',
@@ -446,6 +528,9 @@
 
         });
         $(window).load(function(){
+
+            getAnnouncements(); // getting announcements is first priority on this page
+
             console.log(localStorage.teamCode);
             loadInvites();
             loadPublicScopes();
@@ -461,12 +546,12 @@
             console.log($(".nicEdit-main").css("width"));
           });
 
-          setTimeout(function(){
-              $ann = $(".announcements_list").isotope({
-                  itemSelector: ".announcement",
-                  layoutMode: "vertical"
-              });
-          }, 1);
+          // setTimeout(function(){
+          //     $ann = $(".announcements_list").isotope({
+          //         itemSelector: ".announcement",
+          //         layoutMode: "vertical"
+          //     });
+          // }, 1);
           $(document).on("click", ".scope_link", function(){
             location="subdivision";
           });
