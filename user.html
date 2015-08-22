@@ -198,6 +198,18 @@
       <div class="leftbar_item"><input id="message_user" type="button" class="button leader_action" value="Message"></input></div>
       <div class="leftbar_item"><input id="assign_task" type="button" class="button leader_action" value="Assign Task"></input></div>
       <div class="leftbar_item"><input id="change_position" type="button" class="button leader_action" value="Change Position"></input></div>
+      <div class="change_position_div">
+        <div class=" change_position_dropdown_btn btn-group">
+            <button class="button dropdown-toggle change_position" data-toggle="dropdown"><span class="position_selection">Member</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu position_drop">
+                <li class="position_item selected">Member</li>
+                <li class="position_item">Leader</li>
+                <li class="position_item">Admin</li>
+            </ul>
+        </div>
+      </div>
     </div>
     <!-- END OF LEFTBAR -->
     <script src="jbox/jBox.min.js"></script>
@@ -216,6 +228,7 @@
         // console.log(localStorage.teamNumber + ": " + localStorage.teamName);
         // $('#leftbar_email').html(localStorage.email);
         // $('#leftbar_phone').html("("+localStorage.phone.substring(0,3)+") "+localStorage.phone.substring(3,6)+"-"+localStorage.phone.substring(6,10));
+
 
         $("#message_user").click(function(){
 
