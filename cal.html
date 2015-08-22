@@ -210,7 +210,6 @@
         var currentYear = now.getFullYear();
         var currentMonth = now.getMonth() + 1;
       function loadUsersOnEventModal(modal) {
-
           var xhr = new XMLHttpRequest();
           xhr.open("POST", "/f/getteammates", true);
           xhr.onreadystatechange = function() {
@@ -261,6 +260,7 @@
                   var dayListOfEventDay = $(".d"+day).children().children().next();
                   var li = document.createElement("li")
                   $(li).html( "<span class='bold'>" + event.eventName + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span>" + "<br/><div class='indented'>" + event.eventDesc + "</div>" )
+                  $(li).attr("data-eventID", event.eventID);
                   $(dayListOfEventDay).append($(li));
               }
               if (month == currentMonth && year == currentYear){
@@ -269,34 +269,42 @@
               }
           });
       }
-      function loadAttendanceModal(modal){
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/f/getteammates", true); //getEventMembers
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                if (xhr.responseText != "fail") {
-                    var users = JSON.parse(xhr.responseText);
-                    people = users;
-                    var content = "";
-                    for (var i = 0; i < people.length; i++) {
-                        var person = people[i].first + " " + people[i].last;
-                        var nameP = "<p class='selected_present_member' data-username='" + people[i].user + "'>" + person + "</p>"
-                        content += nameP;
-                    }
-                    var modal_content = 'Please select the members who attended:<br/><input type="text" placeholder="Search Names..." id="select_present_members"></input><br/><a class="select_all_link">Select All</a><br/><div id="selected_present_members">' +
-                    content + '</div><br/><input type="button" class="button record_attendance_button" value="Save"></input>'
-                    modal.setContent(modal_content);
-                }
-            }
-        };
-        xhr.send(JSON.stringify({
-            "user": localStorage.username,
-            "teamCode": localStorage.teamCode
-        }));
+      function loadAttendanceModal(modal, id){
+          var content = "";
+          request("POST", "/f/getattendance", JSON.stringify({"user":localStorage.username, "eventID":id}), function(responseText){
+              var users = JSON.parse(responseText);
+              console.log(responseText)
+              for (var i = 0; i < users.length; i++){
+                  var user = users[i].user;
+                  var isPresent = users[i].isPresent;//string
+                  //var person = userInfo(user).name;
+                  var teammates = JSON.parse(localStorage.teammates);
+                  var person = "";
+                  if (user == localStorage.username){
+                      person = localStorage.firstName + " " + localStorage.lastName;//because teammates does not include yourself
+                  }
+                  else {
+                      person = teammates[user].name;
+                  }
+                  if (isPresent == "true"){
+                      var nameP = "<p class='selected_present_member isPresent' data-username='" + user + "'>" + person + "</p>"
+                      content += nameP;
+                  }
+                  else {
+                      var nameP = "<p class='selected_present_member' data-username='" + user + "'>" + person + "</p>"
+                      content += nameP;
+                  }
+              }
+              var modal_content = 'Please select the members who attended:<br/><input type="text" placeholder="Search Names..." id="select_present_members"></input><br/><a class="select_all_link">Select All</a><br/><div id="selected_present_members">' +
+              content + '</div><br/><input type="button" class="button record_attendance_button" value="Save"></input>'
+              modal.setContent(modal_content);
+          });
+
       }
       $(document).ready(function(){
         var didClickNew = false;
         var dayList;
+        var currentAttendanceEvent = "";
         loadUpcomingEvents();
 
         event_modal = new jBox('Modal', {
@@ -322,10 +330,10 @@
           // attach: $('.add_event'),
           title: 'Record Attendace',
           width: 350,
-          height: "auto",
+          height: 305,
           onOpen: function() {
-              didClickNew = false;
-              loadAttendanceModal(attendance_modal);
+              //didClickNew = false;
+              loadAttendanceModal(attendance_modal, currentAttendanceEvent);
               $(document).on("keyup", '#select_present_members', function() {
                 var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
                 $('#selected_present_members p').show().filter(function() {
@@ -335,6 +343,24 @@
                 }).hide();
               });
           }
+        });
+        $(document).on("click", '.record_attendance_button', function() {
+            var people = [];
+            var usersPresent = $("p.isPresent");
+            var usersNotPresent = $("p.selected_present_member:not(.isPresent)");
+            for (var i = 0; i < usersPresent.length; i++) {
+                people.push({"user":$(usersPresent[i]).attr("data-username"), "isPresent":"true"});
+            }
+            for (var i = 0; i < usersNotPresent.length; i++) {
+                people.push({"user":$(usersNotPresent[i]).attr("data-username"), "isPresent":"false"});
+            }
+            console.log(usersNotPresent)
+            var eventID = currentAttendanceEvent;
+            request("POST", "/f/updateattendance", JSON.stringify({"user":localStorage.username, "updatedList":people, "eventID":eventID}), function(responseText){
+                if (responseText == "success"){
+                    attendance_modal.close();
+                }
+            });
         });
         $(document).on("click", '.make_event_button', function() {
             if (!didClickNew){
@@ -350,10 +376,12 @@
                 var timeStampOfDate = new Date(Date.UTC(yearViewing, monthViewing - 1, dayNum, 23, 59, 59)).getTime();
 
                 request("POST", "/f/addevent", JSON.stringify({"user":localStorage.username, "people":people, "month":monthViewing, "day":dayNum, "year":yearViewing, "timeStamp":timeStampOfDate, "eventName":eventName, "eventDesc":eventDesc}), function(responseText){
-                    if (responseText == "success"){
+                    if (typeof(responseText) != "undefined"){
                         var li = document.createElement("li");
                         $(li).html( "<span class='bold'>" + eventName.replace(/''/g, "'") + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span>" + "<br/><div class='indented'>" + eventDesc.replace(/''/g, "'") + "</div>" )
+                        $(li).attr("data-eventID", responseText);
                         $(dayList).append($(li));
+                        loadUpcomingEvents();
                         event_modal.close();
                     }
                 });
@@ -371,6 +399,7 @@
           dayList = $(this).next().find(".day_list");
         });
         $(document).on("click", ".attendance", function(){
+          currentAttendanceEvent = $(this).prev().parent().attr("data-eventID");
           attendance_modal.open();
         });
 
@@ -382,18 +411,18 @@
             }
         });
         $(document).on("click", ".selected_present_member", function() {
-            if ($(this).hasClass("clicked")) {
-                $(this).removeClass("clicked");
+            if ($(this).hasClass("isPresent")) {
+                $(this).removeClass("isPresent");
             } else {
-                $(this).addClass('clicked');
+                $(this).addClass('isPresent');
             }
         });
         $(document).on("click", ".select_all_link", function() {
           if($(this).html() == "Select All"){
-            $(".selected_present_member").addClass("clicked");
+            $(".selected_present_member").addClass("isPresent");
             $(this).html("Unselect All")
           }else{
-            $(".selected_present_member").removeClass("clicked");
+            $(".selected_present_member").removeClass("isPresent");
             $(this).html("Select All");
           }
         });

@@ -1299,7 +1299,10 @@ html { overflow-x: hidden; }
 	background-color: orange;
 	cursor: pointer;
 }
-.selected_group_name.clicked, .selected_folder_member.clicked, .selected_event_member.clicked, .selected_scope_member.clicked, .selected_present_member.clicked, .selected_audience_member.clicked{
+.selected_group_name.clicked, .selected_folder_member.clicked, .isPresent, .selected_event_member.clicked, .selected_scope_member.clicked, .selected_present_member.clicked, .selected_audience_member.clicked{
+	background-color: #53CF29;
+}
+.isPresent:hover{
 	background-color: #53CF29;
 }
 .select_all_link{

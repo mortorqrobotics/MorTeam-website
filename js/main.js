@@ -37,6 +37,37 @@ function getDaysInMonth(month, year) {
     }
     return mtend[month - 1];
 }
+function userInfo(username){
+    //Probably shouldn't be used
+    var info = null;
+    request("POST", "/f/getuserinfo", JSON.stringify({"user":localStorage.username, "desiredUser":username}), function(responseText){
+        var user = JSON.parse(responseText);
+        var name = user[0].first + " " + user[0].last;
+        info = {"name":name, "phone":user[0].phone, "email":user[0].email};
+    });
+    while (info != null){
+        return info;
+    }
+}
+function updateTeammates(){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/f/getteammates", true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var users = JSON.parse(xhr.responseText);
+            var newUsers = {};
+            for (var i = 0; i < users.length; i++){
+                newUsers[users[i].user] = {"name":users[i].first + " " + users[i].last, "status":users[i].status};
+            }
+            localStorage.teammates = JSON.stringify(newUsers);
+        }
+    };
+    xhr.send(JSON.stringify({
+        "user": localStorage.username,
+        "teamCode": localStorage.teamCode
+    }));
+}
+updateTeammates();
 
 function getDayOfWeek(m, d, y) {
     m--;
@@ -184,6 +215,7 @@ $(document).ready(function() {
         localStorage.removeItem('email');
         localStorage.removeItem('teamName');
         localStorage.removeItem('teamCode');
+        localStorage.removeItem('teammates');
         localStorage.removeItem('teamNumber');
         location = "login";
     });
