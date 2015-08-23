@@ -293,8 +293,14 @@
                             var user = announcements[i].user;
                             var text = announcements[i].text.replace(/\n\r?/g, '<br />');
                             var postNum = announcements[i].postNum;
-                            $('.announcements_list').append('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" class="poster_pic' + i +
-                                '" src="/f/getPic?user='+user+'" onError="this.src=\'./images/user.jpg\'"></img><span class="announcement_poster">' + nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
+                            if (user == localStorage.username){//Add if leader or admin
+                                $('.announcements_list').append('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" class="poster_pic' + i +
+                                    '" src="/f/getPic?user='+user+'" onError="this.src=\'./images/user.jpg\'"></img><span class="announcement_poster">' + nameDate + '</span></div><span class="glyphicon glyphicon-remove delete_icon"></span><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
+                            }
+                            else {
+                                $('.announcements_list').append('<div class="announcement" data-postNum="' + postNum + '"><div class="announcement_top"><img id="medium_prof_pic" class="poster_pic' + i +
+                                    '" src="/f/getPic?user='+user+'" onError="this.src=\'./images/user.jpg\'"></img><span class="announcement_poster">' + nameDate + '</span></div><br>' + text.replace(/\n\r?/g, '<br />') + '</div>')
+                            }
                             document.getElementById('main_textarea').value = "";
                             $('#main_textarea').css("height", "56px");
                             /*var prof_pic_class = ".poster_pic" + i;
