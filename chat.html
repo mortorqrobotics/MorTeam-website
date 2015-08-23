@@ -345,7 +345,7 @@
                         li.attr("data-type", "group");
                         li.attr("data-groupname", groups[i].groupName);
                         li.attr("data-groupid", groups[i].groupID);
-                        li.html('<a href="#"><img src="f/getPic?user='+groups[i].groupName+'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">' + groups[i].groupName + '</span>');
+                        li.html('<a href="#"><img src="f/getPic?user='+groups[i].groupName+'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">' + groups[i].groupName + '</span><span class="glyphicon glyphicon-trash list_right delete_li"></span><span class="glyphicon glyphicon-cog list_right options_li"></span>');
                         $('.users_list').append(li);
                     }
                 }
@@ -471,7 +471,7 @@
                 var scopeBadges = $(".scope_badge.clicked");
                 var groupImageSrc = "placeholder"
                 var users = [];
-                var scopes = [];
+                var scopes = [""];
                 for (var i = 0; i < usersBadges.length; i++) {
                     users.push($(usersBadges[i]).attr("data-username"));
                 }
@@ -506,7 +506,7 @@
                                     li.attr("data-type", "group");
                                     li.attr("data-groupname", chatName);
                                     li.attr("data-groupid", data.chatID);
-                                    li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">'+chatName+'</span>');
+                                    li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">'+chatName+'</span><span class="glyphicon glyphicon-trash list_right delete_li"></span><span class="glyphicon glyphicon-cog list_right options_li"></span>');
                                     $('.users_list').append(li);
                                     group_modal.close();
                                 }
@@ -608,7 +608,12 @@
                 $('.chat_area').perfectScrollbar();
             }
 
-            $(document).on("click", "li.chat_name:not(.make_group, .selected)", function() {
+            $(document).on("click", "li.chat_name:not(.make_group, .selected)", function(e) {
+              var a = $(e.target);
+              var b = $(this).find(".list_right");
+              if (a[0] != b[0] && a[0] != b[1]){
+                $("li.chat_name").removeClass("selected");
+                $(this).addClass("selected");
                 $(".chat_area").removeClass("hidden");
                 $(".reply_box").removeClass("hidden");
                 //play();
@@ -624,6 +629,15 @@
                         loadGroupMessages($(this).attr("data-groupid"));
                     }
                 }
+              }
+            });
+            $(document).on("click", ".delete_li", function(){
+              if (window.confirm("Are you sure?")) {
+                $(this).parent().remove();
+              }
+            });
+            $(document).on("click", ".options_li", function(){
+              alert("options");
             });
 
             var isBlur = false;
@@ -693,10 +707,6 @@
             });
             $(document).on("mouseleave", "li.chat_name", function() {
                 $(this).removeAttr("id");
-            });
-            $(document).on("click", "li.chat_name:not(.make_group)", function() {
-                $("li.chat_name").removeClass("selected");
-                $(this).addClass("selected");
             });
 
             $(document).on("click", ".selected_group_name", function() {
@@ -801,39 +811,6 @@
           setTimeout(function(){
             fixAdLayout();
           }, 200)
-
-          $(document).on("contextmenu", ".chat_name:not(.make_group)", function(e){
-
-                e.preventDefault();
-                $(".drop").remove();
-                if( $(e.target).attr("data-type") == "private" ){
-                  var drop = $("<div class='drop'><li id='folder_options' class='drop_item'><span class='glyphicon glyphicon-cog'></span> Options</li></div>");
-                }else{
-                  var drop = $("<div class='drop'><li id='folder_options' class='drop_item'><span class='glyphicon glyphicon-cog'></span> Options</li><li id='folder_delete' class='drop_item'><span class='glyphicon glyphicon-trash'></span> Delete</li></div>");
-                }
-                drop.css("top", e.pageY + 7);
-                drop.css("left", e.pageX - 28);
-
-                $("body").append(drop);
-
-                $(document).click(function(){
-                     $(".drop").remove();
-                     $(".chat_name:not(.make_group)").unbind("contextmenu");
-                });
-
-
-                return false;
-          });
-          $(document).on("click", "#folder_options", function(){
-
-            // SHOW CHAT OPTIONS
-
-          });
-          $(document).on("click", "#folder_delete", function(){
-
-            // DELETE CHAT
-
-          });
 
         });
 

@@ -238,6 +238,8 @@
                 for (var i = 0; i < folders.length; i++){
                     var li = document.createElement("li");
                     var span = $(document.createElement("span"));
+                    var span2 = $(document.createElement("span"));
+                    var span3 = $(document.createElement("span"));
                     $(li).append(span);
                     $(li).attr("class", "drive_name");
                     span.attr("id", "make_drive");
@@ -245,6 +247,15 @@
                     span.attr("class", "glyphicon glyphicon-folder-open");
                     li.innerHTML += folders[i].folderName.replace(/</g, "&lt");
                     $('.folders_list').append(li);
+                    span2.attr("class", "glyphicon glyphicon-cog");
+                    span2.addClass("list_right")
+                    span2.addClass("options_li")
+                    span3.attr("class", "glyphicon glyphicon-trash");
+                    span3.addClass("list_right")
+                    span3.addClass("delete_li")
+                    $(li).append(span3);
+                    $(li).append(span2);
+
                 }
             });
         }
@@ -287,6 +298,8 @@
                             request("POST", "/f/newfolder", JSON.stringify({"user":localStorage.username, "people":users, "folderName":nameOfFolder}), function(responseText){
                                 var li = $(document.createElement("li"));
                                 var span = $(document.createElement("span"));
+                                var span2 = $(document.createElement("span"));
+                                var span3 = $(document.createElement("span"));
                                 li.append(span);
                                 li.attr("class", "drive_name");
                                 span.attr("id", "make_drive");
@@ -294,6 +307,14 @@
                                 span.attr("class", "glyphicon glyphicon-folder-open");
                                 li.append(folder_name);
                                 $('.folders_list').append(li);
+                                span2.attr("class", "glyphicon glyphicon-cog");
+                                span2.addClass("list_right")
+                                span2.addClass("options_li")
+                                span3.attr("class", "glyphicon glyphicon-trash");
+                                span3.addClass("list_right")
+                                span3.addClass("delete_li")
+                                $(li).append(span3);
+                                $(li).append(span2);
                                 folder_modal.close();
                             });
                         }
@@ -784,105 +805,118 @@
             });
 
 
-            $(document).on("click", ".drive_name:not(.new_folder, .drive_options)", function() {
-              if( !$(this).hasClass('selected') ){
-                if( $(this).find("#make_drive").attr("data-folderid") == "" ){
-                  $(".add_file").hide();
-                }else{
-                  $(".add_file").show();
+            $(document).on("click", ".drive_name:not(.new_folder, .drive_options)", function(e) {
+              var a = $(e.target);
+              var b = $(this).find(".list_right");
+              if (a[0] != b[0] && a[0] != b[1]){
+                if( !$(this).hasClass('selected') ){
+                  if( $(this).find("#make_drive").attr("data-folderid") == "" ){
+                    $(".add_file").hide();
+                  }else{
+                    $(".add_file").show();
+                  }
+                  $(".drive_name:not(.new_folder, .drive_options)").removeClass("selected");
+                  $(this).addClass("selected");
+                  currentFolderID = $(this).children().first().attr("data-folderid");
+                  //GET FILES WITH FOLDER ID
+                  $grid.isotope("remove", $(".doc_frame:not(.add_file)")).isotope()
+
+                  fileImg = [];
+                  tempFile = [];
+                  imgCounter = 0;
+
+                  var url = "/f/showfiles";
+                  if (currentFolderID == ""){
+                      url = "/f/showallfiles";
+                  }
+
+                  var xhr = new XMLHttpRequest();
+                  xhr.open("POST", url, true);
+                  xhr.onreadystatechange = function() {
+                      if (xhr.readyState == 4 && xhr.status == 200) {
+                          if (xhr.responseText != "fail") {
+                              var files = JSON.parse(xhr.responseText);
+                              for (var i = 0; i < files.length; i++) {
+                                  var imgSrc = "";
+                                  var imgClass = "";
+                                  var isImg = false;
+                                  if (extToClass(files[i].fileType) == "image_doc") {
+                                      imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + files[i].fileCode;
+                                      imgClass = " image_preview"
+                                      isImg = true
+                                  } else {
+                                      imgSrc = "./images/" + extToClass(files[i].fileType).split('_')[0] + ".png";
+                                  }
+                                  if (files[i].user == localStorage.username){//Add if leader or admin
+                                      var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(files[i].fileType) + '" data-fileid="' + files[i].fileCode + '" title="' + files[i].fileName +
+                                          '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' + imgSrc +
+                                          '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + files[i].fileName + '</span><span class="file_size">' + files[i].fileSize +
+                                          '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
+                                  }
+                                  else {
+                                      var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(files[i].fileType) + '" data-fileid="' + files[i].fileCode + '" title="' + files[i].fileName +
+                                          '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' + imgSrc +
+                                          '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + files[i].fileName + '</span><span class="file_size">' + files[i].fileSize +
+                                          '</span></span></div>');
+                                  }
+
+                                  $grid.append($newFile).isotope("appended", $newFile);
+                                  $newFile.jBox('Tooltip', {
+                                      delayOpen: 700,
+                                      delayClose: 300,
+                                      theme: "TooltipDark",
+                                      position: {
+                                          y: 'bottom'
+                                      }
+                                  });
+                                  if(isImg){
+                                    fileImg[imgCounter] = document.createElement("img");
+                                    fileImg[imgCounter].src = imgSrc;
+                                    $(fileImg[imgCounter]).attr("data-order", imgCounter)
+                                    tempFile[imgCounter] = $newFile;
+
+                                    fileImg[imgCounter].onload = function(){
+                                      var colorThief = new ColorThief();
+                                      var color = colorThief.getColor(this);
+                                      tempFile[$(this).attr("data-order")].css("background-color", "rgb(" + color + ")");
+                                      tempFile[$(this).attr("data-order")].find(".image_preview").show();
+                                      var r = color[0];
+                                      var g = color[1];
+                                      var b = color[2];
+                                      var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                                      if (luma > 170) {
+                                          tempFile[$(this).attr("data-order")].find(".doc_title").css("color", "black");
+                                      }
+                                    };
+
+                                    imgCounter++;
+                                  }
+                              }
+                              var titles = $(".doc_title>span");
+                              for (i = 0; i < titles.length; i++) {
+                                  $clamp(titles[i], {
+                                      clamp: 2
+                                  })
+                              }
+                          }
+                      }
+                  };
+                  xhr.send(JSON.stringify({
+                      "user": localStorage.username,
+                      "folder": currentFolderID,
+                      "teamCode": localStorage.teamCode
+                  }));
                 }
-                $(".drive_name:not(.new_folder, .drive_options)").removeClass("selected");
-                $(this).addClass("selected");
-                currentFolderID = $(this).children().first().attr("data-folderid");
-                //GET FILES WITH FOLDER ID
-                $grid.isotope("remove", $(".doc_frame:not(.add_file)")).isotope()
-
-                fileImg = [];
-                tempFile = [];
-                imgCounter = 0;
-
-                var url = "/f/showfiles";
-                if (currentFolderID == ""){
-                    url = "/f/showallfiles";
-                }
-
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", url, true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        if (xhr.responseText != "fail") {
-                            var files = JSON.parse(xhr.responseText);
-                            for (var i = 0; i < files.length; i++) {
-                                var imgSrc = "";
-                                var imgClass = "";
-                                var isImg = false;
-                                if (extToClass(files[i].fileType) == "image_doc") {
-                                    imgSrc = "/f/getfile?user=" + localStorage.username + "&filecode=" + files[i].fileCode;
-                                    imgClass = " image_preview"
-                                    isImg = true
-                                } else {
-                                    imgSrc = "./images/" + extToClass(files[i].fileType).split('_')[0] + ".png";
-                                }
-                                if (files[i].user == localStorage.username){//Add if leader or admin
-                                    var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(files[i].fileType) + '" data-fileid="' + files[i].fileCode + '" title="' + files[i].fileName +
-                                        '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' + imgSrc +
-                                        '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + files[i].fileName + '</span><span class="file_size">' + files[i].fileSize +
-                                        '</span><span class="glyphicon glyphicon-trash doc_delete"></span></span></div>');
-                                }
-                                else {
-                                    var $newFile = $('<div style="z-index:1;" class="doc_frame ' + extToClass(files[i].fileType) + '" data-fileid="' + files[i].fileCode + '" title="' + files[i].fileName +
-                                        '"><div class="hidden confirm_del"><p>Are you sure?</p><input type="button" value="yes" class="yes"></input><input type="button" value="no" class="no"></input></div><img src="' + imgSrc +
-                                        '" class="doc_preview'+imgClass+'" /><span class="doc_title"><span class="name">' + files[i].fileName + '</span><span class="file_size">' + files[i].fileSize +
-                                        '</span></span></div>');
-                                }
-
-                                $grid.append($newFile).isotope("appended", $newFile);
-                                $newFile.jBox('Tooltip', {
-                                    delayOpen: 700,
-                                    delayClose: 300,
-                                    theme: "TooltipDark",
-                                    position: {
-                                        y: 'bottom'
-                                    }
-                                });
-                                if(isImg){
-                                  fileImg[imgCounter] = document.createElement("img");
-                                  fileImg[imgCounter].src = imgSrc;
-                                  $(fileImg[imgCounter]).attr("data-order", imgCounter)
-                                  tempFile[imgCounter] = $newFile;
-
-                                  fileImg[imgCounter].onload = function(){
-                                    var colorThief = new ColorThief();
-                                    var color = colorThief.getColor(this);
-                                    tempFile[$(this).attr("data-order")].css("background-color", "rgb(" + color + ")");
-                                    tempFile[$(this).attr("data-order")].find(".image_preview").show();
-                                    var r = color[0];
-                                    var g = color[1];
-                                    var b = color[2];
-                                    var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-                                    if (luma > 170) {
-                                        tempFile[$(this).attr("data-order")].find(".doc_title").css("color", "black");
-                                    }
-                                  };
-
-                                  imgCounter++;
-                                }
-                            }
-                            var titles = $(".doc_title>span");
-                            for (i = 0; i < titles.length; i++) {
-                                $clamp(titles[i], {
-                                    clamp: 2
-                                })
-                            }
-                        }
-                    }
-                };
-                xhr.send(JSON.stringify({
-                    "user": localStorage.username,
-                    "folder": currentFolderID,
-                    "teamCode": localStorage.teamCode
-                }));
               }
+            });
+
+            $(document).on("click", ".delete_li", function(){
+              if (window.confirm("Are you sure?")) {
+                $(this).parent().remove();
+              }
+            });
+            $(document).on("click", ".options_li", function(){
+              alert("options");
             });
             $($(".drive_name")[2]).trigger("click");
 
@@ -936,43 +970,6 @@
                   ascending = !ascending;
                 }
             });
-
-            var folderid;
-            $(document).on("contextmenu", ".drive_name:not(.new_folder, .drive_options)", function(e){
-
-                  e.preventDefault();
-                  $(".drop").remove();
-                  folderid = $(e.target).find("#make_drive").attr("data-folderid");
-                  if( folderid != localStorage.teamCode && folderid != localStorage.username && folderid != "" ){
-                    var drop = $("<div class='drop'><li id='folder_options' class='drop_item'><span class='glyphicon glyphicon-cog'></span> Options</li><li id='folder_delete' class='drop_item'><span class='glyphicon glyphicon-trash'></span> Delete</li></div>");
-                  }else{
-                    var drop = $("<div class='drop'><li id='folder_options' class='drop_item'><span class='glyphicon glyphicon-cog'></span> Options</li></div>");
-                  }
-                  drop.css("top", e.pageY + 7);
-                  drop.css("left", e.pageX - 28);
-
-                  $("body").append(drop);
-
-                  $(document).click(function(){
-                       $(".drop").remove();
-                       $(".drive_name:not(.new_folder, .drive_options)").unbind("contextmenu");
-                  });
-
-                  return false;
-            });
-            $(document).on("click", "#folder_options", function(){
-              alert("the folder id is: " + folderid);
-
-              // SHOW FOLDER OPTIONS
-
-            });
-            $(document).on("click", "#folder_delete", function(){
-              $("#make_drive[data-folderid='"+folderid+"']").parent().remove();
-
-              // DELETE FOLDER
-
-            });
-
 
 
         });

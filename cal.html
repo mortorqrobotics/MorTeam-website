@@ -259,7 +259,7 @@
                   var day = event.day;
                   var dayListOfEventDay = $(".d"+day).children().children().next();
                   var li = document.createElement("li")
-                  $(li).html( "<span class='bold'>" + event.eventName + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span>" + "<br/><div class='indented'>" + event.eventDesc + "</div>" )
+                  $(li).html( "<span class='bold'>" + event.eventName + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span><span class='glyphicon glyphicon-trash list_right delete_event'></span>" + "<br/><div class='indented'>" + event.eventDesc + "</div>" )
                   $(li).attr("data-eventID", event.eventID);
                   $(dayListOfEventDay).append($(li));
               }
@@ -378,7 +378,7 @@
                 request("POST", "/f/addevent", JSON.stringify({"user":localStorage.username, "people":people, "month":monthViewing, "day":dayNum, "year":yearViewing, "timeStamp":timeStampOfDate, "eventName":eventName, "eventDesc":eventDesc}), function(responseText){
                     if (typeof(responseText) != "undefined"){
                         var li = document.createElement("li");
-                        $(li).html( "<span class='bold'>" + eventName.replace(/''/g, "'") + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span>" + "<br/><div class='indented'>" + eventDesc.replace(/''/g, "'") + "</div>" )
+                        $(li).html( "<span class='bold'>" + eventName.replace(/''/g, "'") + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span><span class='glyphicon glyphicon-trash list_right delete_event'></span>" + "<br/><div class='indented'>" + eventDesc.replace(/''/g, "'") + "</div>" )
                         $(li).attr("data-eventID", responseText);
                         $(dayList).append($(li));
                         loadUpcomingEvents();
@@ -461,6 +461,12 @@
                 $(".timeline").append('<div class="day d'+day+'"><div class="day_of_month">'+day+'</div><input type="button" class="add_event" value="+" title="Add Event"></input><div class="day_content today"><h4 class="day_name">'+dayOfWeek+'</h4><ul class="day_list"></ul></div></div>');
             }
         }
+
+        $(document).on("click", ".delete_event", function(){
+          if (window.confirm("Are you sure?")) {
+            $(this).parent().remove();
+          }
+        })
 
 
 

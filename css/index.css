@@ -2038,7 +2038,23 @@ li.drop_item:hover{
 .scope_badge{
 	background-color: #FFBC59;
 }
-
+.list_right{
+	float: right;
+	opacity: .5;
+	font-size: 16px;
+	margin-top: 7px;
+	margin-left: 4px;
+	cursor: pointer;
+}
+.list_right:hover{
+	opacity: 1;
+}
+.delete_li{
+	margin-right: -7px;
+}
+.delete_event{
+	margin-top: 0px;
+}
 
 /* TEMPORARY */
 /*.delete_icon, .doc_delete{
