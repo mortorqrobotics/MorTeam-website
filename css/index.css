@@ -372,9 +372,9 @@ li.active{
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* IE10+ */
 }
-.chat_name_display{
+.chat_name_display, .folder_name_display{
 	max-height: 23px !important;
-	max-width: 185px;
+	max-width: 155px;
 	overflow: hidden;
 	display: inline-block;
 	white-space: nowrap;
@@ -2041,7 +2041,7 @@ li.drop_item:hover{
 .list_right{
 	float: right;
 	opacity: .5;
-	font-size: 16px;
+	font-size: 13px;
 	margin-top: 7px;
 	margin-left: 4px;
 	cursor: pointer;

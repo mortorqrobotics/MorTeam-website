@@ -242,10 +242,12 @@
                     var span3 = $(document.createElement("span"));
                     $(li).append(span);
                     $(li).attr("class", "drive_name");
+                    $(li).attr("title", folders[i].folderName.replace(/</g, "&lt"));
                     span.attr("id", "make_drive");
                     span.attr("data-folderid", folders[i].folderCode);
                     span.attr("class", "glyphicon glyphicon-folder-open");
-                    li.innerHTML += folders[i].folderName.replace(/</g, "&lt");
+                    var folder_name_display = '<span class="folder_name_display">' + folders[i].folderName.replace(/</g, "&lt") +'</span>'
+                    li.innerHTML += folder_name_display
                     $('.folders_list').append(li);
                     span2.attr("class", "glyphicon glyphicon-cog");
                     span2.addClass("list_right")

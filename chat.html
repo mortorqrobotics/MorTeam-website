@@ -166,6 +166,7 @@
                 li.attr("data-name", name);
                 li.attr("data-type", "private");
                 li.html('<a href="#"><img src="/f/getPic?user='+users[i].user+'" onError="this.src=\'./images/user.jpg\'" class="small_prof_pic temp other_user_pic' + i + ' ' + status + '"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">' + name + '</span>');
+                li.attr("title", name);
                 $('.users_list').append(li);
                 if (i == 0) {
                     $(li).trigger("click");
@@ -345,6 +346,7 @@
                         li.attr("data-type", "group");
                         li.attr("data-groupname", groups[i].groupName);
                         li.attr("data-groupid", groups[i].groupID);
+                        li.attr("title", groups[i].groupName);
                         li.html('<a href="#"><img src="f/getPic?user='+groups[i].groupName+'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">' + groups[i].groupName + '</span><span class="glyphicon glyphicon-trash list_right delete_li"></span><span class="glyphicon glyphicon-cog list_right options_li"></span>');
                         $('.users_list').append(li);
                     }
