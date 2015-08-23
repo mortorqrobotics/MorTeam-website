@@ -1990,6 +1990,8 @@ li.drop_item:hover{
 	padding: 4px;
 	background-color: #ffcc80;
 	cursor: pointer;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 .absences_list > li:hover{
 	background-color: orange;

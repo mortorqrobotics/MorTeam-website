@@ -103,7 +103,7 @@
             <span class="data_point">Dates of absences:</span><br/>
             <div class="absences_list_scroll">
               <ul class="data_list absences_list">
-                <li class="absence_date">
+                <!-- <li class="absence_date">
                   7/14/2015
                 </li>
                 <li class="absence_date">
@@ -156,7 +156,7 @@
                 </li>
                 <li class="absence_date">
                   7/14/2015
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -219,8 +219,31 @@
     <script type="text/javascript" src="js/velocity.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
-      $(document).ready(function(){
+    function getUserInfo(username){
+        request("POST", "/f/getuserinfo", JSON.stringify({"user":localStorage.username, "desiredUser":username}), function(responseText){
+            var user = JSON.parse(responseText)[0];
+            $("#leftbar_email").html(user.email);
+            $("#leftbar_phone").html("("+user.phone.substring(0,3)+") "+user.phone.substring(3,6)+"-"+user.phone.substring(6,10));
+            $("#leftbar_name").html(user.first + " " + user.last);
+            $(".profile_pic").attr("src", "/f/getPic?user="+username);
+            $(".profile_pic").attr("onError", "this.src=\'./images/user.jpg\'");
+        });
+    }
+    function loadAbsences(username){
+        request("POST", "/f/getuserabsences", JSON.stringify({"user":localStorage.username, "desiredUser":username}), function(responseText){
+            var events = JSON.parse(responseText);
+            for (var i = 0; i < events.length; i++){
+                $(".absences_list").append('<li class="absence_date">'+ events[i].eventName + " (" + events[i].month + "/" + events[i].day + "/" + events[i].year +')</li>');
+            }
+        });
+    }
 
+      $(document).ready(function(){
+          if (typeof(qs("user")) == "undefined"||qs("user") == ""){
+              location = "/user?user=" + localStorage.username;
+          }
+          getUserInfo(qs("user"));
+          loadAbsences(qs("user"));
         // DISPLAYS PERSONAL INFO IN LEFTBAR
         // getPic(localStorage.username, $(".profile_pic"));
         // $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
