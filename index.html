@@ -54,6 +54,26 @@
           </li>
           <li class="navbar_item searchbox_list_item">
               <input type="text" placeholder="search" class="searchbox"></input>
+              <div class="search_drop">
+                <ul>
+                  <li>
+                    under<br/>
+                    construction
+                  </li>
+                  <li>
+                    under<br/>
+                    construction
+                  </li>
+                  <li>
+                    under<br/>
+                    construction
+                  </li>
+                  <li>
+                    under<br/>
+                    construction
+                  </li>
+                </ul>
+              </div>
           </li>
           <li class="navbar_item glyph_link chat_btn menu_btn" onclick="location='chat'">
               <span class="glyphicon glyphicon-comment"></span>
@@ -103,32 +123,18 @@
         <div class="announcements_left">
           <p onclick="location='profile'">View Profile</p>
           <p id="logout_button">Log Out</p>
+          <p id="members_button">All Members</p>
           <hr>
           <div id="your_scopes">
               <h5 style="margin-bottom: 15px;">Your Subdivisions</h5>
-              <!-- <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
-              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
-              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p> -->
           </div>
           <hr>
           <div id="public_scopes">
               <h5 style="margin-bottom: 15px;">Public Subdivisions</h5>
-              <!-- <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Build</p>
-              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
-              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Business</p>
-              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> CAD</p>
-              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Media</p> -->
           </div>
-          <!-- <hr>
-          <h5 style="margin-bottom: 15px;">This Group's Networks</h5>
-          <p><span class="glyphicon glyphicon-globe"></span> FIRST Robotics Network</p>
-          <p><span class="glyphicon glyphicon-globe"></span> Technology Network</p> -->
           <hr>
           <div id="invited_scopes">
               <h5 style="margin-bottom: 15px;">Subdivision Invites</h5>
-              <!-- <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> Programming</p>
-              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorScout</p>
-              <p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> MorTeam</p> -->
           </div>
           <hr>
           <p class="new_pu_scope"><span class="glyphicon glyphicon-plus"></span> Make a Subdivision</p>
@@ -530,6 +536,9 @@
                     });
                 }
             });
+            $(document).on("click", "#members_button", function(){
+              location="members";
+            });
 
 
         });
@@ -561,6 +570,14 @@
           $(document).on("click", ".scope_link", function(){
             location="subdivision";
           });
+
+          $(".searchbox").keyup(function(){
+            if( $(".searchbox").val() != "" ){
+              $(".search_drop").show();
+            }else{
+              $(".search_drop").hide();
+            }
+          })
         })
         window.onunload = function() {};
     </script>

@@ -96,67 +96,13 @@
         <div class="col-md-6">
           <div class="attendance_data">
             <span class="data_title bold">Attendance</span><br/>
-            <span class="data_point">Unexcused absences:</span><span class="data_answer">3</span><br/>
-            <span class="data_point">Excused absences:</span><span class="data_answer">1</span><br/>
+            <span class="data_point">Number of absences:</span><span class="data_answer">1</span><br/>
             <span class="data_point">Presence percentage:</span><span class="data_answer">89%</span><br/>
             <hr class="hr_small_margin">
             <span class="data_point">Dates of absences:</span><br/>
             <div class="absences_list_scroll">
               <ul class="data_list absences_list">
-                <!-- <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li>
-                <li class="absence_date">
-                  7/14/2015
-                </li> -->
+
               </ul>
             </div>
           </div>
@@ -264,6 +210,11 @@
         });
         $(document).on("click", ".absence_date", function(){
           // take to calendar
+        });
+        $(document).on("click", ".position_item", function(){
+          $(".position_item").removeClass("selected");
+          $(this).addClass("selected");
+          $(".position_selection").html( $(this).html() );
         });
 
 

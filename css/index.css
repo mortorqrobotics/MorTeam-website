@@ -240,6 +240,7 @@ li.active{
 .searchbox_list_item{
 	width: 360px;
 	margin-right: 10px;
+	position: relative;
 }
 .searchbox{
 	border: 0;
@@ -2057,9 +2058,54 @@ li.drop_item:hover{
 .delete_event{
 	margin-top: 0px;
 }
+.user_link{
+	font-size: 24px;
+	margin: 8px;
+	vertical-align: middle;
+}
+.user_display{
+	padding: 20px;
+	text-align: left;
+	display: inline-block;
+	background-color: #c9c9c9;
+	border: 1px solid #ababab;
+	width: 90%;
+	cursor: pointer;
+}
+.user_display:hover{
+	background-color: #ffc547;
+}
+.members_list{
+	margin-top: 20px;
+}
+.delete_user{
+	float: right;
+	margin-top: 10px;
+	margin-right: -10px;
+	opacity: .5;
+}
+.delete_user:hover{
+	opacity: 1;
+}
+.search_drop{
+	position: absolute;
+	width: 100%;
+	height: auto;
+	background-color: white;
+	z-index: 300;
+	display: none;
+	box-shadow: 1px 1px 12px -7px black;
+	border: 1px solid #c9c9c9;
 
-/* TEMPORARY */
-/*.delete_icon, .doc_delete{
-	display: none !important;
-}*/
-/* TEMPORARY */
+}
+.search_drop > ul > li{
+	list-style: none;
+	height: 57px;
+	font-size: 16px;
+	padding: 5px;
+	cursor: pointer;
+	border-bottom: 1px solid #c9c9c9;
+}
+.search_drop > ul > li:hover{
+	background-color: #ffcc80;
+}
