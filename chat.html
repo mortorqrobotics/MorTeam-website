@@ -215,6 +215,7 @@
                 xhr.open("POST", "/f/addmessage", true);
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == 4 && xhr.status == 200) {
+                        console.log(chatcode)
                         if (xhr.responseText == "success") {
                             socket.emit("newmessage", {
                                 "user": localStorage.username,
@@ -222,7 +223,8 @@
                                 "message": message,
                                 "chatcode": chatcode,
                                 "recievers":usersInGroup,
-                                "chatname":currentGroupName
+                                "chatname":currentGroupName,
+                                "token":localStorage.userToken
                             });
                         }
                     }
@@ -231,7 +233,8 @@
                     "name": localStorage.firstName + " " + localStorage.lastName,
                     "username": localStorage.username,
                     "message": message.replace(/'/g, "''").replace(/</g, "&lt"),
-                    "chatcode": chatcode
+                    "chatcode": chatcode,
+                    "token": localStorage.userToken
                 }));
             }
         }
@@ -249,7 +252,8 @@
                     socket.emit("updateclient", {
                         "user": localStorage.username,
                         "chatcode": chatcode,
-                        "teamcode": localStorage.teamCode
+                        "teamcode": localStorage.teamCode,
+                        "token": localStorage.userToken
                     });
                     socket.on("updated", function(data) {
                         $(".chat_area").empty();
@@ -293,7 +297,8 @@
                         socket.emit("updateclient", {
                             "user": localStorage.username,
                             "chatcode": chatcode,
-                            "teamcode": localStorage.teamCode
+                            "teamcode": localStorage.teamCode,
+                            "token": localStorage.userToken
                         });
                         socket.on("updated", function(data) {
                             console.log("updated");

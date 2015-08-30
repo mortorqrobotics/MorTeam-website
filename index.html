@@ -281,7 +281,8 @@
                 "user": localStorage.username,
                 "nameDate": nameDate,
                 "teamCode": localStorage.teamCode,
-                "text": text.replace(/\n\r?/g, '<br />').replace(/'/g, "''")
+                "text": text.replace(/\n\r?/g, '<br />').replace(/'/g, "''"),
+                "token":localStorage.userToken
             }));
         }
 
@@ -526,8 +527,9 @@
                     var data = JSON.stringify({
                         "postNum": parseInt(target.attr('data-postNum')),
                         "user": localStorage.username,
-                        "teamCode":localStorage.teamCode
-                    })
+                        "teamCode":localStorage.teamCode,
+                        "token": localStorage.userToken
+                    });
                     $.post("/f/deletePost", data, function(response) {
                         console.log(response);
                         if (response == "success") {

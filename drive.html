@@ -786,7 +786,8 @@
                     };
                     xhr.send(JSON.stringify({
                         "user": localStorage.username,
-                        "fileCode": fileCode
+                        "fileCode": fileCode,
+                        "token":localStorage.userToken
                     }));
                 });
                 $(frame.find(".no")).click(function() {

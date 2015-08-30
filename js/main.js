@@ -9,6 +9,17 @@
 //       }
 //     });
 // }
+function request(type, url, data, responsecb) {
+    var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");;
+    xhr.open(type, url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            responsecb(xhr.responseText);
+        }
+    };
+    xhr.send(data);
+}
+
 function getTimeNow() {
     var now = new Date();
     var Hours = now.getHours();
@@ -36,6 +47,12 @@ function getDaysInMonth(month, year) {
         return 28;
     }
     return mtend[month - 1];
+}
+function logout(){
+    request("POST", "/f/logout", JSON.stringify({"user":localStorage.username, "token":localStorage.userToken}), function(responseText){
+        localStorage.clear();
+        location = "login";
+    });
 }
 function userInfo(username){
     //Probably shouldn't be used
@@ -95,22 +112,23 @@ function getDayOfWeek(m, d, y) {
     }
 }
 
-function request(type, url, data, responsecb) {
-    var xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");;
-    xhr.open(type, url, true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            responsecb(xhr.responseText);
-        }
-    };
-    xhr.send(data);
-}
+
 
 function getPic(user, target) {
     $(target).attr("src", "/f/getPic?user=" + user);
     $.post("/f/getPic?user=" + user, function(response) {
         if (response == "") {
             $(target).attr("src", "/images/user.jpg");
+        }
+    });
+}
+function updateToken(){
+    request("POST", "/f/updatetoken", JSON.stringify({"user":localStorage.username, "token":localStorage.userToken}), function(responseText){
+        if (responseText == "fail"){
+            logout();
+        }
+        else {
+            localStorage.userToken = responseText;
         }
     });
 }
@@ -140,6 +158,7 @@ function showNewMessageNotice(sender, content, convo, chatcode) { // ADD A USERN
 
 };
 $(document).ready(function() {
+
     $('#name_link').html(localStorage.firstName);
     //getPic(localStorage.username, $("#small_prof_pic"));
     $("#small_prof_pic").attr("src", "/f/getPic?user=" + localStorage.username);
@@ -160,7 +179,8 @@ $(document).ready(function() {
     socket.emit("updateclient", {
         "user": localStorage.username,
         "chatcode": "",
-        "teamcode": localStorage.teamCode
+        "teamcode": localStorage.teamCode,
+        "token":localStorage.userToken
     });
 
 
@@ -217,7 +237,7 @@ $(document).ready(function() {
         });
     });
     $(document).on( "click", "#logout_button", function() {
-        localStorage.removeItem('username');
+        /*localStorage.removeItem('username');
         localStorage.removeItem('userToken');
         localStorage.removeItem('firstName');
         localStorage.removeItem('lastName');
@@ -228,7 +248,8 @@ $(document).ready(function() {
         localStorage.removeItem('teamCode');
         localStorage.removeItem('teammates');
         localStorage.removeItem('teamNumber');
-        location = "login";
+        location = "login";*/
+        logout();
     });
     socket.on("notification", function(data) {
         if (data.chatname == "") {
@@ -266,6 +287,7 @@ $(document).ready(function() {
 
         }
     });
+    updateToken();
 
     $(document).on("click", ".scope_invite", function(){
         scope_invite.setContent('<span><span class="inviter"></span> You have been invited to the subdivison: <span class="invited_scope_name">'+$(this).find(".scopeName").html()+'</span></span><br/><div style="text-align: center"><input type="button" class="button invite_btn accept_invite_btn" value="Accept"></input><input type="button" class="button invite_btn ignore_invite_btn" value="Ignore"></input></div>')
