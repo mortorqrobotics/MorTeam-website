@@ -123,7 +123,7 @@
         <div class="announcements_left">
           <p onclick="location='profile'">View Profile</p>
           <p id="logout_button">Log Out</p>
-          <p id="members_button">All Members</p>
+          <p id="team_button">MorTorq</p>
           <hr>
           <div id="your_scopes">
               <h5 style="margin-bottom: 15px;">Your Subdivisions</h5>
@@ -539,8 +539,8 @@
                     });
                 }
             });
-            $(document).on("click", "#members_button", function(){
-              location="members";
+            $(document).on("click", "#team_button", function(){
+              location="team";
             });
 
 
@@ -585,6 +585,17 @@
         window.onunload = function() {};
     </script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66914799-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
 </body>
 
 </html>

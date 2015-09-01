@@ -1778,7 +1778,7 @@ li.drop_item:hover{
 	width: 100vw;
 	left: 0;
 }
-.scope_info, .scope_members{
+.general_info, .scope_members{
 	text-align: center;
 }
 .scope_join_btn{
@@ -1794,14 +1794,14 @@ li.drop_item:hover{
 	background-color: orange;
 	cursor: default;
 }
-.scope_info h1{
+.general_info h1{
 	padding-top: 50px;
 	margin-top: 0px;
 }
-.scope_info h3{
+.general_info h3{
 	margin-top: 50px;
 }
-.scope_info{
+.general_info{
 	width: 100%;
 	padding-bottom: 50px;
 }
@@ -2108,4 +2108,19 @@ li.drop_item:hover{
 }
 .search_drop > ul > li:hover{
 	background-color: #ffcc80;
+}
+.team_image{
+	width: 180px;
+	height: 180px;
+	border: 1px solid #d9d9d9;
+	margin-bottom: 15px;
+	object-fit: cover;
+}
+.team_head{
+	display: inline-block;
+	vertical-align: text-top;
+	margin-top: 40px;
+	margin-bottom: 0px;
+	margin-left: 20px;
+	margin-right: 20px;
 }
