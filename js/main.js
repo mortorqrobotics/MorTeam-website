@@ -74,7 +74,7 @@ function updateTeammates(){
             var users = JSON.parse(xhr.responseText);
             var newUsers = {};
             for (var i = 0; i < users.length; i++){
-                newUsers[users[i].user] = {"name":users[i].first + " " + users[i].last, "status":users[i].status};
+                newUsers[users[i].user] = {"name":users[i].first + " " + users[i].last, "status":users[i].status, "position":users[i].position};
             }
             localStorage.teammates = JSON.stringify(newUsers);
         }
@@ -123,12 +123,14 @@ function getPic(user, target) {
     });
 }
 function updateToken(){
-    request("POST", "/f/updatetoken", JSON.stringify({"user":localStorage.username, "token":localStorage.userToken}), function(responseText){
-        if (responseText == "fail"){
+    request("POST", "/f/updatetoken", JSON.stringify({"user":localStorage.username, "token":localStorage.userToken, "teamCode":localStorage.teamCode}), function(responseText){
+        if (responseText.substring(0, 4) == "fail"){
             logout();
         }
         else {
-            localStorage.userToken = responseText;
+            var data = JSON.parse(responseText);
+            localStorage.userToken = data.token;
+            localStorage.position = data.position;
         }
     });
 }
@@ -182,6 +184,7 @@ $(document).ready(function() {
         "teamcode": localStorage.teamCode,
         "token":localStorage.userToken
     });
+
 
 
 
@@ -248,6 +251,7 @@ $(document).ready(function() {
         localStorage.removeItem('teamCode');
         localStorage.removeItem('teammates');
         localStorage.removeItem('teamNumber');
+        localStorage.removeItem('position');
         location = "login";*/
         logout();
     });
@@ -268,7 +272,6 @@ $(document).ready(function() {
     });
     $(document).on("click", ".accept_invite_btn", function(){
         var scopeName = $(this).parent().prev().prev().find(".invited_scope_name").html();
-        console.log(scopeName);
         request("POST", "/f/respondtoinvite", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode, "scopeName":scopeName, "response":"accept"}), function(responseText){
             $("#your_scopes").append('<p class="scope_link"><span class="glyphicon glyphicon-screenshot"></span> <span class="scopeName">'+scopeName+'</span></p>');
             $("#invited_scopes").find("span:contains('"+scopeName+"')").parent().remove()//get(0).remove();
@@ -287,7 +290,10 @@ $(document).ready(function() {
 
         }
     });
-    updateToken();
+    if (location.pathname.substring(1, 6) != "index"){
+        updateToken();
+    }
+
 
     $(document).on("click", ".scope_invite", function(){
         scope_invite.setContent('<span><span class="inviter"></span> You have been invited to the subdivison: <span class="invited_scope_name">'+$(this).find(".scopeName").html()+'</span></span><br/><div style="text-align: center"><input type="button" class="button invite_btn accept_invite_btn" value="Accept"></input><input type="button" class="button invite_btn ignore_invite_btn" value="Ignore"></input></div>')

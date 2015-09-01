@@ -105,7 +105,9 @@
       $(document).ready(function(){
 
         // DISPLAYS PERSONAL INFO IN LEFTBAR
-        getPic(localStorage.username, $(".profile_pic"));
+        $(".profile_pic").attr("src", "/f/getPic?user="+localStorage.username);
+        $(".profile_pic").attr("onError", "this.src=\'./images/user.jpg\'");
+        //getPic(localStorage.username, $(".profile_pic"));
         $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
         // $('#leftbar_title').html("Member of " + localStorage.subdivision);
         $('#leftbar_email').html(localStorage.email);

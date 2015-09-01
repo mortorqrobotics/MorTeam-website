@@ -143,16 +143,16 @@
       <div class="leftbar_item"><span id="leftbar_phone">(310) 828-1224</span></div>
       <div class="leftbar_item"><input id="message_user" type="button" class="button leader_action" value="Message"></input></div>
       <div class="leftbar_item"><input id="assign_task" type="button" class="button leader_action" value="Assign Task"></input></div>
-      <div class="leftbar_item"><input id="change_position" type="button" class="button leader_action" value="Change Position"></input></div>
+      <!-- <div class="leftbar_item"><input id="change_position" type="button" class="button leader_action" value="Change Position"></input></div> -->
       <div class="change_position_div">
-        <div class=" change_position_dropdown_btn btn-group">
+        <div class=" change_position_dropdown_btn btn-group hidden">
             <button class="button dropdown-toggle change_position" data-toggle="dropdown"><span class="position_selection">Member</span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu position_drop">
-                <li class="position_item selected">Member</li>
-                <li class="position_item">Leader</li>
-                <li class="position_item">Admin</li>
+                <li id="position_member" class="position_item selected">Member</li>
+                <li id="position_leader" class="position_item">Leader</li>
+                <li id="position_admin" class="position_item">Admin</li>
             </ul>
         </div>
       </div>
@@ -183,13 +183,18 @@
             }
         });
     }
+      $(window).load(function(){
 
+
+      });
       $(document).ready(function(){
-          if (typeof(qs("user")) == "undefined"||qs("user") == ""){
+          if (qs("user") != localStorage.username && (typeof(qs("user")) == "undefined"||qs("user") == ""||typeof(JSON.parse(localStorage.teammates)[qs("user")]) == "undefined")){
               location = "/user?user=" + localStorage.username;
           }
           getUserInfo(qs("user"));
           loadAbsences(qs("user"));
+          var viewingUser = qs("user");
+
         // DISPLAYS PERSONAL INFO IN LEFTBAR
         // getPic(localStorage.username, $(".profile_pic"));
         // $('#leftbar_name').html(localStorage.firstName + " " + localStorage.lastName);
@@ -197,6 +202,30 @@
         // console.log(localStorage.teamNumber + ": " + localStorage.teamName);
         // $('#leftbar_email').html(localStorage.email);
         // $('#leftbar_phone').html("("+localStorage.phone.substring(0,3)+") "+localStorage.phone.substring(3,6)+"-"+localStorage.phone.substring(6,10));
+
+
+
+
+
+        setTimeout(function(){
+            if (localStorage.position == "Member" || viewingUser == localStorage.username){
+                $(".change_position").attr("disabled","true");
+            }
+            else if (localStorage.position == "Leader"){
+                $("#position_admin").hide();
+                if (JSON.parse(localStorage.teammates)[viewingUser].position == "Admin"){
+                    $(".change_position").attr("disabled","true");
+                }
+            }
+            if (viewingUser == localStorage.username){
+                $(".change_position_dropdown_btn").removeClass("hidden");
+                $(".position_selection").html(localStorage.position);
+            }
+            else {
+                $(".change_position_dropdown_btn").removeClass("hidden");
+                $(".position_selection").html(JSON.parse(localStorage.teammates)[viewingUser].position);
+            }
+        }, 1000);//FIND BETTER WAY
 
 
         $("#message_user").click(function(){
@@ -215,6 +244,10 @@
           $(".position_item").removeClass("selected");
           $(this).addClass("selected");
           $(".position_selection").html( $(this).html() );
+          var position = $(this).html();
+          request("POST", "/f/updateposition", JSON.stringify({"user":localStorage.username, "userToChange":viewingUser, "userToChangePosition":position, "teamCode":localStorage.teamCode, "token":localStorage.userToken}), function(responseText){
+              //success
+          });
         });
 
 
