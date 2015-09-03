@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Morganizer</title>
+    <title>MorTeam</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
@@ -20,7 +20,7 @@
         bkLib.onDomLoaded(function() {
 
             new nicEditor({
-                buttonList: ['bold', 'italic', 'underline', 'left', 'center', 'right', 'justify', 'ol', 'ul', 'removeformat', 'indent', 'outdent', 'hr', 'upload', 'link', 'unlink']
+                buttonList: ['bold', 'italic', 'underline', 'left', 'center', 'right', 'justify', 'removeformat', 'hr', 'upload']
             }).panelInstance('main_textarea');
 
         });
@@ -111,7 +111,7 @@
     </div>
     <div id="prof_drop" class="hidden">
         <ul>
-            <li class="notif_list_item" onclick="location='profile';">View Profile and Settings</li>
+            <li class="notif_list_item" onclick="location='user?user='+localStorage.username;">View Profile and Settings</li>
             <li class="notif_list_item" id="logout_button">Log Out</li>
         </ul>
     </div>
@@ -508,19 +508,8 @@
 
             $('.announcement_post_button').click(function() {
                 var message = (new nicEditors.findEditor('main_textarea')).getContent();
-                var comExists = message.indexOf(".com") > -1;
-                var coExists = message.indexOf(".co.") > -1;
-                var orgExists = message.indexOf(".org") > -1;
-                var netExists = message.indexOf(".net") > -1;
-                var httpExists = (message.indexOf("http://") > -1 && (comExists || coExists || orgExists || netExists));
-                var wwwExists = (message.indexOf("www.") > -1 && (comExists || coExists || orgExists || netExists));
-                var linkExists = httpExists || wwwExists || comExists || coExists || orgExists || netExists;
-                if (linkExists) { // checks for manually typed links in announcement
-                    // wrap link with <a> tags
-                }
-                createPost(message.replace(/<\/?[^>]+(>|$)/g, "")) // posts announcement
+                createPost(message.replace("(<((?!br|a|/a|img|b|/b|i|/i|u|/u|div|/div|hr)[^>]+)>)", "").replace(/(<div\s+.*?class=").*?(".*)/gi, ""));
                 nicEditors.findEditor('main_textarea').setContent('');
-
             });
             $(document).on("click", ".delete_icon", function() {
                 if (window.confirm("Are you sure?")) {

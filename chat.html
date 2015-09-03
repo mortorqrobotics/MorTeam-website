@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Morganizer</title>
+    <title>MorTeam</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
@@ -78,7 +78,7 @@
     </div>
     <div id="prof_drop" class="hidden">
         <ul>
-            <li class="notif_list_item" onclick="location='profile';">View Profile and Settings</li>
+            <li class="notif_list_item" onclick="location='user?user='+localStorage.username;">View Profile and Settings</li>
             <li class="notif_list_item" id="logout_button">Log Out</li>
         </ul>
     </div>
@@ -352,7 +352,7 @@
                         li.attr("data-groupname", groups[i].groupName);
                         li.attr("data-groupid", groups[i].groupID);
                         li.attr("title", groups[i].groupName);
-                        li.html('<a href="#"><img src="f/getPic?user='+groups[i].groupName+'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">' + groups[i].groupName + '</span><span class="glyphicon glyphicon-trash list_right delete_li"></span><span class="glyphicon glyphicon-cog list_right options_li"></span>');
+                        li.html('<a href="#"><img src="f/getPic?user='+groups[i].groupName+'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">' + groups[i].groupName + '</span><span class="glyphicon glyphicon-cog list_right options_li"></span>');
                         $('.users_list').append(li);
                     }
                 }
@@ -392,6 +392,45 @@
         $(document).ready(function() {
 
             getTeammates(); // gets list of teammates and displays on the leftbar
+
+            var options_modal = new jBox('Modal', {
+                width: 350,
+                height: 'auto',
+                title: 'Options',
+                onOpen: function() {
+
+                }
+            });
+            $(document).on("click", ".add_group_member", function(){
+              $(this).replaceWith("<span class='member_search_span'><input type='text' placeholder='Search Users' class='member_search'><div class='search_drop member_search_drop'><ul><li class='member_option'>Bob Jones</li><li class='member_option'>Bob Jones</li></ul></div></input><span class='glyphicon glyphicon-remove cancel'></span></span>");
+              $(".member_search").focus();
+            })
+            $(document).on("keyup", ".member_search", function(){
+              if($(this).val() != ""){
+                $(".member_search_drop").show();
+              }else{
+                $(".member_search_drop").hide();
+              }
+            });
+            $(document).on("click", ".cancel", function(){
+              $(".member_search_span").replaceWith('<li class=" add_group_member"><span class="glyphicon glyphicon-plus"></span><span class="group_member_name">Add Member(s)</span></li>');
+            });
+            $(document).on("click", ".member_option", function(){
+              $(".member_search_drop").hide();
+              $(".member_search_span").replaceWith('<li class=" add_group_member"><span class="glyphicon glyphicon-plus"></span><span class="group_member_name">Add Member(s)</span></li>');
+              $(".add_group_member").after('<li><img id="small_prof_pic" src="./images/user.jpg"></img><span class="group_member_name">Bob Jones</span><span class="member_remove glyphicon glyphicon-remove"></span></li>') //POSSIBLE ERROR IN THE FUTURE DUE TO .add_group_member NOT EXISTING AT THE TIME OF APPENDING
+            });
+            $(document).on("click", ".member_remove", function(){
+              if (window.confirm("Are you sure?")) {
+                $(this).parent().remove();
+              }
+            })
+            $(document).on("click", ".options_li", function(){
+              var currentName = $(this).prev().html();
+              options_modal.open();
+              options_modal.setContent('<input type="text" class="change_name" value="'+ currentName +'"></input><br/><div class="group_members"><ul class="current_group_members"><li class=" add_group_member"><span class="glyphicon glyphicon-plus"></span><span class="group_member_name">Add Member(s)</span></li><li><img id="small_prof_pic" src="./images/user.jpg"></img><span class="group_member_name">John Smith</span><span class="member_remove glyphicon glyphicon-remove"></span></li><li><img id="small_prof_pic" src="./images/user.jpg"></img><span class="group_member_name">John Smith</span><span class="member_remove glyphicon glyphicon-remove"></span></li><li><img id="small_prof_pic" src="./images/user.jpg"></img><span class="group_member_name">John Smith</span><span class="member_remove glyphicon glyphicon-remove"></span></li><li><img id="small_prof_pic" src="./images/user.jpg"></img><span class="group_member_name">John Smith</span><span class="member_remove glyphicon glyphicon-remove"></span></li><li><img id="small_prof_pic" src="./images/user.jpg"></img><span class="group_member_name">John Smith</span><span class="member_remove glyphicon glyphicon-remove"></span></li></ul></div><input type="button" class="button leave_group" value="Leave Group"></input><input type="button" class="button delete_group" value="Delete Group"></input><input type="button" class="button save_options" value="Save"></input>')
+            });
+
             var group_modal = new jBox('Modal', {
                 width: 350,
                 height: 340,
@@ -513,7 +552,7 @@
                                     li.attr("data-type", "group");
                                     li.attr("data-groupname", chatName);
                                     li.attr("data-groupid", data.chatID);
-                                    li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">'+chatName+'</span><span class="glyphicon glyphicon-trash list_right delete_li"></span><span class="glyphicon glyphicon-cog list_right options_li"></span>');
+                                    li.html('<a href="#"><img src="f/getPic?user='+ groupImageSrc +'" onError="this.src=\'images/group.png\'" class="small_prof_pic show"id="small_prof_pic"></img></a>' + '<span class="chat_name_display">'+chatName+'</span><span class="glyphicon glyphicon-cog list_right options_li"></span>');
                                     $('.users_list').append(li);
                                     group_modal.close();
                                 }
@@ -643,9 +682,8 @@
                 $(this).parent().remove();
               }
             });
-            $(document).on("click", ".options_li", function(){
-              alert("options");
-            });
+
+
 
             var isBlur = false;
             $(window).blur(function(){

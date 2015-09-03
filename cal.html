@@ -5,7 +5,7 @@
   	<meta charset="utf-8" />
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Morganizer</title>
+    <title>MorTeam</title>
   	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
   	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
@@ -76,7 +76,7 @@
     </div>
     <div id="prof_drop" class="hidden">
       <ul>
-        <li class="notif_list_item" onclick="location='profile';">View Profile and Settings</li>
+        <li class="notif_list_item" onclick="location='user?user='+localStorage.username;">View Profile and Settings</li>
         <li class="notif_list_item" id="logout_button">Log Out</li>
       </ul>
     </div>
@@ -88,6 +88,9 @@
       <div class="container-fluid cal_container">
         <div class="row cal_row">
           <div class="timeline col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="current_month_display">
+              <!-- MONTH -->
+            </div>
             <!-- <div class="day">
               <div class="day_of_month">28</div><input type="button" class="add_event" value="+" title="Add Event"></input>
               <div class="day_content">
@@ -433,7 +436,7 @@
         var yearViewing = "";
         $(".selected_year").html( selectedYear );
 
-        for( i=0 ; i<5 ; i++){
+        for( i=-1 ; i<5 ; i++){
           var year = document.createElement("li");
           $(year).addClass("year");
           $(year).html( now.getFullYear() + i )
@@ -468,15 +471,16 @@
           }
         })
 
-
+        var months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 
         $(".month_name:not(.year_select)").on("click", function(){
             $("li.month_name").removeClass("selected");
             $(this).addClass("selected");
             var month = $(this).attr("data-month");
+            $(".current_month_display").html(months[month-1]);
             if (month != monthViewing || selectedYear != yearViewing){
                 loadUpcomingEvents();
-                $(".timeline").empty();
+                $('.timeline').find('*').not('.current_month_display').remove();
                 $(".timeline")[0].scrollTop;
                 monthViewing = month;
                 yearViewing = selectedYear;

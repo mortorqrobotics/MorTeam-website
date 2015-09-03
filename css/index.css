@@ -1246,9 +1246,45 @@ html { overflow-x: hidden; }
 	box-shadow: 1.5px 3px 8px -2px #a9a9a9;
 	border-radius: 1px;
 }
+.save_options, .delete_group, .leave_group, .submit_task, .modal_button{
+	width: 100%;
+	height: 37px;
+	background-color: #ffc547;
+	border: none;
+	color: black;
+	box-shadow: 1.5px 3px 8px -2px #a9a9a9;
+	border-radius: 1px;
+	margin-top: 5px;
+}
+.submit_task{
+	margin-top: 15px;
+}
+.save_options{
+}
+.delete_group, .leave_group{
+	background-color: #C11D20;
+	color: white;
+	width: 50%;
+}
+.leave_group{
+	border-right: 1px solid white;
+}
+.leave_group.nonadmin{
+	width: 100%;
+	border: 0px;
+}
+.delete_group.nonadmin{
+	display: none;
+}
+.delete_group:hover, .leave_group:hover{
+	background-color: #AE1A1D;
+}
 #group_button:hover{
 	background-color: orange;
 	color: white;
+}
+.save_prof{
+	margin-top: 15px;
 }
 #select_group_names, #select_folder_members, #select_event_members, #select_scope_members, #select_present_members, #select_audience_members{
 	width: 100%;
@@ -1260,7 +1296,7 @@ html { overflow-x: hidden; }
 	box-shadow: 1.5px 3px 8px -2px #a9a9a9;
 	border-radius: 1px;
 }
-#group_name, .folder_name, .event_name, .scope_name{
+#group_name, .folder_name, .event_name, .scope_name, .change_name, .task_name, .modal_textbox{
 	width: 100%;
 	margin-top: 5px;
 	border: none;
@@ -1282,15 +1318,15 @@ html { overflow-x: hidden; }
 	height: 130px;
 	overflow-y: auto;
 }
-#selected_names_div::-webkit-scrollbar, #selected_folder_members::-webkit-scrollbar, #selected_event_members::-webkit-scrollbar, #selected_scope_members::-webkit-scrollbar, #selected_present_members::-webkit-scrollbar, #selected_audience_members::-webkit-scrollbar {
+#selected_names_div::-webkit-scrollbar, #selected_folder_members::-webkit-scrollbar, #selected_event_members::-webkit-scrollbar, #selected_scope_members::-webkit-scrollbar, #selected_present_members::-webkit-scrollbar, #selected_audience_members::-webkit-scrollbar, .current_group_members::-webkit-scrollbar {
     -webkit-appearance: none;
 }
 
-#selected_names_div::-webkit-scrollbar:vertical, #selected_folder_members::-webkit-scrollbar:vertical, #selected_event_members::-webkit-scrollbar:vertical, #selected_scope_members::-webkit-scrollbar:vertical, #selected_present_members::-webkit-scrollbar:vertical {
+#selected_names_div::-webkit-scrollbar:vertical, #selected_folder_members::-webkit-scrollbar:vertical, #selected_event_members::-webkit-scrollbar:vertical, #selected_scope_members::-webkit-scrollbar:vertical, #selected_present_members::-webkit-scrollbar:vertical, .current_group_members::-webkit-scrollbar:vertical {
     width: 11px;
 }
 
-#selected_names_div::-webkit-scrollbar-thumb, #selected_folder_members::-webkit-scrollbar-thumb, #selected_event_members::-webkit-scrollbar-thumb, #selected_scope_members::-webkit-scrollbar-thumb, #selected_present_members::-webkit-scrollbar-thumb, #selected_audience_members::-webkit-scrollbar-thumb {
+#selected_names_div::-webkit-scrollbar-thumb, #selected_folder_members::-webkit-scrollbar-thumb, #selected_event_members::-webkit-scrollbar-thumb, #selected_scope_members::-webkit-scrollbar-thumb, #selected_present_members::-webkit-scrollbar-thumb, #selected_audience_members::-webkit-scrollbar-thumb, .current_group_members::-webkit-scrollbar-thumb {
     border-radius: 8px;
     border: 2px solid #e9e9e9; /* should match background, can't be transparent */
     background-color: rgba(0, 0, 0, .3);
@@ -1310,7 +1346,7 @@ html { overflow-x: hidden; }
 	padding: 5px;
 	cursor: pointer;
 }
-.event_description{
+.event_description, .task_description{
 	width: 100%;
 	margin-top: 5px;
 	border: none;
@@ -1503,6 +1539,7 @@ html { overflow-x: hidden; }
 	padding: 15px;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
+	padding-top: 50px;
 }
 @media screen and (max-width: 420px){
 	.cal_wrapper{
@@ -1866,7 +1903,7 @@ li.drop_item:hover{
 	color: #555555;
 	cursor: pointer;
 }
-.edit_profile, .leader_action{
+.edit_profile, .leader_action, .change_password{
 	background-color: #ffb524;
 }
 .void_input{
@@ -2046,14 +2083,13 @@ li.drop_item:hover{
 	opacity: .5;
 	font-size: 13px;
 	margin-top: 7px;
-	margin-left: 4px;
 	cursor: pointer;
 }
 .list_right:hover{
 	opacity: 1;
 }
-.delete_li{
-	margin-right: -7px;
+.options_li{
+	margin-right: -9px;
 }
 .delete_event{
 	margin-top: 0px;
@@ -2123,4 +2159,72 @@ li.drop_item:hover{
 	margin-bottom: 0px;
 	margin-left: 20px;
 	margin-right: 20px;
+}
+.current_month_display{
+	background-color: #ffc547;
+	position: relative;
+	/*top: 40px;
+	left: 260px;*/
+	z-index: 99;
+	position: fixed;
+	margin-top: -50px;
+	margin-left: -15px;
+	font-size: 19px;
+	padding: 5px 10px 5px 10px;
+	font-weight: 400;
+	max-width: 150px;
+	box-shadow: 1px 1px 5px -3px black;
+}
+.group_members li{
+	list-style-type: none;
+	border-bottom: 1px solid #a9a9a9;
+	padding: 5px;
+	/*cursor: pointer;*/
+}
+/*.group_members li:hover{
+	background-color: #d9d9d9;
+}*/
+.add_group_member:hover{
+	background-color: #d9d9d9;
+	cursor: pointer;
+}
+.group_member_name{
+	padding-left: 5px;
+	vertical-align: middle;
+}
+.member_search{
+	width: 87%;
+	border: 1px solid #c9c9c9;
+	padding: 3px;
+	font-size: 18px;
+}
+.cancel{
+	float: right;
+	margin: 7px;
+	font-size: 18px;
+	color: #c9c9c9;
+	cursor: pointer;
+}
+.cancel:hover{
+	color: black;
+}
+.member_search_drop{
+	width: 82%;
+}
+.member_search_drop > ul > li{
+	height: auto;
+}
+.current_group_members{
+	max-height: 270px;
+	overflow: auto;
+}
+.member_remove{
+	color: #c9c9c9;
+	float: right;
+	font-size: 16px;
+	margin: 7px;
+	cursor: pointer;
+}
+.member_remove:hover{
+	color: #C11D20;
 }

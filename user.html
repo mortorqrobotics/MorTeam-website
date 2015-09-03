@@ -5,7 +5,7 @@
   	<meta charset="utf-8" />
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Morganizer</title>
+    <title>MorTeam</title>
   	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
   	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
@@ -75,7 +75,7 @@
     </div>
     <div id="prof_drop" class="hidden">
       <ul>
-        <li class="notif_list_item" onclick="location='profile';">View Profile and Settings</li>
+        <li class="notif_list_item" onclick="location='user?user='+localStorage.username;">View Profile and Settings</li>
         <li class="notif_list_item" id="logout_button">Log Out</li>
       </ul>
     </div>
@@ -141,8 +141,10 @@
       <!-- <div class="leftbar_item" id="leftbar_title">Vice President of Programming</div> -->
       <div class="leftbar_item"><span id="leftbar_email">otheruserson@gmail.com</span></div>
       <div class="leftbar_item"><span id="leftbar_phone">(310) 828-1224</span></div>
-      <div class="leftbar_item"><input id="message_user" type="button" class="button leader_action" value="Message"></input></div>
-      <div class="leftbar_item"><input id="assign_task" type="button" class="button leader_action" value="Assign Task"></input></div>
+      <div class="others_only">
+        <div class="leftbar_item"><input id="message_user" type="button" class="button leader_action" value="Message"></input></div>
+        <div class="leftbar_item"><input id="assign_task" type="button" class="button leader_action" value="Assign Task"></input></div>
+      </div>
       <!-- <div class="leftbar_item"><input id="change_position" type="button" class="button leader_action" value="Change Position"></input></div> -->
       <div class="change_position_div">
         <div class=" change_position_dropdown_btn btn-group hidden">
@@ -203,9 +205,85 @@
         // $('#leftbar_email').html(localStorage.email);
         // $('#leftbar_phone').html("("+localStorage.phone.substring(0,3)+") "+localStorage.phone.substring(3,6)+"-"+localStorage.phone.substring(6,10));
 
+        if( qs("user") == localStorage.username ){
+          $(".others_only").replaceWith('<div class="leftbar_item"><input type="button" class="button edit_profile" value="Edit Profile"></input></div><div class="leftbar_item"><input type="button" class="button change_password" value="Change Password"></input></div>')
+        }
+
+        var edit_profile_modal = new jBox('Modal', {
+            width: 350,
+            height: 'auto',
+            title: 'Edit Profile',
+            onOpen: function() {
+
+            }
+        });
+        $(document).on("click", ".edit_profile", function(){
+          edit_profile_modal.setContent('<input type="text" class="edit_firstname modal_textbox"></input><br/><input type="text" class="edit_lastname modal_textbox"></input><br/><input type="text" class="edit_email modal_textbox"></input><br/><input type="text" class="edit_phone modal_textbox"></input><br/><input type="button" class="button edit_prof_pic modal_button" value="Change Profile Picture"></input><br/><input type="button" class="button modal_button save_prof" value="Save"></input>')
+          $(".modal_textbox").val("");
+          $(".edit_firstname").val(localStorage.firstName)
+          $(".edit_lastname").val(localStorage.lastName)
+          $(".edit_email").val(localStorage.email)
+          $(".edit_phone").val(localStorage.phone)
+
+          edit_profile_modal.open();
+        });
+
+        var change_password_modal = new jBox('Modal', {
+            width: 350,
+            height: 'auto',
+            title: 'Change Password',
+            onOpen: function() {
+
+            }
+        });
+        $(document).on("click", ".change_password", function(){
+          change_password_modal.setContent('<input type="password" placeholder="Old password" class="old_password modal_textbox"></input><br/><input type="password" placeholder="New Password" class="new_password modal_textbox"></input><br/><input type="password" placeholder="Confirm New Password" class="new_password_confirm modal_textbox"></input><br/><input type="button" class="button modal_button save_password" value="Save"></input>')
+          change_password_modal.open();
+        });
+
+        var task_modal = new jBox('Modal', {
+            width: 350,
+            height: 'auto',
+            title: 'Assign Task',
+            onOpen: function() {
+
+            }
+        });
+        $(document).on("click", "#assign_task", function(){
+          task_modal.setContent('<input type="text" class="task_name" placeholder="Title"></input><br/><textarea class="task_description" placeholder="Short Description (Optional)"></textarea><br/>Due: <select class="task_month"><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select><select class="task_day"></select><select class="task_year"></select><br/><input type="button" class="button submit_task" value="Submit"></input>');
+
+          var thisYear = new Date().getFullYear();
+          var thisMonth = new Date().getMonth()+1;
+          var thisDay = new Date().getDate();
+
+          $('.task_month option[value="'+thisMonth+'"]').prop('selected',true); //selects current month
 
 
+          for(var j = thisYear ; j < thisYear+5 ; j++){
+            $(".task_year").append("<option value='"+j+"'>"+j+"</option>"); //adds next 5 years
+          }
 
+          for(var k = 1 ; k <= new Date($(".task_year").find(":selected").text(), $('.task_month option[value="'+thisMonth+'"]').val(), 0).getDate() ; k++ ){
+            $(".task_day").append("<option value='"+k+"'>"+k+"</option>")
+            if(k == new Date($(".task_year").find(":selected").text(), $('.task_month option[value="'+thisMonth+'"]').val(), 0).getDate()){
+              $(".task_day option[value='"+(parseInt(thisDay)+1).toString()+"']").prop("selected", true);
+            }
+          }
+
+          $(".task_month").change(function(){
+            $(".task_day").empty();
+            for(var k = 1 ; k <= new Date($(".task_year").find(":selected").text(), $(".task_month").find(":selected").val(), 0).getDate() ; k++ ){
+              $(".task_day").append("<option value='"+k+"'>"+k+"</option>")
+            }
+          });
+          $(".task_year").change(function(){
+            $(".task_day").empty();
+            for(var i = 1 ; i <= new Date($(this).find(":selected").text(), $(".task_month").find(":selected").val(), 0).getDate() ; i++){
+              $(".task_day").append("<option value='"+i+"'>"+i+"</option>");
+            }
+          })
+          task_modal.open();
+        })
 
         setTimeout(function(){
             if (localStorage.position == "Member" || viewingUser == localStorage.username){

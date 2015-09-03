@@ -5,7 +5,7 @@
   	<meta charset="utf-8" />
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Morganizer</title>
+    <title>MorTeam</title>
   	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
   	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,200' rel='stylesheet' type='text/css'>
@@ -59,9 +59,9 @@
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
     function createTeam() {
-        var teamNumber = $(".team_num").val();
-        var teamName = $(".team_name").val();
-        var chosenCode = $(".team_code").val();
+        var teamNumber = $(".team_num").val().trim();
+        var teamName = $(".team_name").val().trim();
+        var chosenCode = $(".team_code").val().trim();
         if (teamNumber != "" && teamName != "" && chosenCode != "") {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/f/createTeam", true);
@@ -95,7 +95,7 @@
             createTeam();
         });
         $(".team_code_btn").click(function(){
-            request("POST", "/f/addteam", JSON.stringify({"user":localStorage.username, "teamCode":$(".team_join_code").val(), "first":localStorage.firstName, "last":localStorage.lastName}), function(responseText){
+            request("POST", "/f/addteam", JSON.stringify({"user":localStorage.username, "teamCode":$(".team_join_code").val().trim(), "first":localStorage.firstName, "last":localStorage.lastName}), function(responseText){
                 if (responseText != "fail"){
                     var data = JSON.parse(responseText);
                     localStorage.teamName = data[0].name;

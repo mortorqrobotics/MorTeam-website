@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Morganizer</title>
+    <title>MorTeam</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
@@ -91,13 +91,13 @@
             var phone = "";
             var teamCode = "";
             document.getElementById("form").onsubmit = function() {
-                user = document.getElementById("username_signup").value;
-                pass = document.getElementById("password_signup").value;
-                confPass = document.getElementById("password_signup_confirm").value;
-                email = document.getElementById("email_signup").value;
-                firstName = document.getElementById("firstname").value;
-                lastName = document.getElementById("lastname").value;
-                phone = document.getElementById("phone_signup").value;
+                user = document.getElementById("username_signup").value.trim();
+                pass = document.getElementById("password_signup").value.trim();
+                confPass = document.getElementById("password_signup_confirm").value.trim();
+                email = document.getElementById("email_signup").value.trim();
+                firstName = document.getElementById("firstname").value.trim();
+                lastName = document.getElementById("lastname").value.trim();
+                phone = document.getElementById("phone_signup").value.trim();
                 var digits = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
 
