@@ -21,6 +21,13 @@
             location = "login";
         }
     </script>
+    <script src="js/spin.js"></script>
+    <script type="text/javascript">
+        var loadingDiv = document.createElement("div");
+        loadingDiv.className = "loading_circle";
+        loadingDiv.id = "loading_circle";
+    </script>
+
 </head>
 
 <body class="chat_body">
@@ -256,6 +263,9 @@
                         "token": localStorage.userToken
                     });
                     socket.on("updated", function(data) {
+                        if(messages.length == 0){
+                          spinner.stop();
+                        }
                         $(".chat_area").empty();
                         usersInGroup = [];
                         for (var i = 0; i < groupUsers.length; i++){
@@ -263,6 +273,7 @@
                         }
                         for (var i = 0; i < 20; i++) {
                             if (i >= messages.length) {
+                                spinner.stop();
                                 break;
                             } else {
                                 var message = messages[messages.length - i - 1];
@@ -270,6 +281,9 @@
                                     createMessageSelf(message.message, message.sender, true);
                                 } else {
                                     createMessageOther(message.message, message.sender, message.user, true);
+                                }
+                                if (i == 19){
+                                  spinner.stop();
                                 }
                             }
                         }
@@ -301,12 +315,16 @@
                             "token": localStorage.userToken
                         });
                         socket.on("updated", function(data) {
+                            if(messages.length == 0){
+                              spinner.stop();
+                            }
                             console.log("updated");
                             $(".chat_area").empty();
                             usersInGroup = [];
                             usersInGroup.push(username2);
                             for (var i = 0; i < 20; i++) {
                                 if (i >= messages.length) {
+                                    spinner.stop();
                                     break;
                                 } else {
                                     var message = messages[messages.length - i - 1];
@@ -315,6 +333,9 @@
                                         createMessageSelf(message.message, message.sender, true);
                                     } else {
                                         createMessageOther(message.message, message.sender, message.user, true);
+                                    }
+                                    if(i == 19){
+                                      spinner.stop();
                                     }
                                 }
                             }
@@ -392,6 +413,51 @@
         $(document).ready(function() {
 
             getTeammates(); // gets list of teammates and displays on the leftbar
+
+            document.body.appendChild(loadingDiv);
+
+            spinnerOpts = {
+                lines: 13 // The number of lines to draw
+                    ,
+                length: 0 // The length of each line
+                    ,
+                width: 20 // The line thickness
+                    ,
+                radius: 42 // The radius of the inner circle
+                    ,
+                scale: .5 // Scales overall size of the spinner
+                    ,
+                corners: 1 // Corner roundness (0..1)
+                    ,
+                color: 'orange' // #rgb or #rrggbb or array of colors
+                    ,
+                opacity: 0.25 // Opacity of the lines
+                    ,
+                rotate: 0 // The rotation offset
+                    ,
+                direction: 1 // 1: clockwise, -1: counterclockwise
+                    ,
+                speed: 1 // Rounds per second
+                    ,
+                trail: 60 // Afterglow percentage
+                    ,
+                fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                    ,
+                zIndex: 2e9 // The z-index (defaults to 2000000000)
+                    ,
+                className: 'spinner' // The CSS class to assign to the spinner
+                    ,
+                top: '50%' // Top position relative to parent
+                    ,
+                left: '50%' // Left position relative to parent
+                    ,
+                shadow: false // Whether to render a shadow
+                    ,
+                hwaccel: false // Whether to use hardware acceleration
+                    ,
+                position: 'absolute' // Element positioning
+            }
+
 
             var options_modal = new jBox('Modal', {
                 width: 350,
@@ -655,6 +721,7 @@
             }
 
             $(document).on("click", "li.chat_name:not(.make_group, .selected)", function(e) {
+              spinner = new Spinner(spinnerOpts).spin(loadingDiv);
               var a = $(e.target);
               var b = $(this).find(".list_right");
               if (a[0] != b[0] && a[0] != b[1]){

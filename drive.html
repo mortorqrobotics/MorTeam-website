@@ -324,7 +324,7 @@
             });
 
 
-            var spinnerOpts = {
+            spinnerOpts = {
                 lines: 13 // The number of lines to draw
                     ,
                 length: 0 // The length of each line
@@ -365,7 +365,6 @@
                     ,
                 position: 'absolute' // Element positioning
             }
-            spinner = new Spinner(spinnerOpts).spin(loadingDiv);
 
             var options_modal = new jBox('Modal', {
                 width: 350,
@@ -708,7 +707,6 @@
             }
         }
         $(window).load(function() {
-            spinner.stop();
             $(".documents_list").fadeIn(400).removeClass("hidden");
 
             var qsRegex;
@@ -836,6 +834,7 @@
 
 
             $(document).on("click", ".drive_name:not(.new_folder, .drive_options)", function(e) {
+
               var a = $(e.target);
               var b = $(this).find(".list_right");
               if (a[0] != b[0] && a[0] != b[1]){
@@ -859,14 +858,22 @@
                   if (currentFolderID == ""){
                       url = "/f/showallfiles";
                   }
-
+                  spinner = new Spinner(spinnerOpts).spin(loadingDiv);
                   var xhr = new XMLHttpRequest();
                   xhr.open("POST", url, true);
                   xhr.onreadystatechange = function() {
                       if (xhr.readyState == 4 && xhr.status == 200) {
                           if (xhr.responseText != "fail") {
-                              var files = JSON.parse(xhr.responseText);
+                              var files = JSON.parse(xhr.responseText)
+                              if (files.length == 0){
+                                //no files so it has loaded
+                                spinner.stop();
+                              }
                               for (var i = 0; i < files.length; i++) {
+                                  if (i == files.length - 1){
+                                    //files loaded
+                                    spinner.stop();
+                                  }
                                   var imgSrc = "";
                                   var imgClass = "";
                                   var isImg = false;

@@ -20,6 +20,13 @@
       location="login";
     }
     </script>
+    <script src="js/spin.js"></script>
+    <script type="text/javascript">
+        var loadingDiv = document.createElement("div");
+        loadingDiv.className = "loading_circle";
+        loadingDiv.id = "loading_circle";
+    </script>
+
   </head>
   <body class="cal_body">
       <div id="audio-files" style="display: none;">
@@ -87,7 +94,7 @@
     <div class="wrapper cal_wrapper">
       <div class="container-fluid cal_container">
         <div class="row cal_row">
-          <div class="timeline col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="timeline col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="timeline">
             <div class="current_month_display">
               <!-- MONTH -->
             </div>
@@ -257,6 +264,9 @@
       function loadEvents(month, year){
           request("POST", "/f/getevents", JSON.stringify({"user":localStorage.username, "month":month, "year":year}), function(responseText){
               var events = JSON.parse(responseText);
+              if(events.length == 0){
+                spinner.stop();
+              }
               for (var i = 0; i < events.length; i++){
                   var event = events[i];
                   var day = event.day;
@@ -265,6 +275,9 @@
                   $(li).html( "<span class='bold'>" + event.eventName + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span><span class='glyphicon glyphicon-trash list_right delete_event'></span>" + "<br/><div class='indented'>" + event.eventDesc + "</div>" )
                   $(li).attr("data-eventID", event.eventID);
                   $(dayListOfEventDay).append($(li));
+                  if(i == events.length - 1){
+                    spinner.stop()
+                  }
               }
               if (month == currentMonth && year == currentYear){
                 var scrollPix = $(".d"+currentDay).offset().top - $(window).height()*0.5 + $(".d"+currentDay).height()*0.5;
@@ -309,6 +322,51 @@
         var dayList;
         var currentAttendanceEvent = "";
         loadUpcomingEvents();
+
+        document.body.appendChild(loadingDiv);
+
+        spinnerOpts = {
+            lines: 13 // The number of lines to draw
+                ,
+            length: 0 // The length of each line
+                ,
+            width: 20 // The line thickness
+                ,
+            radius: 42 // The radius of the inner circle
+                ,
+            scale: .5 // Scales overall size of the spinner
+                ,
+            corners: 1 // Corner roundness (0..1)
+                ,
+            color: 'orange' // #rgb or #rrggbb or array of colors
+                ,
+            opacity: 0.25 // Opacity of the lines
+                ,
+            rotate: 0 // The rotation offset
+                ,
+            direction: 1 // 1: clockwise, -1: counterclockwise
+                ,
+            speed: 1 // Rounds per second
+                ,
+            trail: 60 // Afterglow percentage
+                ,
+            fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                ,
+            zIndex: 2e9 // The z-index (defaults to 2000000000)
+                ,
+            className: 'spinner' // The CSS class to assign to the spinner
+                ,
+            top: '20%' // Top position relative to parent
+                ,
+            left: '-165%' // Left position relative to parent
+                ,
+            shadow: false // Whether to render a shadow
+                ,
+            hwaccel: false // Whether to use hardware acceleration
+                ,
+            position: 'absolute' // Element positioning
+        }
+
 
         event_modal = new jBox('Modal', {
           // attach: $('.add_event'),
@@ -479,6 +537,7 @@
             var month = $(this).attr("data-month");
             $(".current_month_display").html(months[month-1]);
             if (month != monthViewing || selectedYear != yearViewing){
+                spinner = new Spinner(spinnerOpts).spin(loadingDiv);
                 loadUpcomingEvents();
                 $('.timeline').find('*').not('.current_month_display').remove();
                 $(".timeline")[0].scrollTop;
