@@ -721,10 +721,10 @@
             }
 
             $(document).on("click", "li.chat_name:not(.make_group, .selected)", function(e) {
-              spinner = new Spinner(spinnerOpts).spin(loadingDiv);
               var a = $(e.target);
               var b = $(this).find(".list_right");
               if (a[0] != b[0] && a[0] != b[1]){
+                  spinner = new Spinner(spinnerOpts).spin(loadingDiv);
                 $("li.chat_name").removeClass("selected");
                 $(this).addClass("selected");
                 $(".chat_area").removeClass("hidden");

@@ -41,6 +41,26 @@
           </li>
           <li class="navbar_item searchbox_list_item">
               <input type="text" placeholder="search" class="searchbox"></input>
+              <div class="search_drop">
+                <ul class="search_drop_items">
+                  <!-- <li>
+                    under<br/>
+                    construction
+                  </li>
+                  <li>
+                    under<br/>
+                    construction
+                  </li>
+                  <li>
+                    under<br/>
+                    construction
+                  </li>
+                  <li>
+                    under<br/>
+                    construction
+                  </li> -->
+                </ul>
+              </div>
           </li>
           <li class="navbar_item glyph_link chat_btn menu_btn" onclick="location='chat'">
               <span class="glyphicon glyphicon-comment"></span>
@@ -286,6 +306,8 @@
         })
 
         setTimeout(function(){
+            $(".position_item").removeClass("selected");
+            $("#position_"+JSON.parse(localStorage.teammates)[viewingUser].position.toLowerCase()).addClass("selected");
             if (localStorage.position == "Member" || viewingUser == localStorage.username){
                 $(".change_position").attr("disabled","true");
             }
@@ -325,12 +347,33 @@
           var position = $(this).html();
           request("POST", "/f/updateposition", JSON.stringify({"user":localStorage.username, "userToChange":viewingUser, "userToChangePosition":position, "teamCode":localStorage.teamCode, "token":localStorage.userToken}), function(responseText){
               //success
+              updateTeammates();
           });
         });
+        $(document).on("click", ".user_item", function(){
+          location="user?user="+$(this).attr("data-username");
+        });
 
+        $(".searchbox").keyup(function(){
+          if( $(".searchbox").val() != "" ){
+            $(".search_drop").show();
+             $(".search_drop_items").empty();
+            var searchItem = $(".searchbox").val().toLowerCase();
+            var teammates = JSON.parse(localStorage.teammates);
+            for (username in teammates){
+                var user = teammates[username];
+                if (~user.name.toLowerCase().indexOf(searchItem)){
+                    $(".search_drop_items").append("<li class='user_item' data-username='"+username+"'>"+user.name+"</li>")
+                }
+            }
+          }else{
+            $(".search_drop").hide();
+          }
+      });
 
       });
       window.onunload = function(){};
+
     </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

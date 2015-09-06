@@ -2136,7 +2136,7 @@ li.drop_item:hover{
 }
 .search_drop > ul > li{
 	list-style: none;
-	height: 57px;
+	height: auto;
 	font-size: 16px;
 	padding: 5px;
 	cursor: pointer;

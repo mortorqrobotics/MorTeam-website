@@ -84,7 +84,7 @@ function updateTeammates(){
         "teamCode": localStorage.teamCode
     }));
 }
-updateTeammates();
+
 
 function qs(variable) {
     var query = window.location.search.substring(1);
@@ -184,6 +184,7 @@ $(document).ready(function() {
         "teamcode": localStorage.teamCode,
         "token":localStorage.userToken
     });
+
 
 
 
