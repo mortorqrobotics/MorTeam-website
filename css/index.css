@@ -1755,7 +1755,7 @@ html { overflow-x: hidden; }
 	height: calc(100% - 40px);
 	text-align: center;
 }
-.wide_body h1{
+.wide_body h1.undcon{
 	/*margin-top: calc(50% - 20px); */
 	margin-top: 40vh;
 }
@@ -2227,4 +2227,20 @@ li.drop_item:hover{
 }
 .member_remove:hover{
 	color: #C11D20;
+}
+.devteam_member{
+	margin-top: 40px;
+	text-align: center;
+}
+.devteam_member_image{
+	width: 250px;
+	height: 250px;
+	object-fit: cover;
+	display: inline-block;
+}
+.page_title{
+	margin-top: 40px;
+}
+.devteam_member > span> p{
+	width: 80%; max-width: 350px; margin: 0 auto;
 }

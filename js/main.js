@@ -294,6 +294,10 @@ $(document).ready(function() {
         updateToken();
     }
 
+    $("#aboutus_link").click(function(){
+      location="about";
+    })
+
 
     $(document).on("click", ".scope_invite", function(){
         scope_invite.setContent('<span><span class="inviter"></span> You have been invited to the subdivison: <span class="invited_scope_name">'+$(this).find(".scopeName").html()+'</span></span><br/><div style="text-align: center"><input type="button" class="button invite_btn accept_invite_btn" value="Accept"></input><input type="button" class="button invite_btn ignore_invite_btn" value="Ignore"></input></div>')
