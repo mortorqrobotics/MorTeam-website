@@ -593,6 +593,7 @@
                 var allUsers = [];
                 var done = 0;
                 for (var i = 0; i < scopes.length; i++){
+                    console.log(scopes)
                     request("POST", "/f/getusersinscope", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode, "scopeName":scopes[i]}), function(responseText){
                         var usersFromScope = JSON.parse(responseText);
                         for (var j = 0; j < usersFromScope.length; j++){
@@ -607,7 +608,6 @@
                                 if($.inArray(el, uniqueUsers) === -1) uniqueUsers.push(el);
                             });
                             users = uniqueUsers;
-                            console.log(users)
                             var xhr = new XMLHttpRequest();
                             xhr.open("POST", "/f/creategroupchat", true);
                             xhr.onreadystatechange = function() {
@@ -626,7 +626,9 @@
                             xhr.send(JSON.stringify({
                                 "creator": localStorage.username,
                                 "chatName": chatName.replace(/'/g, "''"),
-                                "users": users
+                                "users": users,
+                                "scopes":scopes,
+                                "teamCode":localStorage.teamCode
                             }));
                         }
                     });
