@@ -207,6 +207,115 @@
                 "teamCode": localStorage.teamCode
             }));
         }
+        function loadPeople() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/f/getteammates", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText != "fail") {
+                        var users = JSON.parse(xhr.responseText);
+                        people = users;
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({
+                "user": localStorage.username,
+                "teamCode": localStorage.teamCode
+            }));
+        }
+        function scopesToUsersAndCreateFolder(){
+            var nameOfFolder = $(".folder_name").val().replace(/'/g, "''");
+            var folder_name = document.createTextNode($(".folder_name").val());
+            var usersBadges = $("p.clicked:not(.scope_badge)");
+            var scopeBadges = $(".scope_badge.clicked");
+            var users = [];
+            var scopes = [""];
+            for (var i = 0; i < usersBadges.length; i++) {
+                users.push($(usersBadges[i]).attr("data-username"));
+            }
+            for (var i = 0; i < scopeBadges.length; i++) {
+                scopes.push($(scopeBadges[i]).html());
+            }
+            var allUsers = [];
+            var done = 0;
+            for (var i = 0; i < scopes.length; i++){
+                request("POST", "/f/getusersinscope", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode, "scopeName":scopes[i]}), function(responseText){
+                    var usersFromScope = JSON.parse(responseText);
+                    for (var j = 0; j < usersFromScope.length; j++){
+                        if (usersFromScope[j].user != localStorage.username){
+                            allUsers.push(usersFromScope[j].user);
+                        }
+                    }
+                    if (done++ == scopes.length - 1){
+                        users = users.concat(allUsers);
+                        var uniqueUsers = [];
+                        $.each(users, function(i, el){
+                            if($.inArray(el, uniqueUsers) === -1) uniqueUsers.push(el);
+                        });
+                        users = uniqueUsers;
+                        request("POST", "/f/newfolder", JSON.stringify({"user":localStorage.username, "scopes":scopes,"teamCode":localStorage.teamCode, "people":users, "folderName":nameOfFolder}), function(responseText){
+                            var li = $(document.createElement("li"));
+                            var span = $(document.createElement("span"));
+                            var span2 = $(document.createElement("span"));
+                            li.append(span);
+                            li.attr("class", "drive_name");
+                            span.attr("id", "make_drive");
+                            span.attr("data-folderid", responseText);
+                            span.attr("class", "glyphicon glyphicon-folder-open");
+                            li.append(folder_name);
+                            $('.folders_list').append(li);
+                            span2.attr("class", "glyphicon glyphicon-cog");
+                            span2.addClass("list_right")
+                            span2.addClass("options_li")
+                            $(li).append(span2);
+                            folder_modal.close();
+                        });
+                    }
+                });
+            }
+        }
+        function getScopesAndLoadUsersOnFolderModal(people){
+            var allScopes = [];
+            request("POST", "/f/getpublicscopesforteam", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode}), function(responseText){
+                var scopes = JSON.parse(responseText);
+                for (var i = 0; i < scopes.length; i++){
+                    allScopes.push(scopes[i].scopeName);
+                }
+                request("POST", "/f/getyourscopes", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode}), function(responseText2){
+                    var scopes = JSON.parse(responseText2);
+                    for (var i = 0; i < scopes.length; i++){
+                        allScopes.push(scopes[i].scopeName);
+                    }
+                    var allUniqueScopes = [];
+                    $.each(allScopes, function(i, el){
+                        if($.inArray(el, allUniqueScopes) === -1) allUniqueScopes.push(el);
+                    });
+                    //return allUniqueScopes;
+                    var content = "";
+                    for (var i = 0; i < allUniqueScopes.length; i++) {
+                        var scopeP = "<p class='selected_folder_member scope_badge'>" + allUniqueScopes[i] + "</p>"
+                        content += scopeP;
+                    }
+                    for (var i = 0; i < people.length; i++) {
+                        var person = people[i].first + " " + people[i].last;
+                        var nameP = "<p class='selected_folder_member data-username='" + people[i].user + "'>" + person + "</p>"
+                        content += nameP;
+                    }
+                    var initialContent =
+                        "<input type='text' placeholder='Folder Name' class='folder_name'><br/>Please select who can view the folder:<br/><input type='text' placeholder='Search Names...' id='select_folder_members'></input><br/><div id='selected_folder_members'>" +
+                        content + "</div><br/><input type='button' value='Make Folder' class='button make_folder_button'></input>"
+                    folder_modal.setContent(initialContent);
+                    var group_names = $('.selected_folder_member p');
+                    $('#select_folder_members').keyup(function() {
+                        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                        group_names.show().filter(function() {
+                            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                            return !~text.indexOf(val);
+                        }).hide();
+                    });
+                });
+            });
+        }
         jQuery.fn.flash = function(color, duration) {
             var current = this.css('backgroundColor');
             this.animate({
@@ -272,7 +381,8 @@
               height: 340,
               onOpen: function() {
                   didClickNew = false;
-                  loadUsersOnFolderModal(folder_modal);
+                  //loadUsersOnFolderModal(folder_modal);
+                  getScopesAndLoadUsersOnFolderModal(people);
                   $(document).on("keyup", '#select_folder_members', function() {
                     var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
                     $('#selected_folder_members p').show().filter(function() {
@@ -285,7 +395,8 @@
                     // CODE TO CREATE FOLDER HERE
                     if (!didClickNew){
                             didClickNew = true;
-                            var nameOfFolder = $(".folder_name").val().replace(/'/g, "''");
+                            console.log('YES')
+                            /*var nameOfFolder = $(".folder_name").val().replace(/'/g, "''");
                             var folder_name = document.createTextNode($(".folder_name").val());
                             var usersBadges = $("p.clicked");
                             var users = [];
@@ -308,12 +419,15 @@
                                 span2.addClass("options_li")
                                 $(li).append(span2);
                                 folder_modal.close();
-                            });
+                            });*/
+                            scopesToUsersAndCreateFolder();
                         }
                   });
               }
             });
-            loadUsersOnFolderModal(folder_modal);
+            //loadUsersOnFolderModal(folder_modal);
+            //getScopesAndLoadUsersOnFolderModal(people);
+            loadPeople();
             $(document).on("click", ".selected_folder_member", function() {
                 // do stuff with $(this) when a name has been clicked in group_modal
                 if ($(this).hasClass("clicked")) {

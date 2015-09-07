@@ -219,6 +219,9 @@
         var currentDay = now.getDate();
         var currentYear = now.getFullYear();
         var currentMonth = now.getMonth() + 1;
+        var didClickNew = false;
+        var dayList;
+        var currentAttendanceEvent = "";
       function loadUsersOnEventModal(modal) {
           var xhr = new XMLHttpRequest();
           xhr.open("POST", "/f/getteammates", true);
@@ -259,6 +262,22 @@
               }
           });
 
+      }
+      function loadPeople() {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "/f/getteammates", true);
+          xhr.onreadystatechange = function() {
+              if (xhr.readyState == 4 && xhr.status == 200) {
+                  if (xhr.responseText != "fail") {
+                      var users = JSON.parse(xhr.responseText);
+                      people = users;
+                  }
+              }
+          };
+          xhr.send(JSON.stringify({
+              "user": localStorage.username,
+              "teamCode": localStorage.teamCode
+          }));
       }
 
       function loadEvents(month, year){
@@ -318,11 +337,95 @@
 
       }
       $(document).ready(function(){
-        var didClickNew = false;
-        var dayList;
-        var currentAttendanceEvent = "";
-        loadUpcomingEvents();
 
+        loadUpcomingEvents();
+        function scopesToUsersAndCreateEvent(){
+            var usersBadges = $("p.clicked:not(.scope_badge)");
+            var scopeBadges = $(".scope_badge.clicked");
+            var users = [];
+            var scopes = [""];
+            for (var i = 0; i < usersBadges.length; i++) {
+                users.push($(usersBadges[i]).attr("data-username"));
+            }
+            for (var i = 0; i < scopeBadges.length; i++) {
+                scopes.push($(scopeBadges[i]).html());
+            }
+            var allUsers = [];
+            var done = 0;
+            for (var i = 0; i < scopes.length; i++){
+                request("POST", "/f/getusersinscope", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode, "scopeName":scopes[i]}), function(responseText){
+                    var usersFromScope = JSON.parse(responseText);
+                    for (var j = 0; j < usersFromScope.length; j++){
+                        if (usersFromScope[j].user != localStorage.username){
+                            allUsers.push(usersFromScope[j].user);
+                        }
+                    }
+                    if (done++ == scopes.length - 1){
+                        users = users.concat(allUsers);
+                        var uniqueUsers = [];
+                        $.each(users, function(i, el){
+                            if($.inArray(el, uniqueUsers) === -1) uniqueUsers.push(el);
+                        });
+                        users = uniqueUsers;
+                        var dayNum = $(dayList).parent().prev().prev().html();
+                        var eventName = $(".event_name").val().replace(/'/g, "''").replace(/</g, "&lt");
+                        var eventDesc = $(".event_description").val().replace(/'/g, "''").replace(/</g, "&lt");
+                        var timeStampOfDate = new Date(Date.UTC(yearViewing, monthViewing - 1, dayNum, 23, 59, 59)).getTime();
+                        request("POST", "/f/addevent", JSON.stringify({"user":localStorage.username, "scopes":scopes, "teamCode":localStorage.teamCode, "people":users, "month":monthViewing, "day":dayNum, "year":yearViewing, "timeStamp":timeStampOfDate, "eventName":eventName, "eventDesc":eventDesc}), function(responseText){
+                            if (typeof(responseText) != "undefined"){
+                                var li = document.createElement("li");
+                                $(li).html( "<span class='bold'>" + eventName.replace(/''/g, "'") + "</span>&nbsp;<span title='Record Attendance' class='glyphicon glyphicon-list-alt leaders_only attendance'></span><span class='glyphicon glyphicon-trash list_right delete_event'></span>" + "<br/><div class='indented'>" + eventDesc.replace(/''/g, "'") + "</div>" )
+                                $(li).attr("data-eventID", responseText);
+                                $(dayList).append($(li));
+                                loadUpcomingEvents();
+                                event_modal.close();
+                            }
+                        });
+                    }
+                });
+            }
+        }
+        function getScopesAndLoadUsersOnEventModal(people){
+            var allScopes = [];
+            request("POST", "/f/getpublicscopesforteam", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode}), function(responseText){
+                var scopes = JSON.parse(responseText);
+                for (var i = 0; i < scopes.length; i++){
+                    allScopes.push(scopes[i].scopeName);
+                }
+                request("POST", "/f/getyourscopes", JSON.stringify({"user":localStorage.username, "teamCode":localStorage.teamCode}), function(responseText2){
+                    var scopes = JSON.parse(responseText2);
+                    for (var i = 0; i < scopes.length; i++){
+                        allScopes.push(scopes[i].scopeName);
+                    }
+                    var allUniqueScopes = [];
+                    $.each(allScopes, function(i, el){
+                        if($.inArray(el, allUniqueScopes) === -1) allUniqueScopes.push(el);
+                    });
+                    //return allUniqueScopes;
+                    var content = "";
+                    for (var i = 0; i < allUniqueScopes.length; i++) {
+                        var scopeP = "<p class='selected_event_member scope_badge'>" + allUniqueScopes[i] + "</p>"
+                        content += scopeP;
+                    }
+                    for (var i = 0; i < people.length; i++) {
+                        var person = people[i].first + " " + people[i].last;
+                        var nameP = "<p class='selected_event_member data-username='" + people[i].user + "'>" + person + "</p>"
+                        content += nameP;
+                    }
+                    var modal_content = '<input type="text" class="event_name" placeholder="Title"></input><br/><textarea class="event_description" placeholder="Short Description (Optional)"></textarea><br/>Please select who should see the event:<br/><input type="text" placeholder="Search Names..." id="select_event_members"></input><br/><div id="selected_event_members">' +
+                    content + '</div><br/><input type="button" class="button make_event_button" value="Make Event"></input>'
+                    event_modal.setContent(modal_content);
+                    var group_names = $('.selected_event_member p');
+                    $('#select_event_members').keyup(function() {
+                        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                        group_names.show().filter(function() {
+                            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                            return !~text.indexOf(val);
+                        }).hide();
+                    });
+                });
+            });
+        }
         document.body.appendChild(loadingDiv);
 
         spinnerOpts = {
@@ -367,7 +470,7 @@
             position: 'absolute' // Element positioning
         }
 
-
+        loadPeople();
         event_modal = new jBox('Modal', {
           // attach: $('.add_event'),
           title: 'New Event',
@@ -375,7 +478,8 @@
           height: 445,
           onOpen: function() {
               didClickNew = false;
-              loadUsersOnEventModal(event_modal);
+              //loadUsersOnEventModal(event_modal);
+              getScopesAndLoadUsersOnEventModal(people);
               $(document).on("keyup", '#select_event_members', function() {
                 var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
                 $('#selected_event_members p').show().filter(function() {
@@ -386,6 +490,7 @@
               });
           }
         });
+
         //loadUsersOnEventModal(event_modal);
         attendance_modal = new jBox('Modal', {
           // attach: $('.add_event'),
@@ -415,7 +520,6 @@
             for (var i = 0; i < usersNotPresent.length; i++) {
                 people.push({"user":$(usersNotPresent[i]).attr("data-username"), "isPresent":"false"});
             }
-            console.log(usersNotPresent)
             var eventID = currentAttendanceEvent;
             request("POST", "/f/updateattendance", JSON.stringify({"user":localStorage.username, "updatedList":people, "eventID":eventID}), function(responseText){
                 if (responseText == "success"){
@@ -426,7 +530,7 @@
         $(document).on("click", '.make_event_button', function() {
             if (!didClickNew){
                 didClickNew = true;
-                var dayNum = $(dayList).parent().prev().prev().html();
+                /*var dayNum = $(dayList).parent().prev().prev().html();
                 var users = $("p.clicked");
                 var people = [];
                 for (var i = 0; i < users.length; i++) {
@@ -445,7 +549,8 @@
                         loadUpcomingEvents();
                         event_modal.close();
                     }
-                });
+                });*/
+                scopesToUsersAndCreateEvent();
             }
         });
         $(document).on("click", '.record_attendance_button', function() {

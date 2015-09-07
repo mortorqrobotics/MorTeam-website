@@ -566,7 +566,6 @@
                         group_modal.setContent(initialContent);
                         var group_names = $('#selected_names_div p');
                         $('#select_group_names').keyup(function() {
-                            console.log("nigeer");
                             var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
                             group_names.show().filter(function() {
                                 var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
