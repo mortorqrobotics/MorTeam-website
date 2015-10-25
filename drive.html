@@ -164,19 +164,17 @@
         var chosenSort = "original-order";
 
         function extToClass(ext) {
-            if (ext == "doc" || ext == "docx" || ext == "pages" || ext == "rtf" || ext == "txt") {
+            if ("doc docs docx pages rtf txt".split(" ").indexOf(ext) >= 0) {
                 return "word_doc";
-            } else if (ext == "key" || ext == "ppt" || ext == "pptx") {
+            } else if ("key ppt pptx".split(" ").indeOf("ext") >= 0) {
                 return "keynote_doc";
-            } else if (ext == "xls" || ext == "xlsx" || ext == "numbers" || ext == "_xls" || ext == "xlsb" || ext == "xlsm" || ext == "xltx" || ext == "xlt") {
+            } else if ("xls xlsx numbers _xls xmlsb xlsm xltx xlt".split(" ").indexOf(ext) >= 0) {
                 return "excel_doc";
             } else if (ext == "pdf") {
                 return "pdf_doc";
-            } else if (ext == "mp3" || ext == "wav" || ext == "m4a" || ext == "avi" || ext == "wma" || ext == "ogg" || ext == "m4p" || ext == "ra" || ext == "ram" || ext == "rm" || ext == "mid") {
+            } else if ("mp3 wav m4a avi wma ogg m4p ra ram rm mid mp4 webm flv mkv ogv mov avi wmv m4p mpg".split(" ").indexOf(ext) >= 0) {
                 return "audio_doc";
-            } else if (ext == "mp4" || ext == "webm" || ext == "flv" || ext == "mkv" || ext == "ogv" || ext == "mov" || ext == "avi" || ext == "wmv" || ext == "m4p" || ext == "mpg") {
-                return "audio_doc";
-            } else if (ext == "png" || ext == "jpg" || ext == "jpeg" || ext == "jif" || ext == "jfif" || ext == "gif" || ext == "raw" || ext == "tif" || ext == "bmp" || ext == "rif" || ext == "tiff" || ext == "webp") {
+            } else if ("png jpg jpeg jif jfif gif raw tif bmp rif tiff webp".split(" ").indexOf(ext) >= 0) {
                 return "image_doc";
             } else {
                 return "default_doc";
